@@ -3,6 +3,36 @@
    interaction, focus and motion follow the AV DS 4 token contract. */
 
 html[data-design-system="avds4"] {
+  /* Canonical AV DS 4 primitives, then local aliases for the product shell. */
+  --av-color-background: #f6f9fc;
+  --av-color-foreground: #020617;
+  --av-color-surface: #ffffff;
+  --av-color-muted: #f1f5f9;
+  --av-color-muted-foreground: #334155;
+  --av-color-border: #e2e8f0;
+  --av-color-primary: #1d4ed8;
+  --av-color-primary-foreground: #ffffff;
+  --av-spacing-1: 4px;
+  --av-spacing-2: 8px;
+  --av-spacing-3: 12px;
+  --av-spacing-4: 16px;
+  --av-spacing-5: 20px;
+  --av-spacing-6: 24px;
+  --av-spacing-8: 32px;
+  --av-spacing-10: 40px;
+  --av-spacing-12: 48px;
+  --av-radius-sm: 4px;
+  --av-radius-md: 8px;
+  --av-radius-lg: 12px;
+  --av-radius-xl: 16px;
+  --av-radius-full: 999px;
+  --av-duration-instant: 80ms;
+  --av-duration-fast: 120ms;
+  --av-duration-base: 180ms;
+  --av-easing-standard: cubic-bezier(.2, 0, 0, 1);
+  --av-text-body-font-family: Arial, var(--sans);
+  --av-text-heading-font-family: "IBM Plex Serif", Georgia, serif;
+  --av-text-code-font-family: "IBM Plex Mono", monospace;
   --avds-color-slate-50: #f8fafc;
   --avds-color-slate-100: #f1f5f9;
   --avds-color-slate-200: #e2e8f0;
@@ -54,6 +84,26 @@ html[data-design-system="avds4"] {
   --surface: var(--avds-surface);
   --line: var(--avds-border);
   --muted: var(--avds-text-muted);
+}
+
+html[data-design-system="avds4"][data-av-theme="golden-paper"] {
+  --av-color-background: #fff8e7;
+  --av-color-foreground: #020617;
+  --av-color-surface: #fffdf5;
+  --av-color-muted: #fef3c7;
+  --av-color-muted-foreground: #334155;
+  --av-color-border: #e2e8f0;
+  --av-color-primary: #92400e;
+  --av-color-primary-foreground: #ffffff;
+  --avds-surface: #fffdf5;
+  --avds-surface-subtle: #fff8e7;
+  --avds-text: #020617;
+  --avds-text-muted: #5f5644;
+  --avds-border: #e7d8b7;
+  --avds-accent: #92400e;
+  --avds-accent-strong: #78350f;
+  --avds-accent-subtle: #fef3c7;
+  --avds-focus-ring: 0 0 0 3px rgb(180 83 9 / .28);
 }
 
 html[data-design-system="avds4"] :where(button, input, select, textarea) {

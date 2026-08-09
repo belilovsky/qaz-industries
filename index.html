@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-design-system="avds4">
+<html lang="ru" data-design-system="avds4" data-av-theme="institutional">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,6 +7,7 @@
     <meta name="theme-color" content="#07131d" />
     <title>QAZ.INDUSTRIES — индустрии Казахстана</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <script>try { const theme = localStorage.getItem("qaz-industries-theme"); if (["institutional", "golden-paper"].includes(theme)) document.documentElement.dataset.avTheme = theme; } catch (_) {}</script>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="avds.css" />
     <script src="app.js" defer></script>
@@ -26,7 +27,10 @@
         <a href="benchmarks.html">Бенчмарки</a>
         <a href="#ecosystem">Экосистема</a>
       </nav>
-      <a class="header-link" href="https://platform.qdev.run/catalog/" target="_blank" rel="noreferrer">Каталог ↗</a>
+      <div class="header-tools">
+        <a class="header-link" href="https://platform.qdev.run/catalog/" target="_blank" rel="noreferrer">Каталог ↗</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Сменить визуальную тему"><span aria-hidden="true">◐</span><span data-theme-label>Тема</span></button>
+      </div>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">Меню</button>
       <nav class="mobile-nav" id="mobile-nav" aria-label="Мобильная навигация" hidden>
         <a href="industry.html">Профили</a>

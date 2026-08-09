@@ -41,11 +41,13 @@ def main() -> int:
             parser.feed(source)
             parser.close()
             require('data-design-system="avds4"' in source, f"{page}: missing AV DS root marker")
+            require('data-av-theme="institutional"' in source, f"{page}: missing AV DS theme")
             require('href="avds.css"' in source, f"{page}: missing AV DS stylesheet")
+            require('data-theme-toggle' in source, f"{page}: missing AV DS theme control")
 
         css = (ROOT / "avds.css").read_text(encoding="utf-8")
         require(css.count("{") == css.count("}"), "avds.css: unbalanced braces")
-        for token in ("--avds-space-4", "--avds-focus-ring", "--avds-radius-lg"):
+        for token in ("--av-spacing-4", "--av-radius-lg", "--av-color-primary", "data-av-theme=\"golden-paper\""):
             require(token in css, f"avds.css: missing token {token}")
     except (OSError, ValueError) as error:
         print(f"CHECK FAILED: {error}", file=sys.stderr)
