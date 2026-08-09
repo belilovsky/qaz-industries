@@ -20,7 +20,11 @@ HAProxy for a content-only release.
 
 The deploy script creates a new immutable release directory, retains previous
 releases, backs up Caddy before its marker update, validates the configuration,
-and rolls back the symlink/configuration on an in-script validation failure.
+and rolls back the symlink/configuration on an in-script validation failure. It
+updates the bind-mounted Caddyfile in place so a normal reload reads the new
+configuration. If an older release replaced that host file atomically, restart
+the named Caddy container once to attach the current mount, then verify the
+public release marker again.
 
 ## Boundaries
 

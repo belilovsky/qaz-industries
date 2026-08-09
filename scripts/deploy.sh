@@ -25,7 +25,7 @@ scripts/check.sh
 build_dir="$(python3 scripts/build_release.py --release "$release_id")"
 archive_path="$(mktemp -t qaz-industries-release.XXXXXX.tar.gz)"
 trap 'rm -f "$archive_path"' EXIT
-tar -C "$build_dir" -czf "$archive_path" .
+COPYFILE_DISABLE=1 tar -C "$build_dir" -czf "$archive_path" .
 
 scp -q "$archive_path" "${remote_host}:/tmp/qaz-industries-${release_id}.tar.gz"
 ssh -o BatchMode=yes "$remote_host" bash -s -- "$runtime_root" "$container_name" "$release_id" "$expected_release" <<'REMOTE'
@@ -52,13 +52,18 @@ mv -Tf "${runtime_root}/.current-next" "${runtime_root}/current"
 
 backup_path="${caddyfile}.qaz-industries-${expected_release}.bak"
 cp "$caddyfile" "$backup_path"
-sed -E -i \
+caddy_candidate="$(mktemp "${caddyfile}.qaz-industries.XXXXXX")"
+sed -E \
   -e "s/(X-Qaz-Release \")[^\"]+(\")/\\1${release_id}\\2/" \
   -e "s/(\"service\":\"qaz-industries\",\"release\":\")[^\"]+(\"})/\\1${release_id}\\2/" \
-  "$caddyfile"
+  "$caddyfile" > "$caddy_candidate"
+# Keep the bind-mounted Caddyfile inode stable: Docker otherwise keeps serving
+# the old mounted file even though the host path has been atomically replaced.
+cat "$caddy_candidate" > "$caddyfile"
+rm -f "$caddy_candidate"
 
 rollback() {
-  cp "$backup_path" "$caddyfile"
+  cat "$backup_path" > "$caddyfile"
   ln -s "releases/${expected_release}" "${runtime_root}/.current-rollback"
   mv -Tf "${runtime_root}/.current-rollback" "${runtime_root}/current"
   docker exec "$container_name" caddy reload --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null 2>&1 || true
