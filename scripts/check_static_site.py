@@ -44,6 +44,8 @@ def main() -> int:
             require('data-av-theme="institutional"' in source, f"{page}: missing AV DS theme")
             require('href="avds.css"' in source, f"{page}: missing AV DS stylesheet")
             require('data-theme-toggle' in source, f"{page}: missing AV DS theme control")
+        index = (ROOT / "index.html").read_text(encoding="utf-8")
+        require('id="filter-summary"' in index, "index.html: missing filter status")
 
         css = (ROOT / "avds.css").read_text(encoding="utf-8")
         require(css.count("{") == css.count("}"), "avds.css: unbalanced braces")

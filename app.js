@@ -22,6 +22,12 @@ themeToggle?.addEventListener('click', () => {
   setTheme(themes[(themes.indexOf(current) + 1) % themes.length]);
 });
 
+function closeMobileNav() {
+  if (!menuButton || !mobileNav) return;
+  menuButton.setAttribute('aria-expanded', 'false');
+  mobileNav.hidden = true;
+}
+
 menuButton?.addEventListener('click', () => {
   const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
   menuButton.setAttribute('aria-expanded', String(!isOpen));
@@ -30,13 +36,17 @@ menuButton?.addEventListener('click', () => {
 
 mobileNav?.addEventListener('click', (event) => {
   if (event.target.closest('a')) {
-    menuButton.setAttribute('aria-expanded', 'false');
-    mobileNav.hidden = true;
+    closeMobileNav();
   }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeMobileNav();
 });
 
 const filterButtons = [...document.querySelectorAll('[data-filter]')];
 const industryCards = [...document.querySelectorAll('[data-kind]')];
+const filterSummary = document.querySelector('#filter-summary');
 
 filterButtons.forEach((button) => {
   button.addEventListener('click', () => {
@@ -49,5 +59,9 @@ filterButtons.forEach((button) => {
     industryCards.forEach((card) => {
       card.hidden = filter !== 'all' && card.dataset.kind !== filter;
     });
+    const visible = industryCards.filter((card) => !card.hidden).length;
+    if (filterSummary) {
+      filterSummary.textContent = 'Показано ' + visible + ' из ' + industryCards.length + ' направлений';
+    }
   });
 });
