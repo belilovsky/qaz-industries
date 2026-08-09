@@ -24,12 +24,13 @@ STATIC_FILES = (
     "industry-data.js",
     "industry.js",
     "favicon.svg",
+    "theme.js",
     "robots.txt",
     "sitemap.xml",
     "qazstack-thematic-product.json",
 )
 HTML_FILES = ("index.html", "industry.html", "benchmarks.html")
-VERSIONED_ASSETS = ("styles.css", "avds.css", "app.js", "qazgeo-map.js", "industry-data.js", "industry.js")
+VERSIONED_ASSETS = ("styles.css", "avds.css", "app.js", "qazgeo-map.js", "industry-data.js", "industry.js", "theme.js")
 
 
 def git_commit() -> str:
@@ -68,8 +69,8 @@ def main() -> int:
         destination = output / filename
         html = destination.read_text(encoding="utf-8")
         html = html.replace(
-            'window.QAZ_INDUSTRIES_ASSET_VERSION = "source"',
-            f'window.QAZ_INDUSTRIES_ASSET_VERSION = "{asset_version}"',
+            '<meta name="qaz-asset-version" content="source" />',
+            f'<meta name="qaz-asset-version" content="{asset_version}" />',
         )
         for asset in VERSIONED_ASSETS:
             html = html.replace(f'href="{asset}"', f'href="{asset}?v={asset_version}"')

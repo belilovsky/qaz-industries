@@ -187,10 +187,10 @@ license.
 
 1. Проверять CSP, HSTS, nosniff, Referrer-Policy, frame policy,
    Permissions-Policy, COOP/CORP, no-store для health/release и Caddy parity.
-2. Текущий CSP временно допускает unsafe-inline из-за inline bootstrap scripts
-   и разрешает только Google Fonts hosts, используемые существующим import.
-   Следующий срез должен self-host лицензированные woff2, вынести bootstrap в
-   versioned JS или nonce и убрать unsafe-inline и внешнюю font dependency.
+2. Bootstrap уже вынесен в versioned theme.js/meta, внешний Google Fonts import
+   удалён, а CSP больше не использует unsafe-inline. Следующий срез может
+   улучшать только локальную типографику через лицензированные woff2, если это
+   нужно для pixel parity с AV DS.
 3. HTML/release identity — revalidate/no-store; versioned assets — immutable;
    data snapshots — короткий revalidate.
 4. Зафиксировать HTML/CSS/JS/data budgets, Lighthouse mobile и long-task budget.

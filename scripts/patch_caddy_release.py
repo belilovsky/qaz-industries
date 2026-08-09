@@ -11,7 +11,7 @@ from pathlib import Path
 RELEASE_RE = re.compile(r"^[A-Za-z0-9_-]+$")
 BLOCK_START_RE = re.compile(r"(?m)^qaz\.industries \{\n")
 SECURITY_HEADERS = {
-    "Content-Security-Policy": "default-src 'self'; base-uri 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self' https://fonts.gstatic.com; form-action 'self'",
+    "Content-Security-Policy": "default-src 'self'; base-uri 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; form-action 'self'",
     "Cross-Origin-Opener-Policy": "same-origin",
     "Cross-Origin-Resource-Policy": "same-origin",
 }

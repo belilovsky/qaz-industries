@@ -46,7 +46,6 @@ digests, and retry the QAZ release.
 - Static content only; do not add credentials or private source material.
 - The data layer remains local until a public API contract is explicitly owned.
 - A local preview or a successful Caddy reload is not public acceptance.
-- `unsafe-inline` remains in the CSP until inline bootstrap scripts are moved to
-  versioned assets or nonce-based execution. Google Fonts hosts are currently
-  allowlisted because the existing stylesheet imports them; self-hosting those
-  licensed fonts is tracked in the roadmap.
+- CSP is strict (`script-src 'self'`, `style-src 'self'`, `font-src 'self'`).
+  If licensed local font files are added later, they must be included in the
+  immutable release and checked for byte parity.

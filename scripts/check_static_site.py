@@ -18,6 +18,7 @@ ASSETS = (
     "industry-data.js",
     "industry.js",
     "favicon.svg",
+    "theme.js",
     "robots.txt",
     "sitemap.xml",
 )
@@ -47,6 +48,8 @@ def main() -> int:
             require('data-av-theme="institutional"' in source, f"{page}: missing AV DS theme")
             require('href="avds.css"' in source, f"{page}: missing AV DS stylesheet")
             require('data-theme-toggle' in source, f"{page}: missing AV DS theme control")
+            require('src="theme.js"' in source, f"{page}: missing external theme bootstrap")
+            require('<meta name="qaz-asset-version" content="source" />' in source, f"{page}: missing asset version marker")
             require('rel="canonical"' in source, f"{page}: missing canonical URL")
             require('property="og:title"' in source and 'property="og:description"' in source, f"{page}: missing OpenGraph metadata")
         index = (ROOT / "index.html").read_text(encoding="utf-8")
@@ -64,7 +67,6 @@ def main() -> int:
             "questions", "source-links",
         ):
             require(f'id="{element_id}"' in profile, f"industry.html: missing {element_id}")
-        require('window.QAZ_INDUSTRIES_ASSET_VERSION = "source"' in profile, "industry.html: missing asset version bootstrap")
         require('class="indicator-table av-table"' in profile and 'class="compare-table av-table"' in profile, "industry.html: missing AV DS table contracts")
         require('data-avds-pattern="public-export-matrix"' in profile, "industry.html: missing AV DS public export pattern")
         require('data-avds-pattern="evidence-source-registry"' in profile, "industry.html: missing AV DS source registry pattern")
@@ -88,6 +90,8 @@ def main() -> int:
         ):
             require((ROOT / contract).is_file(), f"missing public contract: {contract}")
 
+        styles = (ROOT / "styles.css").read_text(encoding="utf-8")
+        require("@import" not in styles and "fonts.googleapis.com" not in styles, "styles.css: external font import remains")
         css = (ROOT / "avds.css").read_text(encoding="utf-8")
         require(css.count("{") == css.count("}"), "avds.css: unbalanced braces")
         for token in ("--av-spacing-4", "--av-radius-lg", "--av-color-primary", "data-av-theme=\"golden-paper\""):

@@ -9,9 +9,9 @@ from pathlib import Path
 
 
 PAGE_ASSETS = {
-    "index.html": ("styles.css", "avds.css", "app.js", "qazgeo-map.js"),
-    "industry.html": ("styles.css", "avds.css", "app.js", "industry-data.js", "industry.js"),
-    "benchmarks.html": ("styles.css", "avds.css", "app.js"),
+    "index.html": ("styles.css", "avds.css", "app.js", "qazgeo-map.js", "theme.js"),
+    "industry.html": ("styles.css", "avds.css", "app.js", "industry-data.js", "industry.js", "theme.js"),
+    "benchmarks.html": ("styles.css", "avds.css", "app.js", "theme.js"),
 }
 
 
@@ -49,6 +49,8 @@ def main() -> int:
     version = args.commit[:12]
     for page, assets in PAGE_ASSETS.items():
         source = (directory / page).read_text(encoding="utf-8")
+        if f'<meta name="qaz-asset-version" content="{version}" />' not in source:
+            raise SystemExit("release contract: industry.html asset version marker missing")
         for asset in assets:
             attribute = "href" if asset.endswith(".css") else "src"
             expected_ref = f'{attribute}="{asset}?v={version}"'

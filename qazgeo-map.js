@@ -11,7 +11,8 @@
   var snapshotPromise;
 
   function assetUrl(path) {
-    var version = window.QAZ_INDUSTRIES_ASSET_VERSION || "source";
+    var marker = document.querySelector('meta[name="qaz-asset-version"]');
+    var version = marker ? marker.getAttribute("content") || "source" : "source";
     return path + "?v=" + encodeURIComponent(version);
   }
 

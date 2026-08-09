@@ -17,6 +17,7 @@ node --check app.js
 node --check qazgeo-map.js
 node --check industry.js
 node --check industry-data.js
+node --check theme.js
 check_release="check-$(git rev-parse --short=12 HEAD)"
 check_root="$(mktemp -d -t qaz-industries-check.XXXXXX)"
 check_build="${check_root}/release"

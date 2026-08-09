@@ -35,7 +35,7 @@ function dateLabel(value) {
 }
 
 function snapshotAssetUrl(filename) {
-  const version = encodeURIComponent(window.QAZ_INDUSTRIES_ASSET_VERSION || 'source');
+  const version = encodeURIComponent(document.querySelector('meta[name="qaz-asset-version"]')?.content || 'source');
   return `data/${filename}?v=${version}`;
 }
 
