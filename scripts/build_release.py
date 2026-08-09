@@ -83,6 +83,7 @@ def main() -> int:
         encoding="utf-8",
     )
     snapshot = json.loads((ROOT / "data" / "qazlake-public-snapshot.v1.json").read_text(encoding="utf-8"))
+    territory = json.loads((ROOT / "data" / "qazgeo-public-snapshot.v1.json").read_text(encoding="utf-8"))
     manifest_bytes = (ROOT / "qazstack-thematic-product.json").read_bytes()
     published_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     thematic_release = {
@@ -96,8 +97,8 @@ def main() -> int:
             {"id": "profile-registry", "state": "ready", "record_count": 4, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish"]},
             {"id": "industry-indicators", "state": "ready", "record_count": 18, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish"]},
             {"id": "change-pulse", "state": "ready", "record_count": len(snapshot["indicators"]), "as_of": snapshot["retrieved_at"], "source_ids": ["qazlake-macro"]},
-            {"id": "source-provenance", "state": "ready", "record_count": 5, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish", "qazlake-macro"]},
-            {"id": "regional-context", "state": "degraded", "record_count": 0, "as_of": snapshot["retrieved_at"], "source_ids": [], "notes": "The documented QazLake regional public endpoint is unavailable in the current public API revision."}
+            {"id": "source-provenance", "state": "ready", "record_count": 6, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish", "qazlake-macro", "qazgeo-territory"]},
+            {"id": "territorial-context", "state": "ready", "record_count": len(territory["public_layers"]), "as_of": territory["retrieved_at"], "source_ids": ["qazgeo-territory"], "notes": "Static public territorial metadata only; QazLake regional values remain unavailable when the documented upstream contract is degraded."}
         ],
     }
     (output / "data" / "qaz-industries-thematic-release.v1.json").write_text(

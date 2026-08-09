@@ -10,6 +10,7 @@
   "machine_entrypoints": [
     {"label": "Профили отраслей", "url": "https://qaz.industries/data/industry-profiles.v1.json"},
     {"label": "Публичный snapshot QazLake", "url": "https://qaz.industries/data/qazlake-public-snapshot.v1.json"},
+    {"label": "Публичный snapshot QazGeo", "url": "https://qaz.industries/data/qazgeo-public-snapshot.v1.json"},
     {"label": "Тематический release contract", "url": "https://qaz.industries/data/qaz-industries-thematic-release.v1.json"}
   ],
   "public_boundary": "Только проверенные static snapshots и link metadata; QAZ.INDUSTRIES не выдаёт raw QazLake data, приватные очереди или credentials."

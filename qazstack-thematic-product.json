@@ -34,7 +34,7 @@
     {"id": "industry-indicators", "mode": "understand", "kind": "indicator", "data_contract": "qaz-industries-profile-data-v1", "empty_state": "curated-snapshot"},
     {"id": "change-pulse", "mode": "follow", "kind": "pulse", "data_contract": "qaz-industries-qazlake-public-snapshot-v1", "empty_state": "degraded-state"},
     {"id": "source-provenance", "mode": "trust", "kind": "registry", "data_contract": "qazstack-reviewed-source-registry-v1", "empty_state": "curated-snapshot"},
-    {"id": "regional-context", "mode": "explore", "kind": "map", "data_contract": "qazlake-qazgeo-read-only-contract", "empty_state": "degraded-state"}
+    {"id": "territorial-context", "mode": "explore", "kind": "registry", "data_contract": "qaz-industries-qazgeo-public-snapshot-v1", "empty_state": "degraded-state"}
   ],
   "release": {
     "public_release_path": "data/qaz-industries-thematic-release.v1.json",

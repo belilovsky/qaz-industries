@@ -50,6 +50,20 @@ def main() -> int:
             require(indicator.get("is_forecast") is False, f"{indicator.get('id')}: forecasts excluded")
             https(indicator.get("source_url"), f"{indicator.get('id')}: source URL")
 
+        territory = load("qazgeo-public-snapshot.v1.json")
+        require(territory["schema_version"] == "qaz-industries-qazgeo-public-snapshot-v1", "territory schema")
+        require(territory["status"] == "ready", "territory snapshot must state ready")
+        territory_retrieved_at = datetime.fromisoformat(territory["retrieved_at"].replace("Z", "+00:00"))
+        territory_age_days = (datetime.now(timezone.utc) - territory_retrieved_at).days
+        require(0 <= territory_age_days <= 31, f"territory snapshot is stale ({territory_age_days} days); refresh before release")
+        https(territory["provider"]["health_url"], "territory health URL")
+        https(territory["provider"]["layer_registry_url"], "territory layer registry URL")
+        for key in ("regions", "cities", "pois"):
+            require(isinstance(territory["coverage"].get(key), int) and territory["coverage"][key] > 0, f"territory {key}")
+        require(len(territory["public_layers"]) >= 1, "territory public layers")
+        for layer in territory["public_layers"]:
+            https(layer.get("url"), f"territory layer {layer.get('id')}")
+
         registry = load("reviewed-source-registry.v1.json")
         require(registry["schema_version"] == "qazstack-reviewed-source-registry-v1", "registry schema")
         require(registry["source_count"] == len(registry["sources"]), "registry source count")

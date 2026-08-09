@@ -74,14 +74,24 @@
         <div class="passport-actions"><a id="profile-machine-link" href="data/industry-profiles.v1.json" target="_blank" rel="noreferrer">JSON профилей ↗</a><a href="data/reviewed-source-registry.v1.json" target="_blank" rel="noreferrer">Реестр источников ↗</a><a href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer">Статус выпуска ↗</a></div>
       </section>
 
+      <section class="public-export-matrix shell" aria-labelledby="public-export-title">
+        <div class="public-export-head"><div><p class="section-number">ПУБЛИЧНЫЕ КОНТРАКТЫ</p><h2 id="public-export-title">Открыть данные, а не верить интерфейсу.</h2></div><p>Каждая карточка ведёт к версии, которую использует этот выпуск. Ссылки показывают только reviewed static projections и metadata — не внутренние реестры и не raw-данные.</p></div>
+        <div class="public-export-grid">
+          <a href="data/industry-profiles.v1.json" target="_blank" rel="noreferrer"><span>01 · ПРОФИЛИ</span><strong>4 отраслевых паспорта</strong><p>Источник, выпуск и публичная граница каждого профиля.</p><b>JSON ↗</b></a>
+          <a href="data/qazlake-public-snapshot.v1.json" target="_blank" rel="noreferrer"><span>02 · QAZLAKE</span><strong>Макро-срез</strong><p>Три официальных контекстных индикатора с датой и источником.</p><b>JSON ↗</b></a>
+          <a href="data/qazgeo-public-snapshot.v1.json" target="_blank" rel="noreferrer"><span>03 · QAZGEO</span><strong>Территориальная основа</strong><p>Покрытие, stable layer и честный статус регионального контракта.</p><b>JSON ↗</b></a>
+          <a href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer"><span>04 · ВЫПУСК</span><strong>Release contract</strong><p>Идентичность выпуска, состояния модулей и digest манифеста.</p><b>JSON ↗</b></a>
+        </div>
+      </section>
+
       <nav class="profile-local-nav shell" aria-label="Разделы профиля">
-        <a href="#overview">Обзор</a><a href="#indicators">Показатели</a><a href="#pulse">Пульс</a><a href="#chain">Цепочка</a><a href="#geography">География</a><a href="#coverage">Покрытие</a><a href="#sources">Источники</a>
+        <a href="#overview">Обзор</a><a href="#indicators">Показатели</a><a href="#pulse">Пульс</a><a href="#chain">Цепочка</a><a href="#geography">География</a><a href="#coverage">Покрытие</a><a href="#sources">Источники</a><a href="#questions">Вопросы</a>
       </nav>
 
       <section class="profile-content shell" id="overview">
         <aside class="profile-index" aria-label="Содержание профиля">
           <span>Профиль отрасли</span>
-          <a href="#overview">01 · обзор</a><a href="#indicators">02 · показатели</a><a href="#pulse">03 · пульс</a><a href="#chain">04 · цепочка стоимости</a><a href="#geography">05 · география</a><a href="#coverage">06 · покрытие данных</a><a href="#sources">07 · источники</a>
+          <a href="#overview">01 · обзор</a><a href="#indicators">02 · показатели</a><a href="#pulse">03 · пульс</a><a href="#chain">04 · цепочка стоимости</a><a href="#geography">05 · география</a><a href="#coverage">06 · покрытие данных</a><a href="#sources">07 · источники</a><a href="#questions">08 · вопросы исследования</a>
         </aside>
         <div class="profile-body">
           <section class="profile-about">
@@ -101,7 +111,10 @@
             <div class="module-head"><div><p class="section-number">03 / ПУЛЬС КОНТЕКСТА</p><h2>Макро-срез рядом с отраслью</h2></div><p>Это не отраслевые показатели и не прогноз. Публичный QazLake snapshot добавляет только официальный экономический контекст с датой и источником.</p></div>
             <div class="pulse-banner" id="pulse-status" role="status" aria-live="polite">Загружаем проверенный static snapshot…</div>
             <div class="pulse-grid" id="pulse-grid"></div>
-            <div class="pulse-boundary"><strong>Региональный и водный слой</strong><span id="pulse-boundary-state">Проверяем доступность публичного контракта…</span></div>
+            <div class="territory-head"><div><span>QAZGEO · ТЕРРИТОРИАЛЬНАЯ ОСНОВА</span><strong>Публичный слой без точных координат</strong></div><a href="https://qgeo.tech/api/v1/layers/regions" target="_blank" rel="noreferrer">Открыть layer registry ↗</a></div>
+            <div class="pulse-banner territory-banner" id="territory-status" role="status" aria-live="polite">Загружаем проверенный территориальный snapshot…</div>
+            <div class="territory-grid" id="territory-grid"></div>
+            <div class="pulse-boundary"><strong>Региональные и водные показатели</strong><span id="pulse-boundary-state">Проверяем доступность public contracts…</span></div>
           </section>
 
           <section class="profile-module" id="chain">
@@ -122,6 +135,16 @@
           <section class="profile-module" id="sources">
             <div class="module-head"><div><p class="section-number">07 / ИСТОЧНИКИ</p><h2>Проверить и продолжить исследование</h2></div><p>QAZ.INDUSTRIES пока не копирует исходные реестры. Профиль ведёт в действующий продукт и его публичные контракты.</p></div>
             <div class="source-links" id="source-links"></div>
+          </section>
+
+          <section class="profile-module research-routes" id="questions">
+            <div class="module-head"><div><p class="section-number">08 / ВОПРОСЫ ИССЛЕДОВАНИЯ</p><h2>Не потерять главный вопрос.</h2></div><p>Эти переходы превращают профиль в маршрут исследования: от утверждения к периоду, от цепочки — к границе данных, а не к декоративной витрине.</p></div>
+            <div class="question-grid">
+              <a href="#indicators"><span>01</span><strong>Какие показатели можно использовать?</strong><p>Сверить значение, период и исходную отраслевую страницу.</p><b>Показатели →</b></a>
+              <a href="#chain"><span>02</span><strong>Где создаётся результат отрасли?</strong><p>Пройти от ресурсов через инфраструктуру к потреблению.</p><b>Цепочка →</b></a>
+              <a href="#geography"><span>03</span><strong>Какая территория релевантна?</strong><p>Понять функции регионов, не выдавая обзор за точную карту.</p><b>География →</b></a>
+              <a href="#coverage"><span>04</span><strong>Чего пока нельзя утверждать?</strong><p>Открыть границы покрытия и следующий необходимый слой данных.</p><b>Покрытие →</b></a>
+            </div>
           </section>
         </div>
       </section>

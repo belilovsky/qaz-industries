@@ -3,6 +3,7 @@ const profileKeys = Object.keys(profiles);
 const coverageStates = new Set(['ready', 'partial', 'gap']);
 let activeProfile = profiles.energy;
 let publicSnapshot = null;
+let territorySnapshot = null;
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({
@@ -32,9 +33,9 @@ function dateLabel(value) {
   }).format(date);
 }
 
-function snapshotAssetUrl() {
+function snapshotAssetUrl(filename) {
   const version = encodeURIComponent(window.QAZ_INDUSTRIES_ASSET_VERSION || 'source');
-  return `data/qazlake-public-snapshot.v1.json?v=${version}`;
+  return `data/${filename}?v=${version}`;
 }
 
 function renderPassport(profile) {
@@ -50,25 +51,48 @@ function renderPulse() {
   if (!publicSnapshot) {
     status.textContent = 'Публичный QazLake snapshot недоступен. Отраслевой профиль продолжает работать без него.';
     grid.innerHTML = '';
-    boundary.textContent = 'Региональные и водные контракты не подключены без подтверждённого public endpoint.';
+  } else {
+    const provider = publicSnapshot.provider;
+    status.innerHTML = `Проверенный static snapshot · ${escapeHtml(provider.service)} · revision ${escapeHtml(provider.source_revision)} · получен ${escapeHtml(dateLabel(publicSnapshot.retrieved_at.slice(0, 10)))}.`;
+    grid.innerHTML = publicSnapshot.indicators.map((item) => `
+      <article>
+        <span>${escapeHtml(item.label)}</span>
+        <strong>${escapeHtml(String(item.value).replace('.', ','))}<small>${escapeHtml(item.unit)}</small></strong>
+        <p>на ${escapeHtml(dateLabel(item.as_of))} · <a href="${externalUrl(item.source_url)}" target="_blank" rel="noreferrer">${escapeHtml(item.source)} ↗</a></p>
+      </article>
+    `).join('');
+  }
+  renderTerritory();
+  const unavailable = [
+    ...(publicSnapshot?.unavailable_modules || []),
+    ...(territorySnapshot?.unavailable_modules || []),
+  ].map((item) => item.reason).join(' ');
+  boundary.textContent = unavailable || 'Публичные контракты QazLake и QazGeo проверены отдельно перед включением.';
+}
+
+function renderTerritory() {
+  const status = document.querySelector('#territory-status');
+  const grid = document.querySelector('#territory-grid');
+  if (!territorySnapshot) {
+    status.textContent = 'Публичный QazGeo snapshot недоступен. География профиля остаётся обзорной и не получает непроверенные значения.';
+    grid.innerHTML = '';
     return;
   }
-  const provider = publicSnapshot.provider;
-  status.innerHTML = `Проверенный static snapshot · ${escapeHtml(provider.service)} · revision ${escapeHtml(provider.source_revision)} · получен ${escapeHtml(dateLabel(publicSnapshot.retrieved_at.slice(0, 10)))}.`;
-  grid.innerHTML = publicSnapshot.indicators.map((item) => `
-    <article>
-      <span>${escapeHtml(item.label)}</span>
-      <strong>${escapeHtml(String(item.value).replace('.', ','))}<small>${escapeHtml(item.unit)}</small></strong>
-      <p>на ${escapeHtml(dateLabel(item.as_of))} · <a href="${externalUrl(item.source_url)}" target="_blank" rel="noreferrer">${escapeHtml(item.source)} ↗</a></p>
-    </article>
+  const provider = territorySnapshot.provider;
+  status.textContent = `Проверенный static snapshot · ${provider.service} · revision ${provider.source_revision} · получен ${dateLabel(territorySnapshot.retrieved_at.slice(0, 10))}.`;
+  const cards = [
+    ['Регионов', territorySnapshot.coverage.regions, 'национальная территориальная основа'],
+    ['Городов', territorySnapshot.coverage.cities, 'публичный географический каталог'],
+    ['Точек интереса', territorySnapshot.coverage.pois, 'без передачи точных координат в QAZ'],
+  ];
+  grid.innerHTML = cards.map(([label, value, note]) => `
+    <article><span>${escapeHtml(label)}</span><strong>${escapeHtml(Number(value).toLocaleString('ru-RU'))}</strong><p>${escapeHtml(note)}</p></article>
   `).join('');
-  const unavailable = publicSnapshot.unavailable_modules.map((item) => item.reason).join(' ');
-  boundary.textContent = unavailable || 'Публичный региональный слой проверен отдельно перед включением.';
 }
 
 async function loadPublicSnapshot() {
   try {
-    const response = await fetch(snapshotAssetUrl(), { cache: 'no-store' });
+    const response = await fetch(snapshotAssetUrl('qazlake-public-snapshot.v1.json'), { cache: 'no-store' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const snapshot = await response.json();
     if (snapshot.schema_version !== 'qaz-industries-qazlake-public-snapshot-v1' || snapshot.status !== 'ready') {
@@ -77,6 +101,24 @@ async function loadPublicSnapshot() {
     publicSnapshot = snapshot;
   } catch (error) {
     console.warn('QazLake public snapshot unavailable:', error);
+  }
+  renderPulse(activeProfile);
+}
+
+async function loadTerritorySnapshot() {
+  try {
+    const response = await fetch(snapshotAssetUrl('qazgeo-public-snapshot.v1.json'), { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const snapshot = await response.json();
+    if (snapshot.schema_version !== 'qaz-industries-qazgeo-public-snapshot-v1' || snapshot.status !== 'ready') {
+      throw new Error('unexpected territory snapshot contract');
+    }
+    if (![snapshot.coverage?.regions, snapshot.coverage?.cities, snapshot.coverage?.pois].every(Number.isFinite)) {
+      throw new Error('invalid territory coverage');
+    }
+    territorySnapshot = snapshot;
+  } catch (error) {
+    console.warn('QazGeo public snapshot unavailable:', error);
   }
   renderPulse(activeProfile);
 }
@@ -169,3 +211,4 @@ const initialSector = new URLSearchParams(window.location.search).get('sector');
 renderProfile(profileKeys.includes(initialSector) ? initialSector : 'energy', false);
 renderComparison();
 loadPublicSnapshot();
+loadTerritorySnapshot();

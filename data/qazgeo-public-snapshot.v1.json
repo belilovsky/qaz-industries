@@ -1,0 +1,37 @@
+{
+  "schema_version": "qaz-industries-qazgeo-public-snapshot-v1",
+  "status": "ready",
+  "provider": {
+    "service": "qazgeo",
+    "source_revision": "b3a440ff56daae61cb61c91559b6512ceed15b66",
+    "health_url": "https://qgeo.tech/health/ready",
+    "layer_registry_url": "https://qgeo.tech/api/v1/layers"
+  },
+  "retrieved_at": "2026-08-09T08:51:19Z",
+  "publication_mode": "reviewed-static-snapshot",
+  "coverage": {
+    "regions": 20,
+    "cities": 252,
+    "pois": 77646
+  },
+  "public_layers": [
+    {
+      "id": "regions",
+      "label": "Административные регионы",
+      "scope": "Национальная территориальная основа",
+      "url": "https://qgeo.tech/api/v1/layers/regions"
+    }
+  ],
+  "limitations": [
+    "Это территориальная основа и каталог публичных слоёв, а не отраслевой показатель.",
+    "Браузер QAZ.INDUSTRIES не обращается к QazGeo напрямую; срез публикуется только после review как статический артефакт.",
+    "QAZ.INDUSTRIES не отображает точные чувствительные координаты, raw QazLake observations или приватные source fields."
+  ],
+  "unavailable_modules": [
+    {
+      "id": "regional-indicators",
+      "state": "degraded",
+      "reason": "QazGeo подтвердил public contract, но его текущая QazLake-проекция региональных показателей имеет состояние upstream_unavailable; значения не публикуются."
+    }
+  ]
+}

@@ -21,7 +21,8 @@
 `qazstack-thematic-product.json` фиксирует product boundary: QAZ публикует
 только reviewed static projections, а не raw QazLake, private queues или
 прямой browser access к lake. В `data/` доступны профильный JSON, reviewed
-source registry, тематический release и публичный macro snapshot QazLake.
+source registry, тематический release, публичный macro snapshot QazLake и
+территориальный snapshot QazGeo.
 
 Обновление snapshot является явным review-step: сначала проверить diff, затем
 только при необходимости записать новый файл.
@@ -29,12 +30,16 @@ source registry, тематический release и публичный macro sn
 ```bash
 python3 scripts/refresh_qazlake_snapshot.py
 python3 scripts/refresh_qazlake_snapshot.py --write
+python3 scripts/refresh_qazgeo_snapshot.py
+python3 scripts/refresh_qazgeo_snapshot.py --write
 scripts/check.sh
 ```
 
 Проверка не пропустит релиз со snapshot старше 31 дня. Недоступные public API
-слои QazLake показываются пользователю как degraded, а не маскируются пустыми
-карточками.
+слои QazLake или QazGeo показываются пользователю как degraded, а не
+маскируются пустыми карточками. QazGeo добавляет только публичную
+территориальную основу; региональные QazLake-значения не появляются, пока
+публичный контракт не станет доступен и не пройдёт отдельный review.
 
 Числа не синтетические: каждый показатель сопровождается периодом, контекстом
 и ссылкой на публичный источник. Отсутствующее покрытие показывается как
