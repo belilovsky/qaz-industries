@@ -58,11 +58,27 @@ def main() -> int:
         require(0 <= territory_age_days <= 31, f"territory snapshot is stale ({territory_age_days} days); refresh before release")
         https(territory["provider"]["health_url"], "territory health URL")
         https(territory["provider"]["layer_registry_url"], "territory layer registry URL")
+        https(territory["provider"]["geojson_url"], "territory GeoJSON URL")
         for key in ("regions", "cities", "pois"):
             require(isinstance(territory["coverage"].get(key), int) and territory["coverage"][key] > 0, f"territory {key}")
         require(len(territory["public_layers"]) >= 1, "territory public layers")
         for layer in territory["public_layers"]:
             https(layer.get("url"), f"territory layer {layer.get('id')}")
+        map_contract = territory.get("map_contract") or {}
+        require(map_contract.get("schema_version") == "qaz-industries-qazgeo-regions-public-v1", "QazGeo map schema")
+        require(map_contract.get("asset") == "data/qazgeo-regions-public.v1.geojson", "QazGeo map asset")
+        https(map_contract.get("source_url"), "QazGeo map source URL")
+        require(map_contract["source_url"] == territory["provider"]["geojson_url"], "QazGeo map source mismatch")
+        require(map_contract.get("feature_count") == 20, "QazGeo map feature count")
+        map_asset = load("qazgeo-regions-public.v1.geojson")
+        require(map_asset.get("type") == "FeatureCollection", "QazGeo map FeatureCollection")
+        require(map_asset.get("qaz_schema_version") == map_contract["schema_version"], "QazGeo map asset schema")
+        require(len(map_asset.get("features", [])) == 20, "QazGeo map asset regions")
+        safe_keys = {"code", "name_ru", "name_en", "region_type"}
+        for feature in map_asset["features"]:
+            require(feature.get("geometry", {}).get("type") in {"Polygon", "MultiPolygon"}, "QazGeo map geometry")
+            require(set(feature.get("properties", {})) == safe_keys, "QazGeo map exposes only reviewed identity fields")
+            require(isinstance(feature["properties"].get("code"), str), "QazGeo map region code")
 
         registry = load("reviewed-source-registry.v1.json")
         require(registry["schema_version"] == "qazstack-reviewed-source-registry-v1", "registry schema")

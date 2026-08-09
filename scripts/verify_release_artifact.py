@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 PAGE_ASSETS = {
-    "index.html": ("styles.css", "avds.css", "app.js"),
+    "index.html": ("styles.css", "avds.css", "app.js", "qazgeo-map.js"),
     "industry.html": ("styles.css", "avds.css", "app.js", "industry-data.js", "industry.js"),
     "benchmarks.html": ("styles.css", "avds.css", "app.js"),
 }
@@ -40,6 +40,9 @@ def main() -> int:
         raise SystemExit("release contract: thematic release identity mismatch")
     if not str(thematic.get("manifest_digest", "")).startswith("sha256:"):
         raise SystemExit("release contract: thematic manifest digest missing")
+    map_asset = directory / "data" / "qazgeo-regions-public.v1.geojson"
+    if not map_asset.is_file() or map_asset.stat().st_size < 1000:
+        raise SystemExit("release contract: QazGeo map asset missing")
     version = args.commit[:12]
     for page, assets in PAGE_ASSETS.items():
         source = (directory / page).read_text(encoding="utf-8")

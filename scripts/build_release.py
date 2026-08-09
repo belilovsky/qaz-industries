@@ -20,13 +20,14 @@ STATIC_FILES = (
     "styles.css",
     "avds.css",
     "app.js",
+    "qazgeo-map.js",
     "industry-data.js",
     "industry.js",
     "favicon.svg",
     "qazstack-thematic-product.json",
 )
 HTML_FILES = ("index.html", "industry.html", "benchmarks.html")
-VERSIONED_ASSETS = ("styles.css", "avds.css", "app.js", "industry-data.js", "industry.js")
+VERSIONED_ASSETS = ("styles.css", "avds.css", "app.js", "qazgeo-map.js", "industry-data.js", "industry.js")
 
 
 def git_commit() -> str:
@@ -98,7 +99,7 @@ def main() -> int:
             {"id": "industry-indicators", "state": "ready", "record_count": 18, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish"]},
             {"id": "change-pulse", "state": "ready", "record_count": len(snapshot["indicators"]), "as_of": snapshot["retrieved_at"], "source_ids": ["qazlake-macro"]},
             {"id": "source-provenance", "state": "ready", "record_count": 6, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish", "qazlake-macro", "qazgeo-territory"]},
-            {"id": "territorial-context", "state": "ready", "record_count": len(territory["public_layers"]), "as_of": territory["retrieved_at"], "source_ids": ["qazgeo-territory"], "notes": "Static public territorial metadata only; QazLake regional values remain unavailable when the documented upstream contract is degraded."}
+            {"id": "territorial-context", "state": "ready", "record_count": territory["map_contract"]["feature_count"], "as_of": territory["retrieved_at"], "source_ids": ["qazgeo-territory"], "notes": "20 reviewed QazGeo region geometries plus public layer metadata; QazLake regional values remain unavailable when the documented upstream contract is degraded."}
         ],
     }
     (output / "data" / "qaz-industries-thematic-release.v1.json").write_text(

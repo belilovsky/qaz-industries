@@ -34,12 +34,12 @@
     {"id": "industry-indicators", "mode": "understand", "kind": "indicator", "data_contract": "qaz-industries-profile-data-v1", "empty_state": "curated-snapshot"},
     {"id": "change-pulse", "mode": "follow", "kind": "pulse", "data_contract": "qaz-industries-qazlake-public-snapshot-v1", "empty_state": "degraded-state"},
     {"id": "source-provenance", "mode": "trust", "kind": "registry", "data_contract": "qazstack-reviewed-source-registry-v1", "empty_state": "curated-snapshot"},
-    {"id": "territorial-context", "mode": "explore", "kind": "registry", "data_contract": "qaz-industries-qazgeo-public-snapshot-v1", "empty_state": "degraded-state"}
+    {"id": "territorial-context", "mode": "explore", "kind": "registry", "data_contract": "qaz-industries-qazgeo-public-snapshot-v1", "map_asset": "data/qazgeo-regions-public.v1.geojson", "empty_state": "degraded-state"}
   ],
   "release": {
     "public_release_path": "data/qaz-industries-thematic-release.v1.json",
     "test_commands": ["scripts/check.sh"],
     "runtime_urls": ["https://qaz.industries/", "https://qaz.industries/api/health"]
   },
-  "notes": "QAZ.INDUSTRIES aggregates reviewed public projections. QazLake is never a browser-side or raw-data backend."
+  "notes": "QAZ.INDUSTRIES aggregates reviewed public projections. The browser map consumes only the sanitized QazGeo GeoJSON release asset; QazLake is never a browser-side or raw-data backend."
 }

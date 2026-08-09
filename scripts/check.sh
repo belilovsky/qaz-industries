@@ -11,6 +11,7 @@ python3 -m py_compile scripts/refresh_qazgeo_snapshot.py
 PYTHONPATH=. python3 -m unittest discover -s tests -p 'test_*.py'
 node scripts/check_data_contract.mjs
 node --check app.js
+node --check qazgeo-map.js
 node --check industry.js
 node --check industry-data.js
 check_release="check-$(git rev-parse --short=12 HEAD)"

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="avds.css" />
     <script src="app.js" defer></script>
+    <script src="qazgeo-map.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Перейти к содержанию</a>
@@ -48,31 +49,26 @@
           <h1 id="hero-title">Индустрии Казахстана — <em>одна картина.</em></h1>
           <p class="hero-lead">Отрасли, инфраструктура, показатели, объекты и проверяемые источники. Начинаем с уже работающих продуктов экосистемы и соединяем их в один вход.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="industry.html">Открыть профили <span>↗</span></a>
-            <a class="button button-quiet" href="#map">Открыть схему <span>↗</span></a>
+            <a class="button button-primary av-button av-button--primary" href="industry.html">Открыть профили <span>↗</span></a>
+            <a class="button button-quiet av-button av-button--secondary" href="#map">Открыть карту <span>↗</span></a>
           </div>
         </div>
 
-        <div class="hero-map" aria-label="Схема отраслевых контуров Казахстана">
-          <div class="map-caption"><span>QazGeo × QAZ.INDUSTRIES</span><strong>отрасли и инфраструктура</strong></div>
-          <svg viewBox="0 0 760 420" role="img" aria-labelledby="map-title map-desc">
-            <title id="map-title">Схема отраслевых связей Казахстана</title>
-            <desc id="map-desc">Контур Казахстана и направления энергетики, космоса, сельского хозяйства, воды и инфраструктуры.</desc>
-            <defs>
-              <linearGradient id="lineBlue" x1="0" x2="1"><stop stop-color="#4ad8ff"/><stop offset="1" stop-color="#6af1dc"/></linearGradient>
-              <linearGradient id="lineWarm" x1="0" x2="1"><stop stop-color="#ffbd59"/><stop offset="1" stop-color="#ff7f50"/></linearGradient>
-              <filter id="glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            </defs>
-            <path class="map-outline" d="M82 183 L132 137 L216 142 L253 104 L316 126 L372 100 L428 128 L515 120 L556 159 L629 156 L668 215 L637 273 L555 266 L488 297 L406 279 L338 312 L281 279 L211 305 L162 270 L92 250 Z"/>
-            <path class="map-flow map-flow-blue" d="M128 158 C245 145 332 176 438 184 S588 158 646 204"/>
-            <path class="map-flow map-flow-warm" d="M116 252 C204 214 297 220 375 248 S535 282 624 246"/>
-            <path class="map-flow map-flow-lime" d="M185 294 C238 244 286 205 360 199 C407 196 441 211 481 237"/>
-            <circle class="map-node node-blue" cx="431" cy="184" r="13"/><circle class="map-node node-blue" cx="646" cy="204" r="9"/>
-            <circle class="map-node node-warm" cx="116" cy="252" r="11"/><circle class="map-node node-warm" cx="624" cy="246" r="9"/>
-            <circle class="map-node node-lime" cx="185" cy="294" r="11"/><circle class="map-node node-lime" cx="360" cy="199" r="10"/>
-            <text x="418" y="154">ЭНЕРГИЯ</text><text x="84" y="233">ЛОГИСТИКА</text><text x="317" y="178">АГРО</text><text x="586" y="231">ВОДА</text>
-          </svg>
-          <div class="map-legend"><span><i class="legend-blue"></i> инфраструктура</span><span><i class="legend-warm"></i> производство</span><span><i class="legend-lime"></i> ресурсы</span></div>
+        <div class="hero-map hero-map--live" aria-label="Реальная карта регионов Казахстана из QazGeo">
+          <div class="map-caption"><span>QazGeo × QAZ.INDUSTRIES</span><strong>20 реальных границ</strong></div>
+          <div class="qazgeo-map qazgeo-map--hero" data-qazgeo-map data-map-variant="hero">
+            <div class="qazgeo-map__toolbar">
+              <span class="av-badge av-badge--info" data-map-status>Загружаем QazGeo snapshot…</span>
+              <div class="qazgeo-map__controls" aria-label="Управление картой">
+                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-out aria-label="Уменьшить карту">−</button>
+                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-reset>Сбросить</button>
+                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-in aria-label="Увеличить карту">+</button>
+              </div>
+            </div>
+            <svg data-map-svg viewBox="0 0 1000 560" role="img" aria-label="Реальные границы регионов Казахстана"></svg>
+            <div class="qazgeo-map__inspector" data-map-inspector role="status" aria-live="polite">Выберите регион…</div>
+            <p class="qazgeo-map__source"><a data-map-source href="https://qgeo.tech/api/v1/mapregion/public/regions-geojson" target="_blank" rel="noreferrer">Источник: QazGeo GeoJSON ↗</a></p>
+          </div>
         </div>
 
         <aside class="hero-release" aria-label="Состав первого контура">
@@ -104,42 +100,42 @@
           <div class="section-intro">
             <p>Карточки ведут в действующие продукты портфеля. QAZ.INDUSTRIES пока не дублирует их содержание, а собирает понятную точку входа.</p>
             <div class="filters" role="group" aria-label="Фильтр направлений">
-              <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">Все</button>
-              <button type="button" class="filter" data-filter="sector" aria-pressed="false">Отрасли</button>
-              <button type="button" class="filter" data-filter="infra" aria-pressed="false">Инфраструктура</button>
-              <button type="button" class="filter" data-filter="support" aria-pressed="false">Поддержка</button>
+              <button type="button" class="filter av-chip av-chip--selected is-active" data-filter="all" aria-pressed="true">Все</button>
+              <button type="button" class="filter av-chip" data-filter="sector" aria-pressed="false">Отрасли</button>
+              <button type="button" class="filter av-chip" data-filter="infra" aria-pressed="false">Инфраструктура</button>
+              <button type="button" class="filter av-chip" data-filter="support" aria-pressed="false">Поддержка</button>
             </div>
             <p class="filter-summary" id="filter-summary" role="status" aria-live="polite" aria-atomic="true">Показано 6 из 6 направлений</p>
           </div>
         </div>
 
         <div class="industry-grid">
-          <a class="industry-card card-energy" data-kind="sector" href="industry.html?sector=energy">
+          <a class="industry-card av-card av-card--outlined card-energy" data-kind="sector" href="industry.html?sector=energy">
             <span class="card-index">01 / ЭНЕРГЕТИКА</span><b>qz.energy ↗</b>
             <h3>Энергия</h3><p>Показатели, карта, реестр объектов и редакционные материалы об энергетике Казахстана.</p>
             <ul><li>показатели</li><li>карта</li><li>объекты</li></ul>
           </a>
-          <a class="industry-card card-space" data-kind="sector" href="industry.html?sector=space">
+          <a class="industry-card av-card av-card--outlined card-space" data-kind="sector" href="industry.html?sector=space">
             <span class="card-index">02 / КОСМОС</span><b>qazaqstan.space ↗</b>
             <h3>Космос</h3><p>Проверяемый атлас космической отрасли: программы, инфраструктура, факты и источники.</p>
             <ul><li>атлас</li><li>программы</li><li>реестр</li></ul>
           </a>
-          <a class="industry-card card-farm" data-kind="sector" href="industry.html?sector=farm">
+          <a class="industry-card av-card av-card--outlined card-farm" data-kind="sector" href="industry.html?sector=farm">
             <span class="card-index">03 / АПК</span><b>qaz.farm ↗</b>
             <h3>Сельское хозяйство</h3><p>Статистика, регионы, сезонный контекст, сервисы и научные источники для АПК.</p>
             <ul><li>регионы</li><li>сезоны</li><li>данные</li></ul>
           </a>
-          <a class="industry-card card-water" data-kind="sector" href="industry.html?sector=water">
+          <a class="industry-card av-card av-card--outlined card-water" data-kind="sector" href="industry.html?sector=water">
             <span class="card-index">04 / ВОДА</span><b>qaz.fish ↗</b>
             <h3>Водоёмы и рыболовство</h3><p>Водоёмы, виды, правила и погодный контекст — готовый географический слой для водной темы.</p>
             <ul><li>водоёмы</li><li>виды</li><li>правила</li></ul>
           </a>
-          <a class="industry-card card-geo" data-kind="infra" href="https://qgeo.tech/" target="_blank" rel="noreferrer">
+          <a class="industry-card av-card av-card--outlined card-geo" data-kind="infra" href="https://qgeo.tech/" target="_blank" rel="noreferrer">
             <span class="card-index">05 / ГЕОДАННЫЕ</span><b>QazGeo ↗</b>
             <h3>География</h3><p>Общий GIS-контур: регионы, геокодирование, публичные слои и карта для отраслевых продуктов.</p>
             <ul><li>GIS</li><li>регионы</li><li>слои</li></ul>
           </a>
-          <a class="industry-card card-fund" data-kind="support" href="https://qaz.fund/" target="_blank" rel="noreferrer">
+          <a class="industry-card av-card av-card--outlined card-fund" data-kind="support" href="https://qaz.fund/" target="_blank" rel="noreferrer">
             <span class="card-index">06 / ВОЗМОЖНОСТИ</span><b>qaz.fund ↗</b>
             <h3>Финансирование</h3><p>Гранты, субсидии, программы поддержки, акселераторы и инфраструктурные возможности.</p>
             <ul><li>гранты</li><li>субсидии</li><li>программы</li></ul>
@@ -155,25 +151,36 @@
         <div class="benchmark-teaser-copy">
           <p>UNIDO даёт сравнение стран и цепочки стоимости, Data USA — занятость и промышленный поток, Eurostat — значение, дату, тренд и место в сравнении, GEM — карту активов и методику. Эти паттерны стали каркасом второй версии.</p>
           <div class="benchmark-teaser-actions">
-            <a class="button button-primary" href="industry.html">Открыть рабочий профиль ↗</a>
-            <a class="button button-quiet" href="benchmarks.html">Посмотреть исследование ↗</a>
+            <a class="button button-primary av-button av-button--primary" href="industry.html">Открыть рабочий профиль ↗</a>
+            <a class="button button-quiet av-button av-button--secondary" href="benchmarks.html">Посмотреть исследование ↗</a>
           </div>
         </div>
       </section>
 
       <section class="map-section shell" id="map" aria-labelledby="map-section-title">
-        <div class="map-board">
+        <div class="map-board map-board--live">
           <div class="map-board-copy">
             <p class="eyebrow"><span></span> географический вход</p>
-            <h2 id="map-section-title">От отрасли<br>к месту.</h2>
-            <p>Карта становится общей точкой соединения: объект относится к отрасли, региону, показателю и материалу. Базовый географический контракт уже есть в QazGeo.</p>
-            <a class="button button-quiet" href="https://qgeo.tech/" target="_blank" rel="noreferrer">Открыть QazGeo ↗</a>
+            <h2 id="map-section-title">От отрасли<br><em>к месту.</em></h2>
+            <p>Это не иллюстрация: границы загружаются из reviewed static GeoJSON QazGeo. Выберите регион, чтобы увидеть его безопасный код и тип.</p>
+            <div class="av-alert av-alert--info" role="status">
+              <div class="av-alert__title">QazGeo public map</div>
+              <div class="av-alert__body">20 реальных региональных геометрий, без raw QazLake и чувствительных координат.</div>
+            </div>
+            <a class="button button-quiet av-button av-button--secondary" href="data/qazgeo-regions-public.v1.geojson" target="_blank" rel="noreferrer">Открыть GeoJSON snapshot ↗</a>
           </div>
-          <div class="map-board-layers" aria-label="Будущие слои карты">
-            <article><span>01</span><strong>Производство</strong><p>предприятия, станции, месторождения</p></article>
-            <article><span>02</span><strong>Инфраструктура</strong><p>сети, коридоры, хабы и маршруты</p></article>
-            <article><span>03</span><strong>Ресурсы</strong><p>земля, вода, энергия и сырьё</p></article>
-            <article><span>04</span><strong>Регионы</strong><p>специализация и связи территорий</p></article>
+          <div class="qazgeo-map qazgeo-map--large" data-qazgeo-map data-map-variant="large">
+            <div class="qazgeo-map__toolbar">
+              <span class="av-badge av-badge--info" data-map-status>Загружаем QazGeo snapshot…</span>
+              <div class="qazgeo-map__controls" aria-label="Управление картой">
+                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-out aria-label="Уменьшить карту">−</button>
+                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-reset>Сбросить</button>
+                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-in aria-label="Увеличить карту">+</button>
+              </div>
+            </div>
+            <svg data-map-svg viewBox="0 0 1000 560" role="img" aria-label="Реальные границы регионов Казахстана"></svg>
+            <div class="qazgeo-map__inspector" data-map-inspector role="status" aria-live="polite">Выберите регион…</div>
+            <p class="qazgeo-map__source"><a data-map-source href="https://qgeo.tech/api/v1/mapregion/public/regions-geojson" target="_blank" rel="noreferrer">Источник: QazGeo GeoJSON ↗</a></p>
           </div>
         </div>
       </section>

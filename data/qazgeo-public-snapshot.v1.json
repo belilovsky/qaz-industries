@@ -3,11 +3,12 @@
   "status": "ready",
   "provider": {
     "service": "qazgeo",
-    "source_revision": "b3a440ff56daae61cb61c91559b6512ceed15b66",
+    "source_revision": "51ff46d577e06ae1d57967d4f128214391cccd20",
     "health_url": "https://qgeo.tech/health/ready",
-    "layer_registry_url": "https://qgeo.tech/api/v1/layers"
+    "layer_registry_url": "https://qgeo.tech/api/v1/layers",
+    "geojson_url": "https://qgeo.tech/api/v1/mapregion/public/regions-geojson"
   },
-  "retrieved_at": "2026-08-09T08:51:19Z",
+  "retrieved_at": "2026-08-09T09:13:39Z",
   "publication_mode": "reviewed-static-snapshot",
   "coverage": {
     "regions": 20,
@@ -17,11 +18,17 @@
   "public_layers": [
     {
       "id": "regions",
-      "label": "Административные регионы",
+      "label": "Регионы",
       "scope": "Национальная территориальная основа",
       "url": "https://qgeo.tech/api/v1/layers/regions"
     }
   ],
+  "map_contract": {
+    "schema_version": "qaz-industries-qazgeo-regions-public-v1",
+    "asset": "data/qazgeo-regions-public.v1.geojson",
+    "source_url": "https://qgeo.tech/api/v1/mapregion/public/regions-geojson",
+    "feature_count": 20
+  },
   "limitations": [
     "Это территориальная основа и каталог публичных слоёв, а не отраслевой показатель.",
     "Браузер QAZ.INDUSTRIES не обращается к QazGeo напрямую; срез публикуется только после review как статический артефакт.",

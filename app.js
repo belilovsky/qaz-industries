@@ -54,6 +54,7 @@ filterButtons.forEach((button) => {
     filterButtons.forEach((item) => {
       const active = item === button;
       item.classList.toggle('is-active', active);
+      item.classList.toggle('av-chip--selected', active);
       item.setAttribute('aria-pressed', String(active));
     });
     industryCards.forEach((card) => {

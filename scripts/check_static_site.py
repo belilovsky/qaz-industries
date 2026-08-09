@@ -14,6 +14,7 @@ ASSETS = (
     "styles.css",
     "avds.css",
     "app.js",
+    "qazgeo-map.js",
     "industry-data.js",
     "industry.js",
     "favicon.svg",
@@ -46,6 +47,8 @@ def main() -> int:
             require('data-theme-toggle' in source, f"{page}: missing AV DS theme control")
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         require('id="filter-summary"' in index, "index.html: missing filter status")
+        require(index.count('data-qazgeo-map') == 2, "index.html: expected hero and full QazGeo maps")
+        require('data-map-svg' in index and 'data/qazgeo-regions-public.v1.geojson' in index, "index.html: missing QazGeo map contract")
         profile = (ROOT / "industry.html").read_text(encoding="utf-8")
         for element_id in (
             "profile-evidence-source", "profile-evidence-release", "profile-evidence-link",
@@ -59,6 +62,7 @@ def main() -> int:
             "data/industry-profiles.v1.json",
             "data/qazlake-public-snapshot.v1.json",
             "data/qazgeo-public-snapshot.v1.json",
+            "data/qazgeo-regions-public.v1.geojson",
             "data/reviewed-source-registry.v1.json",
             "data/qaz-industries-thematic-release.v1.json",
         ):
