@@ -1,102 +1,75 @@
 # QAZ.INDUSTRIES
 
-Канонический статический сайт об индустриях Казахстана: отраслевые профили,
-показатели, объекты, география, контекст и проверяемые источники.
+QAZ.INDUSTRIES — самостоятельный статический продукт о проверяемых индустриях
+Казахстана. Он связывает отраслевые показатели, цепочки, территориальный
+контекст и ссылки на исходные публичные продукты, сохраняя период, источник и
+границы каждого среза.
 
-Это самостоятельный продукт, а не output другого портфельного проекта.
+За 90 секунд:
 
-## Поверхности
+- [Открыть публичный сайт](https://qaz.industries/).
+- Перейти к четырём профилям: energy, space, farm и water через
+  `industry.html?sector=...`.
+- На [карте](https://qaz.industries/#map) доступны 20 проверенных региональных
+  геометрий QazGeo; это территориальная основа, а не реестр объектов.
+- На странице профиля можно сопоставить показатели, покрытие, источники,
+  QazLake macro snapshot и QazGeo layer registry.
+- [Бенчмарки](https://qaz.industries/benchmarks.html) фиксируют продуктовые слои,
+  которые используются как исследовательские ориентиры.
 
-- `index.html` — точка входа и карта экосистемы;
-- `industry.html?sector=energy|space|farm|water` — профили отраслей и сравнение покрытия;
-- `benchmarks.html` — семь международных референсов и восемь обязательных слоёв продукта;
-- `avds.css` — локальный AV DS 4 consumer layer: generated tokens, реальные
-  component contracts (`av-button`, `av-alert`, `av-badge`, `av-chip`,
-  `av-card`) и patterns для export, source-registry, geo-layer-registry и
-  question surfaces;
-- `qazgeo-map.js` — безопасный SVG-рендерер реальных QazGeo region boundaries
-  из локального reviewed GeoJSON snapshot, с keyboard selection и zoom;
-- `industry-data.js` — изолированный локальный data layer, готовый к замене API;
-- `scripts/patch_caddy_release.py` — fail-closed патчер, который может менять
-  только собственный блок домена в общем Caddyfile.
-- `docs/roadmap-to-ideal.md` — пошаговый junior-ready план по UI, данным,
-  runtime, доступности, безопасности и юридическим receipts.
+Текущая source/runtime identity и доказательства выпуска находятся в
+[`docs/current-release.md`](docs/current-release.md). Полный индекс документов —
+в [`docs/index.md`](docs/index.md).
 
-## Данные и публичные контракты
+## Граница продукта
 
-`qazstack-thematic-product.json` фиксирует product boundary: QAZ публикует
-только reviewed static projections, а не raw QazLake, private queues или
-прямой browser access к lake. В `data/` доступны профильный JSON, reviewed
-source registry, тематический release, публичный macro snapshot QazLake и
-территориальный snapshot QazGeo, curated layer registry и
-`qazgeo-regions-public.v1.geojson` с 20 реальными региональными геометриями.
-Layer registry показывает stable/observed-контракты инфраструктуры, транспорта
-и узлов, а также contract-only гидрологию и водные каталоги без подстановки
-отсутствующих значений. Браузер не ходит к QazGeo напрямую: публичная карта и
-карточки используют только versioned reviewed assets.
+Браузер получает только reviewed static projections и локальные versioned assets.
+QAZ.INDUSTRIES не публикует raw QazLake observations, private queues,
+credentials, точные чувствительные координаты или неподтверждённые значения.
+Региональные QazLake indicators и водный каталог сейчас показываются как
+`degraded`; `contract_only` в QazGeo означает наличие описанного контракта без
+наблюдаемого набора данных.
 
-Обновление snapshot является явным review-step: сначала проверить diff, затем
-только при необходимости записать новый файл.
+Манифест продукта — [`qazstack-thematic-product.json`](qazstack-thematic-product.json).
+Наборы и их происхождение перечислены в [`docs/data-provenance.md`](docs/data-provenance.md).
 
-```bash
-python3 scripts/refresh_qazlake_snapshot.py
-python3 scripts/refresh_qazlake_snapshot.py --write
-python3 scripts/refresh_qazgeo_snapshot.py
-python3 scripts/refresh_qazgeo_snapshot.py --write
-python3 scripts/refresh_qazgeo_layer_registry.py
-python3 scripts/refresh_qazgeo_layer_registry.py --write
-scripts/check.sh
-```
+## Поверхности и код
 
-Проверка не пропустит релиз со snapshot старше 31 дня. Недоступные public API
-слои QazLake или QazGeo показываются пользователю как degraded, а не
-маскируются пустыми карточками. QazGeo добавляет только публичную
-территориальную основу; декоративная схема не используется, а региональные
-QazLake-значения не появляются, пока
-публичный контракт не станет доступен и не пройдёт отдельный review.
-Contract-only слои в layer registry остаются roadmap-метаданными до появления
-наблюдаемого upstream snapshot.
+- `index.html` — входная страница, фильтр направлений и две карты QazGeo;
+- `industry.html?sector=energy|space|farm|water` — профили и сравнение покрытия;
+- `benchmarks.html` — семь международных референсов и матрица слоёв;
+- `avds.css` — локальный consumer layer AV DS 4;
+- `industry-data.js` — curated profile projection;
+- `industry.js` — рендер профиля, snapshot modules и comparison;
+- `qazgeo-map.js` — SVG-рендерер проверенного GeoJSON;
+- `scripts/build_release.py` и `scripts/deploy.sh` — сборка и выпуск статического
+  артефакта;
+- `scripts/check.sh` — обязательный quality gate.
 
-`robots.txt` и `sitemap.xml` входят в immutable release. Ежедневный GitHub
-Actions monitor запускает все три refresh probe в read-only режиме и сохраняет
-их output как artifact; он не коммитит и не деплоит изменения автоматически.
+## Локальный запуск и проверки
 
-Числа не синтетические: каждый показатель сопровождается периодом, контекстом
-и ссылкой на публичный источник. Отсутствующее покрытие показывается как
-пробел, а не как нулевое значение.
-
-## Локальная работа
+Проект не требует установки пакетов для просмотра:
 
 ```bash
 python3 -m http.server 8876 --bind 127.0.0.1
 ```
 
-Откройте `http://127.0.0.1:8876/`. Перед коммитом выполните:
+Откройте `http://127.0.0.1:8876/`. Перед изменением и перед review выполните:
 
 ```bash
 scripts/check.sh
 ```
 
-## Релизы
+Проверки данных, маршрутов, JavaScript, Caddy-патчера и immutable release
+описаны в [`docs/development-testing.md`](docs/development-testing.md).
 
-`scripts/build_release.py` собирает неизменяемый static artifact в `.build/`.
-`scripts/deploy.sh` публикует его в отдельную директорию release, проверяет
-Caddy до переключения `current` symlink. Скрипт не меняет HAProxy:
-домен уже находится в его публичном маршруте.
+## Выпуск
 
-Перед публикацией обязательны source checks, runtime marker, `/api/health`,
-ключевые assets и browser proof. Полный порядок описан в
-[`docs/operations.md`](docs/operations.md).
+Порядок refresh, сборки, проверки runtime, rollback и public proof описан в
+[`docs/operations.md`](docs/operations.md). Local green, runtime identity и
+public/browser proof считаются разными видами доказательств. Commit, push и
+deploy выполняются только владельцем выпуска.
 
-Подробный план доведения до идеального состояния и инструкция для младших
-моделей находятся в [`docs/roadmap-to-ideal.md`](docs/roadmap-to-ideal.md).
-
-## Качество и границы
-
-CI запускает тот же `scripts/check.sh`, что и локальная работа: структурный
-контракт страниц, schema/provenance data layer, unit-тест изолированного Caddy
-патчера, JavaScript syntax и проверку immutable release artifact. Динамический
-рендеринг экранирует текст и принимает только HTTPS-ссылки и известные states.
-
-Лицензия намеренно не предполагается: юридический режим публикации должен быть
-выбран владельцем отдельно, а не угадан автоматизацией.
+Лицензия и окончательные правила attribution не угадываются автоматикой; см.
+[`docs/security-privacy.md`](docs/security-privacy.md) и
+[`docs/editorial-science-policy.md`](docs/editorial-science-policy.md).

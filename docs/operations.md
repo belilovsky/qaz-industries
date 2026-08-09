@@ -1,51 +1,69 @@
-# QAZ.INDUSTRIES operations
+# Эксплуатация QAZ.INDUSTRIES
 
-## Ownership
+## Владелец и граница runtime
 
-This repository is the source of truth for the static QAZ.INDUSTRIES surface.
-The public runtime is an isolated release tree under the shared public-sites
-Caddy instance. Its proxy configuration is shared infrastructure: change only
-the QAZ.INDUSTRIES block and its `X-Qaz-Industries-Release` marker, never
-replace the whole Caddyfile, mutate generic `X-Qaz-Release` headers, or touch
-HAProxy for a content-only release.
+Репозиторий — источник статической public surface. Runtime находится в
+изолированном release tree под shared public-sites Caddy. Caddyfile является
+общей инфраструктурой: изменяется только блок `qaz.industries` и его
+`X-Qaz-Industries-Release`. Нельзя заменять весь Caddyfile, менять общий
+`X-Qaz-Release` или трогать HAProxy для content-only выпуска.
 
-## Release procedure
+## Процедура выпуска
 
-1. Refresh QazLake, QazGeo and the curated layer registry with the three
-   `scripts/refresh_*.py` commands. Review every diff; contract-only layers may
-   update metadata but must never become fabricated observations.
-2. Run `scripts/check.sh`.
-3. Commit the reviewed source.
-4. Run `scripts/deploy.sh` from a clean worktree.
-5. Verify the exact release in `X-Qaz-Industries-Release` and `/api/health`.
-6. Verify `index.html`, `industry.html?sector=farm`, `benchmarks.html`,
-   `styles.css`, `avds.css`, and both JavaScript files over the public domain.
-7. Perform a browser pass at desktop and 390px before accepting the release.
+1. Сохранить Git status, remote и source SHA.
+2. Выполнить read-only refresh QazLake, QazGeo и layer registry:
+   `python3 scripts/refresh_qazlake_snapshot.py`,
+   `python3 scripts/refresh_qazgeo_snapshot.py`,
+   `python3 scripts/refresh_qazgeo_layer_registry.py`.
+3. Проверить каждый diff; `contract_only` может менять metadata, но не может
+   стать выдуманным observation.
+4. Запустить `scripts/check.sh`.
+5. Зафиксировать reviewed source и собрать immutable release.
+6. Только владелец выпуска запускает `scripts/deploy.sh` из clean worktree.
+7. Проверить header, `/api/health`, `/release.json`, ключевые assets и public
+   browser states.
+8. Принять выпуск только когда source, artifact, runtime и public evidence
+   согласуются.
 
-The scheduled `public-contract-monitor.yml` workflow is intentionally
-read-only: it probes QazLake/QazGeo and uploads output for review, but never
-commits snapshots or deploys them. The detailed junior execution plan is in
-[`roadmap-to-ideal.md`](roadmap-to-ideal.md).
+Commit и deploy не являются частью локальной проверки документации.
 
-The deploy script creates a new immutable release directory and first patches a
-candidate Caddyfile with a fail-closed, product-scoped parser. It updates the
-bind-mounted file in place, validates Caddy while the old `current` symlink is
-still active, then switches the symlink and reloads. A reload failure restores
-both the prior Caddyfile and the prior symlink. It retains the active release
-plus seven previous releases and the newest eight QAZ-only Caddy backups.
+## Immutable release и rollback
 
-The artifact versions local CSS and JavaScript URLs, so a browser cannot combine
-new HTML with stale assets. The deploy fails before switching `current` if the
-container's Caddyfile digest differs from the host file, or if its bind mount
-does not receive the candidate. After any older operation atomically replaces
-the host Caddyfile, restart the named Caddy container once, verify the matching
-digests, and retry the QAZ release.
+Deploy создаёт новую release directory и до переключения `current` проверяет
+продуктовый Caddy parser. При ошибке reload восстанавливаются предыдущий
+Caddyfile и symlink. Хранятся активный release, семь предыдущих release и восемь
+последних QAZ-only Caddy backups. Artifact версионирует локальные CSS/JS URLs,
+чтобы HTML и assets не смешивались.
 
-## Boundaries
+Если digest host/container Caddyfile не совпадает или bind mount не получил
+candidate, deploy останавливается до смены symlink. После ручной замены host
+Caddyfile сначала восстанавливается parity, затем повторяется выпуск.
 
-- Static content only; do not add credentials or private source material.
-- The data layer remains local until a public API contract is explicitly owned.
-- A local preview or a successful Caddy reload is not public acceptance.
-- CSP is strict (`script-src 'self'`, `style-src 'self'`, `font-src 'self'`).
-  If licensed local font files are added later, they must be included in the
-  immutable release and checked for byte parity.
+## Public verification
+
+Минимальный набор:
+
+```bash
+curl -fsS https://qaz.industries/api/health
+curl -fsSI https://qaz.industries/
+curl -fsS https://qaz.industries/release.json
+curl -fsS https://qaz.industries/robots.txt
+curl -fsS https://qaz.industries/sitemap.xml
+```
+
+Browser proof проверяет desktop и 390px для home, profile и benchmarks,
+console errors, overflow, menu/theme/filter/compare/map interactions и release
+identity. HTTP 200 или успешный Caddy reload сами по себе не являются public
+acceptance.
+
+## Monitor и границы
+
+`.github/workflows/public-contract-monitor.yml` работает read-only, ежедневно
+в 03:17 UTC и сохраняет probe artifacts на семь дней; он не коммитит snapshots и
+не деплоит. Local preview, workflow green и Caddy reload не заменяют public
+proof.
+
+Публичная surface статична. Не добавлять credentials, private source material,
+raw QazLake data или прямой browser access к upstream. CSP остаётся strict;
+licensed local fonts допускаются только после отдельного rights review и
+проверки byte parity.
