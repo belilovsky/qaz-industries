@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ru" data-design-system="avds4">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="QAZ.INDUSTRIES — публичный навигатор по индустриям Казахстана: отрасли, карта, показатели, объекты и источники." />
+    <meta name="theme-color" content="#07131d" />
+    <title>QAZ.INDUSTRIES — индустрии Казахстана</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="avds.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+    <header class="site-header" id="top">
+      <a class="brand" href="#top" aria-label="QAZ.INDUSTRIES — на главную">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>QAZ<span>.</span>INDUSTRIES</span>
+      </a>
+      <nav aria-label="Основная навигация">
+        <a href="industry.html">Профили</a>
+        <a href="#map">Карта</a>
+        <a href="industry.html#compare">Сравнить</a>
+        <a href="benchmarks.html">Бенчмарки</a>
+        <a href="#ecosystem">Экосистема</a>
+      </nav>
+      <a class="header-link" href="https://platform.qdev.run/catalog/" target="_blank" rel="noreferrer">Каталог ↗</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">Меню</button>
+      <nav class="mobile-nav" id="mobile-nav" aria-label="Мобильная навигация" hidden>
+        <a href="industry.html">Профили</a>
+        <a href="#map">Карта</a>
+        <a href="industry.html#compare">Сравнить</a>
+        <a href="benchmarks.html">Бенчмарки</a>
+        <a href="#ecosystem">Экосистема</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero shell" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> Казахстан · индустрии в данных</p>
+          <h1 id="hero-title">Индустрии Казахстана — <em>одна картина.</em></h1>
+          <p class="hero-lead">Отрасли, инфраструктура, показатели, объекты и проверяемые источники. Начинаем с уже работающих продуктов экосистемы и соединяем их в один вход.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="industry.html">Открыть профили <span>↗</span></a>
+            <a class="button button-quiet" href="#map">Открыть схему <span>↗</span></a>
+          </div>
+        </div>
+
+        <div class="hero-map" aria-label="Схема отраслевых контуров Казахстана">
+          <div class="map-caption"><span>QazGeo × QAZ.INDUSTRIES</span><strong>отрасли и инфраструктура</strong></div>
+          <svg viewBox="0 0 760 420" role="img" aria-labelledby="map-title map-desc">
+            <title id="map-title">Схема отраслевых связей Казахстана</title>
+            <desc id="map-desc">Контур Казахстана и направления энергетики, космоса, сельского хозяйства, воды и инфраструктуры.</desc>
+            <defs>
+              <linearGradient id="lineBlue" x1="0" x2="1"><stop stop-color="#4ad8ff"/><stop offset="1" stop-color="#6af1dc"/></linearGradient>
+              <linearGradient id="lineWarm" x1="0" x2="1"><stop stop-color="#ffbd59"/><stop offset="1" stop-color="#ff7f50"/></linearGradient>
+              <filter id="glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <path class="map-outline" d="M82 183 L132 137 L216 142 L253 104 L316 126 L372 100 L428 128 L515 120 L556 159 L629 156 L668 215 L637 273 L555 266 L488 297 L406 279 L338 312 L281 279 L211 305 L162 270 L92 250 Z"/>
+            <path class="map-flow map-flow-blue" d="M128 158 C245 145 332 176 438 184 S588 158 646 204"/>
+            <path class="map-flow map-flow-warm" d="M116 252 C204 214 297 220 375 248 S535 282 624 246"/>
+            <path class="map-flow map-flow-lime" d="M185 294 C238 244 286 205 360 199 C407 196 441 211 481 237"/>
+            <circle class="map-node node-blue" cx="431" cy="184" r="13"/><circle class="map-node node-blue" cx="646" cy="204" r="9"/>
+            <circle class="map-node node-warm" cx="116" cy="252" r="11"/><circle class="map-node node-warm" cx="624" cy="246" r="9"/>
+            <circle class="map-node node-lime" cx="185" cy="294" r="11"/><circle class="map-node node-lime" cx="360" cy="199" r="10"/>
+            <text x="418" y="154">ЭНЕРГИЯ</text><text x="84" y="233">ЛОГИСТИКА</text><text x="317" y="178">АГРО</text><text x="586" y="231">ВОДА</text>
+          </svg>
+          <div class="map-legend"><span><i class="legend-blue"></i> инфраструктура</span><span><i class="legend-warm"></i> производство</span><span><i class="legend-lime"></i> ресурсы</span></div>
+        </div>
+
+        <aside class="hero-release" aria-label="Состав первого контура">
+          <div class="release-head"><span>первый контур</span><strong>01 / 08 / 2026</strong></div>
+          <dl>
+            <div><dt>6</dt><dd>публичных направлений</dd></div>
+            <div><dt>4</dt><dd>маршрута к ответу</dd></div>
+            <div><dt>1</dt><dd>единая карта связей</dd></div>
+            <div><dt>0</dt><dd>выдуманных live-метрик</dd></div>
+          </dl>
+          <p>Первый выпуск соединяет существующие сайты. Новые данные появятся только вместе с источником и датой обновления.</p>
+        </aside>
+      </section>
+
+      <section class="metric-strip shell" aria-label="Принципы проекта">
+        <article><strong>Карта</strong><span>где находится</span><small>регионы и объекты</small></article>
+        <article><strong>Показатели</strong><span>сколько и когда</span><small>единица и период</small></article>
+        <article><strong>Объекты</strong><span>как устроено</span><small>роль и связи</small></article>
+        <article><strong>Материалы</strong><span>что изменилось</span><small>контекст событий</small></article>
+        <article><strong>Источники</strong><span>как проверить</span><small>ссылка и дата</small></article>
+      </section>
+
+      <section class="industry-section shell" id="industries" aria-labelledby="industries-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow dark"><span></span> отраслевые входы</p>
+            <h2 id="industries-title">Начинаем с того,<br><em>что уже работает.</em></h2>
+          </div>
+          <div class="section-intro">
+            <p>Карточки ведут в действующие продукты портфеля. QAZ.INDUSTRIES пока не дублирует их содержание, а собирает понятную точку входа.</p>
+            <div class="filters" role="group" aria-label="Фильтр направлений">
+              <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">Все</button>
+              <button type="button" class="filter" data-filter="sector" aria-pressed="false">Отрасли</button>
+              <button type="button" class="filter" data-filter="infra" aria-pressed="false">Инфраструктура</button>
+              <button type="button" class="filter" data-filter="support" aria-pressed="false">Поддержка</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="industry-grid">
+          <a class="industry-card card-energy" data-kind="sector" href="industry.html?sector=energy">
+            <span class="card-index">01 / ЭНЕРГЕТИКА</span><b>qz.energy ↗</b>
+            <h3>Энергия</h3><p>Показатели, карта, реестр объектов и редакционные материалы об энергетике Казахстана.</p>
+            <ul><li>показатели</li><li>карта</li><li>объекты</li></ul>
+          </a>
+          <a class="industry-card card-space" data-kind="sector" href="industry.html?sector=space">
+            <span class="card-index">02 / КОСМОС</span><b>qazaqstan.space ↗</b>
+            <h3>Космос</h3><p>Проверяемый атлас космической отрасли: программы, инфраструктура, факты и источники.</p>
+            <ul><li>атлас</li><li>программы</li><li>реестр</li></ul>
+          </a>
+          <a class="industry-card card-farm" data-kind="sector" href="industry.html?sector=farm">
+            <span class="card-index">03 / АПК</span><b>qaz.farm ↗</b>
+            <h3>Сельское хозяйство</h3><p>Статистика, регионы, сезонный контекст, сервисы и научные источники для АПК.</p>
+            <ul><li>регионы</li><li>сезоны</li><li>данные</li></ul>
+          </a>
+          <a class="industry-card card-water" data-kind="sector" href="industry.html?sector=water">
+            <span class="card-index">04 / ВОДА</span><b>qaz.fish ↗</b>
+            <h3>Водоёмы и рыболовство</h3><p>Водоёмы, виды, правила и погодный контекст — готовый географический слой для водной темы.</p>
+            <ul><li>водоёмы</li><li>виды</li><li>правила</li></ul>
+          </a>
+          <a class="industry-card card-geo" data-kind="infra" href="https://qgeo.tech/" target="_blank" rel="noreferrer">
+            <span class="card-index">05 / ГЕОДАННЫЕ</span><b>QazGeo ↗</b>
+            <h3>География</h3><p>Общий GIS-контур: регионы, геокодирование, публичные слои и карта для отраслевых продуктов.</p>
+            <ul><li>GIS</li><li>регионы</li><li>слои</li></ul>
+          </a>
+          <a class="industry-card card-fund" data-kind="support" href="https://qaz.fund/" target="_blank" rel="noreferrer">
+            <span class="card-index">06 / ВОЗМОЖНОСТИ</span><b>qaz.fund ↗</b>
+            <h3>Финансирование</h3><p>Гранты, субсидии, программы поддержки, акселераторы и инфраструктурные возможности.</p>
+            <ul><li>гранты</li><li>субсидии</li><li>программы</li></ul>
+          </a>
+        </div>
+      </section>
+
+      <section class="benchmark-teaser shell" aria-labelledby="benchmark-teaser-title">
+        <div>
+          <p class="eyebrow"><span></span> мировой бенчмарк</p>
+          <h2 id="benchmark-teaser-title">Не каталог ссылок,<br>а профиль отрасли.</h2>
+        </div>
+        <div class="benchmark-teaser-copy">
+          <p>UNIDO даёт сравнение стран и цепочки стоимости, Data USA — занятость и промышленный поток, Eurostat — значение, дату, тренд и место в сравнении, GEM — карту активов и методику. Эти паттерны стали каркасом второй версии.</p>
+          <div class="benchmark-teaser-actions">
+            <a class="button button-primary" href="industry.html">Открыть рабочий профиль ↗</a>
+            <a class="button button-quiet" href="benchmarks.html">Посмотреть исследование ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="map-section shell" id="map" aria-labelledby="map-section-title">
+        <div class="map-board">
+          <div class="map-board-copy">
+            <p class="eyebrow"><span></span> географический вход</p>
+            <h2 id="map-section-title">От отрасли<br>к месту.</h2>
+            <p>Карта становится общей точкой соединения: объект относится к отрасли, региону, показателю и материалу. Базовый географический контракт уже есть в QazGeo.</p>
+            <a class="button button-quiet" href="https://qgeo.tech/" target="_blank" rel="noreferrer">Открыть QazGeo ↗</a>
+          </div>
+          <div class="map-board-layers" aria-label="Будущие слои карты">
+            <article><span>01</span><strong>Производство</strong><p>предприятия, станции, месторождения</p></article>
+            <article><span>02</span><strong>Инфраструктура</strong><p>сети, коридоры, хабы и маршруты</p></article>
+            <article><span>03</span><strong>Ресурсы</strong><p>земля, вода, энергия и сырьё</p></article>
+            <article><span>04</span><strong>Регионы</strong><p>специализация и связи территорий</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="routes-section shell" id="routes" aria-labelledby="routes-title">
+        <div class="routes-head">
+          <div><p class="eyebrow dark"><span></span> четыре входа</p><h2 id="routes-title">От вопроса<br><em>к ответу.</em></h2></div>
+          <p>Паттерн уже работает на отраслевых сайтах: посетитель выбирает не внутренний раздел, а свой вопрос.</p>
+        </div>
+        <div class="routes-grid">
+          <article><span>01 / ПОКАЗАТЕЛИ</span><strong>Сколько производим?</strong><p>Значение, единица измерения, период, источник и возможность сравнить.</p><a href="https://qz.energy/indicators.html" target="_blank" rel="noreferrer">Пример в qz.energy ↗</a></article>
+          <article><span>02 / КАРТА</span><strong>Где это находится?</strong><p>Объекты, регионы, коридоры и слой с понятной легендой.</p><a href="https://qazaqstan.space/atlas" target="_blank" rel="noreferrer">Пример в Qazaqstan.Space ↗</a></article>
+          <article><span>03 / ОБЪЕКТЫ</span><strong>Как это устроено?</strong><p>Короткий паспорт объекта, роль в системе, связи и подтверждённые факты.</p><a href="https://qz.energy/objects.html" target="_blank" rel="noreferrer">Пример реестра ↗</a></article>
+          <article><span>04 / КОНТЕКСТ</span><strong>Что изменилось?</strong><p>Событие, его отраслевое значение и прямые ссылки на первичные источники.</p><a href="https://qazaqstan.space/media" target="_blank" rel="noreferrer">Пример медиа ↗</a></article>
+        </div>
+      </section>
+
+      <section class="ecosystem-section shell" id="ecosystem" aria-labelledby="ecosystem-title">
+        <div class="ecosystem-copy">
+          <p class="eyebrow"><span></span> готовая инфраструктура</p>
+          <h2 id="ecosystem-title">Сайт не существует отдельно от экосистемы.</h2>
+          <p>QAZ.INDUSTRIES использует существующие контуры как источники и точки перехода. На следующем этапе можно подключать их публичные контракты вместо копирования данных.</p>
+        </div>
+        <div class="ecosystem-grid">
+          <a href="https://platform.qdev.run/catalog/" target="_blank" rel="noreferrer"><span>platform.qdev.run</span><strong>Каталог продуктов</strong><p>Канонические домены, описания и публичные статусы.</p><b>Открыть ↗</b></a>
+          <a href="https://qgeo.tech/" target="_blank" rel="noreferrer"><span>QazGeo</span><strong>Общий слой карты</strong><p>География, регионы, объекты и отраслевые проекции.</p><b>Открыть ↗</b></a>
+          <article><span>AV DS</span><strong>Общий визуальный контракт</strong><p>Типографика, состояния, карточки, ритм и адаптивная сетка.</p><b>Использован в этой версии</b></article>
+          <article><span>Публичные источники</span><strong>Данные с границами</strong><p>Значение публикуется только вместе с датой, единицей и происхождением.</p><b>Контракт первого выпуска</b></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer shell">
+      <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a>
+      <p>Индустрии Казахстана — карта, данные, объекты и контекст.</p>
+      <span class="footer-note">первый статический контур · 2026</span>
+    </footer>
+  </body>
+</html>

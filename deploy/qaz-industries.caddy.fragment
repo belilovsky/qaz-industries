@@ -1,0 +1,23 @@
+# Product-owned reference fragment. The active Caddyfile remains shared
+# infrastructure; scripts/deploy.sh updates only the release marker inside its
+# existing qaz.industries block after validation.
+
+qaz.industries {
+  root * /srv/qaz.industries/current
+  encode zstd gzip
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options "nosniff"
+    Referrer-Policy "strict-origin-when-cross-origin"
+    X-Frame-Options "SAMEORIGIN"
+    Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    X-Qaz-Release "<release>"
+  }
+  @qaz_industries_health path /api/health
+  header @qaz_industries_health Content-Type application/json
+  respond @qaz_industries_health `{"status":"ok","service":"qaz-industries","release":"<release>"}` 200
+  @hidden path /.env /.git/* /deploy/* /README.md *.bak *.old *.orig *.tmp *.sh *.py *.yml *.yaml *.conf *.log
+  respond @hidden 404
+  try_files {path} {path}/ {path}.html
+  file_server
+}

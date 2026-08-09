@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru" data-design-system="avds4">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Интерактивные профили отраслей Казахстана: показатели, цепочки стоимости, география, покрытие данных и источники." />
+    <meta name="theme-color" content="#07131d" />
+    <title>Профили отраслей — QAZ.INDUSTRIES</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="avds.css" />
+    <script src="industry-data.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="industry.js" defer></script>
+  </head>
+  <body class="profile-page">
+    <a class="skip-link" href="#profile-main">Перейти к профилю</a>
+    <header class="site-header">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a>
+      <nav aria-label="Основная навигация"><a href="index.html">Обзор</a><a href="industry.html" aria-current="page">Профили</a><a href="#compare">Сравнить</a><a href="benchmarks.html">Бенчмарки</a></nav>
+      <a class="header-link" href="https://platform.qdev.run/catalog/" target="_blank" rel="noreferrer">Каталог ↗</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">Меню</button>
+      <nav class="mobile-nav" id="mobile-nav" aria-label="Мобильная навигация" hidden><a href="index.html">Обзор</a><a href="industry.html">Профили</a><a href="#compare">Сравнить</a><a href="benchmarks.html">Бенчмарки</a></nav>
+    </header>
+
+    <main id="profile-main">
+      <section class="profile-toolbar shell" aria-label="Выбор отрасли">
+        <div><span>Фокус отрасли</span><strong id="toolbar-current">Энергетика</strong></div>
+        <div class="sector-switcher" role="group" aria-label="Профили отраслей">
+          <button type="button" data-sector="energy" aria-pressed="true">Энергетика</button>
+          <button type="button" data-sector="space" aria-pressed="false">Космос</button>
+          <button type="button" data-sector="farm" aria-pressed="false">АПК</button>
+          <button type="button" data-sector="water" aria-pressed="false">Вода</button>
+        </div>
+        <a id="profile-source-top" href="https://qz.energy/" target="_blank" rel="noreferrer">Открыть источник ↗</a>
+      </section>
+
+      <section class="profile-hero shell">
+        <div class="profile-title-block">
+          <p class="eyebrow"><span></span><b id="profile-code">01 / ENERGY</b></p>
+          <h1 id="profile-title">Энергетика</h1>
+          <p id="profile-summary">Производство энергии, сети, коридоры, объекты и события отрасли в едином публичном контуре.</p>
+          <div class="profile-status"><span id="profile-status">Действующий отраслевой продукт</span><span id="profile-release">Публичный срез · август 2026</span></div>
+        </div>
+        <div class="profile-kpis" id="profile-kpis" aria-label="Ключевые показатели профиля"></div>
+      </section>
+
+      <nav class="profile-local-nav shell" aria-label="Разделы профиля">
+        <a href="#overview">Обзор</a><a href="#indicators">Показатели</a><a href="#chain">Цепочка</a><a href="#geography">География</a><a href="#coverage">Покрытие</a><a href="#sources">Источники</a>
+      </nav>
+
+      <section class="profile-content shell" id="overview">
+        <aside class="profile-index" aria-label="Содержание профиля">
+          <span>Профиль отрасли</span>
+          <a href="#overview">01 · обзор</a><a href="#indicators">02 · показатели</a><a href="#chain">03 · цепочка стоимости</a><a href="#geography">04 · география</a><a href="#coverage">05 · покрытие данных</a><a href="#sources">06 · источники</a>
+        </aside>
+        <div class="profile-body">
+          <section class="profile-about">
+            <div><p class="section-number">01 / ОБЗОР</p><h2>Что показывает этот профиль</h2></div>
+            <p id="profile-about"></p>
+          </section>
+
+          <section class="profile-module" id="indicators">
+            <div class="module-head"><div><p class="section-number">02 / ПОКАЗАТЕЛИ</p><h2>Значение, период и источник</h2></div><p>В одной таблице не смешиваются разные периоды. Каждый показатель ведёт к исходной отраслевой странице.</p></div>
+            <div class="indicator-table" role="table" aria-label="Показатели отрасли">
+              <div class="indicator-row indicator-head" role="row"><span role="columnheader">Показатель</span><span role="columnheader">Значение</span><span role="columnheader">Период</span><span role="columnheader">Контекст</span><span role="columnheader">Источник</span></div>
+              <div id="indicator-rows"></div>
+            </div>
+          </section>
+
+          <section class="profile-module" id="chain">
+            <div class="module-head"><div><p class="section-number">03 / ЦЕПОЧКА СТОИМОСТИ</p><h2>Как отрасль создаёт результат</h2></div><p>Бенчмарк UNIDO и BEA показывает, что карточек предприятий недостаточно: нужны входы, производство, инфраструктура и потребители.</p></div>
+            <div class="chain-grid" id="chain-grid"></div>
+          </section>
+
+          <section class="profile-module" id="geography">
+            <div class="module-head"><div><p class="section-number">04 / ГЕОГРАФИЯ</p><h2>Где сосредоточены разные функции</h2></div><p>Это обзорный региональный контур. Он не подменяет точные слои, кадастр или частные координаты.</p></div>
+            <div class="geography-grid" id="geography-grid"></div>
+          </section>
+
+          <section class="profile-module coverage-module" id="coverage">
+            <div class="module-head"><div><p class="section-number">05 / ПОКРЫТИЕ</p><h2>Что уже есть — и чего не хватает</h2></div><p>Глубина профиля оценивается не числом блоков, а тем, на какие вопросы он способен ответить с доказательствами.</p></div>
+            <div class="coverage-layout"><div class="coverage-list" id="coverage-list"></div><div class="gap-card"><span>Следующий слой данных</span><h3>Пробелы профиля</h3><ol id="gap-list"></ol></div></div>
+          </section>
+
+          <section class="profile-module" id="sources">
+            <div class="module-head"><div><p class="section-number">06 / ИСТОЧНИКИ</p><h2>Проверить и продолжить исследование</h2></div><p>QAZ.INDUSTRIES пока не копирует исходные реестры. Профиль ведёт в действующий продукт и его публичные контракты.</p></div>
+            <div class="source-links" id="source-links"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="compare-section shell" id="compare" aria-labelledby="compare-title">
+        <div class="compare-head"><div><p class="eyebrow"><span></span> сравнение покрытия</p><h2 id="compare-title">Сравнить не масштабы,<br>а глубину данных.</h2></div><p>Счётчики разных отраслей несопоставимы. Поэтому здесь сравнивается наличие продуктовых слоёв: показателей, карт, паспортов, сервисов и методики.</p></div>
+        <div class="compare-controls">
+          <label>Профиль A<select id="compare-a"><option value="energy">Энергетика</option><option value="space">Космос</option><option value="farm">АПК</option><option value="water">Вода</option></select></label>
+          <span>↔</span>
+          <label>Профиль B<select id="compare-b"><option value="farm">АПК</option><option value="energy">Энергетика</option><option value="space">Космос</option><option value="water">Вода</option></select></label>
+        </div>
+        <div class="compare-table" id="compare-table"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer shell"><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a><p>Профили отраслей — показатели, цепочки, география и источники.</p><span class="footer-note">research build · 02</span></footer>
+  </body>
+</html>

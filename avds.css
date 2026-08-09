@@ -1,0 +1,120 @@
+/* AV Design System 4 compatibility foundation for the static QAZ.INDUSTRIES
+   consumer. Product colour is intentionally local; scale, semantic aliases,
+   interaction, focus and motion follow the AV DS 4 token contract. */
+
+html[data-design-system="avds4"] {
+  --avds-color-slate-50: #f8fafc;
+  --avds-color-slate-100: #f1f5f9;
+  --avds-color-slate-200: #e2e8f0;
+  --avds-color-slate-300: #cbd5e1;
+  --avds-color-slate-400: #94a3b8;
+  --avds-color-slate-500: #64748b;
+  --avds-color-slate-700: #334155;
+  --avds-color-slate-900: #0f172a;
+  --avds-color-slate-950: #020617;
+  --avds-color-cyan-500: #06b6d4;
+  --avds-color-teal-500: #14b8a6;
+  --avds-color-amber-100: #fef3c7;
+  --avds-color-amber-700: #b45309;
+  --avds-color-green-100: #dcfce7;
+  --avds-color-green-700: #15803d;
+  --avds-color-red-100: #fee2e2;
+  --avds-color-red-600: #dc2626;
+  --avds-space-1: 4px;
+  --avds-space-2: 8px;
+  --avds-space-3: 12px;
+  --avds-space-4: 16px;
+  --avds-space-5: 20px;
+  --avds-space-6: 24px;
+  --avds-space-8: 32px;
+  --avds-space-10: 40px;
+  --avds-space-12: 48px;
+  --avds-radius-sm: 4px;
+  --avds-radius-md: 8px;
+  --avds-radius-lg: 12px;
+  --avds-radius-xl: 16px;
+  --avds-duration-instant: 80ms;
+  --avds-duration-fast: 120ms;
+  --avds-duration-base: 180ms;
+  --avds-easing-standard: cubic-bezier(.2, 0, 0, 1);
+  --avds-focus-ring: 0 0 0 3px rgb(6 182 212 / .34);
+  --avds-surface: #f9fbfb;
+  --avds-surface-subtle: #edf3f4;
+  --avds-surface-inverse: #07131d;
+  --avds-text: #07131d;
+  --avds-text-muted: #596c78;
+  --avds-border: #d3e0e4;
+  --avds-accent: #2196c9;
+  --avds-accent-strong: #075f76;
+  --avds-accent-subtle: #dff2f6;
+
+  /* Existing product aliases now resolve through a semantic AV DS layer. */
+  --ink: var(--avds-surface-inverse);
+  --paper: var(--avds-surface-subtle);
+  --surface: var(--avds-surface);
+  --line: var(--avds-border);
+  --muted: var(--avds-text-muted);
+}
+
+html[data-design-system="avds4"] :where(button, input, select, textarea) {
+  font: inherit;
+}
+
+html[data-design-system="avds4"] :where(a, button, select, input, textarea):focus-visible {
+  position: relative;
+  z-index: 2;
+  outline: 2px solid var(--avds-color-cyan-500);
+  outline-offset: 3px;
+  box-shadow: var(--avds-focus-ring);
+}
+
+html[data-design-system="avds4"] :where(.button, .filter, .menu-button, .sector-switcher button, .profile-local-nav a, .site-header nav a) {
+  min-height: 40px;
+  transition:
+    color var(--avds-duration-base) var(--avds-easing-standard),
+    background-color var(--avds-duration-base) var(--avds-easing-standard),
+    border-color var(--avds-duration-base) var(--avds-easing-standard),
+    box-shadow var(--avds-duration-base) var(--avds-easing-standard),
+    transform var(--avds-duration-fast) var(--avds-easing-standard);
+}
+
+html[data-design-system="avds4"] .button-primary {
+  color: #03212d;
+  background: linear-gradient(135deg, #6cecf0, var(--avds-color-cyan-500));
+}
+
+html[data-design-system="avds4"] :where(.industry-card, .routes-grid article, .ecosystem-grid > *, .benchmark-grid article, .adoption-list li, .source-links a, .geography-grid article) {
+  border-radius: var(--avds-radius-lg);
+}
+
+html[data-design-system="avds4"] :where(.filter, .sector-switcher button)[aria-pressed="true"] {
+  color: var(--avds-accent-strong);
+  background: var(--avds-accent-subtle);
+}
+
+html[data-design-system="avds4"] .coverage-state.state-ready {
+  color: var(--avds-color-green-700) !important;
+  background: var(--avds-color-green-100);
+}
+
+html[data-design-system="avds4"] .coverage-state.state-partial {
+  color: var(--avds-color-amber-700) !important;
+  background: var(--avds-color-amber-100);
+}
+
+html[data-design-system="avds4"] .coverage-state.state-gap {
+  color: var(--avds-color-red-600) !important;
+  background: var(--avds-color-red-100);
+}
+
+@media (max-width: 720px) {
+  html[data-design-system="avds4"] :where(.button, .filter, .menu-button, .sector-switcher button, .profile-local-nav a) {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-design-system="avds4"] :where(.button, .filter, .menu-button, .sector-switcher button, .profile-local-nav a, .site-header nav a) {
+    transition: none;
+  }
+}
