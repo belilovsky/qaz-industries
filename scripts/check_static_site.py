@@ -56,6 +56,7 @@ def main() -> int:
             "profile-evidence-source", "profile-evidence-release", "profile-evidence-link",
             "profile-passport-title", "passport-source", "passport-release", "profile-machine-link",
             "public-export-title", "pulse-status", "pulse-grid", "territory-status", "territory-grid", "pulse-boundary-state",
+            "layer-registry-status", "layer-registry-grid",
             "questions", "source-links",
         ):
             require(f'id="{element_id}"' in profile, f"industry.html: missing {element_id}")
@@ -63,10 +64,12 @@ def main() -> int:
         require('class="indicator-table av-table"' in profile and 'class="compare-table av-table"' in profile, "industry.html: missing AV DS table contracts")
         require('data-avds-pattern="public-export-matrix"' in profile, "industry.html: missing AV DS public export pattern")
         require('data-avds-pattern="evidence-source-registry"' in profile, "industry.html: missing AV DS source registry pattern")
+        require('data-avds-pattern="geo-layer-registry"' in profile, "industry.html: missing AV DS geo layer registry pattern")
         require('data-avds-pattern="related-question-grid"' in profile, "industry.html: missing AV DS question pattern")
         industry_js = (ROOT / "industry.js").read_text(encoding="utf-8")
         require(industry_js.count("av-card av-card--outlined") >= 5, "industry.js: dynamic surfaces missing AV DS card contracts")
         require("av-source-registry__metadata" in industry_js, "industry.js: source registry metadata missing")
+        require("av-layer-registry__metadata" in industry_js, "industry.js: geo layer registry metadata missing")
         benchmark = (ROOT / "benchmarks.html").read_text(encoding="utf-8")
         for contract in ("av-chip", "av-card", "av-table", "av-button"):
             require(contract in benchmark, f"benchmarks.html: missing AV DS contract {contract}")
@@ -75,6 +78,7 @@ def main() -> int:
             "data/qazlake-public-snapshot.v1.json",
             "data/qazgeo-public-snapshot.v1.json",
             "data/qazgeo-regions-public.v1.geojson",
+            "data/qazgeo-public-layer-registry.v1.json",
             "data/reviewed-source-registry.v1.json",
             "data/qaz-industries-thematic-release.v1.json",
         ):

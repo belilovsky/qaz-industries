@@ -8,6 +8,7 @@ python3 scripts/check_static_site.py
 python3 scripts/check_public_contracts.py
 python3 -m py_compile scripts/refresh_qazlake_snapshot.py
 python3 -m py_compile scripts/refresh_qazgeo_snapshot.py
+python3 -m py_compile scripts/refresh_qazgeo_layer_registry.py
 PYTHONPATH=. python3 -m unittest discover -s tests -p 'test_*.py'
 node scripts/check_data_contract.mjs
 node --check app.js

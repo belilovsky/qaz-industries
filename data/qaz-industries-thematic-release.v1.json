@@ -2,14 +2,15 @@
   "schema_version": "qazstack-thematic-release-v1",
   "product_id": "qaz-industries",
   "release_id": "source",
-  "published_at": "2026-08-09T08:44:00Z",
-  "data_as_of": "2026-08-09T08:37:32Z",
-  "manifest_digest": "sha256:c6ae2feb2ddfc0455f052e4757b3b10e256ecc7a1af1074ede0e8954e33239ab",
+  "published_at": "2026-08-09T10:22:55Z",
+  "data_as_of": "2026-08-09T10:12:35Z",
+  "manifest_digest": "sha256:852d04f2ddf3b7b0fe3b3e9e481e536bfbd03e09ccad20513570c81965062139",
   "modules": [
-    {"id": "profile-registry", "state": "ready", "record_count": 4, "as_of": "2026-08-09T08:44:00Z", "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish"]},
-    {"id": "industry-indicators", "state": "ready", "record_count": 18, "as_of": "2026-08-09T08:44:00Z", "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish"]},
-    {"id": "change-pulse", "state": "ready", "record_count": 3, "as_of": "2026-08-09T08:37:32Z", "source_ids": ["qazlake-macro"]},
-    {"id": "source-provenance", "state": "ready", "record_count": 5, "as_of": "2026-08-09T08:44:00Z", "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish", "qazlake-macro"]},
-    {"id": "regional-context", "state": "degraded", "record_count": 0, "as_of": "2026-08-09T08:37:32Z", "source_ids": [], "notes": "The documented QazLake regional public endpoint is unavailable in the current public API revision."}
+    {"id": "profile-registry", "state": "ready", "record_count": 4, "as_of": "2026-08-09T10:22:55Z", "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish"]},
+    {"id": "industry-indicators", "state": "ready", "record_count": 18, "as_of": "2026-08-09T10:22:55Z", "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish"]},
+    {"id": "change-pulse", "state": "ready", "record_count": 3, "as_of": "2026-08-09T10:12:35Z", "source_ids": ["qazlake-macro"]},
+    {"id": "source-provenance", "state": "ready", "record_count": 6, "as_of": "2026-08-09T10:22:55Z", "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish", "qazlake-macro", "qazgeo-territory"]},
+    {"id": "territorial-context", "state": "ready", "record_count": 20, "as_of": "2026-08-09T10:12:38Z", "source_ids": ["qazgeo-territory"], "notes": "20 reviewed QazGeo region geometries; QazLake regional values remain unavailable when the documented upstream contract is degraded."},
+    {"id": "geo-layer-registry", "state": "ready", "record_count": 6, "as_of": "2026-08-09T10:22:55Z", "source_ids": ["qazgeo-territory"], "notes": "Six reviewed QazGeo layer contracts; contract-only hydrology and water catalogues remain metadata-only until upstream observations are available."}
   ]
 }

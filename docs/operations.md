@@ -11,13 +11,16 @@ HAProxy for a content-only release.
 
 ## Release procedure
 
-1. Run `scripts/check.sh`.
-2. Commit the reviewed source.
-3. Run `scripts/deploy.sh` from a clean worktree.
-4. Verify the exact release in `X-Qaz-Industries-Release` and `/api/health`.
-5. Verify `index.html`, `industry.html?sector=farm`, `benchmarks.html`,
+1. Refresh QazLake, QazGeo and the curated layer registry with the three
+   `scripts/refresh_*.py` commands. Review every diff; contract-only layers may
+   update metadata but must never become fabricated observations.
+2. Run `scripts/check.sh`.
+3. Commit the reviewed source.
+4. Run `scripts/deploy.sh` from a clean worktree.
+5. Verify the exact release in `X-Qaz-Industries-Release` and `/api/health`.
+6. Verify `index.html`, `industry.html?sector=farm`, `benchmarks.html`,
    `styles.css`, `avds.css`, and both JavaScript files over the public domain.
-6. Perform a browser pass at desktop and 390px before accepting the release.
+7. Perform a browser pass at desktop and 390px before accepting the release.
 
 The deploy script creates a new immutable release directory and first patches a
 candidate Caddyfile with a fail-closed, product-scoped parser. It updates the

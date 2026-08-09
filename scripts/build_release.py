@@ -85,6 +85,7 @@ def main() -> int:
     )
     snapshot = json.loads((ROOT / "data" / "qazlake-public-snapshot.v1.json").read_text(encoding="utf-8"))
     territory = json.loads((ROOT / "data" / "qazgeo-public-snapshot.v1.json").read_text(encoding="utf-8"))
+    layer_registry = json.loads((ROOT / "data" / "qazgeo-public-layer-registry.v1.json").read_text(encoding="utf-8"))
     manifest_bytes = (ROOT / "qazstack-thematic-product.json").read_bytes()
     published_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     thematic_release = {
@@ -99,7 +100,8 @@ def main() -> int:
             {"id": "industry-indicators", "state": "ready", "record_count": 18, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish"]},
             {"id": "change-pulse", "state": "ready", "record_count": len(snapshot["indicators"]), "as_of": snapshot["retrieved_at"], "source_ids": ["qazlake-macro"]},
             {"id": "source-provenance", "state": "ready", "record_count": 6, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish", "qazlake-macro", "qazgeo-territory"]},
-            {"id": "territorial-context", "state": "ready", "record_count": territory["map_contract"]["feature_count"], "as_of": territory["retrieved_at"], "source_ids": ["qazgeo-territory"], "notes": "20 reviewed QazGeo region geometries plus public layer metadata; QazLake regional values remain unavailable when the documented upstream contract is degraded."}
+            {"id": "territorial-context", "state": "ready", "record_count": territory["map_contract"]["feature_count"], "as_of": territory["retrieved_at"], "source_ids": ["qazgeo-territory"], "notes": "20 reviewed QazGeo region geometries plus public layer metadata; QazLake regional values remain unavailable when the documented upstream contract is degraded."},
+            {"id": "geo-layer-registry", "state": "ready", "record_count": len(layer_registry["layers"]), "as_of": layer_registry["retrieved_at"], "source_ids": ["qazgeo-territory"], "notes": "Six reviewed QazGeo layer contracts; contract-only hydrology and water catalogues remain metadata-only until upstream observations are available."}
         ],
     }
     (output / "data" / "qaz-industries-thematic-release.v1.json").write_text(

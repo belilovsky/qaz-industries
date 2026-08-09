@@ -1,0 +1,276 @@
+{
+  "schema_version": "qaz-industries-qazgeo-public-layer-registry-v1",
+  "status": "ready",
+  "provider": {
+    "service": "qazgeo",
+    "source_revision": "51ff46d577e06ae1d57967d4f128214391cccd20",
+    "health_url": "https://qgeo.tech/health/ready",
+    "layer_registry_url": "https://qgeo.tech/api/v1/layers"
+  },
+  "retrieved_at": "2026-08-09T10:22:55Z",
+  "publication_mode": "reviewed-static-metadata",
+  "layers": [
+    {
+      "id": "regions",
+      "title": "Регионы",
+      "description": "Административные регионы Казахстана из основного набора границ QazGeo.",
+      "kind": "vector",
+      "status": "stable",
+      "public_allowed": true,
+      "contract": "qazgeo-layer/v1",
+      "dataset_status": "versioned_snapshot",
+      "contract_url": "https://qgeo.tech/tiles/regions",
+      "source_url": "https://qgeo.tech",
+      "provenance": {
+        "label": "Регионы QazGeo",
+        "attribution": "QazGeo"
+      },
+      "license": {
+        "status": "documented",
+        "note": "Управляемый QazGeo справочный набор административных границ."
+      },
+      "coverage": {
+        "scope": "Казахстан",
+        "status": "complete",
+        "geographies": 20,
+        "geometry": "ADM1"
+      },
+      "public_projection": [
+        "code",
+        "name_ru",
+        "name_kk",
+        "geometry"
+      ],
+      "freshness": {
+        "data_updated_at": "2026-07-17",
+        "schema_updated_at": "2026-07-27",
+        "observed_at": null,
+        "refresh_slo_seconds": 86400
+      },
+      "limitations": "Актуальность границ определяется версией снапшота; изменения административной реформы публикуются отдельным lineage."
+    },
+    {
+      "id": "infrastructure",
+      "title": "Инфраструктура",
+      "description": "Открытые линии электропередачи, нефтепроводы и газопроводы Казахстана в векторных тайлах Martin.",
+      "kind": "vector",
+      "status": "stable",
+      "public_allowed": true,
+      "contract": "qazgeo-layer/v1",
+      "dataset_status": "observed_snapshot",
+      "contract_url": "https://qgeo.tech/tiles/infrastructure",
+      "source_url": "https://download.geofabrik.de/asia/kazakhstan.html",
+      "provenance": {
+        "label": "Инфраструктура QazGeo",
+        "attribution": "QazGeo / © OpenStreetMap contributors"
+      },
+      "license": {
+        "status": "attribution-required",
+        "note": "Открытый инфраструктурный слой QazGeo на основе данных OpenStreetMap с обязательной атрибуцией."
+      },
+      "coverage": {
+        "scope": "Казахстан",
+        "status": "partial",
+        "geographies": 1,
+        "segments": 7520,
+        "geometry": "LineString"
+      },
+      "public_projection": [
+        "infra_type",
+        "name",
+        "length_km",
+        "osm_id",
+        "geometry"
+      ],
+      "freshness": {
+        "data_updated_at": "2026-08-06",
+        "schema_updated_at": "2026-08-09",
+        "observed_at": "2026-08-06",
+        "refresh_slo_seconds": 86400
+      },
+      "limitations": "Покрытие зависит от полноты картирования OpenStreetMap и не является инженерной или оперативной схемой; опоры, подстанции, клапаны, давление, диаметр, мощность и телеметрия исключены."
+    },
+    {
+      "id": "national_transport_network",
+      "title": "Национальная транспортная сеть",
+      "description": "Датированные основные дороги, железные дороги и паромные линии из управляемого геокаталога.",
+      "kind": "vector",
+      "status": "stable",
+      "public_allowed": true,
+      "contract": "qazgeo-public-geodata/v1",
+      "dataset_status": "observed_snapshot",
+      "contract_url": "https://qgeo.tech/tiles/public_geo_lines",
+      "source_url": "https://download.geofabrik.de/asia/kazakhstan.html",
+      "provenance": {
+        "label": "Транспортная сеть QazGeo",
+        "attribution": "QazGeo / © OpenStreetMap contributors"
+      },
+      "license": {
+        "status": "attribution-required",
+        "note": "Датированный открытый набор OpenStreetMap с обязательной атрибуцией ODbL."
+      },
+      "coverage": {
+        "scope": "Казахстан",
+        "status": "partial",
+        "geographies": 1,
+        "features": 44801,
+        "geometry": "LineString"
+      },
+      "public_projection": [
+        "layer_id",
+        "feature_class",
+        "name",
+        "source_id",
+        "source_feature_id",
+        "snapshot_id",
+        "observed_at",
+        "properties",
+        "geometry"
+      ],
+      "freshness": {
+        "data_updated_at": "2026-08-06",
+        "schema_updated_at": "2026-08-09",
+        "observed_at": "2026-08-06",
+        "refresh_slo_seconds": 604800
+      },
+      "limitations": "Геометрия и теги зависят от полноты OpenStreetMap; слой не заменяет официальные дорожные и железнодорожные реестры, правовые ограничения и расписания."
+    },
+    {
+      "id": "national_place_nodes",
+      "title": "Логистика, мобильность и путешествия",
+      "description": "Датированные транспортные узлы, дорожный сервис и туристские объекты из управляемого геокаталога.",
+      "kind": "vector",
+      "status": "stable",
+      "public_allowed": true,
+      "contract": "qazgeo-public-geodata/v1",
+      "dataset_status": "observed_snapshot",
+      "contract_url": "https://qgeo.tech/tiles/public_geo_points",
+      "source_url": "https://download.geofabrik.de/asia/kazakhstan.html",
+      "provenance": {
+        "label": "Узлы и места QazGeo",
+        "attribution": "QazGeo / © OpenStreetMap contributors"
+      },
+      "license": {
+        "status": "attribution-required",
+        "note": "Датированный открытый набор OpenStreetMap с обязательной атрибуцией ODbL."
+      },
+      "coverage": {
+        "scope": "Казахстан",
+        "status": "partial",
+        "geographies": 1,
+        "features": 10734,
+        "geometry": "Point"
+      },
+      "public_projection": [
+        "layer_id",
+        "feature_class",
+        "name",
+        "source_id",
+        "source_feature_id",
+        "snapshot_id",
+        "observed_at",
+        "properties",
+        "geometry"
+      ],
+      "freshness": {
+        "data_updated_at": "2026-08-06",
+        "schema_updated_at": "2026-08-09",
+        "observed_at": "2026-08-06",
+        "refresh_slo_seconds": 604800
+      },
+      "limitations": "Точки и теги зависят от полноты OpenStreetMap; слой не подтверждает доступность, вместимость, расписание, цену или официальный статус объекта."
+    },
+    {
+      "id": "hydro_stations",
+      "title": "Гидропосты",
+      "description": "Гидропосты Казахстана из каталога QazLake для видимого участка карты; исходные поля не публикуются.",
+      "kind": "geojson",
+      "status": "beta",
+      "public_allowed": true,
+      "contract": "qazlake-geo/v1",
+      "dataset_status": "contract_only",
+      "contract_url": "https://qgeo.tech/api/v1/external-layers/hydro-stations",
+      "source_url": "https://qgeo.tech/api/v1/external-layers/hydro-stations",
+      "provenance": {
+        "label": "Нормализованный каталог гидропостов QazLake",
+        "attribution": "QazLake / гидрологический каталог; выборка по видимой области"
+      },
+      "license": {
+        "status": "documented",
+        "note": "Нормализованный открытый каталог. Исходные метаданные источника не раскрываются."
+      },
+      "coverage": {
+        "scope": "Нормализованный каталог гидропостов",
+        "status": "unknown",
+        "geographies": null,
+        "geometry": "Point"
+      },
+      "public_projection": [
+        "station_code",
+        "station_name",
+        "station_type",
+        "river_name",
+        "basin",
+        "region",
+        "active",
+        "catalogued_at",
+        "provenance",
+        "geometry"
+      ],
+      "freshness": {
+        "data_updated_at": null,
+        "schema_updated_at": "2026-07-27",
+        "observed_at": null,
+        "refresh_slo_seconds": 2592000
+      },
+      "limitations": "Каталог гидропостов не является утверждением о текущем уровне воды без отдельного наблюдения и единицы измерения."
+    },
+    {
+      "id": "water_objects_catalog",
+      "title": "Водные объекты",
+      "description": "Каталог водных объектов Казахстана из QazLake; на карте показываются открытые названия и типы без внутренних OSM-полей.",
+      "kind": "geojson",
+      "status": "beta",
+      "public_allowed": true,
+      "contract": "qazlake-geo/v1",
+      "dataset_status": "contract_only",
+      "contract_url": "https://qgeo.tech/api/v1/external-layers/water-objects",
+      "source_url": "https://qgeo.tech/api/v1/external-layers/water-objects",
+      "provenance": {
+        "label": "Нормализованный каталог водных объектов QazLake",
+        "attribution": "QazLake / каталог водных объектов; выборка по видимой области"
+      },
+      "license": {
+        "status": "documented",
+        "note": "Нормализованный открытый каталог без исходных тегов и идентификаторов OSM."
+      },
+      "coverage": {
+        "scope": "Нормализованный каталог водных объектов",
+        "status": "unknown",
+        "geographies": null,
+        "geometry": "Polygon"
+      },
+      "public_projection": [
+        "name",
+        "name_kk",
+        "name_en",
+        "water_type",
+        "catalogued_at",
+        "provenance",
+        "geometry"
+      ],
+      "freshness": {
+        "data_updated_at": null,
+        "schema_updated_at": "2026-07-27",
+        "observed_at": null,
+        "refresh_slo_seconds": 2592000
+      },
+      "limitations": "Каталог не заменяет гидрологическое наблюдение и не гарантирует сезонную полноту без подтверждённого upstream snapshot."
+    }
+  ],
+  "limitations": [
+    "Это curated-реестр контрактов QazGeo, а не выгрузка объектов или наблюдений.",
+    "Слои contract_only показываются как roadmap: значения, координаты и live-наблюдения не публикуются до отдельного upstream review.",
+    "OSM-слои требуют атрибуции и не заменяют официальные инженерные, дорожные или гидрологические реестры."
+  ]
+}

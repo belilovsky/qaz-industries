@@ -306,11 +306,34 @@ html[data-design-system="avds4"] .av-source-registry__actions { display: flex; f
 html[data-design-system="avds4"] .av-source-registry__action { display: inline-flex; min-height: 36px; align-items: center; padding: 0 var(--av-spacing-3); border: 1px solid var(--av-color-border); border-radius: var(--av-radius-md); color: var(--av-color-primary); font: var(--av-text-body); font-size: 13px; font-weight: 700; text-decoration: none; }
 html[data-design-system="avds4"] .av-source-registry__action:hover { border-color: var(--av-color-primary); background: var(--av-color-muted); }
 
+/* GeoLayerRegistry: reviewed layer contracts first, features only after a
+   separate upstream observation review. */
+html[data-design-system="avds4"] .av-layer-registry { display: grid; gap: var(--av-spacing-4); color: var(--av-color-foreground); }
+html[data-design-system="avds4"] .av-layer-registry__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--av-spacing-3); }
+html[data-design-system="avds4"] .av-layer-registry__card { min-width: 0; }
+html[data-design-system="avds4"] .av-layer-registry__body { display: grid; height: 100%; gap: var(--av-spacing-3); }
+html[data-design-system="avds4"] .av-layer-registry__title-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--av-spacing-2); }
+html[data-design-system="avds4"] .av-layer-registry__header { display: grid; min-width: 0; gap: var(--av-spacing-2); }
+html[data-design-system="avds4"] .av-layer-registry__eyebrow { margin: 0; color: var(--av-color-primary); font: 700 12px/20px var(--av-text-code-font-family); letter-spacing: .06em; text-transform: uppercase; }
+html[data-design-system="avds4"] .av-layer-registry__header h3 { margin: 0; font: var(--av-text-heading); font-size: 20px; line-height: 1.2; text-wrap: balance; }
+html[data-design-system="avds4"] .av-layer-registry__description,
+html[data-design-system="avds4"] .av-layer-registry__limit { margin: 0; color: var(--av-color-muted-foreground); font: var(--av-text-body); font-size: 14px; }
+html[data-design-system="avds4"] .av-layer-registry__metadata { display: grid; gap: var(--av-spacing-1); margin: 0; padding: var(--av-spacing-3) 0; border-top: 1px solid var(--av-color-border); border-bottom: 1px solid var(--av-color-border); }
+html[data-design-system="avds4"] .av-layer-registry__metadata-row { display: grid; grid-template-columns: minmax(72px, max-content) minmax(0, 1fr); gap: var(--av-spacing-3); font: var(--av-text-body); font-size: 13px; }
+html[data-design-system="avds4"] .av-layer-registry__metadata-row dt { color: var(--av-color-muted-foreground); }
+html[data-design-system="avds4"] .av-layer-registry__metadata-row dd { min-width: 0; margin: 0; overflow-wrap: anywhere; font-weight: 700; }
+html[data-design-system="avds4"] .av-layer-registry__actions { display: flex; flex-wrap: wrap; gap: var(--av-spacing-2); align-items: center; margin-top: auto; }
+html[data-design-system="avds4"] .av-layer-registry__action,
+html[data-design-system="avds4"] .av-layer-registry__source { display: inline-flex; min-height: 36px; align-items: center; padding: 0 var(--av-spacing-3); border: 1px solid var(--av-color-border); border-radius: var(--av-radius-md); color: var(--av-color-primary); font: var(--av-text-body); font-size: 13px; font-weight: 700; text-decoration: none; }
+html[data-design-system="avds4"] .av-layer-registry__action:hover,
+html[data-design-system="avds4"] .av-layer-registry__source:hover { border-color: var(--av-color-primary); background: var(--av-color-muted); }
+
 @media (max-width: 640px) {
   html[data-design-system="avds4"] .av-public-export-matrix__entries,
   html[data-design-system="avds4"] .av-related-question-grid__items { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 720px) {
-  html[data-design-system="avds4"] .av-source-registry__records { grid-template-columns: 1fr; }
+  html[data-design-system="avds4"] .av-source-registry__records,
+  html[data-design-system="avds4"] .av-layer-registry__grid { grid-template-columns: 1fr; }
 }

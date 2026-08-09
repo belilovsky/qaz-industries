@@ -4,6 +4,7 @@ const coverageStates = new Set(['ready', 'partial', 'gap']);
 let activeProfile = profiles.energy;
 let publicSnapshot = null;
 let territorySnapshot = null;
+let layerRegistry = null;
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({
@@ -90,6 +91,68 @@ function renderTerritory() {
   `).join('');
 }
 
+function layerStatusLabel(layer) {
+  if (layer.dataset_status === 'contract_only') return 'contract-only';
+  if (layer.status === 'stable') return 'stable layer';
+  return 'reviewed beta';
+}
+
+function layerCoverageLabel(coverage) {
+  if (!coverage || typeof coverage !== 'object') return 'Покрытие уточняется';
+  const parts = [];
+  if (coverage.scope) parts.push(String(coverage.scope));
+  if (coverage.geographies === null || coverage.status === 'unknown') parts.push('объём не наблюдался');
+  if (Number.isFinite(coverage.geographies)) parts.push(`${Number(coverage.geographies).toLocaleString('ru-RU')} географий`);
+  if (Number.isFinite(coverage.segments)) parts.push(`${Number(coverage.segments).toLocaleString('ru-RU')} сегментов`);
+  if (Number.isFinite(coverage.features)) parts.push(`${Number(coverage.features).toLocaleString('ru-RU')} объектов`);
+  return parts.join(' · ') || 'Покрытие уточняется';
+}
+
+function layerFreshnessLabel(layer) {
+  const freshness = layer.freshness || {};
+  if (!freshness.data_updated_at) return 'Наблюдение не заявлено';
+  return `данные на ${dateLabel(freshness.data_updated_at)}`;
+}
+
+function renderLayerRegistry() {
+  const status = document.querySelector('#layer-registry-status');
+  const grid = document.querySelector('#layer-registry-grid');
+  if (!status || !grid) return;
+  if (!layerRegistry) {
+    status.textContent = 'Публичный QazGeo layer registry недоступен. Значения слоёв не подставляются без reviewed snapshot.';
+    grid.innerHTML = '';
+    return;
+  }
+  const provider = layerRegistry.provider;
+  const contractOnlyCount = layerRegistry.layers.filter((layer) => layer.dataset_status === 'contract_only').length;
+  status.textContent = `Reviewed layer registry · ${provider.service} · revision ${provider.source_revision} · ${layerRegistry.layers.length} контрактов; ${contractOnlyCount} пока только roadmap.`;
+  grid.innerHTML = layerRegistry.layers.map((layer, index) => {
+    const badgeClass = layer.dataset_status === 'contract_only' ? 'av-badge--info' : 'av-badge--success';
+    const freshness = layerFreshnessLabel(layer);
+    return `
+      <article class="av-card av-card--outlined av-layer-registry__card">
+        <div class="av-layer-registry__body">
+          <div class="av-layer-registry__title-row">
+            <div class="av-layer-registry__header">
+              <p class="av-layer-registry__eyebrow">0${index + 1} · ${escapeHtml(layer.kind)}</p>
+              <h3>${escapeHtml(layer.title)}</h3>
+            </div>
+            <span class="av-badge ${badgeClass}">${escapeHtml(layerStatusLabel(layer))}</span>
+          </div>
+          <p class="av-layer-registry__description">${escapeHtml(layer.description)}</p>
+          <dl class="av-layer-registry__metadata">
+            <div class="av-layer-registry__metadata-row"><dt>Покрытие</dt><dd>${escapeHtml(layerCoverageLabel(layer.coverage))}</dd></div>
+            <div class="av-layer-registry__metadata-row"><dt>Свежесть</dt><dd>${escapeHtml(freshness)}</dd></div>
+            <div class="av-layer-registry__metadata-row"><dt>Лицензия</dt><dd>${escapeHtml(layer.license?.status || 'reviewed')} · ${escapeHtml(layer.provenance?.attribution || 'QazGeo')}</dd></div>
+          </dl>
+          <p class="av-layer-registry__limit">${escapeHtml(layer.limitations)}</p>
+          <div class="av-layer-registry__actions"><a class="av-layer-registry__action" href="${externalUrl(layer.contract_url)}" target="_blank" rel="noreferrer">Открыть контракт ↗</a><a class="av-layer-registry__source" href="${externalUrl(layer.source_url)}" target="_blank" rel="noreferrer">Источник ↗</a></div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
 async function loadPublicSnapshot() {
   try {
     const response = await fetch(snapshotAssetUrl('qazlake-public-snapshot.v1.json'), { cache: 'no-store' });
@@ -121,6 +184,24 @@ async function loadTerritorySnapshot() {
     console.warn('QazGeo public snapshot unavailable:', error);
   }
   renderPulse(activeProfile);
+}
+
+async function loadLayerRegistry() {
+  try {
+    const response = await fetch(snapshotAssetUrl('qazgeo-public-layer-registry.v1.json'), { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const snapshot = await response.json();
+    if (snapshot.schema_version !== 'qaz-industries-qazgeo-public-layer-registry-v1' || snapshot.status !== 'ready') {
+      throw new Error('unexpected QazGeo layer registry contract');
+    }
+    if (!Array.isArray(snapshot.layers) || snapshot.layers.length < 1 || snapshot.provider?.service !== 'qazgeo') {
+      throw new Error('invalid QazGeo layer registry payload');
+    }
+    layerRegistry = snapshot;
+  } catch (error) {
+    console.warn('QazGeo public layer registry unavailable:', error);
+  }
+  renderLayerRegistry();
 }
 
 function renderProfile(key, updateUrl = true) {
@@ -228,3 +309,5 @@ renderProfile(profileKeys.includes(initialSector) ? initialSector : 'energy', fa
 renderComparison();
 loadPublicSnapshot();
 loadTerritorySnapshot();
+renderLayerRegistry();
+loadLayerRegistry();

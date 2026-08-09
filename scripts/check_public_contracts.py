@@ -80,6 +80,29 @@ def main() -> int:
             require(set(feature.get("properties", {})) == safe_keys, "QazGeo map exposes only reviewed identity fields")
             require(isinstance(feature["properties"].get("code"), str), "QazGeo map region code")
 
+        layer_registry = load("qazgeo-public-layer-registry.v1.json")
+        require(layer_registry["schema_version"] == "qaz-industries-qazgeo-public-layer-registry-v1", "QazGeo layer registry schema")
+        require(layer_registry["status"] == "ready", "QazGeo layer registry must state ready")
+        layer_registry_retrieved_at = datetime.fromisoformat(layer_registry["retrieved_at"].replace("Z", "+00:00"))
+        layer_registry_age_days = (datetime.now(timezone.utc) - layer_registry_retrieved_at).days
+        require(0 <= layer_registry_age_days <= 31, f"QazGeo layer registry is stale ({layer_registry_age_days} days); refresh before release")
+        provider = layer_registry["provider"]
+        require(provider.get("service") == "qazgeo", "QazGeo layer registry provider")
+        https(provider.get("health_url"), "QazGeo layer registry health URL")
+        https(provider.get("layer_registry_url"), "QazGeo layer registry URL")
+        layer_ids = {"regions", "infrastructure", "national_transport_network", "national_place_nodes", "hydro_stations", "water_objects_catalog"}
+        require({layer.get("id") for layer in layer_registry["layers"]} == layer_ids, "QazGeo curated layer set")
+        for layer in layer_registry["layers"]:
+            require(layer.get("status") in {"stable", "beta"}, f"QazGeo layer {layer.get('id')}: status")
+            require(layer.get("public_allowed") is True, f"QazGeo layer {layer.get('id')}: public policy")
+            require(layer.get("dataset_status") in {"versioned_snapshot", "observed_snapshot", "contract_only"}, f"QazGeo layer {layer.get('id')}: dataset status")
+            https(layer.get("contract_url"), f"QazGeo layer {layer.get('id')}: contract URL")
+            https(layer.get("source_url"), f"QazGeo layer {layer.get('id')}: source URL")
+            require(layer.get("contract"), f"QazGeo layer {layer.get('id')}: contract")
+            require(isinstance(layer.get("public_projection"), list) and layer["public_projection"], f"QazGeo layer {layer.get('id')}: projection")
+            require(isinstance(layer.get("coverage"), dict), f"QazGeo layer {layer.get('id')}: coverage")
+            require(isinstance(layer.get("limitations"), str) and layer["limitations"], f"QazGeo layer {layer.get('id')}: limitations")
+
         registry = load("reviewed-source-registry.v1.json")
         require(registry["schema_version"] == "qazstack-reviewed-source-registry-v1", "registry schema")
         require(registry["source_count"] == len(registry["sources"]), "registry source count")

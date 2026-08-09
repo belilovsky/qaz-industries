@@ -12,7 +12,8 @@
 - `benchmarks.html` — семь международных референсов и восемь обязательных слоёв продукта;
 - `avds.css` — локальный AV DS 4 consumer layer: generated tokens, реальные
   component contracts (`av-button`, `av-alert`, `av-badge`, `av-chip`,
-  `av-card`) и patterns для export, source-registry и question surfaces;
+  `av-card`) и patterns для export, source-registry, geo-layer-registry и
+  question surfaces;
 - `qazgeo-map.js` — безопасный SVG-рендерер реальных QazGeo region boundaries
   из локального reviewed GeoJSON snapshot, с keyboard selection и zoom;
 - `industry-data.js` — изолированный локальный data layer, готовый к замене API;
@@ -25,9 +26,12 @@
 только reviewed static projections, а не raw QazLake, private queues или
 прямой browser access к lake. В `data/` доступны профильный JSON, reviewed
 source registry, тематический release, публичный macro snapshot QazLake и
-территориальный snapshot QazGeo и `qazgeo-regions-public.v1.geojson` с 20
-реальными региональными геометриями. Браузер не ходит к QazGeo напрямую:
-публичная карта использует только этот versioned reviewed asset.
+территориальный snapshot QazGeo, curated layer registry и
+`qazgeo-regions-public.v1.geojson` с 20 реальными региональными геометриями.
+Layer registry показывает stable/observed-контракты инфраструктуры, транспорта
+и узлов, а также contract-only гидрологию и водные каталоги без подстановки
+отсутствующих значений. Браузер не ходит к QazGeo напрямую: публичная карта и
+карточки используют только versioned reviewed assets.
 
 Обновление snapshot является явным review-step: сначала проверить diff, затем
 только при необходимости записать новый файл.
@@ -37,6 +41,8 @@ python3 scripts/refresh_qazlake_snapshot.py
 python3 scripts/refresh_qazlake_snapshot.py --write
 python3 scripts/refresh_qazgeo_snapshot.py
 python3 scripts/refresh_qazgeo_snapshot.py --write
+python3 scripts/refresh_qazgeo_layer_registry.py
+python3 scripts/refresh_qazgeo_layer_registry.py --write
 scripts/check.sh
 ```
 
@@ -46,6 +52,8 @@ scripts/check.sh
 территориальную основу; декоративная схема не используется, а региональные
 QazLake-значения не появляются, пока
 публичный контракт не станет доступен и не пройдёт отдельный review.
+Contract-only слои в layer registry остаются roadmap-метаданными до появления
+наблюдаемого upstream snapshot.
 
 Числа не синтетические: каждый показатель сопровождается периодом, контекстом
 и ссылкой на публичный источник. Отсутствующее покрытие показывается как

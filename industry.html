@@ -80,18 +80,19 @@
           <a class="av-public-export-matrix__entry" href="data/industry-profiles.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">01 · ПРОФИЛИ</span><strong class="av-public-export-matrix__label">4 отраслевых паспорта</strong><p class="av-public-export-matrix__description">Источник, выпуск и публичная граница каждого профиля.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
           <a class="av-public-export-matrix__entry" href="data/qazlake-public-snapshot.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">02 · QAZLAKE</span><strong class="av-public-export-matrix__label">Макро-срез</strong><p class="av-public-export-matrix__description">Три официальных контекстных индикатора с датой и источником.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
           <a class="av-public-export-matrix__entry" href="data/qazgeo-public-snapshot.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">03 · QAZGEO</span><strong class="av-public-export-matrix__label">Территориальная основа</strong><p class="av-public-export-matrix__description">Покрытие, stable layer, 20 границ и честный статус regional contract.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
-          <a class="av-public-export-matrix__entry" href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">04 · ВЫПУСК</span><strong class="av-public-export-matrix__label">Release contract</strong><p class="av-public-export-matrix__description">Идентичность выпуска, состояния модулей и digest манифеста.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
+          <a class="av-public-export-matrix__entry" href="data/qazgeo-public-layer-registry.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">04 · СЛОИ</span><strong class="av-public-export-matrix__label">QazGeo layer registry</strong><p class="av-public-export-matrix__description">Шесть reviewed-контрактов: от границ и инфраструктуры до water roadmap.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
+          <a class="av-public-export-matrix__entry" href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">05 · ВЫПУСК</span><strong class="av-public-export-matrix__label">Release contract</strong><p class="av-public-export-matrix__description">Идентичность выпуска, состояния модулей и digest манифеста.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
         </div>
       </section>
 
       <nav class="profile-local-nav shell" aria-label="Разделы профиля">
-        <a href="#overview">Обзор</a><a href="#indicators">Показатели</a><a href="#pulse">Пульс</a><a href="#chain">Цепочка</a><a href="#geography">География</a><a href="#coverage">Покрытие</a><a href="#sources">Источники</a><a href="#questions">Вопросы</a>
+        <a href="#overview">Обзор</a><a href="#indicators">Показатели</a><a href="#pulse">Пульс</a><a href="#layers">Слои</a><a href="#chain">Цепочка</a><a href="#geography">География</a><a href="#coverage">Покрытие</a><a href="#sources">Источники</a><a href="#questions">Вопросы</a>
       </nav>
 
       <section class="profile-content shell" id="overview">
         <aside class="profile-index" aria-label="Содержание профиля">
           <span>Профиль отрасли</span>
-          <a href="#overview">01 · обзор</a><a href="#indicators">02 · показатели</a><a href="#pulse">03 · пульс</a><a href="#chain">04 · цепочка стоимости</a><a href="#geography">05 · география</a><a href="#coverage">06 · покрытие данных</a><a href="#sources">07 · источники</a><a href="#questions">08 · вопросы исследования</a>
+          <a href="#overview">01 · обзор</a><a href="#indicators">02 · показатели</a><a href="#pulse">03 · пульс</a><a href="#layers">04 · слои QazGeo</a><a href="#chain">05 · цепочка стоимости</a><a href="#geography">06 · география</a><a href="#coverage">07 · покрытие данных</a><a href="#sources">08 · источники</a><a href="#questions">09 · вопросы исследования</a>
         </aside>
         <div class="profile-body">
           <section class="profile-about">
@@ -117,28 +118,34 @@
             <div class="pulse-boundary"><strong>Региональные и водные показатели</strong><span id="pulse-boundary-state">Проверяем доступность public contracts…</span></div>
           </section>
 
+          <section class="profile-module av-layer-registry" data-avds-pattern="geo-layer-registry" id="layers">
+            <div class="module-head"><div><p class="section-number">04 / СЛОИ QAZGEO</p><h2>Подключать данные по контракту.</h2></div><p>Здесь видны реальные public-safe слои QazGeo и следующий маршрут интеграции. Contract-only не означает, что значения уже доступны: пока показываем только reviewed metadata.</p></div>
+            <div class="pulse-banner territory-banner" id="layer-registry-status" role="status" aria-live="polite">Загружаем reviewed layer registry…</div>
+            <div class="av-layer-registry__grid" id="layer-registry-grid"></div>
+          </section>
+
           <section class="profile-module" id="chain">
-            <div class="module-head"><div><p class="section-number">04 / ЦЕПОЧКА СТОИМОСТИ</p><h2>Как отрасль создаёт результат</h2></div><p>Бенчмарк UNIDO и BEA показывает, что карточек предприятий недостаточно: нужны входы, производство, инфраструктура и потребители.</p></div>
+            <div class="module-head"><div><p class="section-number">05 / ЦЕПОЧКА СТОИМОСТИ</p><h2>Как отрасль создаёт результат</h2></div><p>Бенчмарк UNIDO и BEA показывает, что карточек предприятий недостаточно: нужны входы, производство, инфраструктура и потребители.</p></div>
             <div class="chain-grid" id="chain-grid"></div>
           </section>
 
           <section class="profile-module" id="geography">
-            <div class="module-head"><div><p class="section-number">05 / ГЕОГРАФИЯ</p><h2>Где сосредоточены разные функции</h2></div><p>Это обзорный региональный контур. Он не подменяет точные слои, кадастр или частные координаты.</p></div>
+            <div class="module-head"><div><p class="section-number">06 / ГЕОГРАФИЯ</p><h2>Где сосредоточены разные функции</h2></div><p>Это обзорный региональный контур. Он не подменяет точные слои, кадастр или частные координаты.</p></div>
             <div class="geography-grid" id="geography-grid"></div>
           </section>
 
           <section class="profile-module coverage-module" id="coverage">
-            <div class="module-head"><div><p class="section-number">06 / ПОКРЫТИЕ</p><h2>Что уже есть — и чего не хватает</h2></div><p>Глубина профиля оценивается не числом блоков, а тем, на какие вопросы он способен ответить с доказательствами.</p></div>
+            <div class="module-head"><div><p class="section-number">07 / ПОКРЫТИЕ</p><h2>Что уже есть — и чего не хватает</h2></div><p>Глубина профиля оценивается не числом блоков, а тем, на какие вопросы он способен ответить с доказательствами.</p></div>
             <div class="coverage-layout"><div class="coverage-list" id="coverage-list"></div><div class="gap-card"><span>Следующий слой данных</span><h3>Пробелы профиля</h3><ol id="gap-list"></ol></div></div>
           </section>
 
           <section class="profile-module av-source-registry" data-avds-pattern="evidence-source-registry" id="sources">
-            <div class="module-head"><div><p class="section-number">07 / ИСТОЧНИКИ</p><h2>Проверить и продолжить исследование</h2></div><p>QAZ.INDUSTRIES пока не копирует исходные реестры. Профиль ведёт в действующий продукт и его публичные контракты.</p></div>
+            <div class="module-head"><div><p class="section-number">08 / ИСТОЧНИКИ</p><h2>Проверить и продолжить исследование</h2></div><p>QAZ.INDUSTRIES пока не копирует исходные реестры. Профиль ведёт в действующий продукт и его публичные контракты.</p></div>
             <div class="av-source-registry__records" id="source-links"></div>
           </section>
 
           <section class="profile-module research-routes av-related-question-grid" data-avds-pattern="related-question-grid" id="questions">
-            <div class="module-head av-related-question-grid__header"><div><p class="section-number">08 / ВОПРОСЫ ИССЛЕДОВАНИЯ</p><h2>Не потерять главный вопрос.</h2></div><p>Эти переходы превращают профиль в маршрут исследования: от утверждения к периоду, от цепочки — к границе данных, а не к декоративной витрине.</p></div>
+            <div class="module-head av-related-question-grid__header"><div><p class="section-number">09 / ВОПРОСЫ ИССЛЕДОВАНИЯ</p><h2>Не потерять главный вопрос.</h2></div><p>Эти переходы превращают профиль в маршрут исследования: от утверждения к периоду, от цепочки — к границе данных, а не к декоративной витрине.</p></div>
             <div class="question-grid av-related-question-grid__items">
               <a class="av-related-question-grid__card" href="#indicators"><span class="av-related-question-grid__meta">01</span><strong class="av-related-question-grid__label">Какие показатели можно использовать?</strong><p class="av-related-question-grid__description">Сверить значение, период и исходную отраслевую страницу.</p><b class="av-related-question-grid__arrow">→</b></a>
               <a class="av-related-question-grid__card" href="#chain"><span class="av-related-question-grid__meta">02</span><strong class="av-related-question-grid__label">Где создаётся результат отрасли?</strong><p class="av-related-question-grid__description">Пройти от ресурсов через инфраструктуру к потреблению.</p><b class="av-related-question-grid__arrow">→</b></a>
