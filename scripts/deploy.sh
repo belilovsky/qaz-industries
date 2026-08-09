@@ -25,7 +25,7 @@ scripts/check.sh
 build_dir="$(python3 scripts/build_release.py --release "$release_id")"
 archive_path="$(mktemp -t qaz-industries-release.XXXXXX.tar.gz)"
 trap 'rm -f "$archive_path"' EXIT
-COPYFILE_DISABLE=1 tar -C "$build_dir" -czf "$archive_path" .
+COPYFILE_DISABLE=1 tar --no-xattrs -C "$build_dir" -czf "$archive_path" .
 
 scp -q "$archive_path" "${remote_host}:/tmp/qaz-industries-${release_id}.tar.gz"
 ssh -o BatchMode=yes "$remote_host" bash -s -- "$runtime_root" "$container_name" "$release_id" "$expected_release" <<'REMOTE'
