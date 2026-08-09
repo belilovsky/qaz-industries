@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 RELEASE_RE = re.compile(r"^[A-Za-z0-9_-]+$")
-BLOCK_START = "qaz.industries {\n"
+BLOCK_START_RE = re.compile(r"(?m)^qaz\.industries \{\n")
 HEADER_RE = re.compile(
     r'(?m)^(?P<indent>[ \t]*)X-Qaz(?:-Industries)?-Release "[^"]+"$'
 )
@@ -23,9 +23,10 @@ def qaz_block(source: str) -> tuple[str, str, str]:
     are indented, so the first unindented closing brace ends this block.
     """
 
-    if source.count(BLOCK_START) != 1:
+    matches = list(BLOCK_START_RE.finditer(source))
+    if len(matches) != 1:
         raise ValueError("expected exactly one top-level qaz.industries block")
-    start = source.index(BLOCK_START)
+    start = matches[0].start()
     end = source.find("\n}\n", start)
     if end < 0:
         raise ValueError("qaz.industries block has no top-level closing brace")

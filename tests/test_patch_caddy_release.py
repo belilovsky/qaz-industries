@@ -20,14 +20,21 @@ qaz.support {
 }
 '''
 
+SOURCE_WITH_HTTP_REDIRECT = '''http://qaz.industries, http://www.qaz.industries {
+  redir https://qaz.industries{uri} permanent
+}
+
+''' + SOURCE
+
 
 class PatchCaddyReleaseTests(unittest.TestCase):
     def test_changes_only_the_qaz_industries_block(self) -> None:
-        result = patch(SOURCE, "20260809T123000Z-a1b2c3d4e5f6")
+        result = patch(SOURCE_WITH_HTTP_REDIRECT, "20260809T123000Z-a1b2c3d4e5f6")
 
         self.assertIn('X-Qaz-Industries-Release "20260809T123000Z-a1b2c3d4e5f6"', result)
         self.assertIn('"service":"qaz-industries","release":"20260809T123000Z-a1b2c3d4e5f6"', result)
         self.assertIn('X-Qaz-Release "qaz-support-current"', result)
+        self.assertIn('http://qaz.industries, http://www.qaz.industries {', result)
         support = result[result.index("qaz.support {") :]
         self.assertNotIn("Qaz-Industries", support)
 
