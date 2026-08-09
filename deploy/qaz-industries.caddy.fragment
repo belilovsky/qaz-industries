@@ -1,7 +1,8 @@
 # Product-owned reference fragment. The active Caddyfile remains shared
-# infrastructure; scripts/deploy.sh updates only the release marker inside its
-# existing qaz.industries block after validation. The product-specific header
-# deliberately avoids the shared X-Qaz-Release convention used by other sites.
+# infrastructure; scripts/deploy.sh updates only the release marker and
+# product-owned security directives inside its existing qaz.industries block
+# after validation. The product-specific header deliberately avoids the shared
+# X-Qaz-Release convention used by other sites.
 
 qaz.industries {
   root * /srv/qaz.industries/current
@@ -12,11 +13,17 @@ qaz.industries {
     Referrer-Policy "strict-origin-when-cross-origin"
     X-Frame-Options "SAMEORIGIN"
     Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy "default-src 'self'; base-uri 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; form-action 'self'"
+    Cross-Origin-Opener-Policy "same-origin"
+    Cross-Origin-Resource-Policy "same-origin"
     X-Qaz-Industries-Release "<release>"
   }
   @qaz_industries_health path /api/health
   header @qaz_industries_health Content-Type application/json
+  header @qaz_industries_health Cache-Control "no-store"
   respond @qaz_industries_health `{"status":"ok","service":"qaz-industries","release":"<release>"}` 200
+  @qaz_industries_release path /release.json
+  header @qaz_industries_release Cache-Control "no-store"
   @hidden path /.env /.git/* /deploy/* /README.md *.bak *.old *.orig *.tmp *.sh *.py *.yml *.yaml *.conf *.log
   respond @hidden 404
   try_files {path} {path}/ {path}.html

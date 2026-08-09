@@ -18,6 +18,8 @@ ASSETS = (
     "industry-data.js",
     "industry.js",
     "favicon.svg",
+    "robots.txt",
+    "sitemap.xml",
 )
 
 
@@ -45,6 +47,8 @@ def main() -> int:
             require('data-av-theme="institutional"' in source, f"{page}: missing AV DS theme")
             require('href="avds.css"' in source, f"{page}: missing AV DS stylesheet")
             require('data-theme-toggle' in source, f"{page}: missing AV DS theme control")
+            require('rel="canonical"' in source, f"{page}: missing canonical URL")
+            require('property="og:title"' in source and 'property="og:description"' in source, f"{page}: missing OpenGraph metadata")
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         require('id="filter-summary"' in index, "index.html: missing filter status")
         require(index.count('data-qazgeo-map') == 2, "index.html: expected hero and full QazGeo maps")

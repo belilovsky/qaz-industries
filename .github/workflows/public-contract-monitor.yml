@@ -1,0 +1,39 @@
+name: QAZ.INDUSTRIES public contract monitor
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qaz-industries-public-contract-monitor
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Probe upstream public contracts
+        run: |
+          mkdir -p /tmp/qaz-industries-contract-probe
+          python3 scripts/refresh_qazlake_snapshot.py > /tmp/qaz-industries-contract-probe/qazlake.json
+          python3 scripts/refresh_qazgeo_snapshot.py > /tmp/qaz-industries-contract-probe/qazgeo.json
+          python3 scripts/refresh_qazgeo_layer_registry.py > /tmp/qaz-industries-contract-probe/qazgeo-layer-registry.json
+      - name: Verify checked-in release contracts
+        run: scripts/check.sh
+      - name: Upload read-only probe output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qaz-industries-public-contract-probe
+          path: /tmp/qaz-industries-contract-probe/*.json
+          if-no-files-found: ignore
+          retention-days: 7

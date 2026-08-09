@@ -24,6 +24,8 @@ STATIC_FILES = (
     "industry-data.js",
     "industry.js",
     "favicon.svg",
+    "robots.txt",
+    "sitemap.xml",
     "qazstack-thematic-product.json",
 )
 HTML_FILES = ("index.html", "industry.html", "benchmarks.html")

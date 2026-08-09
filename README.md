@@ -19,6 +19,8 @@
 - `industry-data.js` — изолированный локальный data layer, готовый к замене API;
 - `scripts/patch_caddy_release.py` — fail-closed патчер, который может менять
   только собственный блок домена в общем Caddyfile.
+- `docs/roadmap-to-ideal.md` — пошаговый junior-ready план по UI, данным,
+  runtime, доступности, безопасности и юридическим receipts.
 
 ## Данные и публичные контракты
 
@@ -55,6 +57,10 @@ QazLake-значения не появляются, пока
 Contract-only слои в layer registry остаются roadmap-метаданными до появления
 наблюдаемого upstream snapshot.
 
+`robots.txt` и `sitemap.xml` входят в immutable release. Ежедневный GitHub
+Actions monitor запускает все три refresh probe в read-only режиме и сохраняет
+их output как artifact; он не коммитит и не деплоит изменения автоматически.
+
 Числа не синтетические: каждый показатель сопровождается периодом, контекстом
 и ссылкой на публичный источник. Отсутствующее покрытие показывается как
 пробел, а не как нулевое значение.
@@ -81,6 +87,9 @@ Caddy до переключения `current` symlink. Скрипт не мен�
 Перед публикацией обязательны source checks, runtime marker, `/api/health`,
 ключевые assets и browser proof. Полный порядок описан в
 [`docs/operations.md`](docs/operations.md).
+
+Подробный план доведения до идеального состояния и инструкция для младших
+моделей находятся в [`docs/roadmap-to-ideal.md`](docs/roadmap-to-ideal.md).
 
 ## Качество и границы
 

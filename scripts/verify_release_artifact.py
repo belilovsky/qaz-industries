@@ -43,6 +43,9 @@ def main() -> int:
     map_asset = directory / "data" / "qazgeo-regions-public.v1.geojson"
     if not map_asset.is_file() or map_asset.stat().st_size < 1000:
         raise SystemExit("release contract: QazGeo map asset missing")
+    for discovery_file in ("robots.txt", "sitemap.xml"):
+        if not (directory / discovery_file).is_file():
+            raise SystemExit(f"release contract: discovery file missing: {discovery_file}")
     version = args.commit[:12]
     for page, assets in PAGE_ASSETS.items():
         source = (directory / page).read_text(encoding="utf-8")

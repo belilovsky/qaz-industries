@@ -22,6 +22,11 @@ HAProxy for a content-only release.
    `styles.css`, `avds.css`, and both JavaScript files over the public domain.
 7. Perform a browser pass at desktop and 390px before accepting the release.
 
+The scheduled `public-contract-monitor.yml` workflow is intentionally
+read-only: it probes QazLake/QazGeo and uploads output for review, but never
+commits snapshots or deploys them. The detailed junior execution plan is in
+[`roadmap-to-ideal.md`](roadmap-to-ideal.md).
+
 The deploy script creates a new immutable release directory and first patches a
 candidate Caddyfile with a fail-closed, product-scoped parser. It updates the
 bind-mounted file in place, validates Caddy while the old `current` symlink is
@@ -41,3 +46,6 @@ digests, and retry the QAZ release.
 - Static content only; do not add credentials or private source material.
 - The data layer remains local until a public API contract is explicitly owned.
 - A local preview or a successful Caddy reload is not public acceptance.
+- `unsafe-inline` remains in the CSP until inline bootstrap scripts are moved to
+  versioned assets or nonce-based execution; track that hardening item in the
+  roadmap rather than silently relaxing the policy.

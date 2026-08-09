@@ -69,8 +69,9 @@ cleanup() {
 trap cleanup EXIT
 
 # This parser fails closed unless there is exactly one QAZ block and changes
-# only that block. It must never touch generic X-Qaz-Release headers owned by
-# other public sites in this shared file.
+# only that block. It updates the product marker plus product-owned security
+# directives; it must never touch generic X-Qaz-Release headers owned by other
+# public sites in this shared file.
 python3 "$patch_path" --input "$caddyfile" --output "$caddy_candidate" --release "$release_id"
 # Validate the candidate inside the Caddy container before the bind-mounted
 # shared source file changes at all.
