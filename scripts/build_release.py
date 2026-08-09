@@ -22,6 +22,8 @@ STATIC_FILES = (
     "industry.js",
     "favicon.svg",
 )
+HTML_FILES = ("index.html", "industry.html", "benchmarks.html")
+VERSIONED_ASSETS = ("styles.css", "avds.css", "app.js", "industry-data.js", "industry.js")
 
 
 def git_commit() -> str:
@@ -44,15 +46,28 @@ def main() -> int:
         raise SystemExit(f"refusing to overwrite existing build: {output}")
     output.mkdir(parents=True)
 
+    commit = git_commit()
     for filename in STATIC_FILES:
         source = ROOT / filename
         if not source.is_file():
             raise SystemExit(f"missing static input: {filename}")
         shutil.copy2(source, output / filename)
 
+    # The runtime switches a release symlink atomically. Version local assets in
+    # the copied HTML so an already-open browser cannot retain JavaScript or CSS
+    # from the prior release after the HTML has moved to the new one.
+    asset_version = commit[:12]
+    for filename in HTML_FILES:
+        destination = output / filename
+        html = destination.read_text(encoding="utf-8")
+        for asset in VERSIONED_ASSETS:
+            html = html.replace(f'href="{asset}"', f'href="{asset}?v={asset_version}"')
+            html = html.replace(f'src="{asset}"', f'src="{asset}?v={asset_version}"')
+        destination.write_text(html, encoding="utf-8")
+
     (output / "release.json").write_text(
         json.dumps(
-            {"service": "qaz-industries", "release": args.release, "commit": git_commit()},
+            {"service": "qaz-industries", "release": args.release, "commit": commit},
             ensure_ascii=False,
             indent=2,
         )

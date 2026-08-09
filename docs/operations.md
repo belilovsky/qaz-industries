@@ -24,7 +24,8 @@ and rolls back the symlink/configuration on an in-script validation failure. It
 updates the bind-mounted Caddyfile in place so a normal reload reads the new
 configuration. If an older release replaced that host file atomically, restart
 the named Caddy container once to attach the current mount, then verify the
-public release marker again.
+public release marker again. It also versions local CSS and JavaScript URLs in
+the release artifact, so a browser cannot combine new HTML with stale assets.
 
 ## Boundaries
 
