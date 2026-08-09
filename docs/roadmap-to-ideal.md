@@ -187,9 +187,10 @@ license.
 
 1. Проверять CSP, HSTS, nosniff, Referrer-Policy, frame policy,
    Permissions-Policy, COOP/CORP, no-store для health/release и Caddy parity.
-2. Текущий CSP временно допускает unsafe-inline из-за inline bootstrap scripts.
-   Следующий срез должен вынести их в versioned JS или nonce и убрать
-   unsafe-inline.
+2. Текущий CSP временно допускает unsafe-inline из-за inline bootstrap scripts
+   и разрешает только Google Fonts hosts, используемые существующим import.
+   Следующий срез должен self-host лицензированные woff2, вынести bootstrap в
+   versioned JS или nonce и убрать unsafe-inline и внешнюю font dependency.
 3. HTML/release identity — revalidate/no-store; versioned assets — immutable;
    data snapshots — короткий revalidate.
 4. Зафиксировать HTML/CSS/JS/data budgets, Lighthouse mobile и long-task budget.
@@ -301,4 +302,3 @@ QAZ.INDUSTRIES идеален, когда одновременно выполн�
 - license, attribution, retention и owner approvals документированы;
 - junior model может выполнить задачу по шаблону, не угадывая архитектуру и не
   затрагивая чужие проекты.
-

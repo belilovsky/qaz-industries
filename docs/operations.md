@@ -47,5 +47,6 @@ digests, and retry the QAZ release.
 - The data layer remains local until a public API contract is explicitly owned.
 - A local preview or a successful Caddy reload is not public acceptance.
 - `unsafe-inline` remains in the CSP until inline bootstrap scripts are moved to
-  versioned assets or nonce-based execution; track that hardening item in the
-  roadmap rather than silently relaxing the policy.
+  versioned assets or nonce-based execution. Google Fonts hosts are currently
+  allowlisted because the existing stylesheet imports them; self-hosting those
+  licensed fonts is tracked in the roadmap.
