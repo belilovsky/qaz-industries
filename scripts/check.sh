@@ -6,18 +6,17 @@ cd "$root_dir"
 
 python3 scripts/check_static_site.py
 python3 scripts/check_routes.py
+python3 scripts/check_accessibility.py
+python3 scripts/check_content.py
+python3 scripts/check_quality_budgets.py
+python3 scripts/check_docs.py
 python3 scripts/check_public_contracts.py
-python3 -m py_compile scripts/refresh_qazlake_snapshot.py
-python3 -m py_compile scripts/refresh_qazgeo_snapshot.py
-python3 -m py_compile scripts/refresh_qazgeo_layer_registry.py
-python3 -m py_compile scripts/check_routes.py
+python3 -m py_compile scripts/*.py
 PYTHONPATH=. python3 -m unittest discover -s tests -p 'test_*.py'
 node scripts/check_data_contract.mjs
-node --check app.js
-node --check qazgeo-map.js
-node --check industry.js
-node --check industry-data.js
-node --check theme.js
+node --test tests/*.test.cjs
+for script in *.js; do node --check "$script"; done
+bash -n scripts/check.sh scripts/deploy.sh
 check_release="check-$(git rev-parse --short=12 HEAD)"
 check_root="$(mktemp -d -t qaz-industries-check.XXXXXX)"
 check_build="${check_root}/release"

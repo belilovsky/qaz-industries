@@ -4,10 +4,12 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
-import json
 from pathlib import Path
-from urllib.request import Request, urlopen
+
+try:
+    from .public_snapshot import emit_snapshot, fetch_json, utc_timestamp
+except ImportError:
+    from public_snapshot import emit_snapshot, fetch_json, utc_timestamp
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,17 +24,11 @@ SOURCE_URLS = {
 }
 
 
-def fetch(url: str) -> dict:
-    request = Request(url, headers={"Accept": "application/json", "User-Agent": "qaz-industries-snapshot/1.0"})
-    with urlopen(request, timeout=20) as response:  # nosec B310: fixed HTTPS URLs above
-        return json.load(response)
-
-
 def snapshot() -> dict:
-    health = fetch(HEALTH_URL)
+    health = fetch_json(HEALTH_URL)
     if health.get("status") != "ok" or health.get("service") != "qazlake-lite-api":
         raise ValueError("QazLake health contract is not ready")
-    payload = fetch(INDICATORS_URL)
+    payload = fetch_json(INDICATORS_URL)
     if payload.get("includes_forecasts") is not False:
         raise ValueError("QazLake snapshot unexpectedly includes forecasts")
     by_id = {item.get("indicator_code"): item for item in payload.get("indicators", [])}
@@ -62,7 +58,7 @@ def snapshot() -> dict:
             "health_url": HEALTH_URL,
             "endpoint": INDICATORS_URL,
         },
-        "retrieved_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "retrieved_at": utc_timestamp(),
         "publication_mode": "reviewed-static-snapshot",
         "limitations": [
             "Срез является общеэкономическим контекстом и не заменяет отраслевые показатели.",
@@ -82,12 +78,7 @@ def main() -> int:
     parser.add_argument("--write", action="store_true", help="replace the checked-in static snapshot after review")
     args = parser.parse_args()
     result = snapshot()
-    rendered = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
-    if args.write:
-        OUTPUT.write_text(rendered, encoding="utf-8")
-        print(f"updated {OUTPUT}")
-    else:
-        print(rendered, end="")
+    emit_snapshot(result, OUTPUT, write=args.write)
     return 0
 
 

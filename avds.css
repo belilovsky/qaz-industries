@@ -2,110 +2,6 @@
    consumer. Product colour is intentionally local; scale, semantic aliases,
    interaction, focus and motion follow the AV DS 4 token contract. */
 
-html[data-design-system="avds4"] {
-  /* Canonical AV DS 4 primitives, then local aliases for the product shell. */
-  --av-color-background: #f6f9fc;
-  --av-color-foreground: #020617;
-  --av-color-surface: #ffffff;
-  --av-color-muted: #f1f5f9;
-  --av-color-muted-foreground: #334155;
-  --av-color-border: #e2e8f0;
-  --av-color-primary: #1d4ed8;
-  --av-color-primary-foreground: #ffffff;
-  --av-spacing-1: 4px;
-  --av-spacing-2: 8px;
-  --av-spacing-3: 12px;
-  --av-spacing-4: 16px;
-  --av-spacing-5: 20px;
-  --av-spacing-6: 24px;
-  --av-spacing-8: 32px;
-  --av-spacing-10: 40px;
-  --av-spacing-12: 48px;
-  --av-radius-sm: 4px;
-  --av-radius-md: 8px;
-  --av-radius-lg: 12px;
-  --av-radius-xl: 16px;
-  --av-radius-full: 999px;
-  --av-duration-instant: 80ms;
-  --av-duration-fast: 120ms;
-  --av-duration-base: 180ms;
-  --av-easing-standard: cubic-bezier(.2, 0, 0, 1);
-  --av-text-body-font-family: var(--sans);
-  --av-text-heading-font-family: Georgia, "Times New Roman", serif;
-  --av-text-code-font-family: var(--mono);
-  --avds-color-slate-50: #f8fafc;
-  --avds-color-slate-100: #f1f5f9;
-  --avds-color-slate-200: #e2e8f0;
-  --avds-color-slate-300: #cbd5e1;
-  --avds-color-slate-400: #94a3b8;
-  --avds-color-slate-500: #64748b;
-  --avds-color-slate-700: #334155;
-  --avds-color-slate-900: #0f172a;
-  --avds-color-slate-950: #020617;
-  --avds-color-cyan-500: #06b6d4;
-  --avds-color-teal-500: #14b8a6;
-  --avds-color-amber-100: #fef3c7;
-  --avds-color-amber-700: #b45309;
-  --avds-color-green-100: #dcfce7;
-  --avds-color-green-700: #15803d;
-  --avds-color-red-100: #fee2e2;
-  --avds-color-red-600: #dc2626;
-  --avds-space-1: 4px;
-  --avds-space-2: 8px;
-  --avds-space-3: 12px;
-  --avds-space-4: 16px;
-  --avds-space-5: 20px;
-  --avds-space-6: 24px;
-  --avds-space-8: 32px;
-  --avds-space-10: 40px;
-  --avds-space-12: 48px;
-  --avds-radius-sm: 4px;
-  --avds-radius-md: 8px;
-  --avds-radius-lg: 12px;
-  --avds-radius-xl: 16px;
-  --avds-duration-instant: 80ms;
-  --avds-duration-fast: 120ms;
-  --avds-duration-base: 180ms;
-  --avds-easing-standard: cubic-bezier(.2, 0, 0, 1);
-  --avds-focus-ring: 0 0 0 3px rgb(6 182 212 / .34);
-  --avds-surface: #f9fbfb;
-  --avds-surface-subtle: #edf3f4;
-  --avds-surface-inverse: #07131d;
-  --avds-text: #07131d;
-  --avds-text-muted: #596c78;
-  --avds-border: #d3e0e4;
-  --avds-accent: #2196c9;
-  --avds-accent-strong: #075f76;
-  --avds-accent-subtle: #dff2f6;
-
-  /* Existing product aliases now resolve through a semantic AV DS layer. */
-  --ink: var(--avds-surface-inverse);
-  --paper: var(--avds-surface-subtle);
-  --surface: var(--avds-surface);
-  --line: var(--avds-border);
-  --muted: var(--avds-text-muted);
-}
-
-html[data-design-system="avds4"][data-av-theme="golden-paper"] {
-  --av-color-background: #fff8e7;
-  --av-color-foreground: #020617;
-  --av-color-surface: #fffdf5;
-  --av-color-muted: #fef3c7;
-  --av-color-muted-foreground: #334155;
-  --av-color-border: #e2e8f0;
-  --av-color-primary: #92400e;
-  --av-color-primary-foreground: #ffffff;
-  --avds-surface: #fffdf5;
-  --avds-surface-subtle: #fff8e7;
-  --avds-text: #020617;
-  --avds-text-muted: #5f5644;
-  --avds-border: #e7d8b7;
-  --avds-accent: #92400e;
-  --avds-accent-strong: #78350f;
-  --avds-accent-subtle: #fef3c7;
-  --avds-focus-ring: 0 0 0 3px rgb(180 83 9 / .28);
-}
-
 html[data-design-system="avds4"] :where(button, input, select, textarea) {
   font: inherit;
 }
@@ -181,42 +77,8 @@ html[data-design-system="avds4"] .coverage-state.state-gap {
   }
 }
 
-/* Consumed AV DS 4 contracts. These names and values mirror the generated
-   foundation/react/patterns packages; the static site uses them without a
-   runtime dependency on React. */
-html[data-design-system="avds4"] {
-  --av-color-blue-500: #3b82f6;
-  --av-color-blue-600: #2563eb;
-  --av-color-blue-700: #1d4ed8;
-  --av-color-white: #ffffff;
-  --av-color-card: var(--av-color-surface);
-  --av-color-success: #15803d;
-  --av-color-green-100: #dcfce7;
-  --av-color-green-700: #15803d;
-  --av-color-red-600: #dc2626;
-  --av-color-amber-700: #b45309;
-  --av-opacity-disabled: .48;
-  --av-shadow-xs: 0 1px 1px 0 rgb(15 23 42 / .08);
-  --av-shadow-sm: 0 1px 2px 0 rgb(15 23 42 / .12);
-  --av-shadow-md: 0 8px 16px -4px rgb(15 23 42 / .16);
-  --av-shadow-lg: 0 16px 32px -12px rgb(15 23 42 / .18);
-  --av-easing-standard: .2, 0, 0, 1;
-  --av-text-body-font-family: var(--sans);
-  --av-text-body-font-size: 16px;
-  --av-text-body-font-weight: 400;
-  --av-text-body-line-height: 24px;
-  --av-text-body-letter-spacing: 0;
-  --av-text-body: var(--av-text-body-font-weight) var(--av-text-body-font-size)/var(--av-text-body-line-height) var(--av-text-body-font-family);
-  --av-text-heading-font-family: Georgia, "Times New Roman", serif;
-  --av-text-heading-font-size: 32px;
-  --av-text-heading-font-weight: 600;
-  --av-text-heading-line-height: 40px;
-  --av-text-heading-letter-spacing: 0;
-  --av-text-heading: var(--av-text-heading-font-weight) var(--av-text-heading-font-size)/var(--av-text-heading-line-height) var(--av-text-heading-font-family);
-  --av-text-heading-sm: 600 22px/28px Georgia, "Times New Roman", serif;
-  --av-text-code: 400 13px/20px var(--mono);
-}
-
+/* AV DS 4 component and public-pattern contracts. Tokens live in
+   avds-tokens.css and this file contains no product data. */
 html[data-design-system="avds4"] :where(.av-button, .av-badge, .av-chip, .av-card, .av-alert, .av-table) { box-sizing: border-box; }
 html[data-design-system="avds4"] .av-button {
   display: inline-flex;

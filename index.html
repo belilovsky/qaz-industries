@@ -19,8 +19,13 @@
     <script src="theme.js"></script>
     <meta name="qaz-asset-version" content="source" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="avds-tokens.css" />
     <link rel="stylesheet" href="avds.css" />
+    <script src="runtime.js" defer></script>
+    <script src="site-shell.js" defer></script>
     <script src="app.js" defer></script>
+    <script src="snapshot-contracts.js" defer></script>
+    <script src="qazgeo-geometry.js" defer></script>
     <script src="qazgeo-map.js" defer></script>
   </head>
   <body>
@@ -36,7 +41,7 @@
         <a href="#map">Карта</a>
         <a href="industry.html#compare">Сравнить</a>
         <a href="benchmarks.html">Бенчмарки</a>
-        <a href="#ecosystem">Экосистема</a>
+        <a href="#ecosystem">Система</a>
       </nav>
       <div class="header-tools">
         <a class="header-link" href="https://platform.qdev.run/catalog/" target="_blank" rel="noreferrer">Каталог ↗</a>
@@ -48,7 +53,7 @@
         <a href="#map">Карта</a>
         <a href="industry.html#compare">Сравнить</a>
         <a href="benchmarks.html">Бенчмарки</a>
-        <a href="#ecosystem">Экосистема</a>
+        <a href="#ecosystem">Система</a>
       </nav>
     </header>
 
@@ -57,7 +62,7 @@
         <div class="hero-copy">
           <p class="eyebrow"><span></span> Казахстан · индустрии в данных</p>
           <h1 id="hero-title">Индустрии Казахстана — <em>одна картина.</em></h1>
-          <p class="hero-lead">Отрасли, инфраструктура, показатели, объекты и проверяемые источники. Начинаем с уже работающих продуктов экосистемы и соединяем их в один вход.</p>
+          <p class="hero-lead">Отрасли, инфраструктура, показатели, объекты и проверяемые источники. Страница объединяет уже работающие отраслевые продукты в один понятный вход.</p>
           <div class="hero-actions">
             <a class="button button-primary av-button av-button--primary" href="industry.html">Открыть профили <span>↗</span></a>
             <a class="button button-quiet av-button av-button--secondary" href="#map">Открыть карту <span>↗</span></a>
@@ -68,7 +73,7 @@
           <div class="map-caption"><span>QazGeo × QAZ.INDUSTRIES</span><strong>20 реальных границ</strong></div>
           <div class="qazgeo-map qazgeo-map--hero" data-qazgeo-map data-map-variant="hero">
             <div class="qazgeo-map__toolbar">
-              <span class="av-badge av-badge--info" data-map-status>Загружаем QazGeo snapshot…</span>
+              <span class="av-badge av-badge--info" data-map-status>Загружаем срез QazGeo…</span>
               <div class="qazgeo-map__controls" aria-label="Управление картой">
                 <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-out aria-label="Уменьшить карту">−</button>
                 <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-reset>Сбросить</button>
@@ -81,13 +86,13 @@
           </div>
         </div>
 
-        <aside class="hero-release" aria-label="Состав первого контура">
-          <div class="release-head"><span>первый контур</span><strong>01 / 08 / 2026</strong></div>
+        <aside class="hero-release" aria-label="Состав первого выпуска">
+          <div class="release-head"><span>первый выпуск</span><strong>01 / 08 / 2026</strong></div>
           <dl>
             <div><dt>6</dt><dd>публичных направлений</dd></div>
             <div><dt>4</dt><dd>маршрута к ответу</dd></div>
             <div><dt>1</dt><dd>единая карта связей</dd></div>
-            <div><dt>0</dt><dd>выдуманных live-метрик</dd></div>
+            <div><dt>0</dt><dd>выдуманных показателей</dd></div>
           </dl>
           <p>Первый выпуск соединяет существующие сайты. Новые данные появятся только вместе с источником и датой обновления.</p>
         </aside>
@@ -142,7 +147,7 @@
           </a>
           <a class="industry-card av-card av-card--outlined card-geo" data-kind="infra" href="https://qgeo.tech/" target="_blank" rel="noreferrer">
             <span class="card-index">05 / ГЕОДАННЫЕ</span><b>QazGeo ↗</b>
-            <h3>География</h3><p>Общий GIS-контур: регионы, геокодирование, публичные слои и карта для отраслевых продуктов.</p>
+            <h3>География</h3><p>Общая географическая основа: регионы, геокодирование, публичные слои и карта для отраслевых продуктов.</p>
             <ul><li>GIS</li><li>регионы</li><li>слои</li></ul>
           </a>
           <a class="industry-card av-card av-card--outlined card-fund" data-kind="support" href="https://qaz.fund/" target="_blank" rel="noreferrer">
@@ -172,16 +177,16 @@
           <div class="map-board-copy">
             <p class="eyebrow"><span></span> географический вход</p>
             <h2 id="map-section-title">От отрасли<br><em>к месту.</em></h2>
-            <p>Это не иллюстрация: границы загружаются из reviewed static GeoJSON QazGeo. Выберите регион, чтобы увидеть его безопасный код и тип.</p>
-            <div class="av-alert av-alert--info" role="status">
-              <div class="av-alert__title">QazGeo public map</div>
-              <div class="av-alert__body">20 реальных региональных геометрий, без raw QazLake и чувствительных координат.</div>
+            <p>Это не иллюстрация: границы загружаются из проверенного статического GeoJSON QazGeo. Выберите регион, чтобы увидеть его безопасный код и тип.</p>
+            <div class="av-alert av-alert--info" role="note">
+              <div class="av-alert__title">Публичная карта QazGeo</div>
+              <div class="av-alert__body">20 реальных региональных геометрий, без исходных данных QazLake и чувствительных координат.</div>
             </div>
-            <a class="button button-quiet av-button av-button--secondary" href="data/qazgeo-regions-public.v1.geojson" target="_blank" rel="noreferrer">Открыть GeoJSON snapshot ↗</a>
+            <a class="button button-quiet av-button av-button--secondary" href="data/qazgeo-regions-public.v1.geojson" target="_blank" rel="noreferrer">Открыть срез GeoJSON ↗</a>
           </div>
           <div class="qazgeo-map qazgeo-map--large" data-qazgeo-map data-map-variant="large">
             <div class="qazgeo-map__toolbar">
-              <span class="av-badge av-badge--info" data-map-status>Загружаем QazGeo snapshot…</span>
+              <span class="av-badge av-badge--info" data-map-status>Загружаем срез QazGeo…</span>
               <div class="qazgeo-map__controls" aria-label="Управление картой">
                 <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-out aria-label="Уменьшить карту">−</button>
                 <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-reset>Сбросить</button>
@@ -211,8 +216,8 @@
       <section class="ecosystem-section shell" id="ecosystem" aria-labelledby="ecosystem-title">
         <div class="ecosystem-copy">
           <p class="eyebrow"><span></span> готовая инфраструктура</p>
-          <h2 id="ecosystem-title">Сайт не существует отдельно от экосистемы.</h2>
-          <p>QAZ.INDUSTRIES использует существующие контуры как источники и точки перехода. На следующем этапе можно подключать их публичные контракты вместо копирования данных.</p>
+          <h2 id="ecosystem-title">Сайт работает как часть общей системы.</h2>
+          <p>QAZ.INDUSTRIES использует действующие продукты как источники и точки перехода. Их публичные контракты подключаются без копирования внутренних данных.</p>
         </div>
         <div class="ecosystem-grid">
           <a class="av-card av-card--outlined" href="https://platform.qdev.run/catalog/" target="_blank" rel="noreferrer"><span>platform.qdev.run</span><strong>Каталог продуктов</strong><p>Канонические домены, описания и публичные статусы.</p><b>Открыть ↗</b></a>
@@ -226,7 +231,7 @@
     <footer class="site-footer shell">
       <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a>
       <p>Индустрии Казахстана — карта, данные, объекты и контекст.</p>
-      <span class="footer-note">первый статический контур · 2026</span>
+      <span class="footer-note">публичный статический выпуск · 2026</span>
     </footer>
   </body>
 </html>

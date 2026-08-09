@@ -9,9 +9,9 @@ from pathlib import Path
 
 
 PAGE_ASSETS = {
-    "index.html": ("styles.css", "avds.css", "app.js", "qazgeo-map.js", "theme.js"),
-    "industry.html": ("styles.css", "avds.css", "app.js", "industry-data.js", "industry.js", "theme.js"),
-    "benchmarks.html": ("styles.css", "avds.css", "app.js", "theme.js"),
+    "index.html": ("styles.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "app.js", "snapshot-contracts.js", "qazgeo-geometry.js", "qazgeo-map.js", "theme.js"),
+    "industry.html": ("styles.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "industry-data.js", "snapshot-contracts.js", "profile-view.js", "industry.js", "theme.js"),
+    "benchmarks.html": ("styles.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "theme.js"),
 }
 
 

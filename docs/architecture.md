@@ -24,8 +24,11 @@ flowchart LR
   end
   subgraph Repo[QAZ checkout]
     HTML[HTML pages]
-    JS[app.js / industry.js / qazgeo-map.js]
-    CSS[styles.css / avds.css]
+    SHELL[site-shell.js / app.js]
+    CORE[runtime.js / snapshot-contracts.js]
+    PROFILE[profile-view.js / industry.js]
+    MAP[qazgeo-geometry.js / qazgeo-map.js]
+    CSS[styles.css / avds-tokens.css / avds.css]
     DATA[industry-data.js]
     TEST[scripts/check.sh and tests]
   end
@@ -44,7 +47,10 @@ flowchart LR
   SNAP --> MAN
   MAN --> TEST
   HTML --> SITE
-  JS --> SITE
+  SHELL --> SITE
+  CORE --> SITE
+  PROFILE --> SITE
+  MAP --> SITE
   CSS --> SITE
   DATA --> SITE
   SNAP --> SITE
@@ -63,6 +69,20 @@ flowchart LR
 4. `scripts/build_release.py` создаёт release-specific artifact и receipt.
 5. Deploy меняет только QAZ-блок и release marker общего Caddyfile, после чего
    public evidence сверяется с source SHA.
+
+## Границы frontend-модулей
+
+- `runtime.js` владеет экранированием, HTTPS URL, versioned asset URL и
+  same-origin JSON transport.
+- `snapshot-contracts.js` проверяет каждую публичную проекцию до рендера.
+- `site-shell.js` владеет темой, мобильной навигацией и focus restoration;
+  `app.js` содержит только фильтр главной страницы.
+- `profile-view.js` владеет представлением; `industry.js` — состоянием,
+  выбором профиля и параллельной загрузкой reviewed snapshots.
+- `qazgeo-geometry.js` является чистым модулем проекции; `qazgeo-map.js`
+  отвечает только за DOM, keyboard selection и zoom.
+- `avds-tokens.css` содержит токены и product aliases, `avds.css` — компоненты
+  и публичные паттерны, `styles.css` — layout продукта.
 
 ## Доверительные зоны
 

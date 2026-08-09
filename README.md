@@ -38,10 +38,12 @@ credentials, точные чувствительные координаты ил
 - `index.html` — входная страница, фильтр направлений и две карты QazGeo;
 - `industry.html?sector=energy|space|farm|water` — профили и сравнение покрытия;
 - `benchmarks.html` — семь международных референсов и матрица слоёв;
-- `avds.css` — локальный consumer layer AV DS 4;
+- `avds-tokens.css` и `avds.css` — токены, компоненты и публичные паттерны AV DS 4;
+- `runtime.js`, `snapshot-contracts.js` — общие browser/data boundary;
+- `site-shell.js`, `app.js` — общий shell и логика главной страницы;
 - `industry-data.js` — curated profile projection;
-- `industry.js` — рендер профиля, snapshot modules и comparison;
-- `qazgeo-map.js` — SVG-рендерер проверенного GeoJSON;
+- `profile-view.js`, `industry.js` — представление и контроллер профиля;
+- `qazgeo-geometry.js`, `qazgeo-map.js` — геометрия и DOM-рендер карты;
 - `scripts/build_release.py` и `scripts/deploy.sh` — сборка и выпуск статического
   артефакта;
 - `scripts/check.sh` — обязательный quality gate.

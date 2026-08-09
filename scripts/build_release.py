@@ -18,7 +18,13 @@ STATIC_FILES = (
     "industry.html",
     "benchmarks.html",
     "styles.css",
+    "avds-tokens.css",
     "avds.css",
+    "runtime.js",
+    "site-shell.js",
+    "snapshot-contracts.js",
+    "qazgeo-geometry.js",
+    "profile-view.js",
     "app.js",
     "qazgeo-map.js",
     "industry-data.js",
@@ -30,7 +36,21 @@ STATIC_FILES = (
     "qazstack-thematic-product.json",
 )
 HTML_FILES = ("index.html", "industry.html", "benchmarks.html")
-VERSIONED_ASSETS = ("styles.css", "avds.css", "app.js", "qazgeo-map.js", "industry-data.js", "industry.js", "theme.js")
+VERSIONED_ASSETS = (
+    "styles.css",
+    "avds-tokens.css",
+    "avds.css",
+    "runtime.js",
+    "site-shell.js",
+    "snapshot-contracts.js",
+    "qazgeo-geometry.js",
+    "profile-view.js",
+    "app.js",
+    "qazgeo-map.js",
+    "industry-data.js",
+    "industry.js",
+    "theme.js",
+)
 
 
 def git_commit() -> str:

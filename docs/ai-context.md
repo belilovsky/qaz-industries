@@ -10,11 +10,14 @@
 ## 2. Карта файлов
 
 - HTML: `index.html`, `industry.html`, `benchmarks.html`.
-- Frontend: `app.js`, `industry.js`, `qazgeo-map.js`, `theme.js`.
+- Shared frontend: `runtime.js`, `site-shell.js`, `snapshot-contracts.js`, `theme.js`.
+- Route controllers/views: `app.js`, `profile-view.js`, `industry.js`,
+  `qazgeo-geometry.js`, `qazgeo-map.js`.
 - Profile projection: `industry-data.js`.
-- Styles: `styles.css`, `avds.css`.
+- Styles: `styles.css`, `avds-tokens.css`, `avds.css`.
 - Contracts: `qazstack-thematic-product.json`, `data/*.json`, GeoJSON.
 - Checks: `scripts/check*.py`, `scripts/check_data_contract.mjs`, `tests/`.
+- Refresh core: `scripts/public_snapshot.py`, `scripts/refresh_*.py`.
 - Release: `scripts/build_release.py`, `scripts/deploy.sh`, `deploy/`.
 - Docs: [`docs/index.md`](index.md).
 

@@ -4,10 +4,12 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
-import json
 from pathlib import Path
-from urllib.request import Request, urlopen
+
+try:
+    from .public_snapshot import emit_snapshot, fetch_json, render_json, utc_timestamp
+except ImportError:
+    from public_snapshot import emit_snapshot, fetch_json, render_json, utc_timestamp
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,12 +19,6 @@ HEALTH_URL = "https://qgeo.tech/health/ready"
 LAYERS_URL = "https://qgeo.tech/api/v1/layers"
 REGIONAL_INDICATORS_URL = "https://qgeo.tech/api/v1/external-layers/regional-indicators"
 REGIONS_GEOJSON_URL = "https://qgeo.tech/api/v1/mapregion/public/regions-geojson"
-
-
-def fetch(url: str) -> dict:
-    request = Request(url, headers={"Accept": "application/json", "User-Agent": "qaz-industries-snapshot/1.0"})
-    with urlopen(request, timeout=20) as response:  # nosec B310: fixed HTTPS URLs above
-        return json.load(response)
 
 
 def sanitize_regions(payload: dict) -> dict:
@@ -59,20 +55,20 @@ def sanitize_regions(payload: dict) -> dict:
 
 
 def snapshot() -> tuple[dict, dict]:
-    health = fetch(HEALTH_URL)
+    health = fetch_json(HEALTH_URL)
     if health.get("status") != "ok" or health.get("service") != "qazgeo":
         raise ValueError("QazGeo health contract is not ready")
     coverage = {key: health.get(key) for key in ("regions", "cities", "pois")}
     if any(not isinstance(value, int) or value < 1 for value in coverage.values()):
         raise ValueError("QazGeo health response has invalid territorial coverage")
 
-    layers = fetch(LAYERS_URL)
+    layers = fetch_json(LAYERS_URL)
     region_layer = next((item for item in layers.get("layers", []) if item.get("id") == "regions"), None)
     if not isinstance(region_layer, dict) or region_layer.get("status") != "stable":
         raise ValueError("QazGeo stable regions layer is unavailable")
 
-    regional = fetch(REGIONAL_INDICATORS_URL)
-    regions_geojson = sanitize_regions(fetch(REGIONS_GEOJSON_URL))
+    regional = fetch_json(REGIONAL_INDICATORS_URL)
+    regions_geojson = sanitize_regions(fetch_json(REGIONS_GEOJSON_URL))
     degraded = regional.get("degraded") is True
     if not degraded and not isinstance(regional.get("regions"), list):
         raise ValueError("QazGeo regional indicator contract is invalid")
@@ -95,7 +91,7 @@ def snapshot() -> tuple[dict, dict]:
             "layer_registry_url": LAYERS_URL,
             "geojson_url": REGIONS_GEOJSON_URL,
         },
-        "retrieved_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "retrieved_at": utc_timestamp(),
         "publication_mode": "reviewed-static-snapshot",
         "coverage": coverage,
         "public_layers": [{
@@ -125,14 +121,12 @@ def main() -> int:
     parser.add_argument("--write", action="store_true", help="replace the checked-in static snapshot after review")
     args = parser.parse_args()
     result, regions_geojson = snapshot()
-    rendered = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
-    if args.write:
-        OUTPUT.write_text(rendered, encoding="utf-8")
-        MAP_OUTPUT.write_text(json.dumps(regions_geojson, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
-        print(f"updated {OUTPUT}")
-        print(f"updated {MAP_OUTPUT}")
-    else:
-        print(rendered, end="")
+    emit_snapshot(
+        result,
+        OUTPUT,
+        write=args.write,
+        extra_files={MAP_OUTPUT: render_json(regions_geojson, compact=True)},
+    )
     return 0
 
 

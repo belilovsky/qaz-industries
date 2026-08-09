@@ -1,20 +1,17 @@
-/* QazGeo's reviewed static map renderer for QAZ.INDUSTRIES.
+/* QazGeo map renderer for the reviewed QAZ.INDUSTRIES release asset.
  * The browser consumes only the sanitized GeoJSON shipped with this release.
  * It never falls back to a decorative outline when the public contract fails. */
 (function () {
   "use strict";
 
   var DATA_PATH = "data/qazgeo-regions-public.v1.geojson";
-  var SCHEMA = "qaz-industries-qazgeo-regions-public-v1";
   var SOURCE_URL = "https://qgeo.tech/api/v1/mapregion/public/regions-geojson";
   var SVG_NS = "http://www.w3.org/2000/svg";
   var snapshotPromise;
-
-  function assetUrl(path) {
-    var marker = document.querySelector('meta[name="qaz-asset-version"]');
-    var version = marker ? marker.getAttribute("content") || "source" : "source";
-    return path + "?v=" + encodeURIComponent(version);
-  }
+  var runtime = window.QAZ_RUNTIME;
+  var contracts = window.QAZ_SNAPSHOT_CONTRACTS;
+  var geometry = window.QAZGEO_GEOMETRY;
+  if (!runtime || !contracts || !geometry) throw new Error("QAZ map dependencies are unavailable");
 
   function setText(element, value) {
     if (element) element.textContent = value;
@@ -32,100 +29,11 @@
 
   function fetchSnapshot() {
     if (!snapshotPromise) {
-      snapshotPromise = fetch(assetUrl(DATA_PATH), { credentials: "same-origin", cache: "no-store" })
-        .then(function (response) {
-          if (!response.ok) throw new Error("snapshot HTTP " + response.status);
-          return response.json();
-        })
-        .then(function (payload) {
-          if (!payload || payload.type !== "FeatureCollection" || payload.qaz_schema_version !== SCHEMA) {
-            throw new Error("неверная схема QazGeo snapshot");
-          }
-          if (!Array.isArray(payload.features) || payload.features.length !== 20) {
-            throw new Error("QazGeo snapshot должен содержать 20 регионов");
-          }
-          payload.features.forEach(function (feature) {
-            if (!feature || !feature.geometry || !feature.properties || !feature.properties.code) {
-              throw new Error("регион QazGeo без безопасной идентичности");
-            }
-          });
-          return buildModel(payload);
-        });
+      snapshotPromise = runtime.fetchJsonAsset(DATA_PATH, {
+        validate: contracts.validateRegionsGeoJson,
+      }).then(function (payload) { return geometry.buildModel(payload, SOURCE_URL); });
     }
     return snapshotPromise;
-  }
-
-  function collectPoints(node, output) {
-    if (!Array.isArray(node)) return;
-    if (node.length >= 2 && typeof node[0] === "number" && typeof node[1] === "number") {
-      output.push([node[0], node[1]]);
-      return;
-    }
-    node.forEach(function (child) { collectPoints(child, output); });
-  }
-
-  function projectPoint(point, bounds) {
-    return [
-      (point[0] - bounds.minX) * bounds.scale + bounds.offsetX,
-      (bounds.maxY - point[1]) * bounds.scale + bounds.offsetY,
-    ];
-  }
-
-  function pathForRing(ring, bounds) {
-    if (!ring || ring.length < 3) return "";
-    var first = projectPoint(ring[0], bounds);
-    var path = "M " + first[0].toFixed(2) + " " + first[1].toFixed(2);
-    for (var index = 1; index < ring.length; index += 1) {
-      var point = projectPoint(ring[index], bounds);
-      path += " L " + point[0].toFixed(2) + " " + point[1].toFixed(2);
-    }
-    return path + " Z";
-  }
-
-  function pathForGeometry(geometry, bounds) {
-    if (geometry.type === "Polygon") {
-      return geometry.coordinates.map(function (ring) { return pathForRing(ring, bounds); }).join(" ");
-    }
-    if (geometry.type === "MultiPolygon") {
-      return geometry.coordinates.map(function (polygon) {
-        return polygon.map(function (ring) { return pathForRing(ring, bounds); }).join(" ");
-      }).join(" ");
-    }
-    throw new Error("неподдерживаемая геометрия QazGeo: " + geometry.type);
-  }
-
-  function buildModel(payload) {
-    var points = [];
-    payload.features.forEach(function (feature) { collectPoints(feature.geometry.coordinates, points); });
-    if (!points.length) throw new Error("QazGeo snapshot не содержит координат");
-    var minX = Math.min.apply(null, points.map(function (point) { return point[0]; }));
-    var maxX = Math.max.apply(null, points.map(function (point) { return point[0]; }));
-    var minY = Math.min.apply(null, points.map(function (point) { return point[1]; }));
-    var maxY = Math.max.apply(null, points.map(function (point) { return point[1]; }));
-    var padding = 30;
-    var width = 1000;
-    var height = 560;
-    var scale = Math.min((width - padding * 2) / Math.max(maxX - minX, 0.1), (height - padding * 2) / Math.max(maxY - minY, 0.1));
-    var bounds = {
-      minX: minX,
-      maxY: maxY,
-      scale: scale,
-      offsetX: (width - (maxX - minX) * scale) / 2,
-      offsetY: (height - (maxY - minY) * scale) / 2,
-    };
-    return {
-      source: payload.source || SOURCE_URL,
-      features: payload.features.map(function (feature) {
-        var properties = feature.properties;
-        return {
-          id: String(properties.code),
-          name: String(properties.name_ru || properties.code),
-          nameEn: String(properties.name_en || properties.code),
-          type: String(properties.region_type || "region"),
-          path: pathForGeometry(feature.geometry, bounds),
-        };
-      }),
-    };
   }
 
   function svgElement(name) {
@@ -200,13 +108,13 @@
     if (zoomReset) zoomReset.addEventListener("click", function () { scale = 1; updateZoom(); });
     updateZoom();
     updateInspector(container);
-    setStatus(container, "QazGeo · " + model.features.length + " реальных границ · reviewed snapshot", "ready");
+    setStatus(container, "QazGeo · " + model.features.length + " реальных границ · проверенный срез", "ready");
     var source = container.querySelector("[data-map-source]");
     if (source) source.href = model.source || SOURCE_URL;
   }
 
   function renderError(container, error) {
-    setStatus(container, "QazGeo snapshot недоступен · карта скрыта", "error");
+    setStatus(container, "Срез QazGeo недоступен · карта скрыта", "error");
     var inspector = container.querySelector("[data-map-inspector]");
     setText(inspector, "Карта не подменяется декоративной схемой. Обновите выпуск или откройте источник QazGeo.");
     var svg = container.querySelector("[data-map-svg]");
@@ -218,7 +126,7 @@
     var maps = document.querySelectorAll("[data-qazgeo-map]");
     if (!maps.length) return;
     Array.prototype.forEach.call(maps, function (container) {
-      setStatus(container, "Загружаем QazGeo snapshot…", "loading");
+      setStatus(container, "Загружаем проверенный срез QazGeo…", "loading");
       fetchSnapshot().then(function (model) { renderMap(container, model); }).catch(function (error) { renderError(container, error); });
     });
   }

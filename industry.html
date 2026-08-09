@@ -19,9 +19,13 @@
     <script src="theme.js"></script>
     <meta name="qaz-asset-version" content="source" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="avds-tokens.css" />
     <link rel="stylesheet" href="avds.css" />
+    <script src="runtime.js" defer></script>
+    <script src="site-shell.js" defer></script>
     <script src="industry-data.js" defer></script>
-    <script src="app.js" defer></script>
+    <script src="snapshot-contracts.js" defer></script>
+    <script src="profile-view.js" defer></script>
     <script src="industry.js" defer></script>
   </head>
   <body class="profile-page">
@@ -61,7 +65,7 @@
 
       <section class="profile-evidence av-alert av-alert--info shell" aria-labelledby="profile-evidence-title">
         <div class="profile-evidence-copy">
-          <p class="eyebrow dark"><span></span> доказательный контур</p>
+          <p class="eyebrow dark"><span></span> доказательная база</p>
           <h2 class="av-alert__title" id="profile-evidence-title">Цифра без периода и происхождения — не показатель.</h2>
           <p class="av-alert__body">Профиль не смешивает разные временные срезы: каждое значение ведёт к отраслевому продукту, а границы покрытия остаются видимыми.</p>
         </div>
@@ -75,22 +79,22 @@
       <section class="profile-passport shell" aria-labelledby="profile-passport-title">
         <div class="passport-head"><div><p class="section-number">ПАСПОРТ ПРОФИЛЯ</p><h2 id="profile-passport-title">Что именно можно проверить</h2></div><p>Профиль — это публичная проекция: у каждого слоя есть источник, дата, статус и явная граница того, чего этот срез не доказывает.</p></div>
         <div class="passport-grid">
-          <article class="av-card av-card--outlined"><span>Контракт</span><strong>QazStack thematic v1</strong><p>Публичный режим, source policy и degraded-state зафиксированы отдельно от UI.</p></article>
+          <article class="av-card av-card--outlined"><span>Контракт</span><strong>QazStack thematic v1</strong><p>Публичный режим, правила источников и состояние деградации зафиксированы отдельно от интерфейса.</p></article>
           <article class="av-card av-card--outlined"><span>Источник</span><strong id="passport-source">—</strong><p>Ссылка ведёт к отраслевому продукту; QAZ не копирует его внутренние реестры.</p></article>
           <article class="av-card av-card--outlined"><span>Срез</span><strong id="passport-release">—</strong><p>Период сохраняется рядом с показателем и не подменяется текущей датой страницы.</p></article>
-          <article class="av-card av-card--outlined"><span>Граница</span><strong>Только public data</strong><p>Raw QazLake, private queues, credentials и точные чувствительные координаты исключены.</p></article>
+          <article class="av-card av-card--outlined"><span>Граница</span><strong>Только публичные данные</strong><p>Исходные наблюдения QazLake, закрытые очереди, учётные данные и точные чувствительные координаты исключены.</p></article>
         </div>
         <div class="passport-actions"><a id="profile-machine-link" href="data/industry-profiles.v1.json" target="_blank" rel="noreferrer">JSON профилей ↗</a><a href="data/reviewed-source-registry.v1.json" target="_blank" rel="noreferrer">Реестр источников ↗</a><a href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer">Статус выпуска ↗</a></div>
       </section>
 
       <section class="public-export-matrix av-public-export-matrix shell" data-avds-pattern="public-export-matrix" aria-labelledby="public-export-title">
-        <div class="public-export-head av-public-export-matrix__header"><div><p class="section-number">ПУБЛИЧНЫЕ КОНТРАКТЫ</p><h2 id="public-export-title">Открыть данные, а не верить интерфейсу.</h2></div><p>Каждая карточка ведёт к версии, которую использует этот выпуск. Ссылки показывают только reviewed static projections и metadata — не внутренние реестры и не raw-данные.</p></div>
+        <div class="public-export-head av-public-export-matrix__header"><div><p class="section-number">ПУБЛИЧНЫЕ КОНТРАКТЫ</p><h2 id="public-export-title">Открыть данные, а не верить интерфейсу.</h2></div><p>Каждая карточка ведёт к версии, которую использует этот выпуск. Ссылки показывают только проверенные статические проекции и метаданные — не внутренние реестры и не исходные закрытые данные.</p></div>
         <div class="public-export-grid av-public-export-matrix__entries">
           <a class="av-public-export-matrix__entry" href="data/industry-profiles.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">01 · ПРОФИЛИ</span><strong class="av-public-export-matrix__label">4 отраслевых паспорта</strong><p class="av-public-export-matrix__description">Источник, выпуск и публичная граница каждого профиля.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
           <a class="av-public-export-matrix__entry" href="data/qazlake-public-snapshot.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">02 · QAZLAKE</span><strong class="av-public-export-matrix__label">Макро-срез</strong><p class="av-public-export-matrix__description">Три официальных контекстных индикатора с датой и источником.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
-          <a class="av-public-export-matrix__entry" href="data/qazgeo-public-snapshot.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">03 · QAZGEO</span><strong class="av-public-export-matrix__label">Территориальная основа</strong><p class="av-public-export-matrix__description">Покрытие, stable layer, 20 границ и честный статус regional contract.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
-          <a class="av-public-export-matrix__entry" href="data/qazgeo-public-layer-registry.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">04 · СЛОИ</span><strong class="av-public-export-matrix__label">QazGeo layer registry</strong><p class="av-public-export-matrix__description">Шесть reviewed-контрактов: от границ и инфраструктуры до water roadmap.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
-          <a class="av-public-export-matrix__entry" href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">05 · ВЫПУСК</span><strong class="av-public-export-matrix__label">Release contract</strong><p class="av-public-export-matrix__description">Идентичность выпуска, состояния модулей и digest манифеста.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
+          <a class="av-public-export-matrix__entry" href="data/qazgeo-public-snapshot.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">03 · QAZGEO</span><strong class="av-public-export-matrix__label">Территориальная основа</strong><p class="av-public-export-matrix__description">Покрытие, стабильный слой, 20 границ и честный статус регионального контракта.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
+          <a class="av-public-export-matrix__entry" href="data/qazgeo-public-layer-registry.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">04 · СЛОИ</span><strong class="av-public-export-matrix__label">Реестр слоёв QazGeo</strong><p class="av-public-export-matrix__description">Шесть проверенных контрактов: от границ и инфраструктуры до плана подключения водных данных.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
+          <a class="av-public-export-matrix__entry" href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">05 · ВЫПУСК</span><strong class="av-public-export-matrix__label">Контракт выпуска</strong><p class="av-public-export-matrix__description">Идентичность выпуска, состояния модулей и контрольная сумма манифеста.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
         </div>
       </section>
 
@@ -118,18 +122,18 @@
           </section>
 
           <section class="profile-module pulse-module" id="pulse">
-            <div class="module-head"><div><p class="section-number">03 / ПУЛЬС КОНТЕКСТА</p><h2>Макро-срез рядом с отраслью</h2></div><p>Это не отраслевые показатели и не прогноз. Публичный QazLake snapshot добавляет только официальный экономический контекст с датой и источником.</p></div>
-            <div class="pulse-banner" id="pulse-status" role="status" aria-live="polite">Загружаем проверенный static snapshot…</div>
+            <div class="module-head"><div><p class="section-number">03 / ПУЛЬС КОНТЕКСТА</p><h2>Макро-срез рядом с отраслью</h2></div><p>Это не отраслевые показатели и не прогноз. Публичный срез QazLake добавляет только официальный экономический контекст с датой и источником.</p></div>
+            <div class="pulse-banner" id="pulse-status" role="status" aria-live="polite">Загружаем проверенный статический срез…</div>
             <div class="pulse-grid" id="pulse-grid"></div>
-            <div class="territory-head"><div><span>QAZGEO · ТЕРРИТОРИАЛЬНАЯ ОСНОВА</span><strong>Публичный слой без точных координат</strong></div><a href="https://qgeo.tech/api/v1/layers/regions" target="_blank" rel="noreferrer">Открыть layer registry ↗</a></div>
-            <div class="pulse-banner territory-banner" id="territory-status" role="status" aria-live="polite">Загружаем проверенный территориальный snapshot…</div>
+            <div class="territory-head"><div><span>QAZGEO · ТЕРРИТОРИАЛЬНАЯ ОСНОВА</span><strong>Публичный слой без точных координат</strong></div><a href="https://qgeo.tech/api/v1/layers/regions" target="_blank" rel="noreferrer">Открыть реестр слоёв ↗</a></div>
+            <div class="pulse-banner territory-banner" id="territory-status" role="status" aria-live="polite">Загружаем проверенный территориальный срез…</div>
             <div class="territory-grid" id="territory-grid"></div>
-            <div class="pulse-boundary"><strong>Региональные и водные показатели</strong><span id="pulse-boundary-state">Проверяем доступность public contracts…</span></div>
+            <div class="pulse-boundary"><strong>Региональные и водные показатели</strong><span id="pulse-boundary-state">Проверяем доступность публичных контрактов…</span></div>
           </section>
 
           <section class="profile-module av-layer-registry" data-avds-pattern="geo-layer-registry" id="layers">
-            <div class="module-head"><div><p class="section-number">04 / СЛОИ QAZGEO</p><h2>Подключать данные по контракту.</h2></div><p>Здесь видны реальные public-safe слои QazGeo и следующий маршрут интеграции. Contract-only не означает, что значения уже доступны: пока показываем только reviewed metadata.</p></div>
-            <div class="pulse-banner territory-banner" id="layer-registry-status" role="status" aria-live="polite">Загружаем reviewed layer registry…</div>
+            <div class="module-head"><div><p class="section-number">04 / СЛОИ QAZGEO</p><h2>Подключать данные по контракту.</h2></div><p>Здесь видны публично разрешённые слои QazGeo и следующий маршрут интеграции. Статус «только контракт» не означает, что значения уже доступны: пока показываются только проверенные метаданные.</p></div>
+            <div class="pulse-banner territory-banner" id="layer-registry-status" role="status" aria-live="polite">Загружаем проверенный реестр слоёв…</div>
             <div class="av-layer-registry__grid" id="layer-registry-grid"></div>
           </section>
 
@@ -176,6 +180,6 @@
       </section>
     </main>
 
-    <footer class="site-footer shell"><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a><p>Профили отраслей — показатели, цепочки, география и источники.</p><span class="footer-note">research build · 02</span></footer>
+    <footer class="site-footer shell"><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a><p>Профили отраслей — показатели, цепочки, география и источники.</p><span class="footer-note">исследовательский выпуск · 02</span></footer>
   </body>
 </html>

@@ -44,6 +44,10 @@ Schema, provider, freshness и ограничения описаны в
 - все динамические значения проходят escaping и принимают только HTTPS links и
   известные states.
 
+`site-shell.js` не содержит логики конкретного route. `runtime.js` и
+`snapshot-contracts.js` образуют общий fail-closed boundary; profile/map
+контроллеры получают только same-origin release assets.
+
 События не отправляются во внешнюю аналитику. Очередей и фоновых consumer-ов в
 этом проекте нет.
 

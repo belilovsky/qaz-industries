@@ -9,11 +9,13 @@ without turning a contract-only upstream into a fabricated data source.
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
-import json
 from pathlib import Path
 from urllib.parse import urljoin
-from urllib.request import Request, urlopen
+
+try:
+    from .public_snapshot import emit_snapshot, fetch_json, utc_timestamp
+except ImportError:
+    from public_snapshot import emit_snapshot, fetch_json, utc_timestamp
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,12 +31,6 @@ SELECTED_LAYER_IDS = (
     "hydro_stations",
     "water_objects_catalog",
 )
-
-
-def fetch(url: str) -> dict:
-    request = Request(url, headers={"Accept": "application/json", "User-Agent": "qaz-industries-layer-registry/1.0"})
-    with urlopen(request, timeout=20) as response:  # nosec B310: fixed HTTPS URLs above
-        return json.load(response)
 
 
 def safe_coverage(value: object) -> dict:
@@ -101,14 +97,14 @@ def sanitize_layer(layer: dict) -> dict:
 
 
 def snapshot() -> dict:
-    health = fetch(HEALTH_URL)
+    health = fetch_json(HEALTH_URL)
     if health.get("status") != "ok" or health.get("service") != "qazgeo":
         raise ValueError("QazGeo health contract is not ready")
     source_revision = health.get("source_revision")
     if not isinstance(source_revision, str) or not source_revision:
         raise ValueError("QazGeo health response is missing source revision")
 
-    payload = fetch(LAYERS_URL)
+    payload = fetch_json(LAYERS_URL)
     layers = payload.get("layers")
     if not isinstance(layers, list):
         raise ValueError("QazGeo layer registry is not a list")
@@ -127,7 +123,7 @@ def snapshot() -> dict:
             "health_url": HEALTH_URL,
             "layer_registry_url": LAYERS_URL,
         },
-        "retrieved_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "retrieved_at": utc_timestamp(),
         "publication_mode": "reviewed-static-metadata",
         "layers": selected,
         "limitations": [
@@ -143,12 +139,7 @@ def main() -> int:
     parser.add_argument("--write", action="store_true", help="replace the checked-in registry after review")
     args = parser.parse_args()
     result = snapshot()
-    rendered = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
-    if args.write:
-        OUTPUT.write_text(rendered, encoding="utf-8")
-        print(f"updated {OUTPUT}")
-    else:
-        print(rendered, end="")
+    emit_snapshot(result, OUTPUT, write=args.write)
     return 0
 
 

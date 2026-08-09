@@ -19,8 +19,10 @@
     <script src="theme.js"></script>
     <meta name="qaz-asset-version" content="source" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="avds-tokens.css" />
     <link rel="stylesheet" href="avds.css" />
-    <script src="app.js" defer></script>
+    <script src="runtime.js" defer></script>
+    <script src="site-shell.js" defer></script>
   </head>
   <body class="benchmark-page">
     <a class="skip-link" href="#benchmark-main">Перейти к исследованию</a>
@@ -40,19 +42,19 @@
         <p class="eyebrow"><span></span> 7 международных аналогов</p>
         <h1>Как выглядит<br><em>глубокий отраслевой продукт.</em></h1>
         <p>Сравнивались не цвета и обложки, а устройство продукта: профиль отрасли, сравнение, география, цепочки стоимости, занятость, стратегия, методика и выгрузка данных.</p>
-        <div class="benchmark-principles" aria-label="Слои AV DS4 профиля"><span class="av-chip av-chip--selected">профиль</span><span class="av-chip">сравнение</span><span class="av-chip">цепочка</span><span class="av-chip">карта</span><span class="av-chip">методика</span><span class="av-chip">download</span></div>
+        <div class="benchmark-principles" aria-label="Слои AV DS4 профиля"><span class="av-chip av-chip--selected">профиль</span><span class="av-chip">сравнение</span><span class="av-chip">цепочка</span><span class="av-chip">карта</span><span class="av-chip">методика</span><span class="av-chip">выгрузка</span></div>
       </section>
 
       <section class="benchmark-cards shell" aria-labelledby="benchmark-cards-title">
         <div class="benchmark-section-head"><p class="section-number">01 / РЕФЕРЕНСЫ</p><h2 id="benchmark-cards-title">Что брать у каждого</h2></div>
         <div class="benchmark-grid">
-          <article class="av-card av-card--outlined"><span>01 / UNIDO</span><h3>Industrial Analytics Platform</h3><p>Страна в фокусе, два уровня сравнения, конкурентоспособность отраслей, производство и глобальные цепочки стоимости.</p><ul><li>focus + compare</li><li>value chains</li><li>question-led analytics</li></ul><a href="https://iap.unido.org/data/competitive-industries" target="_blank" rel="noreferrer">Открыть ↗</a></article>
-          <article class="av-card av-card--outlined"><span>02 / DATA USA</span><h3>Industry Profiles</h3><p>Один длинный профиль: ключевые KPI с годом, занятость, профессии, промышленный поток, входы, потребители и прогноз.</p><ul><li>6 KPI + year</li><li>jobs & skills</li><li>industrial flow</li></ul><a href="https://datausa.io/profile/naics/mining-quarrying-oil-gas-extraction" target="_blank" rel="noreferrer">Открыть ↗</a></article>
-          <article class="av-card av-card--outlined"><span>03 / EUROSTAT</span><h3>Business Sector Profiles</h3><p>Индикатор показывается вместе с последним значением, датой, трендом, сравнительным местом и ссылками на метаданные.</p><ul><li>latest value + date</li><li>trend + rank</li><li>metadata</li></ul><a href="https://ec.europa.eu/eurostat/cache/scoreboards/business-sector-profiles/" target="_blank" rel="noreferrer">Открыть ↗</a></article>
-          <article class="av-card av-card--outlined"><span>04 / HARVARD</span><h3>Atlas of Economic Complexity</h3><p>Профиль страны связывает торговую структуру, продукты, рынки, сложность экономики и возможные направления роста.</p><ul><li>product space</li><li>growth options</li><li>50+ years</li></ul><a href="https://atlas.hks.harvard.edu/" target="_blank" rel="noreferrer">Открыть ↗</a></article>
-          <article class="av-card av-card--outlined"><span>05 / GEM</span><h3>Global Energy Monitor</h3><p>Каждый трекер — это база активов, карта, дашборд, сводные таблицы, методика, выгрузка и отдельный доказательный паспорт объекта.</p><ul><li>asset registry</li><li>map + dashboard</li><li>method + download</li></ul><a href="https://globalenergymonitor.org/what-tracker" target="_blank" rel="noreferrer">Открыть ↗</a></article>
-          <article class="av-card av-card--outlined"><span>06 / SINGAPORE MTI</span><h3>Industry Transformation Maps</h3><p>Отрасль описана не только текущими цифрами, но и пятилетней программой: производительность, технологии, международные рынки, рабочие места и навыки.</p><ul><li>5-year roadmap</li><li>jobs & skills</li><li>lead agency</li></ul><a href="https://www.mti.gov.sg/newsroom/transforming-the-singapore-economy/" target="_blank" rel="noreferrer">Открыть ↗</a></article>
-          <article class="av-card av-card--outlined"><span>07 / AUSTRALIA</span><h3>Industry Sector Plan</h3><p>Чёткие границы девяти подсекторов и единый аналитический язык: вклад, занятость, выбросы, энергия и траектория декарбонизации.</p><ul><li>sector boundaries</li><li>GVA + jobs</li><li>transition path</li></ul><a href="https://www.industry.gov.au/publications/industry-sector-plan/introduction" target="_blank" rel="noreferrer">Открыть ↗</a></article>
+          <article class="av-card av-card--outlined"><span>01 / UNIDO</span><h3>Industrial Analytics Platform</h3><p>Страна в фокусе, два уровня сравнения, конкурентоспособность отраслей, производство и глобальные цепочки стоимости.</p><ul><li>фокус и сравнение</li><li>цепочки стоимости</li><li>аналитика от вопроса</li></ul><a href="https://iap.unido.org/data/competitive-industries" target="_blank" rel="noreferrer">Открыть ↗</a></article>
+          <article class="av-card av-card--outlined"><span>02 / DATA USA</span><h3>Industry Profiles</h3><p>Один длинный профиль: ключевые показатели с годом, занятость, профессии, промышленный поток, входы, потребители и прогноз.</p><ul><li>6 показателей и год</li><li>профессии и навыки</li><li>отраслевой поток</li></ul><a href="https://datausa.io/profile/naics/mining-quarrying-oil-gas-extraction" target="_blank" rel="noreferrer">Открыть ↗</a></article>
+          <article class="av-card av-card--outlined"><span>03 / EUROSTAT</span><h3>Business Sector Profiles</h3><p>Индикатор показывается вместе с последним значением, датой, трендом, сравнительным местом и ссылками на метаданные.</p><ul><li>последнее значение и дата</li><li>тренд и место</li><li>метаданные</li></ul><a href="https://ec.europa.eu/eurostat/cache/scoreboards/business-sector-profiles/" target="_blank" rel="noreferrer">Открыть ↗</a></article>
+          <article class="av-card av-card--outlined"><span>04 / HARVARD</span><h3>Atlas of Economic Complexity</h3><p>Профиль страны связывает торговую структуру, продукты, рынки, сложность экономики и возможные направления роста.</p><ul><li>пространство продуктов</li><li>варианты роста</li><li>более 50 лет данных</li></ul><a href="https://atlas.hks.harvard.edu/" target="_blank" rel="noreferrer">Открыть ↗</a></article>
+          <article class="av-card av-card--outlined"><span>05 / GEM</span><h3>Global Energy Monitor</h3><p>Каждый трекер — это база активов, карта, дашборд, сводные таблицы, методика, выгрузка и отдельный доказательный паспорт объекта.</p><ul><li>реестр активов</li><li>карта и панель</li><li>методика и выгрузка</li></ul><a href="https://globalenergymonitor.org/what-tracker" target="_blank" rel="noreferrer">Открыть ↗</a></article>
+          <article class="av-card av-card--outlined"><span>06 / SINGAPORE MTI</span><h3>Industry Transformation Maps</h3><p>Отрасль описана не только текущими цифрами, но и пятилетней программой: производительность, технологии, международные рынки, рабочие места и навыки.</p><ul><li>пятилетняя программа</li><li>профессии и навыки</li><li>ответственное ведомство</li></ul><a href="https://www.mti.gov.sg/newsroom/transforming-the-singapore-economy/" target="_blank" rel="noreferrer">Открыть ↗</a></article>
+          <article class="av-card av-card--outlined"><span>07 / AUSTRALIA</span><h3>Industry Sector Plan</h3><p>Чёткие границы девяти подсекторов и единый аналитический язык: вклад, занятость, выбросы, энергия и траектория декарбонизации.</p><ul><li>границы секторов</li><li>ВДС и занятость</li><li>траектория перехода</li></ul><a href="https://www.industry.gov.au/publications/industry-sector-plan/introduction" target="_blank" rel="noreferrer">Открыть ↗</a></article>
         </div>
       </section>
 
@@ -86,6 +88,6 @@
       </section>
     </main>
 
-    <footer class="site-footer shell"><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a><p>Мировой бенчмарк отраслевых профилей и атласов.</p><span class="footer-note">research · august 2026</span></footer>
+    <footer class="site-footer shell"><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a><p>Мировой бенчмарк отраслевых профилей и атласов.</p><span class="footer-note">исследование · август 2026</span></footer>
   </body>
 </html>

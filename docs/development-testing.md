@@ -19,23 +19,30 @@ python3 -m http.server 8876 --bind 127.0.0.1
 scripts/check.sh
 ```
 
-Она выполняет static HTML/AV DS contract, route hygiene, public data contracts,
-Python compile checks, unit tests Caddy-патчера, data contract, JavaScript syntax,
-build release в temporary directory, release artifact verification и `git diff
---check`.
+Она выполняет static HTML/AV DS contract, route hygiene, accessibility и
+терминологический contracts, size/security budgets, public data contracts,
+documentation links, Python compile checks, 7 Python unit tests, data contract, 9 Node tests,
+синтаксис всех JavaScript и shell scripts, build release во временной директории,
+release artifact verification и `git diff --check`.
 
 Отдельные полезные команды:
 
 ```bash
 python3 scripts/check_static_site.py
 python3 scripts/check_routes.py
+python3 scripts/check_accessibility.py
+python3 scripts/check_content.py
+python3 scripts/check_quality_budgets.py
+python3 scripts/check_docs.py
 python3 scripts/check_public_contracts.py
 node scripts/check_data_contract.mjs
+node --test tests/*.test.cjs
 python3 -m unittest discover -s tests -v
 ```
 
 Refresh scripts без `--write` дают read-only probe; `--write` требует review
-каждого diff. Проверка freshness — максимум 31 день.
+каждого diff. Общий `scripts/public_snapshot.py` проверяет HTTPS, UTC timestamp
+и выполняет staged atomic writes. Проверка freshness — максимум 31 день.
 
 ## CI и monitor
 
