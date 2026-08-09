@@ -43,6 +43,12 @@ release_dir="${runtime_root}/releases/${release_id}"
 caddyfile="/opt/qdev-public-sites/Caddyfile"
 
 test "$(readlink "${runtime_root}/current")" = "releases/${expected_release}"
+host_caddy_digest="$(sha256sum "$caddyfile" | awk '{print $1}')"
+container_caddy_digest="$(docker exec "$container_name" sha256sum /etc/caddy/Caddyfile | awk '{print $1}')"
+if [ "$host_caddy_digest" != "$container_caddy_digest" ]; then
+  echo "Caddy bind mount is stale; restart ${container_name}, verify it, then retry." >&2
+  exit 1
+fi
 test ! -e "$release_dir"
 test -f "$archive_path"
 test -f "$patch_path"
@@ -75,6 +81,13 @@ fi
 # Keep the bind-mounted Caddyfile inode stable: Docker otherwise keeps serving
 # the old mounted file even though the host path has been atomically replaced.
 cat "$caddy_candidate" > "$caddyfile"
+candidate_digest="$(sha256sum "$caddy_candidate" | awk '{print $1}')"
+mounted_digest="$(docker exec "$container_name" sha256sum /etc/caddy/Caddyfile | awk '{print $1}')"
+if [ "$candidate_digest" != "$mounted_digest" ]; then
+  cat "$backup_path" > "$caddyfile"
+  echo "Caddy bind mount did not receive the candidate; refusing to switch release." >&2
+  exit 1
+fi
 
 rollback() {
   cat "$backup_path" > "$caddyfile"

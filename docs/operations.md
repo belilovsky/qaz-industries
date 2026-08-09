@@ -27,9 +27,11 @@ both the prior Caddyfile and the prior symlink. It retains the active release
 plus seven previous releases and the newest eight QAZ-only Caddy backups.
 
 The artifact versions local CSS and JavaScript URLs, so a browser cannot combine
-new HTML with stale assets. If an older release replaced the host Caddyfile
-atomically, restart the named Caddy container once to attach the current mount,
-then verify the product-specific public marker again.
+new HTML with stale assets. The deploy fails before switching `current` if the
+container's Caddyfile digest differs from the host file, or if its bind mount
+does not receive the candidate. After any older operation atomically replaces
+the host Caddyfile, restart the named Caddy container once, verify the matching
+digests, and retry the QAZ release.
 
 ## Boundaries
 
