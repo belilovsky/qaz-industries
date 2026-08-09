@@ -110,6 +110,18 @@ html[data-design-system="avds4"] :where(button, input, select, textarea) {
   font: inherit;
 }
 
+html[data-design-system="avds4"] .av-alert {
+  border: 1px solid var(--av-color-border);
+  border-inline-start-width: 4px;
+  border-radius: var(--av-radius-lg);
+  color: var(--av-color-foreground);
+  background: var(--av-color-surface);
+}
+
+html[data-design-system="avds4"] .av-alert--info {
+  border-inline-start-color: var(--av-color-primary);
+}
+
 html[data-design-system="avds4"] :where(a, button, select, input, textarea):focus-visible {
   position: relative;
   z-index: 2;

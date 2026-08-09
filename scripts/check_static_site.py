@@ -46,6 +46,9 @@ def main() -> int:
             require('data-theme-toggle' in source, f"{page}: missing AV DS theme control")
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         require('id="filter-summary"' in index, "index.html: missing filter status")
+        profile = (ROOT / "industry.html").read_text(encoding="utf-8")
+        for element_id in ("profile-evidence-source", "profile-evidence-release", "profile-evidence-link"):
+            require(f'id="{element_id}"' in profile, f"industry.html: missing {element_id}")
 
         css = (ROOT / "avds.css").read_text(encoding="utf-8")
         require(css.count("{") == css.count("}"), "avds.css: unbalanced braces")
