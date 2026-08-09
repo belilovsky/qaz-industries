@@ -12,7 +12,9 @@
 - `benchmarks.html` — семь международных референсов и восемь обязательных слоёв продукта;
 - `avds.css` — локальный AV DS 4 compatibility layer: токены, semantic states,
   focus, motion и responsive control sizes;
-- `industry-data.js` — изолированный локальный data layer, готовый к замене API.
+- `industry-data.js` — изолированный локальный data layer, готовый к замене API;
+- `scripts/patch_caddy_release.py` — fail-closed патчер, который может менять
+  только собственный блок домена в общем Caddyfile.
 
 Числа не синтетические: каждый показатель сопровождается периодом, контекстом
 и ссылкой на публичный источник. Отсутствующее покрытие показывается как
@@ -32,11 +34,21 @@ scripts/check.sh
 
 ## Релизы
 
-`scripts/build-release.py` собирает неизменяемый static artifact в `.build/`.
+`scripts/build_release.py` собирает неизменяемый static artifact в `.build/`.
 `scripts/deploy.sh` публикует его в отдельную директорию release, проверяет
-Caddy и только затем переключает `current` symlink. Скрипт не меняет HAProxy:
+Caddy до переключения `current` symlink. Скрипт не меняет HAProxy:
 домен уже находится в его публичном маршруте.
 
 Перед публикацией обязательны source checks, runtime marker, `/api/health`,
 ключевые assets и browser proof. Полный порядок описан в
 [`docs/operations.md`](docs/operations.md).
+
+## Качество и границы
+
+CI запускает тот же `scripts/check.sh`, что и локальная работа: структурный
+контракт страниц, schema/provenance data layer, unit-тест изолированного Caddy
+патчера, JavaScript syntax и проверку immutable release artifact. Динамический
+рендеринг экранирует текст и принимает только HTTPS-ссылки и известные states.
+
+Лицензия намеренно не предполагается: юридический режим публикации должен быть
+выбран владельцем отдельно, а не угадан автоматизацией.

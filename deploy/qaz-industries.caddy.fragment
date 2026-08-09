@@ -1,6 +1,7 @@
 # Product-owned reference fragment. The active Caddyfile remains shared
 # infrastructure; scripts/deploy.sh updates only the release marker inside its
-# existing qaz.industries block after validation.
+# existing qaz.industries block after validation. The product-specific header
+# deliberately avoids the shared X-Qaz-Release convention used by other sites.
 
 qaz.industries {
   root * /srv/qaz.industries/current
@@ -11,7 +12,7 @@ qaz.industries {
     Referrer-Policy "strict-origin-when-cross-origin"
     X-Frame-Options "SAMEORIGIN"
     Permissions-Policy "camera=(), microphone=(), geolocation=()"
-    X-Qaz-Release "<release>"
+    X-Qaz-Industries-Release "<release>"
   }
   @qaz_industries_health path /api/health
   header @qaz_industries_health Content-Type application/json

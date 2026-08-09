@@ -1,0 +1,44 @@
+from __future__ import annotations
+
+import unittest
+
+from scripts.patch_caddy_release import patch
+
+
+SOURCE = '''qaz.industries {
+  header {
+    X-Qaz-Release "old-qaz"
+  }
+  @qaz_industries_health path /api/health
+  respond @qaz_industries_health `{"status":"ok","service":"qaz-industries","release":"old-qaz"}` 200
+}
+
+qaz.support {
+  header {
+    X-Qaz-Release "qaz-support-current"
+  }
+}
+'''
+
+
+class PatchCaddyReleaseTests(unittest.TestCase):
+    def test_changes_only_the_qaz_industries_block(self) -> None:
+        result = patch(SOURCE, "20260809T123000Z-a1b2c3d4e5f6")
+
+        self.assertIn('X-Qaz-Industries-Release "20260809T123000Z-a1b2c3d4e5f6"', result)
+        self.assertIn('"service":"qaz-industries","release":"20260809T123000Z-a1b2c3d4e5f6"', result)
+        self.assertIn('X-Qaz-Release "qaz-support-current"', result)
+        support = result[result.index("qaz.support {") :]
+        self.assertNotIn("Qaz-Industries", support)
+
+    def test_rejects_ambiguous_qaz_blocks(self) -> None:
+        with self.assertRaisesRegex(ValueError, "exactly one top-level"):
+            patch(SOURCE + SOURCE, "20260809T123000Z-a1b2c3d4e5f6")
+
+    def test_rejects_invalid_release(self) -> None:
+        with self.assertRaisesRegex(ValueError, "release identifier"):
+            patch(SOURCE, "not/a-release")
+
+
+if __name__ == "__main__":
+    unittest.main()

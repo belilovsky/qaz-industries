@@ -1,5 +1,23 @@
 const profiles = window.QAZ_INDUSTRIES;
 const profileKeys = Object.keys(profiles);
+const coverageStates = new Set(['ready', 'partial', 'gap']);
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  })[character]);
+}
+
+function externalUrl(value) {
+  const url = new URL(value);
+  if (url.protocol !== 'https:') throw new Error(`Unsupported external URL: ${value}`);
+  return escapeHtml(url.href);
+}
+
+function coverageState(value) {
+  if (!coverageStates.has(value)) throw new Error(`Unsupported coverage state: ${value}`);
+  return value;
+}
 
 function statusLabel(status) {
   return status === 'ready' ? 'Готово' : status === 'partial' ? 'Частично' : 'Пробел';
@@ -18,10 +36,10 @@ function renderProfile(key, updateUrl = true) {
   document.querySelector('#profile-evidence-source').textContent = profile.sourceName;
   document.querySelector('#profile-evidence-release').textContent = profile.release;
   const evidenceLink = document.querySelector('#profile-evidence-link');
-  evidenceLink.href = profile.sourceUrl;
+  evidenceLink.href = externalUrl(profile.sourceUrl);
   evidenceLink.textContent = 'Проверить ' + profile.sourceName + ' ↗';
   const sourceTop = document.querySelector('#profile-source-top');
-  sourceTop.href = profile.sourceUrl;
+  sourceTop.href = externalUrl(profile.sourceUrl);
   sourceTop.textContent = `${profile.sourceName} ↗`;
 
   document.querySelectorAll('[data-sector]').forEach((button) => {
@@ -31,34 +49,34 @@ function renderProfile(key, updateUrl = true) {
   });
 
   document.querySelector('#profile-kpis').innerHTML = profile.kpis.map((item) => `
-    <article><strong>${item.value}</strong><span>${item.label}</span><small>${item.period}</small></article>
+    <article><strong>${escapeHtml(item.value)}</strong><span>${escapeHtml(item.label)}</span><small>${escapeHtml(item.period)}</small></article>
   `).join('');
 
   document.querySelector('#indicator-rows').innerHTML = profile.indicators.map((item) => `
     <div class="indicator-row" role="row">
-      <strong role="cell">${item.name}</strong>
-      <span class="indicator-value" role="cell">${item.value} <small>${item.unit}</small></span>
-      <span role="cell">${item.period}</span>
-      <span role="cell">${item.note}</span>
-      <a role="cell" href="${item.url}" target="_blank" rel="noreferrer">открыть ↗</a>
+      <strong role="cell">${escapeHtml(item.name)}</strong>
+      <span class="indicator-value" role="cell">${escapeHtml(item.value)} <small>${escapeHtml(item.unit)}</small></span>
+      <span role="cell">${escapeHtml(item.period)}</span>
+      <span role="cell">${escapeHtml(item.note)}</span>
+      <a role="cell" href="${externalUrl(item.url)}" target="_blank" rel="noreferrer">открыть ↗</a>
     </div>
   `).join('');
 
   document.querySelector('#chain-grid').innerHTML = profile.chain.map((item, index) => `
-    <article><span>0${index + 1}</span><strong>${item.title}</strong><p>${item.text}</p></article>
+    <article><span>0${index + 1}</span><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></article>
   `).join('');
 
   document.querySelector('#geography-grid').innerHTML = profile.geography.map((item) => `
-    <article><strong>${item.title}</strong><p>${item.text}</p></article>
+    <article><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></article>
   `).join('');
 
   document.querySelector('#coverage-list').innerHTML = Object.entries(profile.coverage).map(([label, status]) => `
-    <div><strong>${label}</strong><span class="coverage-state state-${status}">${statusLabel(status)}</span></div>
+    <div><strong>${escapeHtml(label)}</strong><span class="coverage-state state-${coverageState(status)}">${statusLabel(status)}</span></div>
   `).join('');
 
-  document.querySelector('#gap-list').innerHTML = profile.gaps.map((item) => `<li>${item}</li>`).join('');
+  document.querySelector('#gap-list').innerHTML = profile.gaps.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
   document.querySelector('#source-links').innerHTML = profile.sources.map((item, index) => `
-    <a href="${item.url}" target="_blank" rel="noreferrer"><span>0${index + 1}</span><strong>${item.label}</strong><b>↗</b></a>
+    <a href="${externalUrl(item.url)}" target="_blank" rel="noreferrer"><span>0${index + 1}</span><strong>${escapeHtml(item.label)}</strong><b>↗</b></a>
   `).join('');
 
   if (updateUrl) {
@@ -73,9 +91,9 @@ function renderComparison() {
   const b = profiles[document.querySelector('#compare-b').value];
   const rows = Object.keys(a.coverage);
   document.querySelector('#compare-table').innerHTML = `
-    <div class="compare-row compare-table-head"><span>Слой профиля</span><strong>${a.short}</strong><strong>${b.short}</strong></div>
+    <div class="compare-row compare-table-head"><span>Слой профиля</span><strong>${escapeHtml(a.short)}</strong><strong>${escapeHtml(b.short)}</strong></div>
     ${rows.map((label) => `
-      <div class="compare-row"><span>${label}</span><strong class="state-${a.coverage[label]}">${statusLabel(a.coverage[label])}</strong><strong class="state-${b.coverage[label]}">${statusLabel(b.coverage[label])}</strong></div>
+      <div class="compare-row"><span>${escapeHtml(label)}</span><strong class="state-${coverageState(a.coverage[label])}">${statusLabel(a.coverage[label])}</strong><strong class="state-${coverageState(b.coverage[label])}">${statusLabel(b.coverage[label])}</strong></div>
     `).join('')}
   `;
 }
