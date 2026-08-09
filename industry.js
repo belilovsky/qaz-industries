@@ -179,7 +179,23 @@ function renderProfile(key, updateUrl = true) {
 
   document.querySelector('#gap-list').innerHTML = profile.gaps.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
   document.querySelector('#source-links').innerHTML = profile.sources.map((item, index) => `
-    <a class="av-card av-card--outlined" href="${externalUrl(item.url)}" target="_blank" rel="noreferrer"><span>0${index + 1}</span><strong>${escapeHtml(item.label)}</strong><b>↗</b></a>
+    <article class="av-card av-card--outlined av-source-registry__record">
+      <div class="av-card__body av-source-registry__record-body">
+        <div class="av-source-registry__title-row">
+          <div class="av-source-registry__record-header">
+            <p class="av-source-registry__record-eyebrow">0${index + 1} · REVIEWED SOURCE</p>
+            <h3>${escapeHtml(item.label)}</h3>
+          </div>
+          <span class="av-badge av-badge--success">reviewed link</span>
+        </div>
+        <p class="av-source-registry__record-description">Публичный маршрут к ${escapeHtml(item.label.toLowerCase())}; QAZ показывает link metadata и не копирует исходный реестр.</p>
+        <dl class="av-source-registry__metadata">
+          <div class="av-source-registry__metadata-row"><dt>Продукт</dt><dd>${escapeHtml(profile.sourceName)}</dd></div>
+          <div class="av-source-registry__metadata-row"><dt>Срез</dt><dd>${escapeHtml(profile.release)}</dd></div>
+        </dl>
+        <div class="av-source-registry__actions"><a class="av-source-registry__action" href="${externalUrl(item.url)}" target="_blank" rel="noreferrer">Открыть источник ↗</a></div>
+      </div>
+    </article>
   `).join('');
 
   if (updateUrl) {

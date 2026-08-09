@@ -12,7 +12,7 @@
 - `benchmarks.html` — семь международных референсов и восемь обязательных слоёв продукта;
 - `avds.css` — локальный AV DS 4 consumer layer: generated tokens, реальные
   component contracts (`av-button`, `av-alert`, `av-badge`, `av-chip`,
-  `av-card`) и patterns для export/question surfaces;
+  `av-card`) и patterns для export, source-registry и question surfaces;
 - `qazgeo-map.js` — безопасный SVG-рендерер реальных QazGeo region boundaries
   из локального reviewed GeoJSON snapshot, с keyboard selection и zoom;
 - `industry-data.js` — изолированный локальный data layer, готовый к замене API;

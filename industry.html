@@ -74,7 +74,7 @@
         <div class="passport-actions"><a id="profile-machine-link" href="data/industry-profiles.v1.json" target="_blank" rel="noreferrer">JSON профилей ↗</a><a href="data/reviewed-source-registry.v1.json" target="_blank" rel="noreferrer">Реестр источников ↗</a><a href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer">Статус выпуска ↗</a></div>
       </section>
 
-      <section class="public-export-matrix av-public-export-matrix shell" aria-labelledby="public-export-title">
+      <section class="public-export-matrix av-public-export-matrix shell" data-avds-pattern="public-export-matrix" aria-labelledby="public-export-title">
         <div class="public-export-head av-public-export-matrix__header"><div><p class="section-number">ПУБЛИЧНЫЕ КОНТРАКТЫ</p><h2 id="public-export-title">Открыть данные, а не верить интерфейсу.</h2></div><p>Каждая карточка ведёт к версии, которую использует этот выпуск. Ссылки показывают только reviewed static projections и metadata — не внутренние реестры и не raw-данные.</p></div>
         <div class="public-export-grid av-public-export-matrix__entries">
           <a class="av-public-export-matrix__entry" href="data/industry-profiles.v1.json" target="_blank" rel="noreferrer"><span class="av-public-export-matrix__kind">01 · ПРОФИЛИ</span><strong class="av-public-export-matrix__label">4 отраслевых паспорта</strong><p class="av-public-export-matrix__description">Источник, выпуск и публичная граница каждого профиля.</p><b class="av-public-export-matrix__meta">JSON ↗</b></a>
@@ -132,12 +132,12 @@
             <div class="coverage-layout"><div class="coverage-list" id="coverage-list"></div><div class="gap-card"><span>Следующий слой данных</span><h3>Пробелы профиля</h3><ol id="gap-list"></ol></div></div>
           </section>
 
-          <section class="profile-module" id="sources">
+          <section class="profile-module av-source-registry" data-avds-pattern="evidence-source-registry" id="sources">
             <div class="module-head"><div><p class="section-number">07 / ИСТОЧНИКИ</p><h2>Проверить и продолжить исследование</h2></div><p>QAZ.INDUSTRIES пока не копирует исходные реестры. Профиль ведёт в действующий продукт и его публичные контракты.</p></div>
-            <div class="source-links" id="source-links"></div>
+            <div class="av-source-registry__records" id="source-links"></div>
           </section>
 
-          <section class="profile-module research-routes av-related-question-grid" id="questions">
+          <section class="profile-module research-routes av-related-question-grid" data-avds-pattern="related-question-grid" id="questions">
             <div class="module-head av-related-question-grid__header"><div><p class="section-number">08 / ВОПРОСЫ ИССЛЕДОВАНИЯ</p><h2>Не потерять главный вопрос.</h2></div><p>Эти переходы превращают профиль в маршрут исследования: от утверждения к периоду, от цепочки — к границе данных, а не к декоративной витрине.</p></div>
             <div class="question-grid av-related-question-grid__items">
               <a class="av-related-question-grid__card" href="#indicators"><span class="av-related-question-grid__meta">01</span><strong class="av-related-question-grid__label">Какие показатели можно использовать?</strong><p class="av-related-question-grid__description">Сверить значение, период и исходную отраслевую страницу.</p><b class="av-related-question-grid__arrow">→</b></a>
