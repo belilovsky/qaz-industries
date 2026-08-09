@@ -8,7 +8,7 @@
     "layer_registry_url": "https://qgeo.tech/api/v1/layers",
     "geojson_url": "https://qgeo.tech/api/v1/mapregion/public/regions-geojson"
   },
-  "retrieved_at": "2026-08-09T09:13:39Z",
+  "retrieved_at": "2026-08-09T10:12:38Z",
   "publication_mode": "reviewed-static-snapshot",
   "coverage": {
     "regions": 20,

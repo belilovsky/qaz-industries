@@ -7,7 +7,7 @@
     "health_url": "https://qlake.tech/health",
     "endpoint": "https://qlake.tech/api/economy/indicators"
   },
-  "retrieved_at": "2026-08-09T08:37:32Z",
+  "retrieved_at": "2026-08-09T10:12:35Z",
   "publication_mode": "reviewed-static-snapshot",
   "limitations": [
     "Срез является общеэкономическим контекстом и не заменяет отраслевые показатели.",
