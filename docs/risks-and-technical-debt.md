@@ -7,7 +7,7 @@
 | QazLake regional/water отсутствует | snapshots явно `degraded` | planned/blocked | ждать публичного контракта, не синтезировать значения |
 | QazGeo OSM-derived layers требуют attribution | layer registry | owner decision | утвердить licence/attribution wording |
 | Нет staging evidence | checkout и public endpoints | unknown | определить staging owner или явно зафиксировать отсутствие |
-| Browser proof не хранится как tracked receipt | roadmap/ignored work ledgers | historical | вести current release receipt с viewport/console/overflow |
+| Browser proof должен обновляться на каждом release | `docs/current-release.md` содержит desktop/mobile, console и overflow receipt | controlled | перезаписывать receipt только после новой публичной проверки |
 | Runtime owner не назван поимённо | operations говорит shared Caddy | unknown | добавить владельца и escalation path без credentials |
 | Нет аналитики и traction | source inventory | unknown | не заявлять investor metrics до измерения |
 | Локальная projection не синхронизируется автоматически | `industry-data.js` | source-confirmed | добавить review cadence, не прямой browser ingestion |

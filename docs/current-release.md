@@ -1,7 +1,8 @@
 # Текущий статус выпуска
 
-Дата проверки: **2026-08-09**. Это единственный документ, в котором описывается
-текущий source/runtime/public status; исторические планы не переопределяют его.
+Дата проверки: **2026-08-10, Asia/Almaty**. Сам выпуск создан
+**2026-08-09 UTC**. Это единственный документ с текущим разделением
+source/runtime/public evidence; исторические планы его не переопределяют.
 
 ## Identity
 
@@ -11,65 +12,69 @@
 | Checkout | `/Users/belilovsky/Documents/Codex/2026-08-09/qaz-industries` | source-confirmed |
 | Remote | `https://github.com/belilovsky/qaz-industries.git` | source-confirmed |
 | Branch | `main` | source-confirmed |
-| Source SHA | `12f27b3396594e4a05bc2a5039b6b601fe736245` | source-confirmed |
-| Public domain | `https://qaz.industries/` | public-verified |
-| Runtime owner | shared public-sites Caddy | source-confirmed; exact operator unknown |
-| Public release | `20260809T111221Z-12f27b339659` | public-verified |
+| Deployed source SHA | `006421f9b697674adc1f120a9ab19fe61b71a9a1` | source/runtime/public-confirmed |
+| Remote `origin/main` | `12f27b3396594e4a05bc2a5039b6b601fe736245` | remote-confirmed; release commits intentionally not pushed |
+| Public domain | [https://qaz.industries/](https://qaz.industries/) | public-verified |
+| Runtime | shared public-sites Caddy, immutable release + `current` symlink | runtime-confirmed by release script |
+| Public release | `20260809T185728Z-006421f9b697` | runtime/public-verified |
 
-После этой documentation-only write-фазы checkout содержит только изменения
-документации и не был committed или deployed. `12f27b339659…` — commit
-последнего public release; новые документы находятся в dirty working tree и не
-предъявляются как production release.
+Рефакторинг зафиксирован commit `006421f9b697…` и именно из него собран
+публичный артефакт. Этот release receipt хранится последующим documentation-only
+commit, поэтому локальный `HEAD` может быть новее deployed source SHA. Push не
+выполнялся.
 
-## Evidence
+## Local acceptance
 
-- `scripts/check.sh`: `static contract: OK`, `route hygiene: OK`, `public
-  contract: OK`, 3 unit tests `OK`, `data contract: OK (4 profiles)`, `release
-  artifact contract: OK` — local-tested.
-- `https://qaz.industries/api/health` returns `status=ok`, service
-  `qaz-industries`, the release above — public-verified.
-- `https://qaz.industries/release.json` returns the same release and source SHA —
-  public-verified.
-- Root, profile routes, benchmarks, data contracts and listed assets returned
-  HTTP 200 during the 2026-08-09 public probe — public-verified.
-- Current browser proof was not rerun in this documentation pass; previous
-  browser claims remain historical until a new receipt is attached.
+- `scripts/check.sh` завершён успешно перед commit и повторно внутри deploy:
+  static contract, route hygiene, accessibility, русская терминология, quality
+  budgets, ссылки 24 документов и публичные data-contracts — `OK`.
+- Выполнено 7 Python-тестов и 9 Node-тестов; контракт четырёх профилей и
+  immutable release artifact — `OK`.
+- Локальная браузерная приёмка проверила исправленные тексты на 1280 px и
+  390 px: переполнения, ошибок и предупреждений консоли нет.
 
-## Upstream public checks
+## Runtime acceptance
 
-Эти наблюдения сделаны через публичные страницы 2026-08-09 и не импортированы в
-checkout автоматически:
+- `scripts/deploy.sh` принял только чистый commit, повторил полный quality gate,
+  собрал immutable release и подтвердил `qaz.industries Caddy marker: OK`.
+- Кандидат Caddy был проверен до переключения `current`; после переключения
+  конфигурация повторно прошла `caddy validate` и reload. В скрипте сохранён
+  автоматический rollback на предыдущий release/config при ошибке reload.
+- Активирован release `20260809T185728Z-006421f9b697`; соседние checkout и
+  публичные данные других продуктов не изменялись.
 
-- [Qazaqstan.Space](https://qazaqstan.space/) показывает выпуск `2026-08-06.48`;
-- [QAZ.FARM](https://qaz.farm/) показывает дату выпуска `2026-08-09` и 101
-  источник;
-- [QAZ.FISH](https://qaz.fish/) содержит public structured-data updates
-  `2026-08-09T10:21:00Z`, `13:45:00+05:00` и `16:27:37+05:00`;
-- [QZ.Energy](https://qz.energy/) показывает 157 показателей и 18 объектов.
+## Public acceptance
 
-Это public-verified evidence доступности upstream, но не owner receipt на
-перенос release labels в curated projection. Локальные labels остаются
-историческими до отдельного review.
+- [release.json](https://qaz.industries/release.json) возвращает release выше и
+  полный commit `006421f9b697674adc1f120a9ab19fe61b71a9a1`.
+- [api/health](https://qaz.industries/api/health) возвращает `status=ok`, service
+  `qaz-industries` и тот же release.
+- Apex возвращает HTTP 200 и `X-Qaz-Industries-Release`; `www` перенаправляет
+  HTTP 301 на apex. CSP, HSTS, `nosniff`, frame/referrer/permissions и
+  cross-origin заголовки присутствуют.
+- Главная, четыре sector-state профиля, бенчмарки, три CSS, девять JavaScript
+  модулей и четыре ключевых публичных data asset вернули HTTP 200.
+- Публичный браузер на 1280 px и 390 px подтвердил: две карты и 40 реальных
+  региональных SVG-геометрий, шесть отраслевых входов, профиль с 4 показателями,
+  3 макро-карточками, 3 территориальными карточками, 6 слоями и 4 источниками,
+  а также 7 бенчмарков и 8 строк матрицы. Горизонтального переполнения,
+  console errors и warnings нет; мобильное меню открывается, закрывается по
+  Escape и возвращает фокус.
 
-## Source versus generated release
+## Data boundary
 
-Tracked source data can use `release_id: "source"`. `scripts/build_release.py`
-replaces it in the generated artifact with the immutable release ID. The public
-thematic release currently carries `20260809T111221Z-12f27b339659`; this distinction
-must be preserved when comparing checkout JSON with runtime JSON.
+Браузер читает только версионированные same-origin статические проекции.
+Исходные наблюдения QazLake, закрытые очереди, учётные данные и чувствительные
+координаты не публикуются. Состояние `upstream_unavailable` остаётся явным:
+региональные QazLake-показатели и водные наблюдения не подменяются нулями или
+синтетическими значениями.
 
-## Rollback and staging
+## Open owner blockers
 
-`scripts/deploy.sh` creates an immutable release, validates the QAZ Caddy block,
-checks parity and can restore the previous symlink/configuration. No staging URL
-or staging receipt is present in this checkout. VPS path/digest evidence is not
-claimed from a local workstation.
-
-## Open blockers
-
-- `qazstack-consumer.json` is referenced by the manifest but absent locally.
-- Profile release labels need owner-confirmed refresh against current upstream
-  pages.
-- Regional QazLake indicators and water catalogue remain degraded.
-- QAZ publication licence, attribution, retention and security contact need
-  owner decisions.
+- `qazstack-consumer.json` указан в манифесте, но отсутствует в checkout.
+- Региональные QazLake indicators и water catalogue остаются degraded до
+  появления публичного upstream contract.
+- QAZ publication licence, окончательная attribution wording, retention policy,
+  security contact и именной runtime owner требуют решений владельца.
+- Staging URL/owner не определены; production rollback проверяется release
+  script, но отдельный staging receipt отсутствует.
