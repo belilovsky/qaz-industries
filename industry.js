@@ -55,7 +55,7 @@ function renderPulse() {
     const provider = publicSnapshot.provider;
     status.innerHTML = `Проверенный static snapshot · ${escapeHtml(provider.service)} · revision ${escapeHtml(provider.source_revision)} · получен ${escapeHtml(dateLabel(publicSnapshot.retrieved_at.slice(0, 10)))}.`;
     grid.innerHTML = publicSnapshot.indicators.map((item) => `
-      <article>
+      <article class="av-card av-card--outlined">
         <span>${escapeHtml(item.label)}</span>
         <strong>${escapeHtml(String(item.value).replace('.', ','))}<small>${escapeHtml(item.unit)}</small></strong>
         <p>на ${escapeHtml(dateLabel(item.as_of))} · <a href="${externalUrl(item.source_url)}" target="_blank" rel="noreferrer">${escapeHtml(item.source)} ↗</a></p>
@@ -86,7 +86,7 @@ function renderTerritory() {
     ['Точек интереса', territorySnapshot.coverage.pois, 'без передачи точных координат в QAZ'],
   ];
   grid.innerHTML = cards.map(([label, value, note]) => `
-    <article><span>${escapeHtml(label)}</span><strong>${escapeHtml(Number(value).toLocaleString('ru-RU'))}</strong><p>${escapeHtml(note)}</p></article>
+    <article class="av-card av-card--outlined"><span>${escapeHtml(label)}</span><strong>${escapeHtml(Number(value).toLocaleString('ru-RU'))}</strong><p>${escapeHtml(note)}</p></article>
   `).join('');
 }
 
@@ -152,7 +152,7 @@ function renderProfile(key, updateUrl = true) {
   });
 
   document.querySelector('#profile-kpis').innerHTML = profile.kpis.map((item) => `
-    <article><strong>${escapeHtml(item.value)}</strong><span>${escapeHtml(item.label)}</span><small>${escapeHtml(item.period)}</small></article>
+    <article class="av-card av-card--outlined"><strong>${escapeHtml(item.value)}</strong><span>${escapeHtml(item.label)}</span><small>${escapeHtml(item.period)}</small></article>
   `).join('');
 
   document.querySelector('#indicator-rows').innerHTML = profile.indicators.map((item) => `
@@ -166,11 +166,11 @@ function renderProfile(key, updateUrl = true) {
   `).join('');
 
   document.querySelector('#chain-grid').innerHTML = profile.chain.map((item, index) => `
-    <article><span>0${index + 1}</span><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></article>
+    <article class="av-card av-card--outlined"><span>0${index + 1}</span><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></article>
   `).join('');
 
   document.querySelector('#geography-grid').innerHTML = profile.geography.map((item) => `
-    <article><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></article>
+    <article class="av-card av-card--outlined"><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></article>
   `).join('');
 
   document.querySelector('#coverage-list').innerHTML = Object.entries(profile.coverage).map(([label, status]) => `
@@ -179,7 +179,7 @@ function renderProfile(key, updateUrl = true) {
 
   document.querySelector('#gap-list').innerHTML = profile.gaps.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
   document.querySelector('#source-links').innerHTML = profile.sources.map((item, index) => `
-    <a href="${externalUrl(item.url)}" target="_blank" rel="noreferrer"><span>0${index + 1}</span><strong>${escapeHtml(item.label)}</strong><b>↗</b></a>
+    <a class="av-card av-card--outlined" href="${externalUrl(item.url)}" target="_blank" rel="noreferrer"><span>0${index + 1}</span><strong>${escapeHtml(item.label)}</strong><b>↗</b></a>
   `).join('');
 
   if (updateUrl) {

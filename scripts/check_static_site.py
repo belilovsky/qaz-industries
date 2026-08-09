@@ -48,7 +48,9 @@ def main() -> int:
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         require('id="filter-summary"' in index, "index.html: missing filter status")
         require(index.count('data-qazgeo-map') == 2, "index.html: expected hero and full QazGeo maps")
+        require('src="qazgeo-map.js"' in index, "index.html: missing QazGeo renderer")
         require('data-map-svg' in index and 'data/qazgeo-regions-public.v1.geojson' in index, "index.html: missing QazGeo map contract")
+        require(index.count('av-card') >= 14, "index.html: shared surfaces missing AV DS cards")
         profile = (ROOT / "industry.html").read_text(encoding="utf-8")
         for element_id in (
             "profile-evidence-source", "profile-evidence-release", "profile-evidence-link",
@@ -58,6 +60,12 @@ def main() -> int:
         ):
             require(f'id="{element_id}"' in profile, f"industry.html: missing {element_id}")
         require('window.QAZ_INDUSTRIES_ASSET_VERSION = "source"' in profile, "industry.html: missing asset version bootstrap")
+        require('class="indicator-table av-table"' in profile and 'class="compare-table av-table"' in profile, "industry.html: missing AV DS table contracts")
+        industry_js = (ROOT / "industry.js").read_text(encoding="utf-8")
+        require(industry_js.count("av-card av-card--outlined") >= 5, "industry.js: dynamic surfaces missing AV DS card contracts")
+        benchmark = (ROOT / "benchmarks.html").read_text(encoding="utf-8")
+        for contract in ("av-chip", "av-card", "av-table", "av-button"):
+            require(contract in benchmark, f"benchmarks.html: missing AV DS contract {contract}")
         for contract in (
             "data/industry-profiles.v1.json",
             "data/qazlake-public-snapshot.v1.json",

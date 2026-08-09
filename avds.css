@@ -283,6 +283,8 @@ html[data-design-system="avds4"] .av-related-question-grid__items { display: gri
 html[data-design-system="avds4"] .av-related-question-grid__card { position: relative; display: grid; gap: var(--av-spacing-2); min-height: 112px; padding: var(--av-spacing-4); border: 1px solid var(--av-color-border); border-radius: var(--av-radius-lg); color: inherit; background: var(--av-color-card); }
 html[data-design-system="avds4"] .av-related-question-grid__card:hover { border-color: var(--av-color-primary); background: var(--av-color-muted); }
 html[data-design-system="avds4"] .av-related-question-grid__arrow { position: absolute; inset-block-start: var(--av-spacing-4); inset-inline-end: var(--av-spacing-4); color: var(--av-color-primary); font-size: 20px; }
+html[data-design-system="avds4"] :where(.profile-kpis .av-card, .chain-grid .av-card) { border: 0; border-radius: 0; box-shadow: none; color: inherit; background: transparent; }
+html[data-design-system="avds4"] :where(.pulse-grid .av-card, .territory-grid .av-card, .geography-grid .av-card, .source-links .av-card) { border: 0; border-radius: 0; box-shadow: none; }
 
 @media (max-width: 640px) {
   html[data-design-system="avds4"] .av-public-export-matrix__entries,
