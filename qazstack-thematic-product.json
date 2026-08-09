@@ -1,0 +1,45 @@
+{
+  "schema_version": "qazstack-thematic-product-v1",
+  "product_id": "qaz-industries",
+  "product_name": "QAZ.INDUSTRIES",
+  "lifecycle": "beta",
+  "subject": "Проверяемые публичные профили индустрий Казахстана: показатели, география, источники и границы данных.",
+  "qazstack_consumer_contract": "qazstack-consumer.json",
+  "public_modes": ["explore", "understand", "follow", "trust"],
+  "source_policy": {
+    "registry_path": "data/reviewed-source-registry.v1.json",
+    "allowed_classes": ["official", "public-sector", "research", "editorial"],
+    "candidates_require_review": true
+  },
+  "publication": {
+    "mode": "reviewed-snapshot",
+    "public_records_require_review": true,
+    "explicit_degraded_state": true
+  },
+  "geo_policy": {
+    "public_precision": "region",
+    "private_browser_access_forbidden": true,
+    "exact_user_locations_public": false
+  },
+  "sensitivity": {
+    "classes": ["precise-location", "critical-infrastructure", "commercial-confidentiality"],
+    "public_prohibitions": [
+      "Не публиковать raw QazLake observations, внутренние identifiers или технические source fields.",
+      "Не показывать точные пользовательские, чувствительные или эксплуатационные координаты.",
+      "Не превращать candidate, media search или entity match в публичный факт без продуктовой проверки."
+    ]
+  },
+  "modules": [
+    {"id": "profile-registry", "mode": "explore", "kind": "registry", "data_contract": "qaz-industries-public-profiles-v1", "empty_state": "degraded-state"},
+    {"id": "industry-indicators", "mode": "understand", "kind": "indicator", "data_contract": "qaz-industries-profile-data-v1", "empty_state": "curated-snapshot"},
+    {"id": "change-pulse", "mode": "follow", "kind": "pulse", "data_contract": "qaz-industries-qazlake-public-snapshot-v1", "empty_state": "degraded-state"},
+    {"id": "source-provenance", "mode": "trust", "kind": "registry", "data_contract": "qazstack-reviewed-source-registry-v1", "empty_state": "curated-snapshot"},
+    {"id": "regional-context", "mode": "explore", "kind": "map", "data_contract": "qazlake-qazgeo-read-only-contract", "empty_state": "degraded-state"}
+  ],
+  "release": {
+    "public_release_path": "data/qaz-industries-thematic-release.v1.json",
+    "test_commands": ["scripts/check.sh"],
+    "runtime_urls": ["https://qaz.industries/", "https://qaz.industries/api/health"]
+  },
+  "notes": "QAZ.INDUSTRIES aggregates reviewed public projections. QazLake is never a browser-side or raw-data backend."
+}

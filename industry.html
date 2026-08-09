@@ -8,6 +8,7 @@
     <title>Профили отраслей — QAZ.INDUSTRIES</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <script>try { const theme = localStorage.getItem("qaz-industries-theme"); if (["institutional", "golden-paper"].includes(theme)) document.documentElement.dataset.avTheme = theme; } catch (_) {}</script>
+    <script>window.QAZ_INDUSTRIES_ASSET_VERSION = "source";</script>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="avds.css" />
     <script src="industry-data.js" defer></script>
@@ -62,14 +63,25 @@
         </div>
       </section>
 
+      <section class="profile-passport shell" aria-labelledby="profile-passport-title">
+        <div class="passport-head"><div><p class="section-number">ПАСПОРТ ПРОФИЛЯ</p><h2 id="profile-passport-title">Что именно можно проверить</h2></div><p>Профиль — это публичная проекция: у каждого слоя есть источник, дата, статус и явная граница того, чего этот срез не доказывает.</p></div>
+        <div class="passport-grid">
+          <article><span>Контракт</span><strong>QazStack thematic v1</strong><p>Публичный режим, source policy и degraded-state зафиксированы отдельно от UI.</p></article>
+          <article><span>Источник</span><strong id="passport-source">—</strong><p>Ссылка ведёт к отраслевому продукту; QAZ не копирует его внутренние реестры.</p></article>
+          <article><span>Срез</span><strong id="passport-release">—</strong><p>Период сохраняется рядом с показателем и не подменяется текущей датой страницы.</p></article>
+          <article><span>Граница</span><strong>Только public data</strong><p>Raw QazLake, private queues, credentials и точные чувствительные координаты исключены.</p></article>
+        </div>
+        <div class="passport-actions"><a id="profile-machine-link" href="data/industry-profiles.v1.json" target="_blank" rel="noreferrer">JSON профилей ↗</a><a href="data/reviewed-source-registry.v1.json" target="_blank" rel="noreferrer">Реестр источников ↗</a><a href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer">Статус выпуска ↗</a></div>
+      </section>
+
       <nav class="profile-local-nav shell" aria-label="Разделы профиля">
-        <a href="#overview">Обзор</a><a href="#indicators">Показатели</a><a href="#chain">Цепочка</a><a href="#geography">География</a><a href="#coverage">Покрытие</a><a href="#sources">Источники</a>
+        <a href="#overview">Обзор</a><a href="#indicators">Показатели</a><a href="#pulse">Пульс</a><a href="#chain">Цепочка</a><a href="#geography">География</a><a href="#coverage">Покрытие</a><a href="#sources">Источники</a>
       </nav>
 
       <section class="profile-content shell" id="overview">
         <aside class="profile-index" aria-label="Содержание профиля">
           <span>Профиль отрасли</span>
-          <a href="#overview">01 · обзор</a><a href="#indicators">02 · показатели</a><a href="#chain">03 · цепочка стоимости</a><a href="#geography">04 · география</a><a href="#coverage">05 · покрытие данных</a><a href="#sources">06 · источники</a>
+          <a href="#overview">01 · обзор</a><a href="#indicators">02 · показатели</a><a href="#pulse">03 · пульс</a><a href="#chain">04 · цепочка стоимости</a><a href="#geography">05 · география</a><a href="#coverage">06 · покрытие данных</a><a href="#sources">07 · источники</a>
         </aside>
         <div class="profile-body">
           <section class="profile-about">
@@ -85,23 +97,30 @@
             </div>
           </section>
 
+          <section class="profile-module pulse-module" id="pulse">
+            <div class="module-head"><div><p class="section-number">03 / ПУЛЬС КОНТЕКСТА</p><h2>Макро-срез рядом с отраслью</h2></div><p>Это не отраслевые показатели и не прогноз. Публичный QazLake snapshot добавляет только официальный экономический контекст с датой и источником.</p></div>
+            <div class="pulse-banner" id="pulse-status" role="status" aria-live="polite">Загружаем проверенный static snapshot…</div>
+            <div class="pulse-grid" id="pulse-grid"></div>
+            <div class="pulse-boundary"><strong>Региональный и водный слой</strong><span id="pulse-boundary-state">Проверяем доступность публичного контракта…</span></div>
+          </section>
+
           <section class="profile-module" id="chain">
-            <div class="module-head"><div><p class="section-number">03 / ЦЕПОЧКА СТОИМОСТИ</p><h2>Как отрасль создаёт результат</h2></div><p>Бенчмарк UNIDO и BEA показывает, что карточек предприятий недостаточно: нужны входы, производство, инфраструктура и потребители.</p></div>
+            <div class="module-head"><div><p class="section-number">04 / ЦЕПОЧКА СТОИМОСТИ</p><h2>Как отрасль создаёт результат</h2></div><p>Бенчмарк UNIDO и BEA показывает, что карточек предприятий недостаточно: нужны входы, производство, инфраструктура и потребители.</p></div>
             <div class="chain-grid" id="chain-grid"></div>
           </section>
 
           <section class="profile-module" id="geography">
-            <div class="module-head"><div><p class="section-number">04 / ГЕОГРАФИЯ</p><h2>Где сосредоточены разные функции</h2></div><p>Это обзорный региональный контур. Он не подменяет точные слои, кадастр или частные координаты.</p></div>
+            <div class="module-head"><div><p class="section-number">05 / ГЕОГРАФИЯ</p><h2>Где сосредоточены разные функции</h2></div><p>Это обзорный региональный контур. Он не подменяет точные слои, кадастр или частные координаты.</p></div>
             <div class="geography-grid" id="geography-grid"></div>
           </section>
 
           <section class="profile-module coverage-module" id="coverage">
-            <div class="module-head"><div><p class="section-number">05 / ПОКРЫТИЕ</p><h2>Что уже есть — и чего не хватает</h2></div><p>Глубина профиля оценивается не числом блоков, а тем, на какие вопросы он способен ответить с доказательствами.</p></div>
+            <div class="module-head"><div><p class="section-number">06 / ПОКРЫТИЕ</p><h2>Что уже есть — и чего не хватает</h2></div><p>Глубина профиля оценивается не числом блоков, а тем, на какие вопросы он способен ответить с доказательствами.</p></div>
             <div class="coverage-layout"><div class="coverage-list" id="coverage-list"></div><div class="gap-card"><span>Следующий слой данных</span><h3>Пробелы профиля</h3><ol id="gap-list"></ol></div></div>
           </section>
 
           <section class="profile-module" id="sources">
-            <div class="module-head"><div><p class="section-number">06 / ИСТОЧНИКИ</p><h2>Проверить и продолжить исследование</h2></div><p>QAZ.INDUSTRIES пока не копирует исходные реестры. Профиль ведёт в действующий продукт и его публичные контракты.</p></div>
+            <div class="module-head"><div><p class="section-number">07 / ИСТОЧНИКИ</p><h2>Проверить и продолжить исследование</h2></div><p>QAZ.INDUSTRIES пока не копирует исходные реестры. Профиль ведёт в действующий продукт и его публичные контракты.</p></div>
             <div class="source-links" id="source-links"></div>
           </section>
         </div>

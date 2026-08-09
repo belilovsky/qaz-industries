@@ -32,6 +32,14 @@ def main() -> int:
     expected = {"service": "qaz-industries", "release": args.release, "commit": args.commit}
     if metadata != expected:
         raise SystemExit(f"release contract: unexpected metadata: {metadata!r}")
+    try:
+        thematic = json.loads((directory / "data" / "qaz-industries-thematic-release.v1.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise SystemExit(f"release contract: invalid thematic release: {error}") from error
+    if thematic.get("release_id") != args.release or thematic.get("product_id") != "qaz-industries":
+        raise SystemExit("release contract: thematic release identity mismatch")
+    if not str(thematic.get("manifest_digest", "")).startswith("sha256:"):
+        raise SystemExit("release contract: thematic manifest digest missing")
     version = args.commit[:12]
     for page, assets in PAGE_ASSETS.items():
         source = (directory / page).read_text(encoding="utf-8")

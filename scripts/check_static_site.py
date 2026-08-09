@@ -47,8 +47,20 @@ def main() -> int:
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         require('id="filter-summary"' in index, "index.html: missing filter status")
         profile = (ROOT / "industry.html").read_text(encoding="utf-8")
-        for element_id in ("profile-evidence-source", "profile-evidence-release", "profile-evidence-link"):
+        for element_id in (
+            "profile-evidence-source", "profile-evidence-release", "profile-evidence-link",
+            "profile-passport-title", "passport-source", "passport-release", "profile-machine-link",
+            "pulse-status", "pulse-grid", "pulse-boundary-state",
+        ):
             require(f'id="{element_id}"' in profile, f"industry.html: missing {element_id}")
+        require('window.QAZ_INDUSTRIES_ASSET_VERSION = "source"' in profile, "industry.html: missing asset version bootstrap")
+        for contract in (
+            "data/industry-profiles.v1.json",
+            "data/qazlake-public-snapshot.v1.json",
+            "data/reviewed-source-registry.v1.json",
+            "data/qaz-industries-thematic-release.v1.json",
+        ):
+            require((ROOT / contract).is_file(), f"missing public contract: {contract}")
 
         css = (ROOT / "avds.css").read_text(encoding="utf-8")
         require(css.count("{") == css.count("}"), "avds.css: unbalanced braces")

@@ -1,0 +1,16 @@
+{
+  "schema_version": "qaz-industries-public-profiles-v1",
+  "product_id": "qaz-industries",
+  "profiles": [
+    {"id": "energy", "name": "Энергетика", "source": "https://qz.energy/", "release": "Публичный срез · август 2026"},
+    {"id": "space", "name": "Космическая отрасль", "source": "https://qazaqstan.space/", "release": "Выпуск 2026-07-26.29"},
+    {"id": "farm", "name": "Сельское хозяйство", "source": "https://qaz.farm/", "release": "Выпуск 2026-07-27.1 · данные на 20 июля"},
+    {"id": "water", "name": "Водоёмы и рыболовство", "source": "https://qaz.fish/", "release": "Публичный срез · 1 августа 2026"}
+  ],
+  "machine_entrypoints": [
+    {"label": "Профили отраслей", "url": "https://qaz.industries/data/industry-profiles.v1.json"},
+    {"label": "Публичный snapshot QazLake", "url": "https://qaz.industries/data/qazlake-public-snapshot.v1.json"},
+    {"label": "Тематический release contract", "url": "https://qaz.industries/data/qaz-industries-thematic-release.v1.json"}
+  ],
+  "public_boundary": "Только проверенные static snapshots и link metadata; QAZ.INDUSTRIES не выдаёт raw QazLake data, приватные очереди или credentials."
+}

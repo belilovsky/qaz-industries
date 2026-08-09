@@ -1,0 +1,61 @@
+{
+  "schema_version": "qaz-industries-qazlake-public-snapshot-v1",
+  "status": "ready",
+  "provider": {
+    "service": "qazlake-lite-api",
+    "source_revision": "qazlake-lite-api-20260725.1",
+    "health_url": "https://qlake.tech/health",
+    "endpoint": "https://qlake.tech/api/economy/indicators"
+  },
+  "retrieved_at": "2026-08-09T08:37:32Z",
+  "publication_mode": "reviewed-static-snapshot",
+  "limitations": [
+    "Срез является общеэкономическим контекстом и не заменяет отраслевые показатели.",
+    "Браузер QAZ.INDUSTRIES не обращается к QazLake напрямую; файл собирается и проверяется как статический артефакт.",
+    "Региональные и географические QazLake endpoints не опубликованы в текущей public API revision и показаны как degraded, а не как пустые данные."
+  ],
+  "indicators": [
+    {
+      "id": "NBK_BASE_RATE",
+      "label": "Базовая ставка НБРК",
+      "value": 16.75,
+      "unit": "%",
+      "as_of": "2026-07-27",
+      "source": "nationalbank.kz",
+      "source_url": "https://nationalbank.kz/",
+      "is_forecast": false
+    },
+    {
+      "id": "CPI_YOY",
+      "label": "Инфляция, год к году",
+      "value": 10.3,
+      "unit": "%",
+      "as_of": "2026-06-01",
+      "source": "stat.gov.kz",
+      "source_url": "https://stat.gov.kz/",
+      "is_forecast": false
+    },
+    {
+      "id": "CPI_MOM",
+      "label": "Инфляция, месяц к месяцу",
+      "value": 0.8,
+      "unit": "%",
+      "as_of": "2026-06-01",
+      "source": "stat.gov.kz",
+      "source_url": "https://stat.gov.kz/",
+      "is_forecast": false
+    }
+  ],
+  "unavailable_modules": [
+    {
+      "id": "regional-indicators",
+      "state": "degraded",
+      "reason": "Публичный endpoint региональных показателей недоступен в текущей ревизии QazLake API."
+    },
+    {
+      "id": "water-catalogue",
+      "state": "degraded",
+      "reason": "Публичные endpoints водоёмов и гидропостов недоступны в текущей ревизии QazLake API."
+    }
+  ]
+}

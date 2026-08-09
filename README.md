@@ -16,6 +16,26 @@
 - `scripts/patch_caddy_release.py` — fail-closed патчер, который может менять
   только собственный блок домена в общем Caddyfile.
 
+## Данные и публичные контракты
+
+`qazstack-thematic-product.json` фиксирует product boundary: QAZ публикует
+только reviewed static projections, а не raw QazLake, private queues или
+прямой browser access к lake. В `data/` доступны профильный JSON, reviewed
+source registry, тематический release и публичный macro snapshot QazLake.
+
+Обновление snapshot является явным review-step: сначала проверить diff, затем
+только при необходимости записать новый файл.
+
+```bash
+python3 scripts/refresh_qazlake_snapshot.py
+python3 scripts/refresh_qazlake_snapshot.py --write
+scripts/check.sh
+```
+
+Проверка не пропустит релиз со snapshot старше 31 дня. Недоступные public API
+слои QazLake показываются пользователю как degraded, а не маскируются пустыми
+карточками.
+
 Числа не синтетические: каждый показатель сопровождается периодом, контекстом
 и ссылкой на публичный источник. Отсутствующее покрытие показывается как
 пробел, а не как нулевое значение.

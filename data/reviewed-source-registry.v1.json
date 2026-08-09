@@ -1,0 +1,19 @@
+{
+  "schema_version": "qazstack-reviewed-source-registry-v1",
+  "status": "active-link-metadata",
+  "source_count": 5,
+  "sources": [
+    {"id": "qz-energy", "title": "qz.energy", "publisher": "QZ.Energy", "source_class": "editorial", "source_type": "отраслевой публичный продукт", "url": "https://qz.energy/", "scope": "Энергетика Казахстана", "summary_ru": "Публичные показатели, карта, объекты и редакционные материалы по энергетике.", "use_case_ru": "Профиль энергетики и ссылки на первичные отраслевые поверхности.", "rights_decision": "approved-link-metadata", "retrieved_at": "2026-08-09", "claim_publication": "Ссылка и описание не переносят исходный реестр в QAZ.INDUSTRIES."},
+    {"id": "qazaqstan-space", "title": "Qazaqstan.Space", "publisher": "Qazaqstan.Space", "source_class": "research", "source_type": "проверяемый отраслевой атлас", "url": "https://qazaqstan.space/", "scope": "Космическая отрасль Казахстана", "summary_ru": "Публичный атлас инфраструктуры, программ, фактов и источников.", "use_case_ru": "Профиль космической отрасли и проверяемые переходы к исходному атласу.", "rights_decision": "approved-link-metadata", "retrieved_at": "2026-08-09", "claim_publication": "QAZ.INDUSTRIES показывает только link metadata и опубликованные границы среза."},
+    {"id": "qaz-farm", "title": "QAZ.FARM", "publisher": "QAZ.FARM", "source_class": "editorial", "source_type": "сезонный отраслевой продукт", "url": "https://qaz.farm/", "scope": "Сельское хозяйство Казахстана", "summary_ru": "Статистика производства, сезонные наблюдения, региональные профили и источники.", "use_case_ru": "Профиль АПК с периодом и ссылками на отраслевые данные.", "rights_decision": "approved-link-metadata", "retrieved_at": "2026-08-09", "claim_publication": "Показатели сохраняют свой период и ведут к исходному продукту."},
+    {"id": "qaz-fish", "title": "QAZ.FISH", "publisher": "QAZ.FISH", "source_class": "editorial", "source_type": "географический сервис и база знаний", "url": "https://qaz.fish/", "scope": "Водоёмы и рыболовство Казахстана", "summary_ru": "Публичные каталоги водоёмов, правила, знания и сценарии доступа.", "use_case_ru": "Профиль водных отраслей без переноса чувствительных координат.", "rights_decision": "approved-link-metadata", "retrieved_at": "2026-08-09", "claim_publication": "Чувствительные точки и личные данные исключены из публичного профиля."},
+    {"id": "qazlake-macro", "title": "QazLake public macro snapshot", "publisher": "QazLake", "source_class": "public-sector", "source_type": "read-only public API", "url": "https://qlake.tech/api/economy/indicators", "scope": "Официальный макроэкономический контекст Казахстана", "summary_ru": "Версионируемый public snapshot CPI и базовой ставки с исходными государственными источниками.", "use_case_ru": "Контекст для отраслевого чтения; не самостоятельный отраслевой показатель.", "rights_decision": "approved-link-metadata", "retrieved_at": "2026-08-09", "claim_publication": "В QAZ.INDUSTRIES публикуется статический проверенный срез без прямого browser access к QazLake."}
+  ],
+  "policy": {
+    "allowed_classes": ["official", "public-sector", "research", "editorial"],
+    "requires_rights_review": true,
+    "requires_human_review_before_publication": true,
+    "private_materials_are_excluded": true,
+    "domain_exclusions": ["raw-ingestion", "private queues", "credentials", "exact user locations"]
+  }
+}

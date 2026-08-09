@@ -4,10 +4,12 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import shutil
 import subprocess
+from datetime import datetime, timezone
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,6 +23,7 @@ STATIC_FILES = (
     "industry-data.js",
     "industry.js",
     "favicon.svg",
+    "qazstack-thematic-product.json",
 )
 HTML_FILES = ("index.html", "industry.html", "benchmarks.html")
 VERSIONED_ASSETS = ("styles.css", "avds.css", "app.js", "industry-data.js", "industry.js")
@@ -52,6 +55,7 @@ def main() -> int:
         if not source.is_file():
             raise SystemExit(f"missing static input: {filename}")
         shutil.copy2(source, output / filename)
+    shutil.copytree(ROOT / "data", output / "data")
 
     # The runtime switches a release symlink atomically. Version local assets in
     # the copied HTML so an already-open browser cannot retain JavaScript or CSS
@@ -60,6 +64,10 @@ def main() -> int:
     for filename in HTML_FILES:
         destination = output / filename
         html = destination.read_text(encoding="utf-8")
+        html = html.replace(
+            'window.QAZ_INDUSTRIES_ASSET_VERSION = "source"',
+            f'window.QAZ_INDUSTRIES_ASSET_VERSION = "{asset_version}"',
+        )
         for asset in VERSIONED_ASSETS:
             html = html.replace(f'href="{asset}"', f'href="{asset}?v={asset_version}"')
             html = html.replace(f'src="{asset}"', f'src="{asset}?v={asset_version}"')
@@ -73,6 +81,27 @@ def main() -> int:
         )
         + "\n",
         encoding="utf-8",
+    )
+    snapshot = json.loads((ROOT / "data" / "qazlake-public-snapshot.v1.json").read_text(encoding="utf-8"))
+    manifest_bytes = (ROOT / "qazstack-thematic-product.json").read_bytes()
+    published_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    thematic_release = {
+        "schema_version": "qazstack-thematic-release-v1",
+        "product_id": "qaz-industries",
+        "release_id": args.release,
+        "published_at": published_at,
+        "data_as_of": snapshot["retrieved_at"],
+        "manifest_digest": "sha256:" + hashlib.sha256(manifest_bytes).hexdigest(),
+        "modules": [
+            {"id": "profile-registry", "state": "ready", "record_count": 4, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish"]},
+            {"id": "industry-indicators", "state": "ready", "record_count": 18, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish"]},
+            {"id": "change-pulse", "state": "ready", "record_count": len(snapshot["indicators"]), "as_of": snapshot["retrieved_at"], "source_ids": ["qazlake-macro"]},
+            {"id": "source-provenance", "state": "ready", "record_count": 5, "as_of": published_at, "source_ids": ["qz-energy", "qazaqstan-space", "qaz-farm", "qaz-fish", "qazlake-macro"]},
+            {"id": "regional-context", "state": "degraded", "record_count": 0, "as_of": snapshot["retrieved_at"], "source_ids": [], "notes": "The documented QazLake regional public endpoint is unavailable in the current public API revision."}
+        ],
+    }
+    (output / "data" / "qaz-industries-thematic-release.v1.json").write_text(
+        json.dumps(thematic_release, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(output)
     return 0

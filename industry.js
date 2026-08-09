@@ -1,6 +1,8 @@
 const profiles = window.QAZ_INDUSTRIES;
 const profileKeys = Object.keys(profiles);
 const coverageStates = new Set(['ready', 'partial', 'gap']);
+let activeProfile = profiles.energy;
+let publicSnapshot = null;
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({
@@ -23,8 +25,65 @@ function statusLabel(status) {
   return status === 'ready' ? 'Готово' : status === 'partial' ? 'Частично' : 'Пробел';
 }
 
+function dateLabel(value) {
+  const date = new Date(`${value}T00:00:00Z`);
+  return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat('ru-RU', {
+    day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
+  }).format(date);
+}
+
+function snapshotAssetUrl() {
+  const version = encodeURIComponent(window.QAZ_INDUSTRIES_ASSET_VERSION || 'source');
+  return `data/qazlake-public-snapshot.v1.json?v=${version}`;
+}
+
+function renderPassport(profile) {
+  document.querySelector('#passport-source').textContent = profile.sourceName;
+  document.querySelector('#passport-release').textContent = profile.release;
+  document.querySelector('#profile-machine-link').setAttribute('aria-label', `Открыть JSON профилей; выбран ${profile.name}`);
+}
+
+function renderPulse() {
+  const status = document.querySelector('#pulse-status');
+  const grid = document.querySelector('#pulse-grid');
+  const boundary = document.querySelector('#pulse-boundary-state');
+  if (!publicSnapshot) {
+    status.textContent = 'Публичный QazLake snapshot недоступен. Отраслевой профиль продолжает работать без него.';
+    grid.innerHTML = '';
+    boundary.textContent = 'Региональные и водные контракты не подключены без подтверждённого public endpoint.';
+    return;
+  }
+  const provider = publicSnapshot.provider;
+  status.innerHTML = `Проверенный static snapshot · ${escapeHtml(provider.service)} · revision ${escapeHtml(provider.source_revision)} · получен ${escapeHtml(dateLabel(publicSnapshot.retrieved_at.slice(0, 10)))}.`;
+  grid.innerHTML = publicSnapshot.indicators.map((item) => `
+    <article>
+      <span>${escapeHtml(item.label)}</span>
+      <strong>${escapeHtml(String(item.value).replace('.', ','))}<small>${escapeHtml(item.unit)}</small></strong>
+      <p>на ${escapeHtml(dateLabel(item.as_of))} · <a href="${externalUrl(item.source_url)}" target="_blank" rel="noreferrer">${escapeHtml(item.source)} ↗</a></p>
+    </article>
+  `).join('');
+  const unavailable = publicSnapshot.unavailable_modules.map((item) => item.reason).join(' ');
+  boundary.textContent = unavailable || 'Публичный региональный слой проверен отдельно перед включением.';
+}
+
+async function loadPublicSnapshot() {
+  try {
+    const response = await fetch(snapshotAssetUrl(), { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const snapshot = await response.json();
+    if (snapshot.schema_version !== 'qaz-industries-qazlake-public-snapshot-v1' || snapshot.status !== 'ready') {
+      throw new Error('unexpected public snapshot contract');
+    }
+    publicSnapshot = snapshot;
+  } catch (error) {
+    console.warn('QazLake public snapshot unavailable:', error);
+  }
+  renderPulse(activeProfile);
+}
+
 function renderProfile(key, updateUrl = true) {
   const profile = profiles[key] || profiles.energy;
+  activeProfile = profile;
   document.title = `${profile.name} — QAZ.INDUSTRIES`;
   document.querySelector('#toolbar-current').textContent = profile.name;
   document.querySelector('#profile-code').textContent = profile.code;
@@ -41,6 +100,8 @@ function renderProfile(key, updateUrl = true) {
   const sourceTop = document.querySelector('#profile-source-top');
   sourceTop.href = externalUrl(profile.sourceUrl);
   sourceTop.textContent = `${profile.sourceName} ↗`;
+  renderPassport(profile);
+  renderPulse();
 
   document.querySelectorAll('[data-sector]').forEach((button) => {
     const active = button.dataset.sector === profile.id;
@@ -107,3 +168,4 @@ document.querySelector('#compare-b')?.addEventListener('change', renderCompariso
 const initialSector = new URLSearchParams(window.location.search).get('sector');
 renderProfile(profileKeys.includes(initialSector) ? initialSector : 'energy', false);
 renderComparison();
+loadPublicSnapshot();

@@ -5,6 +5,8 @@ root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root_dir"
 
 python3 scripts/check_static_site.py
+python3 scripts/check_public_contracts.py
+python3 -m py_compile scripts/refresh_qazlake_snapshot.py
 PYTHONPATH=. python3 -m unittest discover -s tests -p 'test_*.py'
 node scripts/check_data_contract.mjs
 node --check app.js
