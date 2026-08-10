@@ -71,6 +71,12 @@ def main() -> int:
             require('rel="canonical"' in source, f"{page}: missing canonical URL")
             require('property="og:title"' in source and 'property="og:description"' in source, f"{page}: missing OpenGraph metadata")
         index = (ROOT / "index.html").read_text(encoding="utf-8")
+        avds = (ROOT / "avds.css").read_text(encoding="utf-8")
+        require(
+            'html[data-design-system="avds4"] [hidden]' in avds
+            and "display: none !important" in avds,
+            "avds.css: native hidden contract must override component display modes",
+        )
         require('id="filter-summary"' in index, "index.html: missing filter status")
         require(index.count('data-qazgeo-map') == 2, "index.html: expected hero and full QazGeo maps")
         require('src="qazgeo-map.js"' in index, "index.html: missing QazGeo renderer")

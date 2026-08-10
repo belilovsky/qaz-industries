@@ -6,6 +6,11 @@ html[data-design-system="avds4"] :where(button, input, select, textarea) {
   font: inherit;
 }
 
+/* The native hidden contract must win over AV DS component display modes. */
+html[data-design-system="avds4"] [hidden] {
+  display: none !important;
+}
+
 html[data-design-system="avds4"] .av-alert {
   border: 1px solid var(--av-color-border);
   border-inline-start-width: 4px;

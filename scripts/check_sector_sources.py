@@ -72,6 +72,19 @@ def selected_count(payload: dict, module_id: str) -> int:
     return module["record_count"]
 
 
+def indexed_count(payload: dict, file_id: str) -> int:
+    files = payload.get("files")
+    if not isinstance(files, list):
+        raise ValueError("public data index files are missing")
+    item = next(
+        (entry for entry in files if isinstance(entry, dict) and entry.get("id") == file_id),
+        None,
+    )
+    if not isinstance(item, dict) or not isinstance(item.get("count"), int):
+        raise ValueError(f"public data index entry is missing: {file_id}")
+    return item["count"]
+
+
 def main() -> int:
     registry = json.loads(PROFILES.read_text(encoding="utf-8"))
     profiles = {item["id"]: item for item in registry["profiles"]}
@@ -79,11 +92,7 @@ def main() -> int:
     energy = fetch_json("https://qz.energy/data/thematic-release.json")
     farm = fetch_json("https://qaz.farm/thematic-release.json")
     water = fetch_json("https://qaz.fish/data/thematic-release.json")
-    space_html = fetch("https://qazaqstan.space/").decode("utf-8", errors="replace")
-    space_releases = sorted(set(re.findall(r"2026-\d{2}-\d{2}\.\d+", space_html)))
-    if not space_releases:
-        raise ValueError("space: current release marker is missing")
-    space_release = space_releases[-1]
+    space = fetch_json("https://qazaqstan.space/data/v1/index.json")
 
     report = {
         "schema_version": "qaz-industries-sector-source-probe-v1",
@@ -95,10 +104,10 @@ def main() -> int:
                 "sources": selected_count(energy, "source-register"),
             },
             "space": {
-                "release": require_release(profiles["space"]["source_release_id"], space_release, "space"),
-                "objects": int(re.search(r"<dt>(\d+)</dt><dd>объектов и систем", space_html).group(1)),
-                "facts": int(re.search(r"<dt>(\d+)</dt><dd>проверенных фактов", space_html).group(1)),
-                "sources": int(re.search(r"<dt>(\d+)</dt><dd>проверенных источников", space_html).group(1)),
+                "release": require_release(profiles["space"]["source_release_id"], space.get("release_id"), "space"),
+                "objects": indexed_count(space, "entities"),
+                "facts": indexed_count(space, "claims"),
+                "sources": indexed_count(space, "sources"),
             },
             "farm": {
                 "release": require_release(profiles["farm"]["source_release_id"], farm.get("release_id"), "farm"),
