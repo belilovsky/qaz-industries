@@ -1,0 +1,94 @@
+{
+  "schema_version": "qazstack-consumer-contract-v1",
+  "contract_id": "qaz-industries-public-consumer-v1",
+  "product_id": "qaz-industries",
+  "consumer_id": "qaz-industries-browser",
+  "manifest_path": "qazstack-thematic-product.json",
+  "publication_mode": "reviewed-static-same-origin",
+  "runtime": {
+    "public_origin": "https://qaz.industries",
+    "health_path": "/api/health",
+    "release_path": "/release.json",
+    "direct_upstream_browser_access": false
+  },
+  "modules": [
+    {
+      "id": "profile-registry",
+      "contract": "qaz-industries-public-profiles-v1",
+      "asset": "data/industry-profiles.v1.json",
+      "allowed_states": ["ready", "degraded"]
+    },
+    {
+      "id": "industry-indicators",
+      "contract": "qaz-industries-profile-data-v1",
+      "asset": "industry-data.js",
+      "allowed_states": ["ready", "degraded"]
+    },
+    {
+      "id": "change-pulse",
+      "contract": "qaz-industries-qazlake-public-snapshot-v1",
+      "asset": "data/qazlake-public-snapshot.v1.json",
+      "allowed_states": ["ready", "degraded"]
+    },
+    {
+      "id": "source-provenance",
+      "contract": "qazstack-reviewed-source-registry-v1",
+      "asset": "data/reviewed-source-registry.v1.json",
+      "allowed_states": ["ready", "degraded"]
+    },
+    {
+      "id": "territorial-context",
+      "contract": "qaz-industries-qazgeo-public-snapshot-v1",
+      "asset": "data/qazgeo-public-snapshot.v1.json",
+      "map_asset": "data/qazgeo-regions-public.v1.geojson",
+      "allowed_states": ["ready", "degraded"]
+    },
+    {
+      "id": "geo-layer-registry",
+      "contract": "qaz-industries-qazgeo-public-layer-registry-v1",
+      "asset": "data/qazgeo-public-layer-registry.v1.json",
+      "allowed_states": ["ready", "degraded", "contract_only"]
+    }
+  ],
+  "upstreams": [
+    {
+      "id": "qazlake",
+      "origin": "https://qlake.tech",
+      "connection": "release-time-reviewed-snapshot",
+      "refresh_command": "python3 scripts/refresh_qazlake_snapshot.py"
+    },
+    {
+      "id": "qazgeo",
+      "origin": "https://qgeo.tech",
+      "connection": "release-time-reviewed-snapshot",
+      "refresh_commands": [
+        "python3 scripts/refresh_qazgeo_snapshot.py",
+        "python3 scripts/refresh_qazgeo_layer_registry.py"
+      ]
+    },
+    {
+      "id": "sector-products",
+      "origins": [
+        "https://qz.energy",
+        "https://qazaqstan.space",
+        "https://qaz.farm",
+        "https://qaz.fish"
+      ],
+      "connection": "reviewed-link-metadata-and-curated-profile-projection"
+    }
+  ],
+  "boundaries": {
+    "same_origin_assets_only": true,
+    "raw_qazlake_observations_public": false,
+    "private_source_fields_public": false,
+    "sensitive_exact_coordinates_public": false,
+    "candidate_records_auto_publish": false,
+    "contract_only_is_observation": false
+  },
+  "failure_policy": {
+    "unavailable_upstream": "retain-last-reviewed-snapshot-and-show-degraded-state",
+    "invalid_contract": "fail-release-gate",
+    "unknown_module": "reject",
+    "empty_observation": "never-coerce-to-zero"
+  }
+}

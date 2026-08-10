@@ -63,12 +63,12 @@ def snapshot() -> dict:
         "limitations": [
             "Срез является общеэкономическим контекстом и не заменяет отраслевые показатели.",
             "Браузер QAZ.INDUSTRIES не обращается к QazLake напрямую; файл собирается и проверяется как статический артефакт.",
-            "Региональные и географические QazLake endpoints не опубликованы в текущей public API revision и показаны как degraded, а не как пустые данные."
+            "Региональные и географические интерфейсы QazLake не опубликованы в текущей ревизии публичного API и отмечены как недоступные, а не как пустые данные."
         ],
         "indicators": indicators,
         "unavailable_modules": [
-            {"id": "regional-indicators", "state": "degraded", "reason": "Публичный endpoint региональных показателей недоступен в текущей ревизии QazLake API."},
-            {"id": "water-catalogue", "state": "degraded", "reason": "Публичные endpoints водоёмов и гидропостов недоступны в текущей ревизии QazLake API."}
+            {"id": "regional-indicators", "state": "degraded", "reason": "Публичный интерфейс региональных показателей недоступен в текущей ревизии QazLake API."},
+            {"id": "water-catalogue", "state": "degraded", "reason": "Публичные интерфейсы водоёмов и гидропостов недоступны в текущей ревизии QazLake API."}
         ],
     }
 

@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "industry.html", "benchmarks.html")
+PAGES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 
 
 class ReferenceParser(HTMLParser):
@@ -56,6 +56,7 @@ def main() -> int:
             "https://qaz.industries/",
             "https://qaz.industries/industry.html",
             "https://qaz.industries/benchmarks.html",
+            "https://qaz.industries/publication.html",
         }
         if locations != expected:
             raise ValueError(f"sitemap URLs differ from canonical public set: {sorted(locations)}")

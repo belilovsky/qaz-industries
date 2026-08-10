@@ -14,8 +14,10 @@
 ## Scheduled monitor
 
 `public-contract-monitor.yml` ежедневно запускает read-only refresh probes для
-QazLake, QazGeo и layer registry, затем `scripts/check.sh`. Artifact сохраняется
-7 дней. Workflow не коммитит, не публикует и не переключает runtime.
+QazLake, QazGeo, layer registry и четырёх отраслевых продуктов, затем
+`scripts/check.sh`. Artifact сохраняется 7 дней. Workflow не коммитит, не
+публикует и не переключает runtime. Пока workflow commit не отправлен в
+`origin/main`, расписание существует только локально и не считается активным.
 
 ## Диагностика
 
@@ -34,5 +36,6 @@ state. Если Caddy parity не проходит, deploy должен оста
 ## Наблюдаемые пробелы
 
 В репозитории нет alert routing, SLO dashboard, error aggregation, browser
-telemetry или публичного uptime history. Владелец runtime и срок хранения
-monitor artifacts должны быть подтверждены отдельно.
+telemetry или публичного uptime history. Роли владельцев определены как owner
+QAZ release и оператор shared public-sites runtime; конкретный приватный канал
+эскалации не публикуется. Срок хранения monitor artifacts — 7 дней.

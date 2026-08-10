@@ -76,9 +76,9 @@ def snapshot() -> tuple[dict, dict]:
         "id": "regional-indicators",
         "state": "degraded" if degraded else "ready",
         "reason": (
-            "QazGeo подтвердил public contract, но его текущая QazLake-проекция региональных показателей имеет состояние "
-            f"{regional.get('degraded_reason', 'upstream_unavailable')}; значения не публикуются."
-            if degraded else "Публичная региональная проекция доступна для отдельного review перед публикацией."
+            "QazGeo подтвердил публичный контракт, но текущая QazLake-проекция региональных показателей имеет состояние "
+            f"«{regional.get('degraded_reason', 'upstream_unavailable')}»; значения не публикуются."
+            if degraded else "Публичная региональная проекция доступна для отдельной проверки перед публикацией."
         ),
     }
     result = {
@@ -108,8 +108,8 @@ def snapshot() -> tuple[dict, dict]:
         },
         "limitations": [
             "Это территориальная основа и каталог публичных слоёв, а не отраслевой показатель.",
-            "Браузер QAZ.INDUSTRIES не обращается к QazGeo напрямую; срез публикуется только после review как статический артефакт.",
-            "QAZ.INDUSTRIES не отображает точные чувствительные координаты, raw QazLake observations или приватные source fields.",
+            "Браузер QAZ.INDUSTRIES не обращается к QazGeo напрямую; срез публикуется как статический артефакт только после проверки.",
+            "QAZ.INDUSTRIES не отображает точные чувствительные координаты, исходные наблюдения QazLake или закрытые поля источников.",
         ],
         "unavailable_modules": [regional_module] if degraded else [],
     }

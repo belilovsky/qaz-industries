@@ -21,7 +21,7 @@ scripts/check.sh
 
 Она выполняет static HTML/AV DS contract, route hygiene, accessibility и
 терминологический contracts, size/security budgets, public data contracts,
-documentation links, Python compile checks, 7 Python unit tests, data contract, 9 Node tests,
+documentation links, Python compile checks, 8 Python unit tests, data contract, 9 Node tests,
 синтаксис всех JavaScript и shell scripts, build release во временной директории,
 release artifact verification и `git diff --check`.
 
@@ -35,6 +35,7 @@ python3 scripts/check_content.py
 python3 scripts/check_quality_budgets.py
 python3 scripts/check_docs.py
 python3 scripts/check_public_contracts.py
+python3 scripts/check_sector_sources.py
 node scripts/check_data_contract.mjs
 node --test tests/*.test.cjs
 python3 -m unittest discover -s tests -v
@@ -54,7 +55,7 @@ request. `.github/workflows/public-contract-monitor.yml` запускается 
 ## Browser proof
 
 После UI-изменения требуется одна закрытая browser session: desktop и 390px,
-все три страницы, четыре sector states, theme/menu/filter/compare/map
+все четыре страницы, четыре sector states, theme/menu/filter/compare/map
 interactions, console errors, scroll width, source links и release identity.
 Старый screenshot или строка в roadmap не заменяют текущий proof.
 

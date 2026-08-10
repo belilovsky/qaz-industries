@@ -82,7 +82,7 @@ def sanitize_layer(layer: dict) -> dict:
         },
         "license": {
             "status": governance.get("license_status") or "reviewed",
-            "note": governance.get("license_note") or "Публичный слой с reviewed-ограничениями.",
+            "note": governance.get("license_note") or "Публичный слой с ограничениями, подтверждёнными проверкой.",
         },
         "coverage": safe_coverage(governance.get("coverage")),
         "public_projection": projection,
@@ -127,8 +127,8 @@ def snapshot() -> dict:
         "publication_mode": "reviewed-static-metadata",
         "layers": selected,
         "limitations": [
-            "Это curated-реестр контрактов QazGeo, а не выгрузка объектов или наблюдений.",
-            "Слои contract_only показываются как roadmap: значения, координаты и live-наблюдения не публикуются до отдельного upstream review.",
+            "Это проверенный реестр контрактов QazGeo, а не выгрузка объектов или наблюдений.",
+            "Слои со статусом «contract_only» показываются как план подключения: значения, координаты и оперативные наблюдения не публикуются до отдельной проверки исходного источника.",
             "OSM-слои требуют атрибуции и не заменяют официальные инженерные, дорожные или гидрологические реестры.",
         ],
     }

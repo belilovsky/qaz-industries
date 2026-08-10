@@ -11,6 +11,7 @@ const sandbox = { window: {} };
 vm.createContext(sandbox);
 vm.runInContext(source, sandbox, { filename: 'industry-data.js', timeout: 1000 });
 const profiles = sandbox.window.QAZ_INDUSTRIES;
+const profileRegistry = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'industry-profiles.v1.json'), 'utf8'));
 const coverageStates = new Set(['ready', 'partial', 'gap']);
 
 function fail(message) {
@@ -48,14 +49,22 @@ function objectArray(value, label, fields) {
 if (!profiles || typeof profiles !== 'object' || Array.isArray(profiles)) fail('profiles must be an object');
 const entries = Object.entries(profiles);
 if (entries.length < 1) fail('at least one profile is required');
+const registryEntries = new Map(profileRegistry.profiles.map((profile) => [profile.id, profile]));
+if (registryEntries.size !== entries.length) fail('profile registry differs from JavaScript profile count');
 
 for (const [key, profile] of entries) {
   if (!/^[a-z0-9-]+$/.test(key)) fail(`${key}: profile key is invalid`);
   if (!profile || typeof profile !== 'object') fail(`${key}: profile must be an object`);
-  for (const field of ['id', 'name', 'short', 'code', 'sourceName', 'release', 'status', 'summary', 'about']) {
+  for (const field of ['id', 'name', 'short', 'code', 'sourceName', 'sourceReleaseId', 'release', 'status', 'summary', 'about']) {
     requiredString(profile[field], `${key}.${field}`);
   }
   if (profile.id !== key) fail(`${key}.id must equal its profile key`);
+  const registryProfile = registryEntries.get(key);
+  if (!registryProfile) fail(`${key}: missing from JSON profile registry`);
+  if (registryProfile.name !== profile.name) fail(`${key}: JSON/JavaScript name mismatch`);
+  if (registryProfile.source !== profile.sourceUrl) fail(`${key}: JSON/JavaScript source mismatch`);
+  if (registryProfile.source_release_id !== profile.sourceReleaseId) fail(`${key}: JSON/JavaScript source release mismatch`);
+  if (registryProfile.release !== profile.release) fail(`${key}: JSON/JavaScript release mismatch`);
   httpsUrl(profile.sourceUrl, `${key}.sourceUrl`);
   objectArray(profile.kpis, `${key}.kpis`, ['value', 'label', 'period']);
   objectArray(profile.indicators, `${key}.indicators`, ['name', 'value', 'unit', 'period', 'note', 'url']);

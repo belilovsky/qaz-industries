@@ -33,6 +33,7 @@ def main() -> int:
         require(len(profiles["profiles"]) == 4, "expected four industry profiles")
         for profile in profiles["profiles"]:
             require(isinstance(profile.get("id"), str), "profile id")
+            require(isinstance(profile.get("source_release_id"), str) and profile["source_release_id"], f"profile {profile.get('id')}: source release")
             https(profile.get("source"), f"profile {profile.get('id')}")
         for entrypoint in profiles["machine_entrypoints"]:
             https(entrypoint.get("url"), "machine entrypoint")
@@ -115,6 +116,30 @@ def main() -> int:
         require(manifest["schema_version"] == "qazstack-thematic-product-v1", "thematic manifest schema")
         require(manifest["publication"]["public_records_require_review"] is True, "review gate")
         require(manifest["geo_policy"]["private_browser_access_forbidden"] is True, "private geo browser gate")
+
+        consumer = json.loads((ROOT / "qazstack-consumer.json").read_text(encoding="utf-8"))
+        require(consumer["schema_version"] == "qazstack-consumer-contract-v1", "consumer contract schema")
+        require(consumer.get("product_id") == manifest["product_id"], "consumer product identity")
+        require(consumer.get("manifest_path") == "qazstack-thematic-product.json", "consumer manifest path")
+        require(consumer["runtime"].get("direct_upstream_browser_access") is False, "consumer direct upstream gate")
+        https(consumer["runtime"].get("public_origin"), "consumer public origin")
+        manifest_modules = {module["id"] for module in manifest["modules"]}
+        consumer_modules = {module["id"] for module in consumer["modules"]}
+        require(consumer_modules == manifest_modules, "consumer module set differs from manifest")
+        for module in consumer["modules"]:
+            asset = ROOT / module["asset"]
+            require(asset.is_file(), f"consumer module {module['id']}: asset missing")
+            if module.get("map_asset"):
+                require((ROOT / module["map_asset"]).is_file(), f"consumer module {module['id']}: map asset missing")
+            require(isinstance(module.get("allowed_states"), list) and module["allowed_states"], f"consumer module {module['id']}: states")
+        for upstream in consumer["upstreams"]:
+            if upstream.get("origin"):
+                https(upstream["origin"], f"consumer upstream {upstream['id']}")
+            for origin in upstream.get("origins", []):
+                https(origin, f"consumer upstream {upstream['id']}")
+        boundaries = consumer["boundaries"]
+        require(boundaries.get("same_origin_assets_only") is True, "consumer same-origin gate")
+        require(boundaries.get("contract_only_is_observation") is False, "consumer contract-only gate")
     except (KeyError, OSError, TypeError, ValueError, json.JSONDecodeError) as error:
         print(f"public contract: FAILED: {error}")
         return 1

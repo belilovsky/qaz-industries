@@ -13,6 +13,7 @@
 | `/industry.html?sector=farm` | профиль сельского хозяйства | тот же профильный shell |
 | `/industry.html?sector=water` | профиль водоёмов и рыболовства | water gaps явно отображаются |
 | `/benchmarks.html` | исследовательские референсы и matrix | статический материал |
+| `/publication.html` | происхождение, права, retention и исправления | статическая политика публикации |
 
 Канонический public route set закреплён в `scripts/check_routes.py` и
 `sitemap.xml`. Query parameter `sector` не создаёт новый server route.
@@ -33,7 +34,8 @@
 `data/qazgeo-public-snapshot.v1.json`, `data/qazgeo-regions-public.v1.geojson`,
 `data/qazgeo-public-layer-registry.v1.json`,
 `data/reviewed-source-registry.v1.json` и
-`data/qaz-industries-thematic-release.v1.json` — versioned static assets.
+`data/qaz-industries-thematic-release.v1.json`, а также корневой
+`qazstack-consumer.json` — versioned static assets.
 Schema, provider, freshness и ограничения описаны в
 [`data-provenance.md`](data-provenance.md).
 

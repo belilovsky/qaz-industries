@@ -8,6 +8,12 @@
 `X-Qaz-Industries-Release`. Нельзя заменять весь Caddyfile, менять общий
 `X-Qaz-Release` или трогать HAProxy для content-only выпуска.
 
+Владелец репозитория выполняет роль QAZ release owner; оператор shared
+public-sites Caddy/VPS — runtime owner. Отдельного staging-домена нет: принятая
+граница — локальный immutable artifact, проверенный Caddy candidate, атомарный
+switch и rollback. Это осознанная схема выпуска, а не заявление о наличии
+staging.
+
 ## Процедура выпуска
 
 1. Сохранить Git status, remote и source SHA.
@@ -15,6 +21,8 @@
    `python3 scripts/refresh_qazlake_snapshot.py`,
    `python3 scripts/refresh_qazgeo_snapshot.py`,
    `python3 scripts/refresh_qazgeo_layer_registry.py`.
+   Затем выполнить `python3 scripts/check_sector_sources.py` для четырёх
+   отраслевых release markers и всех ссылок профилей.
 3. Проверить каждый diff; `contract_only` может менять metadata, но не может
    стать выдуманным observation.
 4. Запустить `scripts/check.sh`.
@@ -51,7 +59,8 @@ curl -fsS https://qaz.industries/robots.txt
 curl -fsS https://qaz.industries/sitemap.xml
 ```
 
-Browser proof проверяет desktop и 390px для home, profile и benchmarks,
+Browser proof проверяет desktop и 390px для home, profile, benchmarks и
+publication,
 console errors, overflow, menu/theme/filter/compare/map interactions и release
 identity. HTTP 200 или успешный Caddy reload сами по себе не являются public
 acceptance.

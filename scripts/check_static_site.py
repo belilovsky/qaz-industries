@@ -9,12 +9,13 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "industry.html", "benchmarks.html")
+PAGES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 STYLE_ORDER = ("styles.css", "avds-tokens.css", "avds.css")
 SCRIPT_ORDER = {
     "index.html": ("runtime.js", "site-shell.js", "app.js", "snapshot-contracts.js", "qazgeo-geometry.js", "qazgeo-map.js"),
     "industry.html": ("runtime.js", "site-shell.js", "industry-data.js", "snapshot-contracts.js", "profile-view.js", "industry.js"),
     "benchmarks.html": ("runtime.js", "site-shell.js"),
+    "publication.html": ("runtime.js", "site-shell.js"),
 }
 ASSETS = (
     "styles.css",
@@ -33,6 +34,7 @@ ASSETS = (
     "theme.js",
     "robots.txt",
     "sitemap.xml",
+    "qazstack-consumer.json",
 )
 
 
@@ -96,6 +98,7 @@ def main() -> int:
         for contract in ("av-chip", "av-card", "av-table", "av-button"):
             require(contract in benchmark, f"benchmarks.html: missing AV DS contract {contract}")
         for contract in (
+            "qazstack-consumer.json",
             "data/industry-profiles.v1.json",
             "data/qazlake-public-snapshot.v1.json",
             "data/qazgeo-public-snapshot.v1.json",

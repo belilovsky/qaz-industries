@@ -29,6 +29,9 @@ API, private data store или отдельной системы авториз�
 - `avds-tokens.css`, `avds.css` и `styles.css` разделяют токены, компоненты и layout.
 - `scripts/public_snapshot.py` и `scripts/refresh_*.py` готовят snapshots; они не
   являются runtime API.
+- `qazstack-consumer.json` связывает те же шесть module IDs с публичными
+  asset-ами, allowed states и fail-closed политикой; gate требует полного
+  совпадения с manifest.
 - `scripts/check_*.py`, `check_data_contract.mjs` и unit tests — quality gates.
 
 ## Общие инварианты

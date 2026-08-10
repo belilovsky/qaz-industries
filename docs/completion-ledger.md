@@ -25,18 +25,18 @@
 | 6 | Routes/API/interfaces | done | interfaces; no admin/events claimed |
 | 7 | Данные и происхождение | done | data-provenance + explicit limitations |
 | 8 | Portfolio integrations | done | direction/status/privacy matrix |
-| 9 | Security/privacy/legal | blocked | licence, attribution, retention, security contact need owner decisions |
+| 9 | Security/privacy/legal | blocked | licence/attribution/retention/removal resolved 2026-08-10; stable private security contact still missing |
 | 10 | Editorial/science | done | inclusion, correction, AI and sensitive-topic rules |
 | 11 | AV DS/language/accessibility | done | consumer boundary, Russian UI and manual QA requirements |
 | 12 | Development/local run | done | confirmed commands and paths |
 | 13 | Testing/quality | done | existing checks and browser evidence rules |
 | 14 | Build/release/ops/rollback | done | operations and current-release links |
-| 15 | Observability/diagnostics | blocked | owner, alert routing, SLO and artifact retention unknown |
+| 15 | Observability/diagnostics | blocked | roles and 7-day retention resolved; alert routing/SLO and current VPS access remain unavailable |
 | 16 | Risks/technical debt | done | risks register; blockers remain explicit |
 | 17 | Investor/critic brief | done | no invented market, traction or financial metrics |
 | 18 | AI context | done | ai-context + short root AGENTS |
 | 19 | Docs index/link audit | done | docs/index and quality rules; links checked |
-| 20 | Freshness/contradictions | blocked | public checks show newer upstream releases (Space `2026-08-06.48`, Farm `2026-08-09`, Fish updates `2026-08-09`); local projection and missing consumer contract require owner/source review |
+| 20 | Freshness/contradictions | done | Energy/Space/Farm/Fish labels updated from public releases; QazStack consumer contract and drift gates added |
 
 Пунктов со статусом `pending` или `in_progress` нет. `blocked` означает
 конкретное внешнее решение или неподтверждённый источник, а не незавершённую

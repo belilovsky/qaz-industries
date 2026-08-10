@@ -10,7 +10,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "industry.html", "benchmarks.html")
+PAGES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 CSS_FILES = ("styles.css", "avds-tokens.css", "avds.css")
 PUBLIC_DATA = (
     "industry-profiles.v1.json",
@@ -107,6 +107,10 @@ def main() -> int:
             payload = json.loads(path.read_text(encoding="utf-8"))
             exposed = walk_keys(payload) & SENSITIVE_KEYS
             require(not exposed, f"{path.name}: sensitive keys exposed: {sorted(exposed)}")
+        consumer_path = ROOT / "qazstack-consumer.json"
+        consumer = json.loads(consumer_path.read_text(encoding="utf-8"))
+        exposed = walk_keys(consumer) & SENSITIVE_KEYS
+        require(not exposed, f"{consumer_path.name}: sensitive keys exposed: {sorted(exposed)}")
     except (OSError, StopIteration, ValueError, json.JSONDecodeError) as error:
         print(f"QUALITY BUDGET FAILED: {error}", file=sys.stderr)
         return 1

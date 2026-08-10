@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from scripts.public_snapshot import fetch_json, render_json, require_public_https, utc_timestamp, write_text_files
 
@@ -43,6 +44,20 @@ class PublicSnapshotTests(unittest.TestCase):
             "agent": "qaz-industries-snapshot/2.0",
             "timeout": 20,
         })
+
+    def test_fetch_json_retries_transient_transport_failure(self):
+        attempts = []
+
+        def opener(request, *, timeout):
+            attempts.append((request.full_url, timeout))
+            if len(attempts) == 1:
+                raise OSError("temporary TLS failure")
+            return Response(json.dumps({"status": "ok"}).encode())
+
+        with patch("scripts.public_snapshot.time.sleep") as wait:
+            self.assertEqual(fetch_json("https://example.org/health", opener=opener), {"status": "ok"})
+        self.assertEqual(len(attempts), 2)
+        wait.assert_called_once_with(0.5)
 
     def test_timestamp_and_json_are_deterministic(self):
         now = datetime(2026, 8, 9, 12, 30, 45, 999, tzinfo=timezone.utc)

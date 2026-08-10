@@ -16,6 +16,7 @@ QAZ.INDUSTRIES публикует reviewed static projections. Каждая за
 | `qazgeo-public-layer-registry.v1.json` | reviewed QazGeo layer metadata | 6 layer contracts | 4 stable/observed, 2 `contract_only` | layer registry; contract-only не содержит наблюдений |
 | `reviewed-source-registry.v1.json` | human-reviewed link metadata | 6 source IDs | active-link-metadata | provenance cards; не копирует исходные реестры |
 | `qaz-industries-thematic-release.v1.json` | generated release contract | 6 module records | release-specific | identity, counts, source IDs, digest |
+| `qazstack-consumer.json` | product-owned consumer contract | 6 module inputs, 3 upstream classes | ready | same-origin browser boundary и fail-closed states |
 
 ## Правила lineage
 
@@ -33,8 +34,10 @@ release labels — `historical`, пока не сверены с владель�
 
 Публичная проекция исключает raw QazLake fields, private identifiers, exact user
 locations, sensitive infrastructure coordinates и candidate/entity matches.
-Для OpenStreetMap-derived QazGeo layers требуется attribution. Финальная
-лицензия публикации QAZ и текст attribution требуют решения владельца.
+OpenStreetMap-derived QazGeo layers публикуются с `© OpenStreetMap contributors`
+и ссылкой на ODbL. Для собственных материалов действует консервативная граница:
+они не считаются открыто лицензированными без отдельного указания. Полные правила
+опубликованы на `/publication.html`.
 
 ## Недоступность источника
 
@@ -43,13 +46,12 @@ Refresh/check должны завершаться с ошибкой или со�
 snapshot за текущую observation. `contract_only` остаётся описанием интерфейса
 до появления наблюдаемого upstream snapshot и review.
 
-## Известные расхождения
+## Текущая сверка
 
-Профильные labels в `industry-profiles.v1.json` и `industry-data.js` могут быть
-старее публичных страниц Qazaqstan.Space, QAZ.FARM и QAZ.FISH. На проверке
-2026-08-09 upstream показывали `2026-08-06.48`, дату `2026-08-09` и structured
-updates 2026-08-09 соответственно. Это фиксируется как freshness/review issue,
-а не исправляется догадкой внутри документации.
-
-Манифест указывает `qazstack-consumer.json`, но файл отсутствует в checkout.
-Пока владелец не подтвердит внешний контракт, ссылка считается `blocked`.
+На проверке 2026-08-10 профильные labels синхронизированы с выпусками QZ.Energy
+`qz-energy-refactor-20260809T184604Z-35dbd1d`, Qazaqstan.Space
+`2026-08-06.48`, QAZ.FARM `2026-08-09.15` и QAZ.FISH `2026-08-09.03`.
+`check_data_contract.mjs` требует parity JSON/JavaScript, а network-only
+`check_sector_sources.py` проверяет release markers и 24 внешние ссылки.
+Периодический TLS timeout QAZ.FARM считается upstream failure и не разрешает
+перезапись последнего проверенного среза.

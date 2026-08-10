@@ -12,6 +12,7 @@ PAGE_ASSETS = {
     "index.html": ("styles.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "app.js", "snapshot-contracts.js", "qazgeo-geometry.js", "qazgeo-map.js", "theme.js"),
     "industry.html": ("styles.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "industry-data.js", "snapshot-contracts.js", "profile-view.js", "industry.js", "theme.js"),
     "benchmarks.html": ("styles.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "theme.js"),
+    "publication.html": ("styles.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "theme.js"),
 }
 
 
@@ -43,6 +44,12 @@ def main() -> int:
     map_asset = directory / "data" / "qazgeo-regions-public.v1.geojson"
     if not map_asset.is_file() or map_asset.stat().st_size < 1000:
         raise SystemExit("release contract: QazGeo map asset missing")
+    try:
+        consumer = json.loads((directory / "qazstack-consumer.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise SystemExit(f"release contract: invalid QazStack consumer contract: {error}") from error
+    if consumer.get("schema_version") != "qazstack-consumer-contract-v1" or consumer.get("product_id") != "qaz-industries":
+        raise SystemExit("release contract: QazStack consumer identity mismatch")
     for discovery_file in ("robots.txt", "sitemap.xml"):
         if not (directory / discovery_file).is_file():
             raise SystemExit(f"release contract: discovery file missing: {discovery_file}")

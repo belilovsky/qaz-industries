@@ -46,6 +46,10 @@ credentials, точные чувствительные координаты ил
 - `qazgeo-geometry.js`, `qazgeo-map.js` — геометрия и DOM-рендер карты;
 - `scripts/build_release.py` и `scripts/deploy.sh` — сборка и выпуск статического
   артефакта;
+- `qazstack-consumer.json` — машинная граница модулей, входов и отказов
+  потребителя QazStack;
+- `publication.html` — публичные правила происхождения, атрибуции, хранения и
+  исправлений;
 - `scripts/check.sh` — обязательный quality gate.
 
 ## Локальный запуск и проверки
@@ -72,6 +76,7 @@ scripts/check.sh
 public/browser proof считаются разными видами доказательств. Commit, push и
 deploy выполняются только владельцем выпуска.
 
-Лицензия и окончательные правила attribution не угадываются автоматикой; см.
+Права, атрибуция и retention опубликованы консервативно и не угадываются
+автоматикой; см.
 [`docs/security-privacy.md`](docs/security-privacy.md) и
 [`docs/editorial-science-policy.md`](docs/editorial-science-policy.md).

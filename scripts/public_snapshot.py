@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import tempfile
+import time
 from typing import Callable, Mapping
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
@@ -29,13 +30,27 @@ def fetch_json(
     timeout: int = 20,
     user_agent: str = USER_AGENT,
     opener: Callable[..., AbstractContextManager] = urlopen,
+    attempts: int = 3,
 ) -> dict:
+    if attempts < 1:
+        raise ValueError("fetch attempts must be positive")
     request = Request(
         require_public_https(url),
         headers={"Accept": "application/json", "User-Agent": user_agent},
     )
-    with opener(request, timeout=timeout) as response:  # nosec B310: URL is HTTPS-validated above
-        payload = json.load(response)
+    last_error: OSError | None = None
+    for attempt in range(attempts):
+        try:
+            with opener(request, timeout=timeout) as response:  # nosec B310: URL is HTTPS-validated above
+                payload = json.load(response)
+            break
+        except OSError as error:
+            last_error = error
+            if attempt + 1 == attempts:
+                raise
+            time.sleep(0.5 * (attempt + 1))
+    else:  # pragma: no cover - defensive; the loop either returns data or raises
+        raise last_error or RuntimeError(f"failed to fetch {url}")
     if not isinstance(payload, dict):
         raise ValueError(f"JSON object required from {url}")
     return payload
