@@ -31,12 +31,12 @@
 | 12 | Development/local run | done | confirmed commands and paths |
 | 13 | Testing/quality | done | existing checks and browser evidence rules |
 | 14 | Build/release/ops/rollback | done | operations and current-release links |
-| 15 | Observability/diagnostics | blocked | roles and 7-day retention resolved; alert routing/SLO and current VPS access remain unavailable |
+| 15 | Observability/diagnostics | blocked | runtime access and release receipt verified; scheduled workflow remains local without push and stable private alert routing is unavailable |
 | 16 | Risks/technical debt | done | risks register; blockers remain explicit |
 | 17 | Investor/critic brief | done | no invented market, traction or financial metrics |
 | 18 | AI context | done | ai-context + short root AGENTS |
 | 19 | Docs index/link audit | done | docs/index and quality rules; links checked |
-| 20 | Freshness/contradictions | done | Energy/Space/Farm/Fish labels updated from public releases; QazStack consumer contract and drift gates added |
+| 20 | Freshness/contradictions | done | Energy/Space/Farm/Fish labels match public releases on 2026-08-10; Space uses machine index, Farm is `2026-08-10.1`; drift gates pass |
 
 Пунктов со статусом `pending` или `in_progress` нет. `blocked` означает
 конкретное внешнее решение или неподтверждённый источник, а не незавершённую

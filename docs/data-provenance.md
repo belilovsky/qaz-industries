@@ -50,8 +50,8 @@ snapshot за текущую observation. `contract_only` остаётся оп�
 
 На проверке 2026-08-10 профильные labels синхронизированы с выпусками QZ.Energy
 `qz-energy-refactor-20260809T184604Z-35dbd1d`, Qazaqstan.Space
-`2026-08-06.48`, QAZ.FARM `2026-08-09.15` и QAZ.FISH `2026-08-09.03`.
+`2026-08-06.48`, QAZ.FARM `2026-08-10.1` и QAZ.FISH `2026-08-09.03`.
 `check_data_contract.mjs` требует parity JSON/JavaScript, а network-only
-`check_sector_sources.py` проверяет release markers и 24 внешние ссылки.
-Периодический TLS timeout QAZ.FARM считается upstream failure и не разрешает
+`check_sector_sources.py` проверяет machine-readable release contracts и 23
+внешние ссылки. Транспортная ошибка считается upstream failure и не разрешает
 перезапись последнего проверенного среза.
