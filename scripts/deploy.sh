@@ -7,6 +7,7 @@ cd "$root_dir"
 remote_host="${QAZ_INDUSTRIES_HOST:-root@srv1829804.hstgr.cloud}"
 runtime_root="${QAZ_INDUSTRIES_RUNTIME_ROOT:-/opt/qdev-public-sites/www/qaz.industries}"
 container_name="${QAZ_INDUSTRIES_CADDY_CONTAINER:-qdev-public-sites-proxy}"
+ssh_options=(-o BatchMode=yes -o ConnectTimeout=15)
 
 if [ -n "$(git status --porcelain)" ]; then
   echo "Refusing to deploy a dirty worktree." >&2
@@ -15,7 +16,7 @@ fi
 
 commit_short="$(git rev-parse --short=12 HEAD)"
 release_id="$(date -u +%Y%m%dT%H%M%SZ)-${commit_short}"
-expected_release="$(ssh -o BatchMode=yes "$remote_host" "readlink '${runtime_root}/current' | sed 's#^releases/##'")"
+expected_release="$(ssh "${ssh_options[@]}" "$remote_host" "readlink '${runtime_root}/current' | sed 's#^releases/##'")"
 
 case "$expected_release" in
   *[!A-Za-z0-9_-]*|'') echo "Invalid active release marker from runtime." >&2; exit 1 ;;
@@ -29,9 +30,9 @@ COPYFILE_DISABLE=1 tar --no-xattrs -C "$build_dir" -czf "$archive_path" .
 
 remote_archive_path="/tmp/qaz-industries-${release_id}.tar.gz"
 remote_patch_path="/tmp/qaz-industries-patch-${release_id}.py"
-scp -q "$archive_path" "${remote_host}:${remote_archive_path}"
-scp -q scripts/patch_caddy_release.py "${remote_host}:${remote_patch_path}"
-ssh -o BatchMode=yes "$remote_host" bash -s -- "$runtime_root" "$container_name" "$release_id" "$expected_release" "$remote_archive_path" "$remote_patch_path" <<'REMOTE'
+scp -q "${ssh_options[@]}" "$archive_path" "${remote_host}:${remote_archive_path}"
+scp -q "${ssh_options[@]}" scripts/patch_caddy_release.py "${remote_host}:${remote_patch_path}"
+ssh "${ssh_options[@]}" "$remote_host" bash -s -- "$runtime_root" "$container_name" "$release_id" "$expected_release" "$remote_archive_path" "$remote_patch_path" <<'REMOTE'
 set -euo pipefail
 runtime_root="$1"
 container_name="$2"
@@ -135,7 +136,23 @@ for old_backup in "${old_backups[@]}"; do
   esac
   rm -f -- "$(dirname "$caddyfile")/${old_backup}"
 done
-printf '%s\n' "$release_id"
+
+# Final runtime receipt: fail if the active pointer, mounted config or bounded
+# retention differs from the state the release procedure just established.
+test "$(readlink "${runtime_root}/current")" = "releases/${release_id}"
+test -s "${runtime_root}/current/release.json"
+python3 -c 'import json, sys; payload=json.load(open(sys.argv[1], encoding="utf-8")); assert payload["release"] == sys.argv[2]' "${runtime_root}/current/release.json" "$release_id"
+docker exec "$container_name" caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null
+host_caddy_digest="$(sha256sum "$caddyfile" | awk '{print $1}')"
+container_caddy_digest="$(docker exec "$container_name" sha256sum /etc/caddy/Caddyfile | awk '{print $1}')"
+test "$host_caddy_digest" = "$container_caddy_digest"
+release_count="$(find "${runtime_root}/releases" -mindepth 1 -maxdepth 1 -type d | wc -l)"
+backup_count="$(find "$(dirname "$caddyfile")" -mindepth 1 -maxdepth 1 -type f -name 'Caddyfile.qaz-industries-*.bak' | wc -l)"
+test "$release_count" -ge 1
+test "$release_count" -le 8
+test "$backup_count" -le 8
+release_kib="$(du -sk "$release_dir" | awk '{print $1}')"
+printf 'release=%s releases=%s backups=%s release_kib=%s\n' "$release_id" "$release_count" "$backup_count" "$release_kib"
 REMOTE
 
 printf 'Deployed candidate: %s\n' "$release_id"

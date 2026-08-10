@@ -101,7 +101,9 @@ def main() -> int:
         deploy = (ROOT / "scripts" / "deploy.sh").read_text(encoding="utf-8")
         require("Refusing to deploy a dirty worktree" in deploy, "deploy dirty-worktree guard is missing")
         require("BatchMode=yes" in deploy, "deploy SSH must be non-interactive")
+        require("ConnectTimeout=15" in deploy, "deploy SSH timeout guard is missing")
         require("caddy validate" in deploy and "rollback()" in deploy, "deploy validation or rollback guard is missing")
+        require("release_count" in deploy and "backup_count" in deploy and "release_kib" in deploy, "deploy runtime retention receipt is missing")
 
         for path in data_paths:
             payload = json.loads(path.read_text(encoding="utf-8"))
