@@ -10,7 +10,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
-STYLE_ORDER = ("styles.css", "avds-tokens.css", "avds.css")
+STYLE_ORDER = ("styles.css", "avds-package-runtime.css", "avds-tokens.css", "avds.css")
 SCRIPT_ORDER = {
     "index.html": ("runtime.js", "site-shell.js", "app.js", "snapshot-contracts.js", "qazgeo-geometry.js", "qazgeo-map.js"),
     "industry.html": ("runtime.js", "site-shell.js", "industry-data.js", "snapshot-contracts.js", "profile-view.js", "industry.js"),
@@ -19,6 +19,7 @@ SCRIPT_ORDER = {
 }
 ASSETS = (
     "styles.css",
+    "avds-package-runtime.css",
     "avds-tokens.css",
     "avds.css",
     "runtime.js",
@@ -35,6 +36,8 @@ ASSETS = (
     "robots.txt",
     "sitemap.xml",
     "qazstack-consumer.json",
+    "data/avds-coverage.v1.json",
+    "avds-consumer.json",
 )
 
 
@@ -70,6 +73,9 @@ def main() -> int:
             require('<meta name="qaz-asset-version" content="source" />' in source, f"{page}: missing asset version marker")
             require('rel="canonical"' in source, f"{page}: missing canonical URL")
             require('property="og:title"' in source and 'property="og:description"' in source, f"{page}: missing OpenGraph metadata")
+            require('data-avds-coverage-badge' in source, f"{page}: missing AVDS coverage badge")
+            require('data-avds-pattern="app-shell"' in source, f"{page}: missing AVDS app shell")
+            require('data-avds-pattern="site-footer"' in source, f"{page}: missing AVDS site footer")
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         avds = (ROOT / "avds.css").read_text(encoding="utf-8")
         require(

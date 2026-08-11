@@ -4,6 +4,8 @@ set -euo pipefail
 root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root_dir"
 
+node scripts/build_avds_package.mjs --check
+python3 scripts/check_avds_coverage.py
 python3 scripts/check_static_site.py
 python3 scripts/check_routes.py
 python3 scripts/check_accessibility.py

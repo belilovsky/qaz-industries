@@ -19,6 +19,7 @@ STATIC_FILES = (
     "benchmarks.html",
     "publication.html",
     "styles.css",
+    "avds-package-runtime.css",
     "avds-tokens.css",
     "avds.css",
     "runtime.js",
@@ -36,10 +37,12 @@ STATIC_FILES = (
     "sitemap.xml",
     "qazstack-thematic-product.json",
     "qazstack-consumer.json",
+    "avds-consumer.json",
 )
 HTML_FILES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 VERSIONED_ASSETS = (
     "styles.css",
+    "avds-package-runtime.css",
     "avds-tokens.css",
     "avds.css",
     "runtime.js",

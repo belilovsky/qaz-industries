@@ -1,0 +1,25 @@
+{
+  "schema_version": "qaz-industries-avds-package-runtime-v1",
+  "package": {
+    "name": "@sgeo/ui-kit",
+    "version": "4.6.0",
+    "dependency": "vendor/sgeo-ui-kit-4.6.0.tgz",
+    "tarball_sha256": "2e8382b74019e5fda6cd56bdbc58ec4864819825276828f6a235487d2d48a77c",
+    "export": "@sgeo/ui-kit/tokens/variables.css",
+    "export_sha256": "9d7f05b5c797ae166cb0844a3bc0cd9b093a41a0057cd74a99fecea3e8c0870e"
+  },
+  "artifact": {
+    "path": "avds-package-runtime.css",
+    "sha256": "30f2d99ab34cf9bcc32aada92d96392be4e9b43662faabab1679de9a369d0ece"
+  },
+  "runtime": {
+    "kind": "css-token-export",
+    "pages": [
+      "index.html",
+      "industry.html",
+      "benchmarks.html",
+      "publication.html"
+    ],
+    "javascript_added": false
+  }
+}

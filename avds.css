@@ -131,6 +131,21 @@ html[data-design-system="avds4"] .av-card__eyebrow { margin: 0; color: var(--av-
 html[data-design-system="avds4"] .av-card__title { margin: 0; font: var(--av-text-heading-sm); }
 html[data-design-system="avds4"] .av-card__body { color: var(--av-color-muted-foreground); }
 
+/* Static consumer translation of the AV DS calm application shell. Product
+   layout stays local; AV DS owns interaction size, states and content roles. */
+html[data-design-system="avds4"] .av-app-shell { color: var(--av-color-foreground); }
+html[data-design-system="avds4"] .av-app-shell__brand { min-height: 40px; }
+html[data-design-system="avds4"] .av-app-shell__nav { align-items: center; }
+html[data-design-system="avds4"] .av-app-shell__nav a { display: inline-flex; min-height: 36px; align-items: center; justify-content: center; }
+html[data-design-system="avds4"] .av-app-shell__nav a[aria-current="page"] { color: var(--av-color-primary); background: var(--av-color-muted); }
+html[data-design-system="avds4"] .av-app-shell__actions { align-items: center; }
+html[data-design-system="avds4"] .av-app-shell__mobile-nav { color: var(--av-color-foreground); background: var(--av-color-surface); }
+html[data-design-system="avds4"] .av-site-footer { color: var(--av-color-muted-foreground); }
+html[data-design-system="avds4"] .av-site-footer__brand { min-height: 40px; color: var(--av-color-foreground); }
+html[data-design-system="avds4"] .av-site-footer__summary { line-height: 1.5; }
+html[data-design-system="avds4"] .av-site-footer__summary a { color: var(--av-color-primary); text-decoration: underline; text-underline-offset: 3px; }
+html[data-design-system="avds4"] .av-site-footer__meta { min-width: 0; }
+
 /* AV DS 4 public patterns used by the profile page. */
 html[data-design-system="avds4"] .av-public-export-matrix,
 html[data-design-system="avds4"] .av-related-question-grid { display: grid; gap: var(--av-spacing-4); color: var(--av-color-foreground); }

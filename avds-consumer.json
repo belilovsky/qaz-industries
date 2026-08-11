@@ -1,0 +1,32 @@
+{
+  "schema_version": "qaz-industries-avds-consumer-v1",
+  "product_id": "qaz-industries",
+  "display_name": "QAZ.INDUSTRIES",
+  "canonical_url": "https://qaz.industries/",
+  "source_repository": "https://github.com/belilovsky/qaz-industries",
+  "owner_surface": "qaz.industries",
+  "integration_mode": "static-contract",
+  "avds_version": "4.6.0",
+  "adoption": {
+    "token_layer": "avds-tokens.css",
+    "component_layer": "avds.css",
+    "package_runtime": true,
+    "package_runtime_receipt": "data/avds-package-runtime.v1.json",
+    "patterns": [
+      "app-shell",
+      "site-footer",
+      "public-export-matrix",
+      "evidence-source-registry",
+      "geo-layer-registry",
+      "related-question-grid"
+    ]
+  },
+  "coverage_receipt": "data/avds-coverage.v1.json",
+  "catalog_registration": {
+    "repository": "https://github.com/belilovsky/sgeo-platform",
+    "source_path": "apps/ui-kit-showcase/src/lib/controlPlane.ts",
+    "consumer_id": "qaz_industries",
+    "state": "source-registered"
+  },
+  "next_gate": "Keep the pinned package artifact and generated runtime receipt current during AVDS upgrades."
+}

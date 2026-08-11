@@ -7,10 +7,31 @@ QAZ.INDUSTRIES — consumer AV DS 4, а не владелец замещающе
 Публичные поверхности используют `av-button`, `av-card`,
 `av-badge`, `av-alert`, `av-chip`, `av-table`, а также композиции public export,
 source registry, geo-layer registry и related questions. Изменения токенов и
-компонентов должны сохранять `data-design-system="avds4"` на трёх страницах.
+компонентов должны сохранять `data-design-system="avds4"` на четырёх страницах.
 
 Неиспользуемые классы AV DS не считаются реализованными только потому, что они
 есть в CSS. Текущие потребители подтверждаются HTML/JS и static checker.
+
+Публичный footer показывает машиночитаемую версию и покрытие в формате
+`AVDS 4.x.x-N`. Источник — `data/avds-coverage.v1.json`; `N` вычисляется как
+доля пройденных consumer-adoption gates, а не как доля всего каталога
+компонентов. Команда `python3 scripts/check_avds_coverage.py --write` обновляет
+gate states и шильдик, обычный `scripts/check.sh` отклоняет устаревший receipt.
+
+Shell gate включает все четыре страницы: header, основная и мобильная
+навигация, actions и footer имеют отдельные AV DS composition roles. Это
+статическая адаптация спокойного application shell: продуктовая сетка и бренд
+остаются локальными, а размеры интерактивных целей, active state, focus и
+семантика ролей закреплены AV DS слоем.
+
+Consumer registration закреплена взаимным контрактом `avds-consumer.json` и
+записью `qaz_industries` в control-plane AV DS. Режим интеграции остаётся
+`static-contract`: пакет `@sgeo/ui-kit@4.6.0` закреплён локальным проверяемым
+артефактом, а его официальный export токенов собирается в
+`avds-package-runtime.css`. Продуктовый token layer подключается следом и
+сохраняет локальные aliases; React и дополнительный JavaScript не добавляются.
+`scripts/build_avds_package.mjs --check` сверяет версию, tarball, export и
+runtime digest до каждого полного gate и выпуска.
 
 ## Язык и терминология
 
@@ -34,8 +55,8 @@ QazLake, AV DS 4 и продуктов портфеля сохраняются. 
 Требуются skip links, semantic headings, labels, visible focus, keyboard map
 selection/zoom, `aria-live` для snapshot statuses, `aria-pressed` для filters и
 `role` только по назначению. Mobile target — 390px без горизонтального overflow.
-`scripts/check_accessibility.py` проверяет эти структурные правила на всех трёх
-маршрутах. Печать и отдельная 404-страница пока не входят в публичный route set.
+`scripts/check_accessibility.py` проверяет эти структурные правила на всех
+четырёх маршрутах. Печать и отдельная 404-страница пока не входят в публичный route set.
 
 ## Безопасное состояние
 

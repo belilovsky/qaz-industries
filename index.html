@@ -19,6 +19,7 @@
     <script src="theme.js"></script>
     <meta name="qaz-asset-version" content="source" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="avds-package-runtime.css" />
     <link rel="stylesheet" href="avds-tokens.css" />
     <link rel="stylesheet" href="avds.css" />
     <script src="runtime.js" defer></script>
@@ -31,24 +32,24 @@
   <body>
     <a class="skip-link" href="#main">Перейти к содержанию</a>
 
-    <header class="site-header" id="top">
-      <a class="brand" href="#top" aria-label="QAZ.INDUSTRIES — на главную">
+    <header class="site-header av-app-shell" id="top" data-avds-pattern="app-shell">
+      <a class="brand av-app-shell__brand" href="#top" aria-label="QAZ.INDUSTRIES — на главную">
         <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <span>QAZ<span>.</span>INDUSTRIES</span>
       </a>
-      <nav aria-label="Основная навигация">
+      <nav class="av-app-shell__nav" aria-label="Основная навигация">
         <a href="industry.html">Профили</a>
         <a href="#map">Карта</a>
         <a href="industry.html#compare">Сравнить</a>
         <a href="benchmarks.html">Бенчмарки</a>
         <a href="#ecosystem">Система</a>
       </nav>
-      <div class="header-tools">
+      <div class="header-tools av-app-shell__actions">
         <a class="header-link" href="https://platform.qdev.run/catalog/" target="_blank" rel="noreferrer">Каталог ↗</a>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Сменить визуальную тему"><span aria-hidden="true">◐</span><span data-theme-label>Тема</span></button>
       </div>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">Меню</button>
-      <nav class="mobile-nav" id="mobile-nav" aria-label="Мобильная навигация" hidden>
+      <nav class="mobile-nav av-app-shell__mobile-nav" id="mobile-nav" aria-label="Мобильная навигация" hidden>
         <a href="industry.html">Профили</a>
         <a href="#map">Карта</a>
         <a href="industry.html#compare">Сравнить</a>
@@ -228,10 +229,10 @@
       </section>
     </main>
 
-    <footer class="site-footer shell">
-      <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a>
-      <p>Индустрии Казахстана — карта, данные, объекты и контекст. <a href="publication.html">Источники и права</a></p>
-      <span class="footer-note">публичный статический выпуск · 2026</span>
+    <footer class="site-footer shell av-site-footer" data-avds-pattern="site-footer">
+      <a class="brand footer-brand av-site-footer__brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a>
+      <p class="av-site-footer__summary">Индустрии Казахстана — карта, данные, объекты и контекст. <a href="publication.html">Источники и права</a></p>
+      <span class="footer-meta av-site-footer__meta"><a class="avds-coverage-badge av-badge av-badge--info" href="https://avds.digital/" target="_blank" rel="noreferrer" data-avds-coverage-badge aria-label="Покрытие AVDS 4.6.0: 100 процентов">AVDS 4.6.0-100</a><span class="footer-note">публичный статический выпуск · 2026</span></span>
     </footer>
   </body>
 </html>

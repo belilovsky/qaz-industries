@@ -1,0 +1,12 @@
+{
+  "name": "qaz-industries-public",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:avds-package": "node scripts/build_avds_package.mjs",
+    "check:avds-package": "node scripts/build_avds_package.mjs --check"
+  },
+  "dependencies": {
+    "@sgeo/ui-kit": "file:vendor/sgeo-ui-kit-4.6.0.tgz"
+  }
+}

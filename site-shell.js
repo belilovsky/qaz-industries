@@ -53,4 +53,31 @@
   desktopQuery?.addEventListener?.('change', (event) => {
     if (event.matches) closeMobileNav();
   });
+
+  async function refreshAvdsCoverageBadge() {
+    const badges = document.querySelectorAll('[data-avds-coverage-badge]');
+    if (!badges.length) return;
+    try {
+      const response = await fetch('data/avds-coverage.v1.json', {
+        cache: 'no-store',
+      });
+      if (!response.ok) throw new Error(`AVDS coverage HTTP ${response.status}`);
+      const receipt = await response.json();
+      const version = String(receipt?.avds?.version || '');
+      const percent = Number(receipt?.coverage_percent);
+      if (!/^4\.\d+\.\d+$/.test(version) || !Number.isInteger(percent) || percent < 0 || percent > 100) {
+        throw new Error('Invalid AVDS coverage contract');
+      }
+      const label = `AVDS ${version}-${percent}`;
+      badges.forEach((badge) => {
+        badge.textContent = label;
+        badge.setAttribute('aria-label', `Покрытие AVDS ${version}: ${percent} процентов`);
+        badge.dataset.avdsCoverageState = 'fresh';
+      });
+    } catch (_) {
+      badges.forEach((badge) => { badge.dataset.avdsCoverageState = 'fallback'; });
+    }
+  }
+
+  refreshAvdsCoverageBadge();
 }());

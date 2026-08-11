@@ -140,6 +140,26 @@ def main() -> int:
         boundaries = consumer["boundaries"]
         require(boundaries.get("same_origin_assets_only") is True, "consumer same-origin gate")
         require(boundaries.get("contract_only_is_observation") is False, "consumer contract-only gate")
+
+        avds = load("avds-coverage.v1.json")
+        require(avds["schema_version"] == "qaz-industries-avds-coverage-v1", "AVDS coverage schema")
+        require(avds["product_id"] == "qaz-industries", "AVDS coverage product")
+        require(avds["method"]["passed"] == 12 and avds["method"]["total"] == 12, "AVDS coverage counts")
+        require(avds["coverage_percent"] == 100, "AVDS coverage percentage")
+        require(avds["badge"] == "AVDS 4.6.0-100", "AVDS coverage badge")
+        https(avds["avds"]["source"], "AVDS source")
+
+        avds_consumer = json.loads((ROOT / "avds-consumer.json").read_text(encoding="utf-8"))
+        require(avds_consumer["schema_version"] == "qaz-industries-avds-consumer-v1", "AVDS consumer schema")
+        require(avds_consumer["product_id"] == "qaz-industries", "AVDS consumer product")
+        require(avds_consumer["integration_mode"] == "static-contract", "AVDS consumer integration mode")
+        require(avds_consumer["avds_version"] == avds["avds"]["version"], "AVDS consumer version")
+        require(avds_consumer["adoption"]["package_runtime"] is True, "AVDS package runtime claim")
+        require(avds_consumer["adoption"]["package_runtime_receipt"] == "data/avds-package-runtime.v1.json", "AVDS package runtime receipt")
+        require(avds_consumer["catalog_registration"]["consumer_id"] == "qaz_industries", "AVDS catalog consumer id")
+        require(avds_consumer["catalog_registration"]["state"] == "source-registered", "AVDS catalog registration")
+        https(avds_consumer["canonical_url"], "AVDS consumer canonical URL")
+        https(avds_consumer["source_repository"], "AVDS consumer source repository")
     except (KeyError, OSError, TypeError, ValueError, json.JSONDecodeError) as error:
         print(f"public contract: FAILED: {error}")
         return 1

@@ -11,7 +11,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
-CSS_FILES = ("styles.css", "avds-tokens.css", "avds.css")
+CSS_FILES = ("styles.css", "avds-package-runtime.css", "avds-tokens.css", "avds.css")
 PUBLIC_DATA = (
     "industry-profiles.v1.json",
     "qazlake-public-snapshot.v1.json",

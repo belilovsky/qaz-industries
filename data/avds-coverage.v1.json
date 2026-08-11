@@ -1,0 +1,80 @@
+{
+  "schema_version": "qaz-industries-avds-coverage-v1",
+  "product_id": "qaz-industries",
+  "evaluated_at": "2026-08-11T19:19:51Z",
+  "avds": {
+    "version": "4.6.0",
+    "source": "https://avds.digital/",
+    "source_revision": "88387252684aefd6b37ad34c55d3a9df537e2832"
+  },
+  "method": {
+    "kind": "consumer-adoption-gates",
+    "passed": 12,
+    "total": 12,
+    "note": "Процент показывает прохождение применимых интеграционных gates, а не долю всех компонентов каталога AVDS."
+  },
+  "coverage_percent": 100,
+  "badge": "AVDS 4.6.0-100",
+  "gates": [
+    {
+      "id": "root-marker",
+      "passed": true,
+      "label": "Маркер AVDS4 на всех публичных страницах"
+    },
+    {
+      "id": "token-layer",
+      "passed": true,
+      "label": "Токены AVDS подключены на всех страницах"
+    },
+    {
+      "id": "component-layer",
+      "passed": true,
+      "label": "Компонентный слой AVDS подключён на всех страницах"
+    },
+    {
+      "id": "theme-contract",
+      "passed": true,
+      "label": "Темы и переключатель темы работают через AVDS contract"
+    },
+    {
+      "id": "buttons",
+      "passed": true,
+      "label": "Кнопки используют AVDS contract"
+    },
+    {
+      "id": "cards",
+      "passed": true,
+      "label": "Карточки используют AVDS contract"
+    },
+    {
+      "id": "statuses",
+      "passed": true,
+      "label": "Badges, chips и alerts используют AVDS contract"
+    },
+    {
+      "id": "tables",
+      "passed": true,
+      "label": "Таблицы используют AVDS contract"
+    },
+    {
+      "id": "public-patterns",
+      "passed": true,
+      "label": "Четыре публичных паттерна AVDS подключены"
+    },
+    {
+      "id": "package-runtime",
+      "passed": true,
+      "label": "Прямое потребление @sgeo/ui-kit"
+    },
+    {
+      "id": "consumer-registration",
+      "passed": true,
+      "label": "Регистрация продукта в consumer catalog AVDS"
+    },
+    {
+      "id": "shell-parity",
+      "passed": true,
+      "label": "Header, navigation и footer переведены на канонический AVDS shell"
+    }
+  ]
+}
