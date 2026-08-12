@@ -1,0 +1,126 @@
+{
+  "schema_version": "qaz-industries-avds-system-contract-v1",
+  "product_id": "qaz-industries",
+  "title": "QAZ.INDUSTRIES AVDS4 system contract",
+  "provenance": {
+    "avds_version": "4.6.0",
+    "package_source_revision": "88387252684aefd6b37ad34c55d3a9df537e2832",
+    "control_plane_revision": "b5be3206d99726a25880b3d2c2ee92e7e96aa8a8",
+    "synchronized_at": "2026-08-12T00:00:00Z",
+    "package_runtime_receipt": "data/avds-package-runtime.v1.json",
+    "connected_files": [
+      { "path": "avds-package-runtime.css", "sha256": "30f2d99ab34cf9bcc32aada92d96392be4e9b43662faabab1679de9a369d0ece" },
+      { "path": "avds-tokens.css", "sha256": "f05780ae57de4ec86df43a73f48cb3343bb9960d40c7cd8475437a1560d5d381" },
+      { "path": "avds.css", "sha256": "f3c65dd6930f566eb7118abab3fd5a68db5c6e948dccf987d23bde7018212eec" },
+      { "path": "styles.css", "sha256": "1e809d4c9484d0839dfc4b1d07a0c7ded5439eff73d17044ecac4bd3d025eba7" },
+      { "path": "site-shell.js", "sha256": "56bac728310ff7b99ea2534086774fcbdc583236697dfd3cce16366754b21860" },
+      { "path": "theme.js", "sha256": "33211e12244905a7feea7c28e590cec1ef18d0d25d3945c3ecea489f65932fa8" },
+      { "path": "locale.js", "sha256": "c59a78b67775689192ce69e291e9daa1a1460d73cb42e59e0222997bfb589bd2" },
+      { "path": "package.json", "sha256": "59721b9e57de8d1606ac09449e8711c22e9bf22dde3804f5caff8758bf6fa6b0" },
+      { "path": "package-lock.json", "sha256": "72199dd583759bbedf1edb7eaf19f412837da4f9a0fc96b3205c3cc18014025a" },
+      { "path": "avds-consumer.json", "sha256": "06be646c9124d85c6b8f5dc64480a6685edd29aba8a1ebb3249d4894780192f6" }
+    ]
+  },
+  "local_deviations": [
+    {
+      "id": "static-css-adapter",
+      "status": "accepted",
+      "detail": "Публичный статический сайт потребляет официальный CSS token export; React и component JavaScript AVDS намеренно не добавлены."
+    },
+    {
+      "id": "product-layout-aliases",
+      "status": "accepted",
+      "detail": "styles.css хранит предметную сетку и бренд QAZ.INDUSTRIES; примитивы и семантические роли не переопределяются в component layer."
+    },
+    {
+      "id": "font-icon-catalog",
+      "status": "accepted",
+      "detail": "Утверждён inline icon catalog для всех glyphs и brand-mark; внешние font-файлы намеренно не добавляются."
+    },
+    {
+      "id": "visual-regression-baselines",
+      "status": "accepted",
+      "detail": "Для статического adapter-поверхности утверждены Chromium baselines 320/1440px; visual diff запускается отдельным dependency-free gate."
+    }
+  ],
+  "themes": [
+    { "id": "institutional", "status": "verified", "selector": "[data-av-theme=\"institutional\"]" },
+    { "id": "editorial", "status": "verified", "selector": "[data-av-theme=\"editorial\"]" },
+    { "id": "data-analytics", "status": "verified", "selector": "[data-av-theme=\"data-analytics\"]" },
+    { "id": "map", "status": "verified", "selector": "[data-av-theme=\"map\"]" },
+    { "id": "dark", "status": "verified", "selector": "[data-av-theme=\"dark\"]" },
+    { "id": "print", "status": "verified", "selector": "[data-av-theme=\"print\"]" }
+  ],
+  "categories": [
+    {
+      "id": "routes",
+      "label": "Маршруты",
+      "requirements": ["root-marker", "token-layer", "component-layer", "theme-contract", "buttons", "cards", "statuses", "tables", "public-patterns", "package-runtime", "consumer-registration", "shell-parity"],
+      "verified": ["root-marker", "token-layer", "component-layer", "theme-contract", "buttons", "cards", "statuses", "tables", "public-patterns", "package-runtime", "consumer-registration", "shell-parity"],
+      "evidence": ["scripts/check_avds_coverage.py", "avds-consumer.json"]
+    },
+    {
+      "id": "tokens-themes",
+      "label": "Токены и темы",
+      "requirements": ["semantic-colors", "typography", "spacing", "radii", "shadows", "motion", "element-sizes", "z-index", "breakpoints", "container-grid", "institutional-theme", "editorial-theme", "data-analytics-theme", "map-theme", "dark-theme", "print-theme"],
+      "verified": ["semantic-colors", "typography", "spacing", "radii", "shadows", "motion", "element-sizes", "z-index", "breakpoints", "container-grid", "institutional-theme", "editorial-theme", "data-analytics-theme", "map-theme", "dark-theme", "print-theme"],
+      "evidence": ["avds-tokens.css", "docs/avds-system-contract.md"]
+    },
+    {
+      "id": "components",
+      "label": "Компоненты",
+      "requirements": ["button", "card", "badge", "chip", "alert", "table", "form-controls", "navigation", "menu", "icon-api", "component-html-api", "component-sizes", "component-nesting", "component-keyboard-contract"],
+      "verified": ["button", "card", "badge", "chip", "alert", "table", "form-controls", "navigation", "menu", "icon-api", "component-html-api", "component-sizes", "component-nesting", "component-keyboard-contract"],
+      "evidence": ["avds.css", "data/avds-icon-catalog.v1.json", "scripts/check_icon_catalog.py", "docs/avds-system-contract.md"]
+    },
+    {
+      "id": "compositions",
+      "label": "Композиции",
+      "requirements": ["header", "footer", "object-passport", "catalog", "analytics-panel", "table", "filters", "map-with-list", "chart-with-source", "publication", "evidence-card", "methodology-provenance"],
+      "verified": ["header", "footer", "object-passport", "catalog", "analytics-panel", "table", "filters", "map-with-list", "chart-with-source", "publication", "evidence-card", "methodology-provenance"],
+      "evidence": ["index.html", "industry.html", "publication.html", "profile-view.js", "avds.css"]
+    },
+    {
+      "id": "states",
+      "label": "Состояния",
+      "requirements": ["hover", "focus", "active", "selected", "disabled", "loading", "skeleton", "empty", "error", "degraded", "success", "offline", "stale-data", "contract-only"],
+      "verified": ["hover", "focus", "active", "selected", "disabled", "loading", "skeleton", "empty", "error", "degraded", "success", "offline", "stale-data", "contract-only"],
+      "evidence": ["avds.css", "locale.js", "qazgeo-map.js", "profile-view.js", "tests/frontend-modules.test.cjs", "docs/data-provenance.md"]
+    },
+    {
+      "id": "adaptive",
+      "label": "Адаптивность",
+      "requirements": ["viewport-320", "viewport-390", "viewport-768", "viewport-820", "viewport-1024", "viewport-1440", "viewport-1920", "ultrawide", "recomposition-order", "density", "rails-panels", "line-length-empty-space"],
+      "verified": ["viewport-320", "viewport-390", "viewport-768", "viewport-820", "viewport-1024", "viewport-1440", "viewport-1920", "ultrawide", "recomposition-order", "density", "rails-panels", "line-length-empty-space"],
+      "evidence": ["data/avds-responsive-contract.v1.json", "scripts/check_responsive_contract.py", "styles.css", "avds.css", "docs/avds-system-contract.md"]
+    },
+    {
+      "id": "accessibility",
+      "label": "Доступность",
+      "requirements": ["contrast", "visible-focus", "tab-order", "landmarks", "aria", "screen-reader", "reduced-motion", "zoom", "keyboard-complex-elements", "accessible-names", "semantic-headings", "mobile-targets"],
+      "verified": ["contrast", "visible-focus", "tab-order", "landmarks", "aria", "screen-reader", "reduced-motion", "zoom", "keyboard-complex-elements", "accessible-names", "semantic-headings", "mobile-targets"],
+      "evidence": ["scripts/check_accessibility.py", "scripts/check_screen_reader.py", "scripts/check_zoom_contract.py", "scripts/check_avds_contrast.py", "data/avds-accessibility-contract.v1.json", "data/avds-zoom-proof.v1.json", "avds.css", "qazgeo-map.js"]
+    },
+    {
+      "id": "localization",
+      "label": "Локализация и контент",
+      "requirements": ["ru-terminology", "action-labels", "number-format", "date-format", "unit-format", "ru-language", "kk-language", "en-language", "line-break-rules", "error-copy", "empty-copy", "content-standard"],
+      "verified": ["ru-terminology", "action-labels", "number-format", "date-format", "unit-format", "ru-language", "line-break-rules", "error-copy", "empty-copy", "content-standard"],
+      "evidence": ["content/terminology.ru.json", "content/locale-contract.v1.json", "locale.js", "scripts/check_content.py", "scripts/check_locale_contract.py", "docs/design-language-accessibility.md"]
+    },
+    {
+      "id": "data-visualization",
+      "label": "Визуализация данных",
+      "requirements": ["palette", "scales", "legends", "axes", "units", "precision", "missing-values", "period-comparison", "maps", "table-alternative", "chart-source", "data-status"],
+      "verified": ["palette", "scales", "legends", "axes", "units", "precision", "missing-values", "period-comparison", "maps", "table-alternative", "chart-source", "data-status"],
+      "evidence": ["data/avds-data-visualization-contract.v1.json", "scripts/check_data_visualization_contract.py", "qazgeo-map.js", "profile-view.js", "industry-data.js", "docs/data-provenance.md"]
+    },
+    {
+      "id": "version-discipline",
+      "label": "Версионная дисциплина и качество",
+      "requirements": ["exact-version", "sync-date", "source-revision", "file-digests", "local-deviations", "package-lock", "consumer-registration", "route-ledger", "state-tests", "accessibility-gate", "visual-regression", "avds-upgrade-procedure"],
+      "verified": ["exact-version", "sync-date", "source-revision", "file-digests", "local-deviations", "package-lock", "consumer-registration", "route-ledger", "state-tests", "accessibility-gate", "visual-regression", "avds-upgrade-procedure"],
+      "evidence": ["package-lock.json", "avds-consumer.json", "data/avds-route-ledger.v1.json", "data/avds-visual-regression.v1.json", "scripts/check_avds_coverage.py", "scripts/check_accessibility.py", "scripts/check_visual_regression.py", "scripts/check_avds_route_ledger.py", "tests/frontend-modules.test.cjs", "docs/avds-system-contract.md"]
+    }
+  ]
+}

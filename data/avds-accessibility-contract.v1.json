@@ -1,0 +1,31 @@
+{
+  "schema_version": "qaz-industries-avds-accessibility-contract-v1",
+  "product_id": "qaz-industries",
+  "scope": "screen-reader-semantic-contract",
+  "default_language": "ru",
+  "routes": ["index.html", "industry.html", "benchmarks.html", "publication.html"],
+  "requirements": {
+    "landmarks": "Every route exposes one identified main landmark and named navigation landmarks.",
+    "accessible_names": "Interactive controls, links, maps and data visualizations expose a non-empty accessible name.",
+    "live_regions": "Dynamic filter, map and snapshot status surfaces use polite or assertive live regions with atomic updates where needed.",
+    "relationships": "aria-controls, aria-labelledby and aria-describedby references resolve to an element in the same route.",
+    "decorative_content": "Brand marks, icon glyphs and chart swatches are hidden from the accessibility tree and never receive focus.",
+    "keyboard_surfaces": "Menu, map controls and map region paths expose keyboard focus and an announced action or name.",
+    "state_copy": "Loading, empty, error, offline, stale and contract-only states are represented by text and data-av-state, not colour alone."
+  },
+  "live_regions": {
+    "index.html": ["filter-summary", "hero-map-inspector", "map-inspector"],
+    "industry.html": ["pulse-status", "territory-status", "layer-registry-status", "pulse-boundary-state", "coverage-chart"]
+  },
+  "evidence": {
+    "static_gate": "scripts/check_screen_reader.py",
+    "shared_accessibility_gate": "scripts/check_accessibility.py",
+    "map_keyboard_contract": "qazgeo-map.js",
+    "state_contract": "locale.js"
+  },
+  "acceptance": {
+    "method": "dependency-free HTML/JS semantic audit plus browser accessibility-tree smoke",
+    "reviewed_at": "2026-08-12",
+    "status": "verified"
+  }
+}

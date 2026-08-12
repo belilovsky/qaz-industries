@@ -1,0 +1,28 @@
+{
+  "schema_version": "qaz-industries-locale-contract-v1",
+  "product_id": "qaz-industries",
+  "default_locale": "ru-RU",
+  "interface_language": "ru",
+  "formatting_locales": ["ru-RU", "kk-KZ", "en-US"],
+  "rules": {
+    "number": "Intl.NumberFormat with grouping and at most two fraction digits; non-finite values render as an em dash.",
+    "date": "ISO-8601 input rendered in UTC with a locale-aware long date; invalid dates render as an em dash.",
+    "unit": "Value and source-provided unit stay together; the unit is never inferred from a missing value.",
+    "line_breaks": "Headings may balance; body copy stays within the AV DS reading container and may wrap only at word boundaries.",
+    "messages": "Loading, empty, error, offline, stale and contract-only states use explicit Russian copy and a machine state attribute."
+  },
+  "messages": {
+    "loading": "Загружаем проверенный срез…",
+    "empty": "Публичных значений пока нет.",
+    "error": "Срез не прошёл проверку. Значения скрыты.",
+    "offline": "Источник временно недоступен. Показаны только границы контракта.",
+    "stale": "Срез устарел. Дождитесь следующего проверенного выпуска.",
+    "success": "Проверенный срез доступен.",
+    "contract-only": "Доступен только контракт; наблюдение ещё не опубликовано."
+  },
+  "locale_scope": {
+    "ru-RU": "активный интерфейс и пользовательские сообщения",
+    "kk-KZ": "числа и даты доступны для будущей локализации; пользовательский интерфейс пока не переведён",
+    "en-US": "числа и даты доступны для будущей локализации; пользовательский интерфейс пока не переведён"
+  }
+}

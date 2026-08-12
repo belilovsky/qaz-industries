@@ -19,7 +19,7 @@ python3 -m http.server 8876 --bind 127.0.0.1
 scripts/check.sh
 ```
 
-Она выполняет static HTML/AV DS contract, route hygiene, accessibility и
+Она выполняет AVDS system/route/responsive contracts, static HTML, route hygiene, accessibility и
 терминологический contracts, size/security budgets, public data contracts,
 documentation links, Python compile checks, 8 Python unit tests, data contract, 9 Node tests,
 синтаксис всех JavaScript и shell scripts, build release во временной директории,
@@ -31,6 +31,8 @@ release artifact verification и `git diff --check`.
 python3 scripts/check_static_site.py
 python3 scripts/check_routes.py
 python3 scripts/check_accessibility.py
+python3 scripts/check_responsive_contract.py
+python3 scripts/check_avds_route_ledger.py
 python3 scripts/check_content.py
 python3 scripts/check_quality_budgets.py
 python3 scripts/check_docs.py

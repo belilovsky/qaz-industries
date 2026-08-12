@@ -10,7 +10,7 @@ from pathlib import Path
 
 PAGE_ASSETS = {
     "index.html": ("styles.css", "avds-package-runtime.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "app.js", "snapshot-contracts.js", "qazgeo-geometry.js", "qazgeo-map.js", "theme.js"),
-    "industry.html": ("styles.css", "avds-package-runtime.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "industry-data.js", "snapshot-contracts.js", "profile-view.js", "industry.js", "theme.js"),
+    "industry.html": ("styles.css", "avds-package-runtime.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "locale.js", "industry-data.js", "snapshot-contracts.js", "profile-view.js", "industry.js", "theme.js"),
     "benchmarks.html": ("styles.css", "avds-package-runtime.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "theme.js"),
     "publication.html": ("styles.css", "avds-package-runtime.css", "avds-tokens.css", "avds.css", "runtime.js", "site-shell.js", "theme.js"),
 }
@@ -41,6 +41,17 @@ def main() -> int:
         raise SystemExit("release contract: thematic release identity mismatch")
     if not str(thematic.get("manifest_digest", "")).startswith("sha256:"):
         raise SystemExit("release contract: thematic manifest digest missing")
+    try:
+        avds_coverage = json.loads((directory / "data" / "avds-coverage.v1.json").read_text(encoding="utf-8"))
+        avds_system = json.loads((directory / "data" / "avds-system-contract.v1.json").read_text(encoding="utf-8"))
+        avds_responsive = json.loads((directory / "data" / "avds-responsive-contract.v1.json").read_text(encoding="utf-8"))
+        avds_route_ledger = json.loads((directory / "data" / "avds-route-ledger.v1.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise SystemExit(f"release contract: invalid AVDS system receipt: {error}") from error
+    if avds_coverage.get("system_contract") != "data/avds-system-contract.v1.json" or avds_system.get("schema_version") != "qaz-industries-avds-system-contract-v1":
+        raise SystemExit("release contract: AVDS system receipt mismatch")
+    if avds_responsive.get("schema_version") != "qaz-industries-avds-responsive-contract-v1" or avds_route_ledger.get("schema_version") != "qaz-industries-avds-route-ledger-v1":
+        raise SystemExit("release contract: AVDS responsive or route ledger receipt mismatch")
     map_asset = directory / "data" / "qazgeo-regions-public.v1.geojson"
     if not map_asset.is_file() or map_asset.stat().st_size < 1000:
         raise SystemExit("release contract: QazGeo map asset missing")

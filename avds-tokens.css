@@ -1,7 +1,8 @@
 /* AV DS 4 token consumption boundary. Product aliases are intentionally kept
    here so components and layouts never redefine design-system primitives. */
 @layer avds.tokens {
-  html[data-design-system="avds4"] {
+  html[data-design-system="avds4"][data-av-theme="institutional"],
+  html[data-design-system="avds4"]:not([data-av-theme]) {
     --av-color-background: #f6f9fc;
     --av-color-foreground: #020617;
     --av-color-surface: #ffffff;
@@ -43,6 +44,25 @@
     --av-shadow-sm: 0 1px 2px 0 rgb(15 23 42 / .12);
     --av-shadow-md: 0 8px 16px -4px rgb(15 23 42 / .16);
     --av-shadow-lg: 0 16px 32px -12px rgb(15 23 42 / .18);
+    --av-size-control-sm: 32px;
+    --av-size-control-md: 40px;
+    --av-size-control-lg: 48px;
+    --av-z-base: 0;
+    --av-z-raised: 10;
+    --av-z-sticky: 20;
+    --av-z-overlay: 100;
+    --av-z-skip-link: 1000;
+    --av-breakpoint-compact: 320px;
+    --av-breakpoint-mobile: 390px;
+    --av-breakpoint-tablet: 768px;
+    --av-breakpoint-tablet-wide: 820px;
+    --av-breakpoint-desktop: 1024px;
+    --av-breakpoint-wide: 1440px;
+    --av-breakpoint-ultrawide: 1920px;
+    --av-container-reading: 72ch;
+    --av-container-content: 1240px;
+    --av-grid-gutter-compact: 16px;
+    --av-grid-gutter-default: 32px;
     --av-text-body-font-family: var(--sans);
     --av-text-body-font-size: 16px;
     --av-text-body-font-weight: 400;
@@ -130,5 +150,116 @@
     --avds-accent-strong: #78350f;
     --avds-accent-subtle: #fef3c7;
     --avds-focus-ring: 0 0 0 3px rgb(180 83 9 / .28);
+  }
+
+  /* The product keeps one semantic token contract while allowing each AV DS
+     surface to choose a legible presentation. Theme names are public API and
+     are intentionally explicit so screenshots and route ledgers can refer to
+     them without relying on browser color-scheme heuristics. */
+  html[data-design-system="avds4"][data-av-theme="editorial"] {
+    --av-color-background: #fbfaf7;
+    --av-color-foreground: #241f1b;
+    --av-color-surface: #fffefa;
+    --av-color-card: #fffefa;
+    --av-color-muted: #f1ece5;
+    --av-color-muted-foreground: #554b43;
+    --av-color-border: #ded4ca;
+    --av-color-primary: #8b4513;
+    --av-color-primary-foreground: #fffefa;
+    --avds-surface: #fffefa;
+    --avds-surface-subtle: #f1ece5;
+    --avds-surface-inverse: #241f1b;
+    --avds-text: #241f1b;
+    --avds-text-muted: #665a50;
+    --avds-border: #ded4ca;
+    --avds-accent: #b05b2a;
+    --avds-accent-strong: #7a3910;
+    --avds-accent-subtle: #f6e8dc;
+    --avds-focus-ring: 0 0 0 3px rgb(176 91 42 / .28);
+  }
+
+  html[data-design-system="avds4"][data-av-theme="data-analytics"] {
+    --av-color-background: #eef7fb;
+    --av-color-foreground: #082337;
+    --av-color-surface: #ffffff;
+    --av-color-card: #ffffff;
+    --av-color-muted: #dceff7;
+    --av-color-muted-foreground: #31556b;
+    --av-color-border: #c5dfe9;
+    --av-color-primary: #006d9c;
+    --av-color-primary-foreground: #ffffff;
+    --avds-surface: #ffffff;
+    --avds-surface-subtle: #eef7fb;
+    --avds-surface-inverse: #082337;
+    --avds-text: #082337;
+    --avds-text-muted: #486a7c;
+    --avds-border: #c5dfe9;
+    --avds-accent: #0088b8;
+    --avds-accent-strong: #005d82;
+    --avds-accent-subtle: #d8f1f8;
+  }
+
+  html[data-design-system="avds4"][data-av-theme="map"] {
+    --av-color-background: #edf7f8;
+    --av-color-foreground: #0b2734;
+    --av-color-surface: #f9ffff;
+    --av-color-card: #f9ffff;
+    --av-color-muted: #dff1f2;
+    --av-color-muted-foreground: #3e626b;
+    --av-color-border: #c4dfe2;
+    --av-color-primary: #087f91;
+    --av-color-primary-foreground: #ffffff;
+    --avds-surface: #f9ffff;
+    --avds-surface-subtle: #edf7f8;
+    --avds-surface-inverse: #0b2734;
+    --avds-text: #0b2734;
+    --avds-text-muted: #4d7078;
+    --avds-border: #c4dfe2;
+    --avds-accent: #13a6a6;
+    --avds-accent-strong: #08717e;
+    --avds-accent-subtle: #d6f3f0;
+  }
+
+  html[data-design-system="avds4"][data-av-theme="dark"] {
+    --av-color-background: #07131d;
+    --av-color-foreground: #effcff;
+    --av-color-surface: #0d202d;
+    --av-color-card: #102b3a;
+    --av-color-muted: #163747;
+    --av-color-muted-foreground: #b7cbd3;
+    --av-color-border: #2a5363;
+    --av-color-primary: #6cecf0;
+    --av-color-primary-foreground: #03212d;
+    --avds-surface: #0d202d;
+    --avds-surface-subtle: #07131d;
+    --avds-surface-inverse: #effcff;
+    --avds-text: #effcff;
+    --avds-text-muted: #b7cbd3;
+    --avds-border: #2a5363;
+    --avds-accent: #6cecf0;
+    --avds-accent-strong: #b4f8fa;
+    --avds-accent-subtle: #163747;
+    --avds-focus-ring: 0 0 0 3px rgb(108 236 240 / .32);
+  }
+
+  html[data-design-system="avds4"][data-av-theme="print"] {
+    --av-color-background: #ffffff;
+    --av-color-foreground: #000000;
+    --av-color-surface: #ffffff;
+    --av-color-card: #ffffff;
+    --av-color-muted: #f4f4f4;
+    --av-color-muted-foreground: #242424;
+    --av-color-border: #7a7a7a;
+    --av-color-primary: #000000;
+    --av-color-primary-foreground: #ffffff;
+    --avds-surface: #ffffff;
+    --avds-surface-subtle: #ffffff;
+    --avds-surface-inverse: #000000;
+    --avds-text: #000000;
+    --avds-text-muted: #242424;
+    --avds-border: #7a7a7a;
+    --avds-accent: #000000;
+    --avds-accent-strong: #000000;
+    --avds-accent-subtle: #f4f4f4;
   }
 }

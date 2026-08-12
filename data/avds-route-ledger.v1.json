@@ -1,0 +1,11 @@
+{
+  "schema_version": "qaz-industries-avds-route-ledger-v1",
+  "product_id": "qaz-industries",
+  "routes": [
+    { "path": "/", "surface": "overview", "states": ["ready", "loading", "error", "selected"], "patterns": ["app-shell", "industry-catalog", "site-footer"] },
+    { "path": "/industry.html", "surface": "industry-profile", "states": ["ready", "loading", "partial", "degraded", "empty", "offline", "stale", "contract-only", "selected"], "patterns": ["app-shell", "public-export-matrix", "evidence-source-registry", "geo-layer-registry", "analytics-panel", "chart-with-source", "period-comparison", "related-question-grid", "site-footer"] },
+    { "path": "/benchmarks.html", "surface": "benchmark", "states": ["ready"], "patterns": ["app-shell", "site-footer"] },
+    { "path": "/publication.html", "surface": "publication-policy", "states": ["ready"], "patterns": ["app-shell", "publication", "site-footer"] }
+  ],
+  "required_viewports": [320, 390, 768, 820, 1024, 1440, 1920, 2560]
+}

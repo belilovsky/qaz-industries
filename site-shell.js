@@ -4,8 +4,16 @@
   const menuButton = document.querySelector('.menu-button');
   const mobileNav = document.querySelector('#mobile-nav');
   const themeToggle = document.querySelector('[data-theme-toggle]');
-  const themes = ['institutional', 'golden-paper'];
-  const themeLabels = { institutional: 'Институц.', 'golden-paper': 'Бумага' };
+  const themes = ['institutional', 'editorial', 'data-analytics', 'map', 'dark', 'print', 'golden-paper'];
+  const themeLabels = {
+    institutional: 'Институц.',
+    editorial: 'Редакц.',
+    'data-analytics': 'Данные',
+    map: 'Карта',
+    dark: 'Тёмная',
+    print: 'Печать',
+    'golden-paper': 'Бумага',
+  };
 
   function setTheme(theme, persist = true) {
     const nextTheme = themes.includes(theme) ? theme : 'institutional';
@@ -65,13 +73,14 @@
       const receipt = await response.json();
       const version = String(receipt?.avds?.version || '');
       const percent = Number(receipt?.coverage_percent);
-      if (!/^4\.\d+\.\d+$/.test(version) || !Number.isInteger(percent) || percent < 0 || percent > 100) {
+      const routePercent = Number(receipt?.route_contract?.coverage_percent);
+      if (!/^4\.\d+\.\d+$/.test(version) || !Number.isInteger(percent) || percent < 0 || percent > 100 || !Number.isInteger(routePercent) || routePercent < 0 || routePercent > 100) {
         throw new Error('Invalid AVDS coverage contract');
       }
       const label = `AVDS ${version}-${percent}`;
       badges.forEach((badge) => {
         badge.textContent = label;
-        badge.setAttribute('aria-label', `Покрытие AVDS ${version}: ${percent} процентов`);
+        badge.setAttribute('aria-label', `Общее покрытие AVDS ${version}: ${percent} процентов; базовый маршрутный контракт: ${routePercent} процентов`);
         badge.dataset.avdsCoverageState = 'fresh';
       });
     } catch (_) {

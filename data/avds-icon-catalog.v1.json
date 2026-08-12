@@ -1,0 +1,19 @@
+{
+  "schema_version": "qaz-industries-avds-icon-catalog-v1",
+  "product_id": "qaz-industries",
+  "policy": {
+    "source": "inline-css-and-unicode",
+    "external_font_files": false,
+    "license": "Product-owned markup and Unicode glyphs; no third-party icon font is bundled.",
+    "stroke_rule": "Inline glyphs use the current text color; map paths use a 1.3px base stroke and 2px focus/selected stroke."
+  },
+  "icons": [
+    { "name": "theme", "glyph": "◐", "size": "1.25em", "weight": "700", "marker": "data-av-icon=\"theme\"" },
+    { "name": "plus", "glyph": "+", "size": "1.25em", "weight": "700", "marker": "data-av-icon=\"plus\"" },
+    { "name": "minus", "glyph": "−", "size": "1.25em", "weight": "700", "marker": "data-av-icon=\"minus\"" },
+    { "name": "arrow-up-right", "glyph": "↗", "size": "1em", "weight": "700", "marker": "↗" },
+    { "name": "arrow-forward", "glyph": "→", "size": "1em", "weight": "700", "marker": "→" },
+    { "name": "arrow-down", "glyph": "↓", "size": "1em", "weight": "700", "marker": "↓" },
+    { "name": "brand-mark", "glyph": "four ascending bars", "size": "25px × 26px", "weight": "CSS bars", "marker": "class=\"brand-mark\"" }
+  ]
+}

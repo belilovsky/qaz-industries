@@ -24,6 +24,7 @@
 | [`security-privacy.md`](security-privacy.md) | классы данных, запреты и правовые решения | все, security | active | manifest, Caddy, SECURITY.md |
 | [`editorial-science-policy.md`](editorial-science-policy.md) | включение, проверка и исправление материалов | редакция, исследователи | active | source policy, owner decisions |
 | [`design-language-accessibility.md`](design-language-accessibility.md) | AV DS 4, русский язык и accessibility contract | frontend, редакция | active | avds-tokens.css, avds.css, HTML, JS |
+| [`avds-system-contract.md`](avds-system-contract.md) | измеритель зрелости AVDS4, provenance, отклонения и gaps | frontend, дизайн, аудит | active | system contract, package receipt, checks |
 | [`development-testing.md`](development-testing.md) | локальная работа и quality gates | разработчики | active | scripts, workflows |
 | [`operations.md`](operations.md) | выпуск, runtime verification и rollback | эксплуатация | active | deploy script, Caddy fragment |
 | [`current-release.md`](current-release.md) | единственный текущий release status | все | active | runtime/public probes |

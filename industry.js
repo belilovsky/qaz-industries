@@ -12,17 +12,26 @@
   const profileKeys = Object.keys(profiles);
   const view = profileView.createProfileView(document, runtime);
   const snapshots = { public: null, territory: null, layers: null };
+  const snapshotStates = { public: 'loading', territory: 'loading', layers: 'loading' };
   let activeProfile = profiles.energy;
 
   function renderSnapshotModules() {
-    view.renderPulse(snapshots.public, snapshots.territory);
-    view.renderLayerRegistry(snapshots.layers);
+    view.renderPulse(snapshots.public, snapshots.territory, {
+      loading: snapshotStates.public === 'loading',
+      state: snapshotStates.public,
+      territoryLoading: snapshotStates.territory === 'loading',
+      territoryState: snapshotStates.territory,
+    });
+    view.renderLayerRegistry(snapshots.layers, {
+      loading: snapshotStates.layers === 'loading',
+      state: snapshotStates.layers,
+    });
   }
 
   function selectProfile(key, updateUrl = true) {
     activeProfile = profiles[key] || profiles.energy;
     view.renderProfile(activeProfile);
-    view.renderPulse(snapshots.public, snapshots.territory);
+    renderSnapshotModules();
     if (updateUrl) {
       const next = new URL(window.location.href);
       next.searchParams.set('sector', activeProfile.id);
@@ -36,10 +45,12 @@
     view.renderComparison(profileA, profileB);
   }
 
-  async function loadSnapshot({ path, validate, assign, label, render }) {
+  async function loadSnapshot({ path, validate, assign, stateKey, label, render }) {
     try {
       assign(await runtime.fetchJsonAsset(path, { validate }));
+      snapshotStates[stateKey] = 'success';
     } catch (error) {
+      snapshotStates[stateKey] = 'offline';
       console.warn(`${label} unavailable:`, error);
     }
     render();
@@ -54,29 +65,30 @@
   const initialSector = new URLSearchParams(window.location.search).get('sector');
   selectProfile(profileKeys.includes(initialSector) ? initialSector : 'energy', false);
   renderComparison();
-  renderSnapshotModules();
-
   void Promise.all([
     loadSnapshot({
       path: 'data/qazlake-public-snapshot.v1.json',
       validate: contracts.validateQazLake,
       assign: (snapshot) => { snapshots.public = snapshot; },
+      stateKey: 'public',
       label: 'QazLake public snapshot',
-      render: () => view.renderPulse(snapshots.public, snapshots.territory),
+      render: renderSnapshotModules,
     }),
     loadSnapshot({
       path: 'data/qazgeo-public-snapshot.v1.json',
       validate: contracts.validateQazGeoSummary,
       assign: (snapshot) => { snapshots.territory = snapshot; },
+      stateKey: 'territory',
       label: 'QazGeo public snapshot',
-      render: () => view.renderPulse(snapshots.public, snapshots.territory),
+      render: renderSnapshotModules,
     }),
     loadSnapshot({
       path: 'data/qazgeo-public-layer-registry.v1.json',
       validate: contracts.validateLayerRegistry,
       assign: (snapshot) => { snapshots.layers = snapshot; },
+      stateKey: 'layers',
       label: 'QazGeo public layer registry',
-      render: () => view.renderLayerRegistry(snapshots.layers),
+      render: renderSnapshotModules,
     }),
   ]);
 }());

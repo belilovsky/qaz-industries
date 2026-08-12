@@ -6,9 +6,18 @@ cd "$root_dir"
 
 node scripts/build_avds_package.mjs --check
 python3 scripts/check_avds_coverage.py
+python3 scripts/check_responsive_contract.py
+python3 scripts/check_avds_route_ledger.py
+python3 scripts/check_icon_catalog.py
+python3 scripts/check_locale_contract.py
+python3 scripts/check_data_visualization_contract.py
 python3 scripts/check_static_site.py
 python3 scripts/check_routes.py
 python3 scripts/check_accessibility.py
+python3 scripts/check_screen_reader.py
+python3 scripts/check_zoom_contract.py
+python3 scripts/check_visual_regression.py
+python3 scripts/check_avds_contrast.py
 python3 scripts/check_content.py
 python3 scripts/check_quality_budgets.py
 python3 scripts/check_docs.py

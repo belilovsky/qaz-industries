@@ -1,0 +1,18 @@
+{
+  "schema_version": "qaz-industries-avds-zoom-proof-v1",
+  "product_id": "qaz-industries",
+  "method": "Playwright browser reflow smoke with document zoom=200%; logical scroll width is normalized by the zoom factor.",
+  "captured_at": "2026-08-12T08:19:00Z",
+  "zoom_factor": 2,
+  "viewports": [320, 390, 768, 1440],
+  "routes": [
+    {"path": "index.html", "overflow_free": true},
+    {"path": "industry.html", "overflow_free": true},
+    {"path": "benchmarks.html", "overflow_free": true},
+    {"path": "publication.html", "overflow_free": true}
+  ],
+  "acceptance": {
+    "status": "verified",
+    "rule": "Every route stayed horizontally reflowable at 200% zoom for every listed viewport; browser zoom remains enabled by the viewport contract."
+  }
+}

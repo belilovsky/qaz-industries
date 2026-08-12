@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from html.parser import HTMLParser
+import json
 from pathlib import Path
 import sys
 
@@ -13,7 +14,7 @@ PAGES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 STYLE_ORDER = ("styles.css", "avds-package-runtime.css", "avds-tokens.css", "avds.css")
 SCRIPT_ORDER = {
     "index.html": ("runtime.js", "site-shell.js", "app.js", "snapshot-contracts.js", "qazgeo-geometry.js", "qazgeo-map.js"),
-    "industry.html": ("runtime.js", "site-shell.js", "industry-data.js", "snapshot-contracts.js", "profile-view.js", "industry.js"),
+    "industry.html": ("runtime.js", "site-shell.js", "locale.js", "industry-data.js", "snapshot-contracts.js", "profile-view.js", "industry.js"),
     "benchmarks.html": ("runtime.js", "site-shell.js"),
     "publication.html": ("runtime.js", "site-shell.js"),
 }
@@ -33,10 +34,20 @@ ASSETS = (
     "industry.js",
     "favicon.svg",
     "theme.js",
+    "locale.js",
     "robots.txt",
     "sitemap.xml",
     "qazstack-consumer.json",
     "data/avds-coverage.v1.json",
+    "data/avds-system-contract.v1.json",
+    "data/avds-responsive-contract.v1.json",
+    "data/avds-route-ledger.v1.json",
+    "data/avds-icon-catalog.v1.json",
+    "data/avds-data-visualization-contract.v1.json",
+    "data/avds-accessibility-contract.v1.json",
+    "data/avds-zoom-proof.v1.json",
+    "data/avds-visual-regression.v1.json",
+    "content/locale-contract.v1.json",
     "avds-consumer.json",
 )
 
@@ -53,6 +64,10 @@ def require(condition: bool, message: str) -> None:
 
 def main() -> int:
     try:
+        coverage = json.loads((ROOT / "data" / "avds-coverage.v1.json").read_text(encoding="utf-8"))
+        version = coverage["avds"]["version"]
+        badge = coverage["badge"]
+        route_percent = coverage["route_contract"]["coverage_percent"]
         for asset in ASSETS:
             require((ROOT / asset).is_file(), f"missing asset: {asset}")
 
@@ -74,13 +89,15 @@ def main() -> int:
             require('rel="canonical"' in source, f"{page}: missing canonical URL")
             require('property="og:title"' in source and 'property="og:description"' in source, f"{page}: missing OpenGraph metadata")
             require('data-avds-coverage-badge' in source, f"{page}: missing AVDS coverage badge")
+            require(badge in source, f"{page}: stale AVDS coverage badge")
+            require(f"базовый маршрутный контракт: {route_percent} процентов" in source, f"{page}: stale AVDS route coverage label")
             require('data-avds-pattern="app-shell"' in source, f"{page}: missing AVDS app shell")
             require('data-avds-pattern="site-footer"' in source, f"{page}: missing AVDS site footer")
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         avds = (ROOT / "avds.css").read_text(encoding="utf-8")
         require(
             'html[data-design-system="avds4"] [hidden]' in avds
-            and "display: none !important" in avds,
+            and ("display: none !important" in avds or "display:none !important" in avds),
             "avds.css: native hidden contract must override component display modes",
         )
         require('id="filter-summary"' in index, "index.html: missing filter status")
@@ -102,6 +119,7 @@ def main() -> int:
         require('data-avds-pattern="evidence-source-registry"' in profile, "industry.html: missing AV DS source registry pattern")
         require('data-avds-pattern="geo-layer-registry"' in profile, "industry.html: missing AV DS geo layer registry pattern")
         require('data-avds-pattern="related-question-grid"' in profile, "industry.html: missing AV DS question pattern")
+        require('src="locale.js"' in profile, "industry.html: missing locale contract runtime")
         profile_view = (ROOT / "profile-view.js").read_text(encoding="utf-8")
         require(profile_view.count("av-card av-card--outlined") >= 5, "profile-view.js: dynamic surfaces missing AV DS card contracts")
         require("av-source-registry__metadata" in profile_view, "profile-view.js: source registry metadata missing")
@@ -130,7 +148,7 @@ def main() -> int:
         require("--av-color-primary:" not in css, "avds.css: design tokens leaked into component layer")
         for token in ("--av-spacing-4", "--av-radius-lg", "--av-color-primary", "data-av-theme=\"golden-paper\""):
             require(token in tokens, f"avds-tokens.css: missing token {token}")
-    except (OSError, ValueError) as error:
+    except (KeyError, OSError, ValueError, json.JSONDecodeError) as error:
         print(f"CHECK FAILED: {error}", file=sys.stderr)
         return 1
 

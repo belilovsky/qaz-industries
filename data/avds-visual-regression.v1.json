@@ -1,0 +1,31 @@
+{
+  "schema_version": "qaz-industries-avds-visual-regression-v1",
+  "product_id": "qaz-industries",
+  "engine": "Chromium via Playwright CLI",
+  "source_identity": {
+    "commit": "5c38afa5c1a5e1c711ed4e831a14d223d9cc45a6",
+    "working_tree": "dirty-local-candidate",
+    "captured_at": "2026-08-12T08:23:00Z"
+  },
+  "routes": ["index.html", "industry.html", "benchmarks.html", "publication.html"],
+  "viewports": [320, 1440],
+  "diff_policy": {
+    "max_changed_pixel_ratio": 0.001,
+    "comparison": "PNG decoded pixel bytes; dimension and color model must match."
+  },
+  "baselines": [
+    {"route": "index.html", "viewport": 320, "file": "tests/visual-baselines/qaz-index-320.png", "width": 320, "height": 9973, "sha256": "a407409924dec897671939c320fb0f7dadd2919e2fada1fe350465a5d9009276"},
+    {"route": "index.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-index-1440.png", "width": 1440, "height": 5135, "sha256": "4c52f214f3d5b516c1d9977ea1fc17020a27c5c90329b0eec4054fa906d63404"},
+    {"route": "industry.html", "viewport": 320, "file": "tests/visual-baselines/qaz-industry-320.png", "width": 320, "height": 20732, "sha256": "1b3e4958b90768a1f979b70ebbf44a20f569d99ab6c6a0076847634cea3a7b01"},
+    {"route": "industry.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-industry-1440.png", "width": 1440, "height": 10752, "sha256": "ecd0c4395cbc954da07bc2eec3f2e724081c8e51b74b10c52f50082747484a1f"},
+    {"route": "benchmarks.html", "viewport": 320, "file": "tests/visual-baselines/qaz-benchmarks-320.png", "width": 320, "height": 7186, "sha256": "e92076d656a0dfb52dea2046122381acbee6edcfdd1e8bffe4dffee2fbe77347"},
+    {"route": "benchmarks.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-benchmarks-1440.png", "width": 1440, "height": 3825, "sha256": "ced3f425912808b766594083e447e0df9e80198061c1b94d6aa0da8139534c1d"},
+    {"route": "publication.html", "viewport": 320, "file": "tests/visual-baselines/qaz-publication-320.png", "width": 320, "height": 6430, "sha256": "965e1527ac0d93064a6290f426d0cb1c5c549e985ecba16538b1efcb1e3ca196"},
+    {"route": "publication.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-publication-1440.png", "width": 1440, "height": 3415, "sha256": "e9fe40853a4ae1483982bc3da6a50bddf3898af4aa77a4c813b109c199b83508"}
+  ],
+  "acceptance": {
+    "status": "verified",
+    "command": "python3 scripts/check_visual_regression.py --compare --actual <capture-directory>",
+    "note": "Baselines are captured after local data settles and intentionally exclude the public runtime; update requires a reviewed visual diff and manifest hash refresh."
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "schema_version": "qaz-industries-avds-data-visualization-contract-v1",
+  "product_id": "qaz-industries",
+  "palette": {
+    "ready": "#15803d",
+    "partial": "#b45309",
+    "gap": "#dc2626",
+    "map_region": "rgb(31 130 157 / .38)",
+    "map_selected": "#24d5bc",
+    "map_focus": "#4bd2e0"
+  },
+  "visualizations": [
+    {
+      "id": "qazgeo-map",
+      "kind": "qualitative-map",
+      "selector": "[data-avds-viz=\"qazgeo-map\"]",
+      "source": "https://qgeo.tech/api/v1/mapregion/public/regions-geojson",
+      "legend": ["граница", "фокус", "выбранный регион"],
+      "scale": {"type": "ordinal", "domain": ["region", "focus", "selected"]},
+      "axes": null,
+      "units": "неприменимо: геометрии без количественной шкалы",
+      "precision": "идентификатор региона и тип без округления",
+      "missing_values": "карта скрывается при ошибке; декоративная подмена запрещена",
+      "table_alternative": "[data-map-inspector]",
+      "data_status": ["loading", "ready", "error"]
+    },
+    {
+      "id": "ordinal-coverage",
+      "kind": "ordinal-bar-chart",
+      "selector": "[data-avds-viz=\"ordinal-coverage\"]",
+      "source": "data/industry-profiles.v1.json",
+      "legend": ["Готово", "Частично", "Пробел"],
+      "scale": {"type": "ordinal", "domain": ["gap", "partial", "ready"], "range": [0, 0.5, 1]},
+      "axes": {"x": "статус покрытия 0–100%", "y": "слой профиля"},
+      "units": "статус, не наблюдаемая величина",
+      "precision": "фиксированные уровни 0 / 50 / 100 процентов",
+      "missing_values": "неизвестное состояние не превращается в ноль",
+      "period_comparison": "не применяется: диаграмма сравнивает наличие слоёв, а не периоды",
+      "table_alternative": "#compare-table",
+      "data_status": ["loading", "success", "offline", "stale"]
+    },
+    {
+      "id": "indicator-table",
+      "kind": "source-backed-table",
+      "selector": ".indicator-table",
+      "source": "первичный источник каждого показателя",
+      "legend": null,
+      "scale": null,
+      "axes": null,
+      "units": "берутся из поля unit",
+      "precision": "максимум две дробные цифры через locale contract",
+      "missing_values": "эм-даш и явное состояние вместо нуля",
+      "period_comparison": "период выводится отдельной колонкой",
+      "table_alternative": "сам компонент",
+      "data_status": ["success", "empty", "offline", "stale"]
+    },
+    {
+      "id": "period-comparison",
+      "kind": "source-backed-period-list",
+      "selector": "[data-avds-viz=\"period-comparison\"]",
+      "source": "data/industry-profiles.v1.json",
+      "legend": null,
+      "scale": null,
+      "axes": null,
+      "units": "берутся из поля unit",
+      "precision": "максимум две дробные цифры через locale contract",
+      "missing_values": "если подтверждённой пары нет, показывается empty state",
+      "period_comparison": "строка сохраняет текущий период и явную формулировку сравнения из источника",
+      "table_alternative": ".indicator-table",
+      "data_status": ["loading", "success", "empty", "offline", "stale"]
+    }
+  ]
+}

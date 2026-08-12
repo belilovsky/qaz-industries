@@ -6,6 +6,7 @@ const test = require('node:test');
 const contracts = require('../snapshot-contracts.js');
 const geometry = require('../qazgeo-geometry.js');
 const profileView = require('../profile-view.js');
+const locale = require('../locale.js');
 
 function readJson(filename) {
   return JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', filename), 'utf8'));
@@ -53,4 +54,14 @@ test('profile view exposes deterministic Russian labels and coverage guards', ()
   assert.equal(profileView.licenseStatusLabel('attribution-required'), 'требуется атрибуция');
   assert.equal(profileView.layerCoverageLabel({ scope: 'Казахстан', geographies: 20 }), 'Казахстан · 20 географий');
   assert.throws(() => profileView.coverageState('unknown'), /Unsupported coverage state/);
+});
+
+test('AVDS state and locale contracts fail closed', () => {
+  assert.equal(locale.number(12345.678, { maximumFractionDigits: 2 }), '12 345,68');
+  assert.equal(locale.unit(null, 'млн'), '—');
+  assert.equal(locale.snapshotState('2026-08-01T00:00:00Z', Date.parse('2026-08-12T00:00:00Z')), 'success');
+  assert.equal(locale.snapshotState('2026-06-01T00:00:00Z', Date.parse('2026-08-12T00:00:00Z')), 'stale');
+  assert.equal(locale.snapshotState(null), 'empty');
+  assert.match(profileView.stateCard('Нет данных', locale.message('offline'), 'offline'), /data-av-state="offline"/);
+  assert.match(profileView.stateCard('Загрузка', locale.message('loading'), 'loading'), /av-skeleton/);
 });

@@ -1,20 +1,21 @@
 {
   "schema_version": "qaz-industries-avds-coverage-v1",
   "product_id": "qaz-industries",
-  "evaluated_at": "2026-08-11T19:19:51Z",
+  "evaluated_at": "2026-08-12T08:27:51Z",
   "avds": {
     "version": "4.6.0",
     "source": "https://avds.digital/",
-    "source_revision": "88387252684aefd6b37ad34c55d3a9df537e2832"
+    "source_revision": "88387252684aefd6b37ad34c55d3a9df537e2832",
+    "control_plane_revision": "b5be3206d99726a25880b3d2c2ee92e7e96aa8a8"
   },
   "method": {
-    "kind": "consumer-adoption-gates",
-    "passed": 12,
-    "total": 12,
-    "note": "Процент показывает прохождение применимых интеграционных gates, а не долю всех компонентов каталога AVDS."
+    "kind": "avds-system-contract-categories",
+    "passed": 126,
+    "total": 128,
+    "note": "Общий показатель считает только verified requirements десяти категорий AVDS system contract; route contract публикуется отдельно."
   },
-  "coverage_percent": 100,
-  "badge": "AVDS 4.6.0-100",
+  "coverage_percent": 98,
+  "badge": "AVDS 4.6.0-98",
   "gates": [
     {
       "id": "root-marker",
@@ -75,6 +76,85 @@
       "id": "shell-parity",
       "passed": true,
       "label": "Header, navigation и footer переведены на канонический AVDS shell"
+    }
+  ],
+  "route_contract": {
+    "passed": 12,
+    "total": 12,
+    "coverage_percent": 100,
+    "note": "Базовое покрытие маршрутов и consumer integration; не является общей зрелостью дизайн-системы."
+  },
+  "system_contract": "data/avds-system-contract.v1.json",
+  "dimensions": [
+    {
+      "id": "routes",
+      "label": "Маршруты",
+      "passed": 12,
+      "total": 12,
+      "coverage_percent": 100
+    },
+    {
+      "id": "tokens-themes",
+      "label": "Токены и темы",
+      "passed": 16,
+      "total": 16,
+      "coverage_percent": 100
+    },
+    {
+      "id": "components",
+      "label": "Компоненты",
+      "passed": 14,
+      "total": 14,
+      "coverage_percent": 100
+    },
+    {
+      "id": "compositions",
+      "label": "Композиции",
+      "passed": 12,
+      "total": 12,
+      "coverage_percent": 100
+    },
+    {
+      "id": "states",
+      "label": "Состояния",
+      "passed": 14,
+      "total": 14,
+      "coverage_percent": 100
+    },
+    {
+      "id": "adaptive",
+      "label": "Адаптивность",
+      "passed": 12,
+      "total": 12,
+      "coverage_percent": 100
+    },
+    {
+      "id": "accessibility",
+      "label": "Доступность",
+      "passed": 12,
+      "total": 12,
+      "coverage_percent": 100
+    },
+    {
+      "id": "localization",
+      "label": "Локализация и контент",
+      "passed": 10,
+      "total": 12,
+      "coverage_percent": 83
+    },
+    {
+      "id": "data-visualization",
+      "label": "Визуализация данных",
+      "passed": 12,
+      "total": 12,
+      "coverage_percent": 100
+    },
+    {
+      "id": "version-discipline",
+      "label": "Версионная дисциплина и качество",
+      "passed": 12,
+      "total": 12,
+      "coverage_percent": 100
     }
   ]
 }

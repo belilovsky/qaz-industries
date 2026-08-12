@@ -21,6 +21,7 @@
     var status = container.querySelector("[data-map-status]");
     setText(status, message);
     if (status) {
+      status.dataset.avState = state;
       status.classList.toggle("av-badge--success", state === "ready");
       status.classList.toggle("av-badge--danger", state === "error");
       status.classList.toggle("av-badge--info", state !== "error" && state !== "ready");

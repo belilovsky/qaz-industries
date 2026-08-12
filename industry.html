@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="avds.css" />
     <script src="runtime.js" defer></script>
     <script src="site-shell.js" defer></script>
+    <script src="locale.js" defer></script>
     <script src="industry-data.js" defer></script>
     <script src="snapshot-contracts.js" defer></script>
     <script src="profile-view.js" defer></script>
@@ -33,13 +34,13 @@
     <a class="skip-link" href="#profile-main">Перейти к профилю</a>
     <header class="site-header av-app-shell" data-avds-pattern="app-shell">
       <a class="brand av-app-shell__brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a>
-      <nav class="av-app-shell__nav" aria-label="Основная навигация"><a href="index.html">Обзор</a><a href="industry.html" aria-current="page">Профили</a><a href="#compare">Сравнить</a><a href="benchmarks.html">Бенчмарки</a></nav>
+      <nav class="av-app-shell__nav av-nav" aria-label="Основная навигация"><a href="index.html">Обзор</a><a href="industry.html" aria-current="page">Профили</a><a href="#compare">Сравнить</a><a href="benchmarks.html">Бенчмарки</a></nav>
       <div class="header-tools av-app-shell__actions">
         <a class="header-link" href="https://platform.qdev.run/catalog/" target="_blank" rel="noreferrer">Каталог ↗</a>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Сменить визуальную тему"><span aria-hidden="true">◐</span><span data-theme-label>Тема</span></button>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Сменить визуальную тему"><span class="av-icon" data-av-icon="theme" aria-hidden="true">◐</span><span data-theme-label>Тема</span></button>
       </div>
-      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">Меню</button>
-      <nav class="mobile-nav av-app-shell__mobile-nav" id="mobile-nav" aria-label="Мобильная навигация" hidden><a href="index.html">Обзор</a><a href="industry.html">Профили</a><a href="#compare">Сравнить</a><a href="benchmarks.html">Бенчмарки</a></nav>
+      <button class="menu-button av-menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">Меню</button>
+      <nav class="mobile-nav av-app-shell__mobile-nav av-nav" id="mobile-nav" aria-label="Мобильная навигация" hidden><a href="index.html">Обзор</a><a href="industry.html">Профили</a><a href="#compare">Сравнить</a><a href="benchmarks.html">Бенчмарки</a></nav>
     </header>
 
     <main id="profile-main">
@@ -121,21 +122,22 @@
               <div class="indicator-row indicator-head" role="row"><span role="columnheader">Показатель</span><span role="columnheader">Значение</span><span role="columnheader">Период</span><span role="columnheader">Контекст</span><span role="columnheader">Источник</span></div>
               <div id="indicator-rows"></div>
             </div>
+            <div class="av-period-comparison" id="period-comparison" data-avds-pattern="period-comparison" data-avds-viz="period-comparison" role="list" aria-label="Сопоставление периодов" data-av-state="loading"><div class="av-empty-state av-state--loading av-skeleton" data-av-state="loading"><strong class="av-empty-state__title">Сопоставление периодов</strong><p class="av-empty-state__body">Проверяем подтверждённые пары периодов…</p></div></div>
           </section>
 
-          <section class="profile-module pulse-module" id="pulse">
+          <section class="profile-module pulse-module" id="pulse" data-avds-pattern="analytics-panel">
             <div class="module-head"><div><p class="section-number">03 / ПУЛЬС КОНТЕКСТА</p><h2>Макро-срез рядом с отраслью</h2></div><p>Это не отраслевые показатели и не прогноз. Публичный срез QazLake добавляет только официальный экономический контекст с датой и источником.</p></div>
-            <div class="pulse-banner" id="pulse-status" role="status" aria-live="polite">Загружаем проверенный статический срез…</div>
+            <div class="pulse-banner" id="pulse-status" role="status" aria-live="polite" data-av-state="loading">Загружаем проверенный статический срез…</div>
             <div class="pulse-grid" id="pulse-grid"></div>
             <div class="territory-head"><div><span>QAZGEO · ТЕРРИТОРИАЛЬНАЯ ОСНОВА</span><strong>Публичный слой без точных координат</strong></div><a href="https://qgeo.tech/api/v1/layers/regions" target="_blank" rel="noreferrer">Открыть реестр слоёв ↗</a></div>
-            <div class="pulse-banner territory-banner" id="territory-status" role="status" aria-live="polite">Загружаем проверенный территориальный срез…</div>
+            <div class="pulse-banner territory-banner" id="territory-status" role="status" aria-live="polite" data-av-state="loading">Загружаем проверенный территориальный срез…</div>
             <div class="territory-grid" id="territory-grid"></div>
-            <div class="pulse-boundary"><strong>Региональные и водные показатели</strong><span id="pulse-boundary-state">Проверяем доступность публичных контрактов…</span></div>
+            <div class="pulse-boundary"><strong>Региональные и водные показатели</strong><span id="pulse-boundary-state" role="status" aria-live="polite" aria-atomic="true">Проверяем доступность публичных контрактов…</span></div>
           </section>
 
           <section class="profile-module av-layer-registry" data-avds-pattern="geo-layer-registry" id="layers">
             <div class="module-head"><div><p class="section-number">04 / СЛОИ QAZGEO</p><h2>Подключать данные по контракту.</h2></div><p>Здесь видны публично разрешённые слои QazGeo и следующий маршрут интеграции. Статус «только контракт» не означает, что значения уже доступны: пока показываются только проверенные метаданные.</p></div>
-            <div class="pulse-banner territory-banner" id="layer-registry-status" role="status" aria-live="polite">Загружаем проверенный реестр слоёв…</div>
+            <div class="pulse-banner territory-banner" id="layer-registry-status" role="status" aria-live="polite" data-av-state="loading">Загружаем проверенный реестр слоёв…</div>
             <div class="av-layer-registry__grid" id="layer-registry-grid"></div>
           </section>
 
@@ -171,17 +173,21 @@
         </div>
       </section>
 
-      <section class="compare-section shell" id="compare" aria-labelledby="compare-title">
+      <section class="compare-section shell" id="compare" data-avds-pattern="chart-with-source" aria-labelledby="compare-title">
         <div class="compare-head"><div><p class="eyebrow"><span></span> сравнение покрытия</p><h2 id="compare-title">Сравнить не масштабы, <br>а глубину данных.</h2></div><p>Счётчики разных отраслей несопоставимы. Поэтому здесь сравнивается наличие продуктовых слоёв: показателей, карт, паспортов, сервисов и методики.</p></div>
         <div class="compare-controls">
-          <label>Профиль A<select id="compare-a"><option value="energy">Энергетика</option><option value="space">Космос</option><option value="farm">АПК</option><option value="water">Вода</option></select></label>
+          <label>Профиль A<select class="av-form-control" id="compare-a"><option value="energy">Энергетика</option><option value="space">Космос</option><option value="farm">АПК</option><option value="water">Вода</option></select></label>
           <span>↔</span>
-          <label>Профиль B<select id="compare-b"><option value="farm">АПК</option><option value="energy">Энергетика</option><option value="space">Космос</option><option value="water">Вода</option></select></label>
+          <label>Профиль B<select class="av-form-control" id="compare-b"><option value="farm">АПК</option><option value="energy">Энергетика</option><option value="space">Космос</option><option value="water">Вода</option></select></label>
+        </div>
+        <div class="av-coverage-chart" id="coverage-chart" data-avds-viz="ordinal-coverage" aria-live="polite">
+          <div class="av-coverage-chart__header"><h3 class="av-coverage-chart__title">Статусная диаграмма покрытия</h3><p class="av-coverage-chart__source">Загружаем данные профилей…</p></div>
+          <div class="av-empty-state av-state--loading av-skeleton" data-av-state="loading"><strong class="av-empty-state__title">Проверяем контракт</strong><p class="av-empty-state__body">Таблица ниже остаётся доступной как альтернатива.</p></div>
         </div>
         <div class="compare-table av-table" id="compare-table"></div>
       </section>
     </main>
 
-    <footer class="site-footer shell av-site-footer" data-avds-pattern="site-footer"><a class="brand footer-brand av-site-footer__brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a><p class="av-site-footer__summary">Профили отраслей — показатели, цепочки, география и источники. <a href="publication.html">Источники и права</a></p><span class="footer-meta av-site-footer__meta"><a class="avds-coverage-badge av-badge av-badge--info" href="https://avds.digital/" target="_blank" rel="noreferrer" data-avds-coverage-badge aria-label="Покрытие AVDS 4.6.0: 100 процентов">AVDS 4.6.0-100</a><span class="footer-note">исследовательский выпуск · 02</span></span></footer>
+    <footer class="site-footer shell av-site-footer" data-avds-pattern="site-footer"><a class="brand footer-brand av-site-footer__brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a><p class="av-site-footer__summary">Профили отраслей — показатели, цепочки, география и источники. <a href="publication.html">Источники и права</a></p><span class="footer-meta av-site-footer__meta"><a class="avds-coverage-badge av-badge av-badge--info" href="https://avds.digital/" target="_blank" rel="noreferrer" data-avds-coverage-badge aria-label="Общее покрытие AVDS 4.6.0: 98 процентов; базовый маршрутный контракт: 100 процентов">AVDS 4.6.0-98</a><span class="footer-note">исследовательский выпуск · 02</span></span></footer>
   </body>
 </html>

@@ -1,0 +1,27 @@
+{
+  "schema_version": "qaz-industries-avds-responsive-contract-v1",
+  "product_id": "qaz-industries",
+  "evaluated_at": "2026-08-12T00:00:00Z",
+  "viewports": [
+    { "width": 320, "height": 844, "mode": "compact", "rule": "одна колонка, меню заменяет primary navigation, rails переносятся в поток" },
+    { "width": 390, "height": 844, "mode": "mobile", "rule": "одна колонка, интерактивные цели не меньше 40px, горизонтальный overflow запрещён" },
+    { "width": 768, "height": 1024, "mode": "tablet", "rule": "карточки используют auto-fit, сравнение и таблицы остаются читаемыми без скрытия данных" },
+    { "width": 820, "height": 1180, "mode": "tablet-wide", "rule": "сохраняется tablet reflow, дополнительные панели не становятся rail без достаточной ширины" },
+    { "width": 1024, "height": 900, "mode": "desktop", "rule": "primary navigation и профильная toolbar работают как desktop shell" },
+    { "width": 1440, "height": 960, "mode": "wide", "rule": "контент не расширяется за reading/content container; лишняя ширина остаётся внешним полем" },
+    { "width": 1920, "height": 1080, "mode": "ultrawide", "rule": "контентная ширина и длина строки ограничены; новые side panels не появляются без контракта" },
+    { "width": 2560, "height": 1440, "mode": "ultrawide", "rule": "сетка не растягивает текст и карточки до нечитаемой плотности" }
+  ],
+  "recomposition": {
+    "mobile_navigation": "menu button раскрывает nav; Escape закрывает и возвращает фокус",
+    "grid": "auto-fit grids переходят в одну колонку до compact/mobile threshold",
+    "rails": "profile index и дополнительные панели не являются обязательными rail на mobile/tablet",
+    "line_length": "reading content ограничивается container tokens и shell width",
+    "empty_space": "пустое пространство допустимо только как внешнее поле контейнера, не как пустая grid cell"
+  },
+  "acceptance": {
+    "no_horizontal_overflow": true,
+    "all_public_routes": ["/", "/industry.html", "/benchmarks.html", "/publication.html"],
+    "proof": "Playwright manual viewport acceptance; static contract is enforced by scripts/check_responsive_contract.py"
+  }
+}

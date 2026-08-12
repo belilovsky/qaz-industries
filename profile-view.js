@@ -8,6 +8,57 @@
   'use strict';
 
   const coverageStates = new Set(['ready', 'partial', 'gap']);
+  const fallbackLocale = {
+    number(value, options = {}) {
+      const numeric = Number(value);
+      return Number.isFinite(numeric) ? new Intl.NumberFormat('ru-RU', { maximumFractionDigits: options.maximumFractionDigits ?? 2 }).format(numeric) : '—';
+    },
+    date(value) {
+      const parsed = new Date(String(value));
+      return Number.isNaN(parsed.getTime()) ? '—' : new Intl.DateTimeFormat('ru-RU', { dateStyle: 'long', timeZone: 'UTC' }).format(parsed);
+    },
+    message(state) {
+      return ({
+        loading: 'Загружаем проверенный срез…',
+        empty: 'Публичных значений пока нет.',
+        offline: 'Источник временно недоступен. Показаны только границы контракта.',
+        stale: 'Срез устарел. Дождитесь следующего проверенного выпуска.',
+        error: 'Срез не прошёл проверку. Значения скрыты.',
+      })[state] || 'Состояние среза не определено.';
+    },
+    snapshotState(value) {
+      if (!value) return 'empty';
+      const timestamp = Date.parse(String(value));
+      if (Number.isNaN(timestamp) || timestamp > Date.now()) return 'error';
+      return Date.now() - timestamp > 31 * 24 * 60 * 60 * 1000 ? 'stale' : 'success';
+    },
+    unit(value, unitLabel, options = {}) {
+      const formatted = this.number(value, options);
+      return formatted === '—' ? formatted : `${formatted} ${unitLabel || ''}`.trim();
+    },
+  };
+
+  function localeContract() {
+    return (typeof globalThis !== 'undefined' && globalThis.QAZ_LOCALE) || fallbackLocale;
+  }
+
+  function setState(element, state) {
+    if (!element) return;
+    element.dataset.avState = state;
+    element.classList.toggle('av-state--loading', state === 'loading');
+    element.classList.toggle('av-state--success', state === 'success');
+    element.classList.toggle('av-state--error', state === 'error');
+    element.classList.toggle('av-state--offline', state === 'offline');
+    element.classList.toggle('av-state--stale', state === 'stale');
+    element.classList.toggle('av-state--empty', state === 'empty');
+    element.classList.toggle('av-state--contract-only', state === 'contract-only');
+  }
+
+  function stateCard(title, body, state) {
+    const safeState = ['loading', 'empty', 'offline', 'stale', 'error'].includes(state) ? state : 'empty';
+    const loadingClass = safeState === 'loading' ? ' av-skeleton' : '';
+    return `<div class="av-empty-state av-state--${safeState}${loadingClass}" data-av-state="${safeState}"><strong class="av-empty-state__title">${title}</strong><p class="av-empty-state__body">${body}</p></div>`;
+  }
 
   function coverageState(value) {
     if (!coverageStates.has(value)) throw new Error(`Unsupported coverage state: ${value}`);
@@ -19,10 +70,8 @@
   }
 
   function dateLabel(value) {
-    const date = new Date(`${value}T00:00:00Z`);
-    return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat('ru-RU', {
-      day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
-    }).format(date);
+    const locale = localeContract();
+    return locale.date(`${value}T00:00:00Z`) === '—' ? value : locale.date(`${value}T00:00:00Z`);
   }
 
   function layerStatusLabel(layer) {
@@ -36,9 +85,10 @@
     const parts = [];
     if (coverage.scope) parts.push(String(coverage.scope));
     if (coverage.geographies === null || coverage.status === 'unknown') parts.push('объём не наблюдался');
-    if (Number.isFinite(coverage.geographies)) parts.push(`${Number(coverage.geographies).toLocaleString('ru-RU')} географий`);
-    if (Number.isFinite(coverage.segments)) parts.push(`${Number(coverage.segments).toLocaleString('ru-RU')} сегментов`);
-    if (Number.isFinite(coverage.features)) parts.push(`${Number(coverage.features).toLocaleString('ru-RU')} объектов`);
+    const locale = localeContract();
+    if (Number.isFinite(coverage.geographies)) parts.push(`${locale.number(coverage.geographies)} географий`);
+    if (Number.isFinite(coverage.segments)) parts.push(`${locale.number(coverage.segments)} сегментов`);
+    if (Number.isFinite(coverage.features)) parts.push(`${locale.number(coverage.features)} объектов`);
     return parts.join(' · ') || 'Покрытие уточняется';
   }
 
@@ -69,45 +119,66 @@
       required('#profile-machine-link').setAttribute('aria-label', `Открыть JSON профилей; выбран ${profile.name}`);
     }
 
-    function renderTerritory(snapshot) {
+    function renderTerritory(snapshot, options = {}) {
       const status = required('#territory-status');
       const grid = required('#territory-grid');
       if (!snapshot) {
-        status.textContent = 'Публичный срез QazGeo недоступен. География профиля остаётся обзорной и не получает непроверенные значения.';
-        grid.innerHTML = '';
+        const state = options.loading ? 'loading' : (options.state || 'offline');
+        setState(status, state);
+        status.textContent = localeContract().message(state);
+        grid.innerHTML = stateCard('Территориальный срез', state === 'loading' ? 'Проверяем локальный выпуск QazGeo…' : 'География профиля остаётся обзорной и не получает непроверенные значения.', state);
         return;
       }
+      const state = localeContract().snapshotState(snapshot.retrieved_at);
+      setState(status, state);
       const provider = snapshot.provider;
-      status.textContent = `Проверенный статический срез · ${provider.service} · ревизия ${provider.source_revision} · получен ${dateLabel(snapshot.retrieved_at.slice(0, 10))}`;
+      status.textContent = `${state === 'stale' ? localeContract().message('stale') + ' · ' : ''}Проверенный статический срез · ${provider.service} · ревизия ${provider.source_revision} · получен ${dateLabel(snapshot.retrieved_at.slice(0, 10))}`;
       const cards = [
         ['Регионов', snapshot.coverage.regions, 'национальная территориальная основа'],
         ['Городов', snapshot.coverage.cities, 'публичный географический каталог'],
         ['Точек интереса', snapshot.coverage.pois, 'без передачи точных координат в QAZ'],
       ];
+      if (!cards.some(([, value]) => Number.isFinite(value))) {
+        setState(status, 'empty');
+        grid.innerHTML = stateCard('Территориальный срез пуст', localeContract().message('empty'), 'empty');
+        return;
+      }
       grid.innerHTML = cards.map(([label, value, note]) => `
-        <article class="av-card av-card--outlined"><span>${escapeHtml(label)}</span><strong>${escapeHtml(Number(value).toLocaleString('ru-RU'))}</strong><p>${escapeHtml(note)}</p></article>
+        <article class="av-card av-card--outlined"><span>${escapeHtml(label)}</span><strong>${escapeHtml(localeContract().number(value))}</strong><p>${escapeHtml(note)}</p></article>
       `).join('');
     }
 
-    function renderPulse(snapshot, territorySnapshot) {
+    function renderPulse(snapshot, territorySnapshot, options = {}) {
       const status = required('#pulse-status');
       const grid = required('#pulse-grid');
       const boundary = required('#pulse-boundary-state');
       if (!snapshot) {
-        status.textContent = 'Публичный срез QazLake недоступен. Отраслевой профиль продолжает работать без него.';
-        grid.innerHTML = '';
+        const state = options.loading ? 'loading' : (options.state || 'offline');
+        setState(status, state);
+        status.textContent = localeContract().message(state);
+        grid.innerHTML = stateCard('Макро-срез QazLake', state === 'loading' ? 'Проверяем локальный выпуск…' : 'Отраслевой профиль продолжает работать без него.', state);
       } else {
         const provider = snapshot.provider;
-        status.innerHTML = `Проверенный статический срез · ${escapeHtml(provider.service)} · ревизия ${escapeHtml(provider.source_revision)} · получен ${escapeHtml(dateLabel(snapshot.retrieved_at.slice(0, 10)))}`;
-        grid.innerHTML = snapshot.indicators.map((item) => `
+        const state = localeContract().snapshotState(snapshot.retrieved_at);
+        setState(status, state);
+        status.innerHTML = `${state === 'stale' ? escapeHtml(localeContract().message('stale')) + ' · ' : ''}Проверенный статический срез · ${escapeHtml(provider.service)} · ревизия ${escapeHtml(provider.source_revision)} · получен ${escapeHtml(dateLabel(snapshot.retrieved_at.slice(0, 10)))}`;
+        if (!Array.isArray(snapshot.indicators) || snapshot.indicators.length === 0) {
+          setState(status, 'empty');
+          grid.innerHTML = stateCard('Макро-срез пуст', localeContract().message('empty'), 'empty');
+        } else {
+          grid.innerHTML = snapshot.indicators.map((item) => `
           <article class="av-card av-card--outlined">
             <span>${escapeHtml(item.label)}</span>
-            <strong>${escapeHtml(String(item.value).replace('.', ','))}<small>${escapeHtml(item.unit)}</small></strong>
+            <strong>${escapeHtml(localeContract().unit(item.value, item.unit, { maximumFractionDigits: 2 }))}</strong>
             <p>на ${escapeHtml(dateLabel(item.as_of))} · <a href="${httpsHref(item.source_url)}" target="_blank" rel="noreferrer">${escapeHtml(item.source)} ↗</a></p>
           </article>
-        `).join('');
+          `).join('');
+        }
       }
-      renderTerritory(territorySnapshot);
+      renderTerritory(territorySnapshot, {
+        loading: options.territoryLoading ?? options.loading,
+        state: options.territoryState ?? options.state,
+      });
       const unavailable = [
         ...(snapshot?.unavailable_modules || []),
         ...(territorySnapshot?.unavailable_modules || []),
@@ -115,17 +186,21 @@
       boundary.textContent = unavailable || 'Публичные контракты QazLake и QazGeo проверены отдельно перед включением.';
     }
 
-    function renderLayerRegistry(registry) {
+    function renderLayerRegistry(registry, options = {}) {
       const status = required('#layer-registry-status');
       const grid = required('#layer-registry-grid');
       if (!registry) {
-        status.textContent = 'Публичный реестр слоёв QazGeo недоступен. Значения не подставляются без проверенного среза.';
-        grid.innerHTML = '';
+        const state = options.loading ? 'loading' : (options.state || 'offline');
+        setState(status, state);
+        status.textContent = localeContract().message(state);
+        grid.innerHTML = stateCard('Реестр слоёв QazGeo', state === 'loading' ? 'Проверяем локальный выпуск реестра…' : 'Значения не подставляются без проверенного среза.', state);
         return;
       }
+      const state = localeContract().snapshotState(registry.retrieved_at);
+      setState(status, state);
       const provider = registry.provider;
       const contractOnlyCount = registry.layers.filter((layer) => layer.dataset_status === 'contract_only').length;
-      status.textContent = `Проверенный реестр слоёв · ${provider.service} · ревизия ${provider.source_revision} · ${registry.layers.length} контрактов; ${contractOnlyCount} пока описывают только план подключения.`;
+      status.textContent = `${state === 'stale' ? localeContract().message('stale') + ' · ' : ''}Проверенный реестр слоёв · ${provider.service} · ревизия ${provider.source_revision} · ${localeContract().number(registry.layers.length)} контрактов; ${localeContract().number(contractOnlyCount)} пока описывают только план подключения.`;
       grid.innerHTML = registry.layers.map((layer, index) => {
         const badgeClass = layer.dataset_status === 'contract_only' ? 'av-badge--info' : 'av-badge--success';
         return `
@@ -136,7 +211,7 @@
                   <p class="av-layer-registry__eyebrow">0${index + 1} · ${escapeHtml(layer.kind)}</p>
                   <h3>${escapeHtml(layer.title)}</h3>
                 </div>
-                <span class="av-badge ${badgeClass}">${escapeHtml(layerStatusLabel(layer))}</span>
+              <span class="av-badge ${badgeClass}" data-av-state="${layer.dataset_status === 'contract_only' ? 'contract-only' : 'success'}">${escapeHtml(layerStatusLabel(layer))}</span>
               </div>
               <p class="av-layer-registry__description">${escapeHtml(layer.description)}</p>
               <dl class="av-layer-registry__metadata">
@@ -189,6 +264,14 @@
           <a role="cell" href="${httpsHref(item.url)}" target="_blank" rel="noreferrer">открыть ↗</a>
         </div>
       `).join('');
+      const periodComparison = documentRef.querySelector('#period-comparison');
+      if (periodComparison) {
+        const comparisons = profile.indicators.filter((item) => /\sк\s|к предыдущему году|сравнени/i.test(item.period || '') || /сопоставлен/i.test(item.note || ''));
+        periodComparison.innerHTML = comparisons.length
+          ? comparisons.map((item) => `<div class="av-period-comparison__row" role="listitem"><span class="av-period-comparison__label">${escapeHtml(item.name)}</span><strong>${escapeHtml(localeContract().unit(item.value, item.unit, { maximumFractionDigits: 2 }))}</strong><span>${escapeHtml(item.period)}</span><a href="${httpsHref(item.url)}" target="_blank" rel="noreferrer">Источник ↗</a></div>`).join('')
+          : stateCard('Сопоставление периодов', 'В текущем выпуске нет подтверждённых пар периодов.', 'empty');
+        periodComparison.dataset.avState = comparisons.length ? 'success' : 'empty';
+      }
       required('#chain-grid').innerHTML = profile.chain.map((item, index) => `
         <article class="av-card av-card--outlined"><span>0${index + 1}</span><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.text)}</p></article>
       `).join('');
@@ -228,6 +311,23 @@
           <div class="compare-row"><span>${escapeHtml(label)}</span><strong class="state-${coverageState(profileA.coverage[label])}">${statusLabel(profileA.coverage[label])}</strong><strong class="state-${coverageState(profileB.coverage[label])}">${statusLabel(profileB.coverage[label])}</strong></div>
         `).join('')}
       `;
+      const chart = documentRef.querySelector('#coverage-chart');
+      if (chart) {
+        const weight = { gap: 0, partial: 0.5, ready: 1 };
+        const stateText = { gap: 'Пробел', partial: 'Частично', ready: 'Готово' };
+        const profileRows = [profileA, profileB].map((profile) => `
+          <div class="av-coverage-chart__group" data-profile="${escapeHtml(profile.id)}">
+            <h4 class="av-coverage-chart__label">${escapeHtml(profile.short)}</h4>
+            <div class="av-coverage-chart__plot" role="list" aria-label="Покрытие ${escapeHtml(profile.name)}">
+              ${rows.map((label) => {
+                const state = coverageState(profile.coverage[label]);
+                return `<div class="av-coverage-chart__row" role="listitem"><span class="av-coverage-chart__label">${escapeHtml(label)}</span><span class="av-coverage-chart__track" role="img" aria-label="${escapeHtml(stateText[state])}"><span class="av-coverage-chart__bar av-coverage-chart__bar--${state}" style="--coverage-value:${weight[state]}"></span></span><span class="av-coverage-chart__value">${escapeHtml(stateText[state])}</span></div>`;
+              }).join('')}
+            </div>
+          </div>
+        `).join('');
+        chart.innerHTML = `<div class="av-coverage-chart__header"><h3 class="av-coverage-chart__title">Статусная диаграмма покрытия</h3><p class="av-coverage-chart__source">Источник: data/industry-profiles.v1.json · таблица ниже — альтернативный вид</p></div><ul class="av-coverage-chart__legend" aria-label="Легенда состояний"><li><span class="av-coverage-chart__swatch av-coverage-chart__swatch--ready" aria-hidden="true"></span>Готово</li><li><span class="av-coverage-chart__swatch av-coverage-chart__swatch--partial" aria-hidden="true"></span>Частично</li><li><span class="av-coverage-chart__swatch av-coverage-chart__swatch--gap" aria-hidden="true"></span>Пробел</li></ul>${profileRows}`;
+      }
     }
 
     return { renderComparison, renderLayerRegistry, renderProfile, renderPulse };
@@ -242,5 +342,6 @@
     layerStatusLabel,
     licenseStatusLabel,
     statusLabel,
+    stateCard,
   };
 }));

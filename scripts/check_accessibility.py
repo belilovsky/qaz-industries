@@ -10,7 +10,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "industry.html", "benchmarks.html")
+PAGES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 
 
@@ -125,6 +125,12 @@ def main() -> int:
     try:
         for page in PAGES:
             check_page(page)
+        avds = (ROOT / "avds.css").read_text(encoding="utf-8")
+        require("@media (max-width: 720px)" in avds or "@media (max-width:720px)" in avds, "AV DS mobile target contract is missing")
+        require("min-height: 44px" in avds or "min-height:44px" in avds, "AV DS mobile target size is missing")
+        for page in PAGES:
+            source = (ROOT / page).read_text(encoding="utf-8")
+            require('name="viewport"' in source and "user-scalable=no" not in source, f"{page}: zoom must remain available")
     except (OSError, ValueError) as error:
         print(f"ACCESSIBILITY CHECK FAILED: {error}", file=sys.stderr)
         return 1

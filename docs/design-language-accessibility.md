@@ -12,11 +12,14 @@ source registry, geo-layer registry и related questions. Изменения т�
 Неиспользуемые классы AV DS не считаются реализованными только потому, что они
 есть в CSS. Текущие потребители подтверждаются HTML/JS и static checker.
 
-Публичный footer показывает машиночитаемую версию и покрытие в формате
-`AVDS 4.x.x-N`. Источник — `data/avds-coverage.v1.json`; `N` вычисляется как
-доля пройденных consumer-adoption gates, а не как доля всего каталога
-компонентов. Команда `python3 scripts/check_avds_coverage.py --write` обновляет
-gate states и шильдик, обычный `scripts/check.sh` отклоняет устаревший receipt.
+Публичный footer показывает машиночитаемую версию и общий показатель в формате
+`AVDS 4.x.x-N`. Источник — `data/avds-coverage.v1.json`, а полный состав
+требований, provenance, hashes, локальные отклонения и gaps находятся в
+`data/avds-system-contract.v1.json`. `N` считается по десяти категориям
+системного контракта; базовый route/consumer contract публикуется отдельно и
+не подменяет общую зрелость. Команда
+`python3 scripts/check_avds_coverage.py --write` обновляет derived receipt,
+обычный `scripts/check.sh` отклоняет устаревший receipt.
 
 Shell gate включает все четыре страницы: header, основная и мобильная
 навигация, actions и footer имеют отдельные AV DS composition roles. Это

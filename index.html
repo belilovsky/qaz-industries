@@ -37,7 +37,7 @@
         <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <span>QAZ<span>.</span>INDUSTRIES</span>
       </a>
-      <nav class="av-app-shell__nav" aria-label="Основная навигация">
+      <nav class="av-app-shell__nav av-nav" aria-label="Основная навигация">
         <a href="industry.html">Профили</a>
         <a href="#map">Карта</a>
         <a href="industry.html#compare">Сравнить</a>
@@ -46,10 +46,10 @@
       </nav>
       <div class="header-tools av-app-shell__actions">
         <a class="header-link" href="https://platform.qdev.run/catalog/" target="_blank" rel="noreferrer">Каталог ↗</a>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Сменить визуальную тему"><span aria-hidden="true">◐</span><span data-theme-label>Тема</span></button>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Сменить визуальную тему"><span class="av-icon" data-av-icon="theme" aria-hidden="true">◐</span><span data-theme-label>Тема</span></button>
       </div>
-      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">Меню</button>
-      <nav class="mobile-nav av-app-shell__mobile-nav" id="mobile-nav" aria-label="Мобильная навигация" hidden>
+      <button class="menu-button av-menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">Меню</button>
+      <nav class="mobile-nav av-app-shell__mobile-nav av-nav" id="mobile-nav" aria-label="Мобильная навигация" hidden>
         <a href="industry.html">Профили</a>
         <a href="#map">Карта</a>
         <a href="industry.html#compare">Сравнить</a>
@@ -72,17 +72,17 @@
 
         <div class="hero-map hero-map--live" aria-label="Реальная карта регионов Казахстана из QazGeo">
           <div class="map-caption"><span>QazGeo × QAZ.INDUSTRIES</span><strong>20 реальных границ</strong></div>
-          <div class="qazgeo-map qazgeo-map--hero" data-qazgeo-map data-map-variant="hero">
+          <div class="qazgeo-map qazgeo-map--hero" data-qazgeo-map data-avds-viz="qazgeo-map" data-map-variant="hero">
             <div class="qazgeo-map__toolbar">
-              <span class="av-badge av-badge--info" data-map-status>Загружаем срез QazGeo…</span>
+              <span class="av-badge av-badge--info" data-map-status data-av-state="loading">Загружаем срез QazGeo…</span>
               <div class="qazgeo-map__controls" aria-label="Управление картой">
-                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-out aria-label="Уменьшить карту">−</button>
+                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-out aria-label="Уменьшить карту"><span class="av-icon" data-av-icon="minus" aria-hidden="true">−</span></button>
                 <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-reset>Сбросить</button>
-                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-in aria-label="Увеличить карту">+</button>
+                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-in aria-label="Увеличить карту"><span class="av-icon" data-av-icon="plus" aria-hidden="true">+</span></button>
               </div>
             </div>
             <svg data-map-svg viewBox="0 0 1000 560" role="img" aria-label="Реальные границы регионов Казахстана"></svg>
-            <div class="qazgeo-map__inspector" data-map-inspector role="status" aria-live="polite">Выберите регион…</div>
+            <div class="qazgeo-map__inspector" id="hero-map-inspector" data-map-inspector role="status" aria-live="polite" aria-atomic="true">Выберите регион…</div>
             <p class="qazgeo-map__source"><a data-map-source href="https://qgeo.tech/api/v1/mapregion/public/regions-geojson" target="_blank" rel="noreferrer">Источник: QazGeo GeoJSON ↗</a></p>
           </div>
         </div>
@@ -107,7 +107,7 @@
         <article><strong>Источники</strong><span>как проверить</span><small>ссылка и дата</small></article>
       </section>
 
-      <section class="industry-section shell" id="industries" aria-labelledby="industries-title">
+      <section class="industry-section shell" id="industries" data-avds-pattern="industry-catalog" aria-labelledby="industries-title">
         <div class="section-head">
           <div>
             <p class="eyebrow dark"><span></span> отраслевые входы</p>
@@ -185,17 +185,18 @@
             </div>
             <a class="button button-quiet av-button av-button--secondary" href="data/qazgeo-regions-public.v1.geojson" target="_blank" rel="noreferrer">Открыть срез GeoJSON ↗</a>
           </div>
-          <div class="qazgeo-map qazgeo-map--large" data-qazgeo-map data-map-variant="large">
+          <div class="qazgeo-map qazgeo-map--large" data-qazgeo-map data-avds-viz="qazgeo-map" data-map-variant="large">
             <div class="qazgeo-map__toolbar">
-              <span class="av-badge av-badge--info" data-map-status>Загружаем срез QazGeo…</span>
+              <span class="av-badge av-badge--info" data-map-status data-av-state="loading">Загружаем срез QazGeo…</span>
               <div class="qazgeo-map__controls" aria-label="Управление картой">
-                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-out aria-label="Уменьшить карту">−</button>
+                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-out aria-label="Уменьшить карту"><span class="av-icon" data-av-icon="minus" aria-hidden="true">−</span></button>
                 <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-reset>Сбросить</button>
-                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-in aria-label="Увеличить карту">+</button>
+                <button class="av-button av-button--secondary av-button--sm" type="button" data-map-zoom-in aria-label="Увеличить карту"><span class="av-icon" data-av-icon="plus" aria-hidden="true">+</span></button>
               </div>
             </div>
             <svg data-map-svg viewBox="0 0 1000 560" role="img" aria-label="Реальные границы регионов Казахстана"></svg>
-            <div class="qazgeo-map__inspector" data-map-inspector role="status" aria-live="polite">Выберите регион…</div>
+            <div class="qazgeo-map__inspector" id="map-inspector" data-map-inspector role="status" aria-live="polite" aria-atomic="true">Выберите регион…</div>
+            <ul class="qazgeo-map__legend" aria-label="Легенда карты"><li><span class="qazgeo-map__swatch qazgeo-map__swatch--region" aria-hidden="true"></span>граница</li><li><span class="qazgeo-map__swatch qazgeo-map__swatch--focus" aria-hidden="true"></span>фокус</li><li><span class="qazgeo-map__swatch qazgeo-map__swatch--selected" aria-hidden="true"></span>выбранный регион</li></ul>
             <p class="qazgeo-map__source"><a data-map-source href="https://qgeo.tech/api/v1/mapregion/public/regions-geojson" target="_blank" rel="noreferrer">Источник: QazGeo GeoJSON ↗</a></p>
           </div>
         </div>
@@ -232,7 +233,7 @@
     <footer class="site-footer shell av-site-footer" data-avds-pattern="site-footer">
       <a class="brand footer-brand av-site-footer__brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QAZ<span>.</span>INDUSTRIES</span></a>
       <p class="av-site-footer__summary">Индустрии Казахстана — карта, данные, объекты и контекст. <a href="publication.html">Источники и права</a></p>
-      <span class="footer-meta av-site-footer__meta"><a class="avds-coverage-badge av-badge av-badge--info" href="https://avds.digital/" target="_blank" rel="noreferrer" data-avds-coverage-badge aria-label="Покрытие AVDS 4.6.0: 100 процентов">AVDS 4.6.0-100</a><span class="footer-note">публичный статический выпуск · 2026</span></span>
+      <span class="footer-meta av-site-footer__meta"><a class="avds-coverage-badge av-badge av-badge--info" href="https://avds.digital/" target="_blank" rel="noreferrer" data-avds-coverage-badge aria-label="Общее покрытие AVDS 4.6.0: 98 процентов; базовый маршрутный контракт: 100 процентов">AVDS 4.6.0-98</a><span class="footer-note">публичный статический выпуск · 2026</span></span>
     </footer>
   </body>
 </html>
