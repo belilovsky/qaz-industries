@@ -12,13 +12,13 @@
 | Checkout | `/Users/belilovsky/Documents/Codex/2026-08-09/qaz-industries` | source-confirmed |
 | Remote | `https://github.com/belilovsky/qaz-industries.git` | source-confirmed |
 | Branch | `main` | source-confirmed |
-| Deployed source SHA | `732dc2311ee8b6acb11193da1b7255c42719ae01` | source/runtime/public-confirmed |
-| Remote `origin/main` at deploy | `732dc2311ee8b6acb11193da1b7255c42719ae01` | remote-confirmed |
+| Deployed source SHA | `40b7b580c35bd5589bb4501ffe612e7bb95ea5b2` | source/runtime/public-confirmed |
+| Remote `origin/main` at code deploy | `40b7b580c35bd5589bb4501ffe612e7bb95ea5b2` | remote-confirmed |
 | Public domain | [https://qaz.industries/](https://qaz.industries/) | public-verified |
 | Runtime | shared public-sites Caddy, immutable release + `current` symlink | runtime-confirmed |
-| Public release | `20260812T113342Z-732dc2311ee8` | runtime/public-confirmed |
+| Public release | `20260812T122636Z-40b7b580c35b` | runtime/public-confirmed |
 
-Функциональный commit `732dc2311ee8…` является точным источником публичного
+Функциональный commit `40b7b580c35b…` является точным источником публичного
 артефакта. Release переключён атомарно после проверки Caddy bind mount,
 контейнера и public smoke. Последующие documentation-only commits могут сделать
 локальный и удалённый `HEAD` новее deployed source SHA, не меняя публичные
@@ -31,9 +31,11 @@
   quality budgets, документация, публичные контракты и immutable artifact —
   `OK`.
 - Выполнено 11 Python-тестов и 10 Node-тестов; все прошли.
-- Coverage receipt подтверждает общий AVDS system contract `126/128` (**98%**),
+- Coverage receipt подтверждает общий AVDS system contract `128/128` (**100%**),
   а базовый route/consumer contract — `12/12` (**100%**), badge
-  `AVDS 4.6.0-98`.
+  `AVDS 4.6.0-100`. Полный локальный UI-каталог содержит 846 исходных строк
+  в трёх локалях (`ru-RU`, `kk-KZ`, `en-US`); переключение языков проверено
+  браузером, включая динамический industry-профиль и график.
 - `@sgeo/ui-kit@4.6.0` закреплён vendored tarball с SHA-256
   `2e8382b74019e5fda6cd56bdbc58ec4864819825276828f6a235487d2d48a77c`;
   официальный token export детерминированно собирается в
@@ -44,29 +46,32 @@
 ## Runtime acceptance
 
 - `scripts/deploy.sh` принял чистый commit, повторил все gates и собрал
-  immutable release `20260812T113342Z-732dc2311ee8`.
+  immutable release `20260812T122636Z-40b7b580c35b`.
 - Кандидат Caddy прошёл marker check и `caddy validate`; после атомарного
   переключения `current` публичные release identity и health проверены снова.
-- Runtime receipt: `releases=8`, `backups=8`, `release_kib=728`. Rollback
+- Runtime receipt: `releases=8`, `backups=8`, `release_kib=1164`. Rollback
   остаётся привязан к предыдущему immutable release.
 
 ## Public acceptance
 
 - [release.json](https://qaz.industries/release.json) и
   [api/health](https://qaz.industries/api/health) возвращают один release и
-  точный source SHA; все четыре страницы, AVDS runtime CSS и consumer contract
-  отвечают HTTP 200.
+  точный source SHA `40b7b580c35bd5589bb4501ffe612e7bb95ea5b2`; все четыре
+  страницы, AVDS runtime CSS, locale catalog и consumer contract отвечают
+  HTTP 200.
 - [AVDS coverage receipt](https://qaz.industries/data/avds-coverage.v1.json)
-  публично подтверждает общий `126/128` и `98%`, route/consumer `12/12` и
-  `100%`; package runtime receipt подтверждает версию, tarball/export/artifact
-  digests и отсутствие добавленного JavaScript.
+  публично подтверждает общий `128/128` и `100%`, route/consumer `12/12` и
+  `100%`, badge `AVDS 4.6.0-100`; package runtime receipt подтверждает версию,
+  tarball/export/artifact digests и отсутствие добавленного JavaScript.
 - CSP, HSTS, `nosniff`, frame/referrer/permissions и COOP/CORP headers
   присутствуют; ответ содержит точный `X-QAZ-Industries-Release`.
 - Playwright проверил четыре страницы на 320, 390, 768, 820, 1024, 1440,
   1920 и 2560px: в 32 route×viewport комбинациях badge свежий, четыре AVDS
   stylesheet подключены в правильном порядке, горизонтального overflow и
-  page/console errors нет. Industry route содержит одну period comparison и
-  14 chart rows; data states остаются success/contract-only по источнику.
+  page/console errors нет. Дополнительно проверены `en-US` и `kk-KZ`, меню и
+  Escape/focus-поведение; industry route содержит 4 snapshot rows, 14 chart
+  rows и одну period comparison, data states остаются success/contract-only по
+  источнику.
 - Мобильное меню открывается, передаёт фокус первой ссылке, закрывается по
   `Escape` и возвращает фокус кнопке; console warnings/errors отсутствуют.
 
