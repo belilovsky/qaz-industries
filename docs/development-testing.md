@@ -21,7 +21,7 @@ scripts/check.sh
 
 Она выполняет AVDS system/route/responsive contracts, static HTML, route hygiene, accessibility и
 терминологический contracts, size/security budgets, public data contracts,
-documentation links, Python compile checks, 8 Python unit tests, data contract, 9 Node tests,
+documentation links, Python compile checks, 11 Python unit tests, data contract, 10 Node tests,
 синтаксис всех JavaScript и shell scripts, build release во временной директории,
 release artifact verification и `git diff --check`.
 

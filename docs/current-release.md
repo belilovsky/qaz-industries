@@ -12,16 +12,17 @@
 | Checkout | `/Users/belilovsky/Documents/Codex/2026-08-09/qaz-industries` | source-confirmed |
 | Remote | `https://github.com/belilovsky/qaz-industries.git` | source-confirmed |
 | Branch | `main` | source-confirmed |
-| Deployed source SHA | `0ed802b8c35b083cc0646a91b83bccae7b597462` | source/runtime/public-confirmed |
-| Remote `origin/main` at deploy | `0ed802b8c35b083cc0646a91b83bccae7b597462` | remote-confirmed |
+| Deployed source SHA | `732dc2311ee8b6acb11193da1b7255c42719ae01` | source/runtime/public-confirmed |
+| Remote `origin/main` at deploy | `732dc2311ee8b6acb11193da1b7255c42719ae01` | remote-confirmed |
 | Public domain | [https://qaz.industries/](https://qaz.industries/) | public-verified |
 | Runtime | shared public-sites Caddy, immutable release + `current` symlink | runtime-confirmed |
-| Public release | `20260811T192751Z-0ed802b8c35b` | runtime/public-confirmed |
+| Public release | `20260812T113342Z-732dc2311ee8` | runtime/public-confirmed |
 
-Функциональный commit `0ed802b8c35b…` является точным источником публичного
-артефакта. Этот receipt фиксируется последующим documentation-only commit,
-поэтому локальный и удалённый `HEAD` могут быть новее deployed source SHA без
-расхождения публичных исполняемых файлов.
+Функциональный commit `732dc2311ee8…` является точным источником публичного
+артефакта. Release переключён атомарно после проверки Caddy bind mount,
+контейнера и public smoke. Последующие documentation-only commits могут сделать
+локальный и удалённый `HEAD` новее deployed source SHA, не меняя публичные
+исполняемые файлы.
 
 ## Local acceptance
 
@@ -29,9 +30,10 @@
   runtime, AVDS coverage, static, routes, accessibility, русская терминология,
   quality budgets, документация, публичные контракты и immutable artifact —
   `OK`.
-- Выполнено 11 Python-тестов и 9 Node-тестов; все прошли.
-- Coverage receipt подтверждает 12 из 12 применимых consumer adoption gates:
-  **100%**, badge `AVDS 4.6.0-100`.
+- Выполнено 11 Python-тестов и 10 Node-тестов; все прошли.
+- Coverage receipt подтверждает общий AVDS system contract `126/128` (**98%**),
+  а базовый route/consumer contract — `12/12` (**100%**), badge
+  `AVDS 4.6.0-98`.
 - `@sgeo/ui-kit@4.6.0` закреплён vendored tarball с SHA-256
   `2e8382b74019e5fda6cd56bdbc58ec4864819825276828f6a235487d2d48a77c`;
   официальный token export детерминированно собирается в
@@ -42,7 +44,7 @@
 ## Runtime acceptance
 
 - `scripts/deploy.sh` принял чистый commit, повторил все gates и собрал
-  immutable release `20260811T192751Z-0ed802b8c35b`.
+  immutable release `20260812T113342Z-732dc2311ee8`.
 - Кандидат Caddy прошёл marker check и `caddy validate`; после атомарного
   переключения `current` публичные release identity и health проверены снова.
 - Runtime receipt: `releases=8`, `backups=8`, `release_kib=728`. Rollback
@@ -55,13 +57,16 @@
   точный source SHA; все четыре страницы, AVDS runtime CSS и consumer contract
   отвечают HTTP 200.
 - [AVDS coverage receipt](https://qaz.industries/data/avds-coverage.v1.json)
-  публично подтверждает 12/12 и 100%; package runtime receipt подтверждает
-  версию, tarball/export/artifact digests и отсутствие добавленного JavaScript.
+  публично подтверждает общий `126/128` и `98%`, route/consumer `12/12` и
+  `100%`; package runtime receipt подтверждает версию, tarball/export/artifact
+  digests и отсутствие добавленного JavaScript.
 - CSP, HSTS, `nosniff`, frame/referrer/permissions и COOP/CORP headers
   присутствуют; ответ содержит точный `X-QAZ-Industries-Release`.
-- Playwright проверил четыре страницы на 1280×900 и 390×844: в восьми
-  комбинациях badge свежий, четыре AVDS stylesheet подключены в правильном
-  порядке, горизонтального overflow и page errors нет.
+- Playwright проверил четыре страницы на 320, 390, 768, 820, 1024, 1440,
+  1920 и 2560px: в 32 route×viewport комбинациях badge свежий, четыре AVDS
+  stylesheet подключены в правильном порядке, горизонтального overflow и
+  page/console errors нет. Industry route содержит одну period comparison и
+  14 chart rows; data states остаются success/contract-only по источнику.
 - Мобильное меню открывается, передаёт фокус первой ссылке, закрывается по
   `Escape` и возвращает фокус кнопке; console warnings/errors отсутствуют.
 
