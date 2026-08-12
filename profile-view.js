@@ -313,7 +313,6 @@
       `;
       const chart = documentRef.querySelector('#coverage-chart');
       if (chart) {
-        const weight = { gap: 0, partial: 0.5, ready: 1 };
         const stateText = { gap: 'Пробел', partial: 'Частично', ready: 'Готово' };
         const profileRows = [profileA, profileB].map((profile) => `
           <div class="av-coverage-chart__group" data-profile="${escapeHtml(profile.id)}">
@@ -321,7 +320,7 @@
             <div class="av-coverage-chart__plot" role="list" aria-label="Покрытие ${escapeHtml(profile.name)}">
               ${rows.map((label) => {
                 const state = coverageState(profile.coverage[label]);
-                return `<div class="av-coverage-chart__row" role="listitem"><span class="av-coverage-chart__label">${escapeHtml(label)}</span><span class="av-coverage-chart__track" role="img" aria-label="${escapeHtml(stateText[state])}"><span class="av-coverage-chart__bar av-coverage-chart__bar--${state}" style="--coverage-value:${weight[state]}"></span></span><span class="av-coverage-chart__value">${escapeHtml(stateText[state])}</span></div>`;
+                return `<div class="av-coverage-chart__row" role="listitem"><span class="av-coverage-chart__label">${escapeHtml(label)}</span><span class="av-coverage-chart__track" role="img" aria-label="${escapeHtml(stateText[state])}"><span class="av-coverage-chart__bar av-coverage-chart__bar--${state}"></span></span><span class="av-coverage-chart__value">${escapeHtml(stateText[state])}</span></div>`;
               }).join('')}
             </div>
           </div>

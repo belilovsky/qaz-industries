@@ -11,7 +11,7 @@
     "connected_files": [
       { "path": "avds-package-runtime.css", "sha256": "30f2d99ab34cf9bcc32aada92d96392be4e9b43662faabab1679de9a369d0ece" },
       { "path": "avds-tokens.css", "sha256": "f05780ae57de4ec86df43a73f48cb3343bb9960d40c7cd8475437a1560d5d381" },
-      { "path": "avds.css", "sha256": "f3c65dd6930f566eb7118abab3fd5a68db5c6e948dccf987d23bde7018212eec" },
+      { "path": "avds.css", "sha256": "56926a76fa490d47d6607c001511f643bc593b8cf40fd998594275f8d2fc0085" },
       { "path": "styles.css", "sha256": "1e809d4c9484d0839dfc4b1d07a0c7ded5439eff73d17044ecac4bd3d025eba7" },
       { "path": "site-shell.js", "sha256": "56bac728310ff7b99ea2534086774fcbdc583236697dfd3cce16366754b21860" },
       { "path": "theme.js", "sha256": "33211e12244905a7feea7c28e590cec1ef18d0d25d3945c3ecea489f65932fa8" },
