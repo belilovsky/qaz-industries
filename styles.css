@@ -203,6 +203,11 @@ h1 em, h2 em { color: var(--cyan); font-style: normal; }
   .menu-button { padding-inline: 9px; }
 }
 
+@media (max-width: 520px) {
+  .theme-toggle [data-theme-label] { display: none; }
+  .theme-toggle { min-width: var(--av-size-control-md); padding-inline: 0; justify-content: center; }
+}
+
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 
 @media (max-width: 720px) {
