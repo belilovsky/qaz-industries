@@ -13,10 +13,10 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 STYLE_ORDER = ("styles.css", "avds-package-runtime.css", "avds-tokens.css", "avds.css")
 SCRIPT_ORDER = {
-    "index.html": ("runtime.js", "site-shell.js", "app.js", "snapshot-contracts.js", "qazgeo-geometry.js", "qazgeo-map.js"),
+    "index.html": ("runtime.js", "site-shell.js", "locale.js", "app.js", "snapshot-contracts.js", "qazgeo-geometry.js", "qazgeo-map.js"),
     "industry.html": ("runtime.js", "site-shell.js", "locale.js", "industry-data.js", "snapshot-contracts.js", "profile-view.js", "industry.js"),
-    "benchmarks.html": ("runtime.js", "site-shell.js"),
-    "publication.html": ("runtime.js", "site-shell.js"),
+    "benchmarks.html": ("runtime.js", "site-shell.js", "locale.js"),
+    "publication.html": ("runtime.js", "site-shell.js", "locale.js"),
 }
 ASSETS = (
     "styles.css",
@@ -47,6 +47,7 @@ ASSETS = (
     "data/avds-accessibility-contract.v1.json",
     "data/avds-zoom-proof.v1.json",
     "data/avds-visual-regression.v1.json",
+    "data/ui-locale.v1.json",
     "content/locale-contract.v1.json",
     "avds-consumer.json",
 )
@@ -81,6 +82,7 @@ def main() -> int:
             style_positions = [source.index(f'href="{stylesheet}"') for stylesheet in STYLE_ORDER]
             require(style_positions == sorted(style_positions), f"{page}: AV DS styles are out of dependency order")
             require('data-theme-toggle' in source, f"{page}: missing AV DS theme control")
+            require('src="locale.js"' in source, f"{page}: missing locale runtime")
             require('src="theme.js"' in source, f"{page}: missing external theme bootstrap")
             require('src="runtime.js"' in source, f"{page}: missing shared browser runtime")
             script_positions = [source.index(f'src="{script}"') for script in SCRIPT_ORDER[page]]

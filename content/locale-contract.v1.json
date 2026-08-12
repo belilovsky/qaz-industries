@@ -9,7 +9,7 @@
     "date": "ISO-8601 input rendered in UTC with a locale-aware long date; invalid dates render as an em dash.",
     "unit": "Value and source-provided unit stay together; the unit is never inferred from a missing value.",
     "line_breaks": "Headings may balance; body copy stays within the AV DS reading container and may wrap only at word boundaries.",
-    "messages": "Loading, empty, error, offline, stale and contract-only states use explicit Russian copy and a machine state attribute."
+    "messages": "Loading, empty, error, offline, stale, success and contract-only states use an explicit state copy in RU, KK and EN and a machine state attribute."
   },
   "messages": {
     "loading": "Загружаем проверенный срез…",
@@ -21,8 +21,17 @@
     "contract-only": "Доступен только контракт; наблюдение ещё не опубликовано."
   },
   "locale_scope": {
-    "ru-RU": "активный интерфейс и пользовательские сообщения",
-    "kk-KZ": "числа и даты доступны для будущей локализации; пользовательский интерфейс пока не переведён",
-    "en-US": "числа и даты доступны для будущей локализации; пользовательский интерфейс пока не переведён"
+    "ru-RU": "полный интерфейс, пользовательские сообщения и публичные метаданные",
+    "kk-KZ": "полный интерфейс, пользовательские сообщения и публичные метаданные через локальный каталог; названия собственных продуктов и URL не изменяются",
+    "en-US": "полный интерфейс, пользовательские сообщения и публичные метаданные через локальный каталог; названия собственных продуктов и URL не изменяются"
+  },
+  "translation_contract": {
+    "catalog": "data/ui-locale.v1.json",
+    "runtime": "locale.js",
+    "selector": "[data-locale-select]",
+    "source_inventory": "scripts/build_locale_catalog.py",
+    "fallback": "ru-RU with degraded state when the same-origin catalog is unavailable",
+    "scope": "HTML text, accessible names, metadata and dynamic public source copy; proper names, URLs, units and source identifiers remain stable",
+    "acceptance": "The catalog inventory hash must match the current four-route HTML, runtime and public-data copy before a release can pass."
   }
 }

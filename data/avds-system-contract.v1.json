@@ -12,10 +12,11 @@
       { "path": "avds-package-runtime.css", "sha256": "30f2d99ab34cf9bcc32aada92d96392be4e9b43662faabab1679de9a369d0ece" },
       { "path": "avds-tokens.css", "sha256": "f05780ae57de4ec86df43a73f48cb3343bb9960d40c7cd8475437a1560d5d381" },
       { "path": "avds.css", "sha256": "56926a76fa490d47d6607c001511f643bc593b8cf40fd998594275f8d2fc0085" },
-      { "path": "styles.css", "sha256": "1e809d4c9484d0839dfc4b1d07a0c7ded5439eff73d17044ecac4bd3d025eba7" },
+      { "path": "styles.css", "sha256": "043f0b6427b84a8ea7b58313b48d73bd7561292e131602f6304d3dc1a1616d84" },
       { "path": "site-shell.js", "sha256": "56bac728310ff7b99ea2534086774fcbdc583236697dfd3cce16366754b21860" },
       { "path": "theme.js", "sha256": "33211e12244905a7feea7c28e590cec1ef18d0d25d3945c3ecea489f65932fa8" },
-      { "path": "locale.js", "sha256": "c59a78b67775689192ce69e291e9daa1a1460d73cb42e59e0222997bfb589bd2" },
+      { "path": "locale.js", "sha256": "3ae719870b41781be1c628ec1c1381c7a7745497eedda78eb817c0c5609786f7" },
+      { "path": "data/ui-locale.v1.json", "sha256": "291951a76c5ff3fc33dd81458e4e276a8f8185d6330de9083ab431305765f5fd" },
       { "path": "package.json", "sha256": "59721b9e57de8d1606ac09449e8711c22e9bf22dde3804f5caff8758bf6fa6b0" },
       { "path": "package-lock.json", "sha256": "72199dd583759bbedf1edb7eaf19f412837da4f9a0fc96b3205c3cc18014025a" },
       { "path": "avds-consumer.json", "sha256": "06be646c9124d85c6b8f5dc64480a6685edd29aba8a1ebb3249d4894780192f6" }
@@ -105,8 +106,8 @@
       "id": "localization",
       "label": "Локализация и контент",
       "requirements": ["ru-terminology", "action-labels", "number-format", "date-format", "unit-format", "ru-language", "kk-language", "en-language", "line-break-rules", "error-copy", "empty-copy", "content-standard"],
-      "verified": ["ru-terminology", "action-labels", "number-format", "date-format", "unit-format", "ru-language", "line-break-rules", "error-copy", "empty-copy", "content-standard"],
-      "evidence": ["content/terminology.ru.json", "content/locale-contract.v1.json", "locale.js", "scripts/check_content.py", "scripts/check_locale_contract.py", "docs/design-language-accessibility.md"]
+      "verified": ["ru-terminology", "action-labels", "number-format", "date-format", "unit-format", "ru-language", "kk-language", "en-language", "line-break-rules", "error-copy", "empty-copy", "content-standard"],
+      "evidence": ["content/terminology.ru.json", "content/locale-contract.v1.json", "data/ui-locale.v1.json", "locale.js", "scripts/build_locale_catalog.py", "scripts/check_content.py", "scripts/check_locale_contract.py", "docs/design-language-accessibility.md"]
     },
     {
       "id": "data-visualization",

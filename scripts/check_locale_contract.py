@@ -7,9 +7,12 @@ import json
 from pathlib import Path
 import sys
 
+from build_locale_catalog import inventory_hash, source_inventory
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "content" / "locale-contract.v1.json"
+CATALOG = ROOT / "data" / "ui-locale.v1.json"
 
 
 def require(condition: bool, message: str) -> None:
@@ -37,6 +40,16 @@ def main() -> int:
             require(message in source or message in profile, f"locale message not wired: {message}")
         terminology = json.loads((ROOT / "content" / "terminology.ru.json").read_text(encoding="utf-8"))
         require(terminology.get("locale") == "ru" and terminology.get("preferred_terms"), "Russian terminology contract")
+        catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
+        require(catalog.get("schema_version") == "qaz-industries-ui-locale-v1", "UI locale catalog schema")
+        require(catalog.get("supported_locales") == ["ru-RU", "kk-KZ", "en-US"], "UI locale catalog matrix")
+        inventory = source_inventory()
+        receipt = catalog.get("inventory") or {}
+        require(receipt.get("source_count") == len(inventory), "UI locale catalog source count")
+        require(receipt.get("source_sha256") == inventory_hash(inventory), "UI locale catalog inventory hash")
+        for locale in ("ru-RU", "kk-KZ", "en-US"):
+            mapping = catalog.get("translations", {}).get(locale, {})
+            require(set(mapping) == set(inventory) and all(isinstance(value, str) and value.strip() for value in mapping.values()), f"UI locale catalog coverage: {locale}")
     except (OSError, TypeError, ValueError, json.JSONDecodeError) as error:
         print(f"LOCALE CONTRACT FAILED: {error}", file=sys.stderr)
         return 1

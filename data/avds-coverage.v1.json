@@ -1,7 +1,7 @@
 {
   "schema_version": "qaz-industries-avds-coverage-v1",
   "product_id": "qaz-industries",
-  "evaluated_at": "2026-08-12T11:33:16Z",
+  "evaluated_at": "2026-08-12T11:53:20Z",
   "avds": {
     "version": "4.6.0",
     "source": "https://avds.digital/",
@@ -10,12 +10,12 @@
   },
   "method": {
     "kind": "avds-system-contract-categories",
-    "passed": 126,
+    "passed": 128,
     "total": 128,
     "note": "Общий показатель считает только verified requirements десяти категорий AVDS system contract; route contract публикуется отдельно."
   },
-  "coverage_percent": 98,
-  "badge": "AVDS 4.6.0-98",
+  "coverage_percent": 100,
+  "badge": "AVDS 4.6.0-100",
   "gates": [
     {
       "id": "root-marker",
@@ -138,9 +138,9 @@
     {
       "id": "localization",
       "label": "Локализация и контент",
-      "passed": 10,
+      "passed": 12,
       "total": 12,
-      "coverage_percent": 83
+      "coverage_percent": 100
     },
     {
       "id": "data-visualization",

@@ -5,6 +5,7 @@
   const runtime = window.QAZ_RUNTIME;
   const contracts = window.QAZ_SNAPSHOT_CONTRACTS;
   const profileView = window.QAZ_PROFILE_VIEW;
+  const locale = window.QAZ_LOCALE;
   if (!profiles || !runtime || !contracts || !profileView) {
     throw new Error('QAZ profile dependencies are unavailable');
   }
@@ -65,6 +66,11 @@
   const initialSector = new URLSearchParams(window.location.search).get('sector');
   selectProfile(profileKeys.includes(initialSector) ? initialSector : 'energy', false);
   renderComparison();
+  locale?.onChange?.(() => {
+    view.renderProfile(activeProfile);
+    renderSnapshotModules();
+    renderComparison();
+  });
   void Promise.all([
     loadSnapshot({
       path: 'data/qazlake-public-snapshot.v1.json',
