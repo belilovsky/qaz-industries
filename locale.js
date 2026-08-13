@@ -129,9 +129,22 @@
     if (!sourceAttributes) return;
     if (!sourceAttributes.has(element)) sourceAttributes.set(element, {});
     const values = sourceAttributes.get(element);
-    if (!(attribute in values)) values[attribute] = element.getAttribute(attribute) || '';
+    if (!values.__translated) values.__translated = Object.create(null);
+    const current = element.getAttribute(attribute) || '';
+    if (!(attribute in values)) {
+      values[attribute] = current;
+    } else if (current !== values[attribute] && current !== values.__translated[attribute]) {
+      // Runtime code may intentionally replace an attribute (for example a
+      // theme toggle's current name). Treat that value as the new source so
+      // the next catalog pass cannot restore an earlier state.
+      values[attribute] = current;
+    }
     const original = values[attribute];
-    if (original) element.setAttribute(attribute, translateString(original));
+    if (original) {
+      const translated = translateString(original);
+      element.setAttribute(attribute, translated);
+      values.__translated[attribute] = translated;
+    }
   }
 
   function applyDocument(documentRef) {
