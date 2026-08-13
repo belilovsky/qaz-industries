@@ -58,6 +58,14 @@ def main() -> int:
     if not (directory / "data" / "ui-locale.v1.json").is_file():
         raise SystemExit("release contract: UI locale catalog missing")
     try:
+        portfolio = json.loads((directory / "data" / "portfolio-integration-registry.v1.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise SystemExit(f"release contract: invalid portfolio integration registry: {error}") from error
+    if portfolio.get("schema_version") != "qaz-industries-portfolio-integration-registry-v1" or portfolio.get("product_id") != "qaz-industries":
+        raise SystemExit("release contract: portfolio integration registry identity mismatch")
+    if len(portfolio.get("integrations", [])) != portfolio.get("measurement", {}).get("scoped_surfaces"):
+        raise SystemExit("release contract: portfolio integration registry scope mismatch")
+    try:
         consumer = json.loads((directory / "qazstack-consumer.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
         raise SystemExit(f"release contract: invalid QazStack consumer contract: {error}") from error

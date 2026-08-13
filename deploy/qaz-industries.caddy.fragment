@@ -6,6 +6,7 @@
 
 qaz.industries {
   root * /srv/qaz.industries/current
+  redir /favicon.ico /favicon.svg 308
   encode zstd gzip
   header {
     Strict-Transport-Security "max-age=31536000; includeSubDomains"

@@ -6,6 +6,7 @@ from scripts.patch_caddy_release import patch
 
 
 SOURCE = '''qaz.industries {
+  root * /srv/qaz.industries/current
   header {
     X-Qaz-Release "old-qaz"
   }
@@ -40,6 +41,7 @@ class PatchCaddyReleaseTests(unittest.TestCase):
         self.assertIn('header @qaz_industries_health Cache-Control "no-store"', result)
         self.assertIn('@qaz_industries_release path /release.json', result)
         self.assertIn('header @qaz_industries_release Cache-Control "no-store"', result)
+        self.assertIn('redir /favicon.ico /favicon.svg 308', result)
         self.assertIn('X-Qaz-Release "qaz-support-current"', result)
         self.assertIn('http://qaz.industries, http://www.qaz.industries {', result)
         support = result[result.index("qaz.support {") :]

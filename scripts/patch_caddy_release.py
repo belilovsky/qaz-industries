@@ -85,6 +85,11 @@ def patch(source: str, release: str) -> str:
         raise ValueError("expected exactly one QAZ health release marker in qaz.industries block")
 
     block = upsert_security_headers(block)
+    block = ensure_line_after(
+        block,
+        'redir /favicon.ico /favicon.svg 308',
+        '  root * /srv/qaz.industries/current',
+    )
     block = HEADER_RE.sub(
         lambda match: f'{match.group("indent")}X-Qaz-Industries-Release "{release}"',
         block,
