@@ -12,13 +12,13 @@
 | Checkout | `/Users/belilovsky/Documents/Codex/2026-08-09/qaz-industries` | source-confirmed |
 | Remote | `https://github.com/belilovsky/qaz-industries.git` | source-confirmed |
 | Branch | `main` | source-confirmed |
-| Deployed source SHA | `4c5d15e5ec0531f62d60721fa307d64cc6dc2cfd` | source/runtime/public-confirmed |
-| Remote `origin/main` at code deploy | `4c5d15e5ec0531f62d60721fa307d64cc6dc2cfd` | remote-confirmed |
+| Deployed source SHA | `6af819cb58dbe8e860376e6ad09d67d5be4a7449` | source/runtime/public-confirmed |
+| Remote `origin/main` at code deploy | `6af819cb58dbe8e860376e6ad09d67d5be4a7449` | remote-confirmed |
 | Public domain | [https://qaz.industries/](https://qaz.industries/) | public-verified |
 | Runtime | shared public-sites Caddy, immutable release + `current` symlink | runtime-confirmed |
-| Public release | `20260813T111049Z-4c5d15e5ec05` | runtime/public-confirmed |
+| Public release | `20260813T111745Z-6af819cb58db` | runtime/public-confirmed |
 
-Функциональный commit `4c5d15e5ec05…` является точным источником публичного
+Функциональный commit `6af819c…` является точным источником публичного
 артефакта. Release переключён атомарно после проверки Caddy bind mount,
 контейнера и public smoke. Последующие documentation-only commits могут сделать
 локальный и удалённый `HEAD` новее deployed source SHA, не меняя публичные
@@ -53,7 +53,7 @@
 ## Runtime acceptance
 
 - `scripts/deploy.sh` принял чистый commit, повторил все gates и собрал
-  immutable release `20260813T111049Z-4c5d15e5ec05`.
+  immutable release `20260813T111745Z-6af819cb58db`.
 - Кандидат Caddy прошёл marker check и `caddy validate`; после атомарного
   переключения `current` публичные release identity и health проверены снова.
 - Host и bind-mounted Caddyfile совпадают (`/opt/qdev-public-sites/Caddyfile` ↔
@@ -65,7 +65,7 @@
 
 - [release.json](https://qaz.industries/release.json) и
   [api/health](https://qaz.industries/api/health) возвращают один release и
-  точный source SHA `4c5d15e5ec0531f62d60721fa307d64cc6dc2cfd`; все четыре
+  точный source SHA `6af819cb58dbe8e860376e6ad09d67d5be4a7449`; все четыре
   страницы, AVDS runtime CSS, locale catalog и consumer contract отвечают
   HTTP 200.
 - [AVDS coverage receipt](https://qaz.industries/data/avds-coverage.v1.json)
@@ -75,7 +75,7 @@
 - CSP, HSTS, `nosniff`, frame/referrer/permissions и COOP/CORP headers
   присутствуют; ответ содержит точный `X-QAZ-Industries-Release`.
 - Playwright проверил четыре страницы на 320, 390, 768, 820, 1024, 1440,
-  1920 и 2560px: в 32 route×viewport комбинациях asset marker `4c5d15e5ec05`,
+  1920 и 2560px: в 32 route×viewport комбинациях asset marker `6af819cb58db`,
   badge свежий, четыре AVDS stylesheet подключены в правильном порядке,
   горизонтального overflow и page/console errors нет. Дополнительно проверены `en-US` и `kk-KZ`, меню и
   Escape/focus-поведение; industry route содержит 4 snapshot rows, 14 chart
@@ -87,6 +87,9 @@
   отвечает `200` и содержит подтверждённые upstream revisions QazLake
   `3490a750dfc2b2a1454db842d1b342f608705ade` и QazGeo
   `d05cde433e96808f8afac9a2a6510e237c023f26`, а также receipts EdPol/QAZ.TAX.
+- Legacy request `GET /favicon.ico` отвечает `308` на локальный
+  `/favicon.svg`; прямой JSON-маршрут реестра в браузере имеет `application/json`
+  и не создаёт console errors.
 
 ## Portfolio integration receipt
 
