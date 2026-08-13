@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
+const vm = require('node:vm');
 
 const contracts = require('../snapshot-contracts.js');
 const geometry = require('../qazgeo-geometry.js');
@@ -64,4 +65,45 @@ test('AVDS state and locale contracts fail closed', () => {
   assert.equal(locale.snapshotState(null), 'empty');
   assert.match(profileView.stateCard('Нет данных', locale.message('offline'), 'offline'), /data-av-state="offline"/);
   assert.match(profileView.stateCard('Загрузка', locale.message('loading'), 'loading'), /av-skeleton/);
+});
+
+test('homepage filter summary keeps the complete locale template', async () => {
+  const summary = { textContent: '' };
+  const listeners = {};
+  const buttons = ['all', 'infra'].map((filter) => ({
+    dataset: { filter },
+    classList: { toggle() {} },
+    addEventListener(type, callback) { listeners[filter] = callback; },
+    setAttribute() {},
+    getAttribute(name) { return name === 'aria-pressed' && filter === 'all' ? 'true' : 'false'; },
+  }));
+  const cards = [
+    { dataset: { kind: 'sector' }, hidden: false },
+    { dataset: { kind: 'infra' }, hidden: false },
+  ];
+  const context = {
+    document: {
+      querySelectorAll(selector) {
+        if (selector === '[data-filter]') return buttons;
+        if (selector === '[data-kind]') return cards;
+        return [];
+      },
+      querySelector(selector) {
+        return selector === '#filter-summary' ? summary : null;
+      },
+    },
+    QAZ_LOCALE: {
+      t: () => 'Бағыттар: {visible} / {total}',
+      onChange(callback) { context.localeChanged = callback; },
+      loadCatalog: async () => ({}),
+    },
+  };
+  context.globalThis = context;
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '..', 'app.js'), 'utf8'), context);
+  await Promise.resolve();
+  assert.equal(summary.textContent, 'Бағыттар: 2 / 2');
+  listeners.infra();
+  assert.equal(summary.textContent, 'Бағыттар: 1 / 2');
+  context.localeChanged();
+  assert.equal(summary.textContent, 'Бағыттар: 1 / 2');
 });
