@@ -3,12 +3,12 @@
   "status": "ready",
   "provider": {
     "service": "qazgeo",
-    "source_revision": "51ff46d577e06ae1d57967d4f128214391cccd20",
+    "source_revision": "d05cde433e96808f8afac9a2a6510e237c023f26",
     "health_url": "https://qgeo.tech/health/ready",
     "layer_registry_url": "https://qgeo.tech/api/v1/layers",
     "geojson_url": "https://qgeo.tech/api/v1/mapregion/public/regions-geojson"
   },
-  "retrieved_at": "2026-08-09T10:12:38Z",
+  "retrieved_at": "2026-08-13T10:45:41Z",
   "publication_mode": "reviewed-static-snapshot",
   "coverage": {
     "regions": 20,

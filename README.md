@@ -31,7 +31,9 @@ credentials, точные чувствительные координаты ил
 наблюдаемого набора данных.
 
 Манифест продукта — [`qazstack-thematic-product.json`](qazstack-thematic-product.json).
-Наборы и их происхождение перечислены в [`docs/data-provenance.md`](docs/data-provenance.md).
+Наборы и их происхождение перечислены в [`docs/data-provenance.md`](docs/data-provenance.md),
+а подтверждённые связи с платформой, AVDS и портфельными продуктами — в
+[`data/portfolio-integration-registry.v1.json`](data/portfolio-integration-registry.v1.json).
 
 ## Поверхности и код
 

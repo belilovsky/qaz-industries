@@ -4,6 +4,11 @@
   "product_id": "qaz-industries",
   "consumer_id": "qaz-industries-browser",
   "manifest_path": "qazstack-thematic-product.json",
+  "portfolio_integration_registry": {
+    "contract": "qaz-industries-portfolio-integration-registry-v1",
+    "asset": "data/portfolio-integration-registry.v1.json",
+    "link_only_is_not_runtime": true
+  },
   "publication_mode": "reviewed-static-same-origin",
   "runtime": {
     "public_origin": "https://qaz.industries",

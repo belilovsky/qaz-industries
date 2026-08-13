@@ -1,0 +1,174 @@
+{
+  "schema_version": "qaz-industries-portfolio-integration-registry-v1",
+  "product_id": "qaz-industries",
+  "evaluated_at": "2026-08-13T10:55:30Z",
+  "measurement": {
+    "basis": "confirmed source contracts and public evidence; link metadata is not runtime data integration",
+    "scoped_surfaces": 12,
+    "reviewed_contract_or_snapshot_backed": 9,
+    "local_contract_backed": 3,
+    "public_snapshot_backed": 6,
+    "public_contract_observed_link_only": 2,
+    "link_metadata_only": 2,
+    "observed_without_registration": 1
+  },
+  "integrations": [
+    {
+      "id": "avds",
+      "name": "AV DS",
+      "provider_url": "https://avds.digital/",
+      "relationship": "static-design-system-contract",
+      "status": "source-verified",
+      "version": "4.6.0",
+      "evidence": [
+        {"path": "avds-consumer.json", "url": "https://qaz.industries/avds-consumer.json"},
+        {"path": "data/avds-system-contract.v1.json", "url": "https://qaz.industries/data/avds-system-contract.v1.json"},
+        {"path": "data/avds-coverage.v1.json", "url": "https://qaz.industries/data/avds-coverage.v1.json"}
+      ],
+      "notes": "Vendored @sgeo/ui-kit is pinned locally; the browser has no external AVDS runtime dependency."
+    },
+    {
+      "id": "platform-qdev",
+      "name": "platform.qdev.run",
+      "provider_url": "https://platform.qdev.run/",
+      "relationship": "catalog-and-health-observation",
+      "status": "public-observed-no-registration",
+      "registration_state": "qaz-industries-not-found-in-public-catalog",
+      "evidence": [
+        {"url": "https://platform.qdev.run/api/health", "kind": "health", "release_sha": "434e97db5e62186ca5907c7d8ca325035dee892b"},
+        {"url": "https://platform.qdev.run/catalog/", "kind": "catalog"}
+      ],
+      "notes": "The public platform is reachable, but a dedicated QAZ.INDUSTRIES machine registration was not found in the reviewed catalog; there is no runtime dependency."
+    },
+    {
+      "id": "qazstack",
+      "name": "QazStack",
+      "relationship": "consumer-contract",
+      "status": "source-verified",
+      "evidence": [
+        {"path": "qazstack-consumer.json", "url": "https://qaz.industries/qazstack-consumer.json"},
+        {"path": "qazstack-thematic-product.json", "url": "https://qaz.industries/qazstack-thematic-product.json"}
+      ],
+      "notes": "Six modules, same-origin assets and a fail-closed boundary; direct browser upstream access is forbidden."
+    },
+    {
+      "id": "qazlake",
+      "name": "QazLake",
+      "provider_url": "https://qlake.tech/",
+      "relationship": "release-time-reviewed-snapshot",
+      "status": "public-snapshot-verified",
+      "upstream_revision": "3490a750dfc2b2a1454db842d1b342f608705ade",
+      "evidence": [
+        {"path": "data/qazlake-public-snapshot.v1.json", "url": "https://qaz.industries/data/qazlake-public-snapshot.v1.json"},
+        {"url": "https://qlake.tech/health", "kind": "upstream-health"}
+      ],
+      "notes": "Only three reviewed macro indicators are published; regional and water modules remain degraded."
+    },
+    {
+      "id": "qazgeo",
+      "name": "QazGeo",
+      "provider_url": "https://qgeo.tech/",
+      "relationship": "release-time-reviewed-snapshot",
+      "status": "public-snapshot-verified",
+      "upstream_revision": "d05cde433e96808f8afac9a2a6510e237c023f26",
+      "evidence": [
+        {"path": "data/qazgeo-public-snapshot.v1.json", "url": "https://qaz.industries/data/qazgeo-public-snapshot.v1.json"},
+        {"path": "data/qazgeo-public-layer-registry.v1.json", "url": "https://qaz.industries/data/qazgeo-public-layer-registry.v1.json"},
+        {"path": "data/qazgeo-regions-public.v1.geojson", "url": "https://qaz.industries/data/qazgeo-regions-public.v1.geojson"}
+      ],
+      "notes": "Twenty regional geometries and six layer contracts; hydrology and water catalog remain contract_only."
+    },
+    {
+      "id": "translations",
+      "name": "Localization and translations",
+      "relationship": "local-translation-contract",
+      "status": "source-verified",
+      "locales": ["ru-RU", "kk-KZ", "en-US"],
+      "evidence": [
+        {"path": "content/locale-contract.v1.json", "url": "https://qaz.industries/content/locale-contract.v1.json"},
+        {"path": "data/ui-locale.v1.json", "url": "https://qaz.industries/data/ui-locale.v1.json"},
+        {"path": "locale.js", "url": "https://qaz.industries/locale.js"}
+      ],
+      "notes": "The local catalog covers 846 source strings; there is no external translation API or hidden machine fallback."
+    },
+    {
+      "id": "edpol",
+      "name": "EdPol",
+      "provider_url": "https://edpol.pro/",
+      "relationship": "reviewed-link-metadata",
+      "status": "public-contract-observed",
+      "avds_version": "4.7.0",
+      "avds_percent": 100,
+      "avds_required": 10,
+      "avds_implemented": 10,
+      "runtime_revision": "a8361bfe1fe491b26cd09661fe6e146e1aeb281d",
+      "verified_at": "2026-08-13T10:31:10Z",
+      "evidence": [
+        {"url": "https://edpol.pro/avds-adoption.json", "kind": "avds-adoption"},
+        {"url": "https://edpol.pro/operations-roster.json", "kind": "operations-roster"}
+      ],
+      "notes": "EdPol public contracts were confirmed; no data transfer or runtime consumer contract between EdPol and QAZ.INDUSTRIES was found."
+    },
+    {
+      "id": "qaz-tax",
+      "name": "QAZ.TAX",
+      "provider_url": "https://qaz.tax/",
+      "relationship": "reviewed-link-metadata",
+      "status": "public-contract-observed",
+      "avds_version": "4.7.0",
+      "avds_percent": 100,
+      "avds_required": 148,
+      "avds_implemented": 148,
+      "runtime_revision": "4d554833a2d76b8bef02abe50c1705ccef0cd6fd",
+      "verified_at": "2026-08-13T00:00:00Z",
+      "evidence": [
+        {"url": "https://qaz.tax/.well-known/avds-adoption.json", "kind": "avds-adoption"},
+        {"url": "https://qaz.tax/", "kind": "public-surface"}
+      ],
+      "notes": "The public AVDS adoption receipt was confirmed; QAZ.TAX is not used as a data upstream."
+    },
+    {
+      "id": "qz-energy",
+      "name": "QZ.Energy",
+      "provider_url": "https://qz.energy/",
+      "relationship": "curated-profile-projection",
+      "status": "public-snapshot-verified",
+      "release_id": "qz-energy-avds4-polish-20260813T130000Z",
+      "evidence": [{"url": "https://qz.energy/data/thematic-release.json", "kind": "thematic-release"}]
+    },
+    {
+      "id": "qazaqstan-space",
+      "name": "Qazaqstan.Space",
+      "provider_url": "https://qazaqstan.space/",
+      "relationship": "curated-profile-projection",
+      "status": "public-snapshot-verified",
+      "release_id": "2026-08-06.48",
+      "evidence": [{"url": "https://qazaqstan.space/data/v1/index.json", "kind": "public-data-index"}]
+    },
+    {
+      "id": "qaz-farm",
+      "name": "QAZ.FARM",
+      "provider_url": "https://qaz.farm/",
+      "relationship": "curated-profile-projection",
+      "status": "public-snapshot-verified",
+      "release_id": "2026-08-11.3",
+      "evidence": [{"url": "https://qaz.farm/thematic-release.json", "kind": "thematic-release"}]
+    },
+    {
+      "id": "qaz-fish",
+      "name": "QAZ.FISH",
+      "provider_url": "https://qaz.fish/",
+      "relationship": "curated-profile-projection",
+      "status": "public-snapshot-verified",
+      "release_id": "2026-08-13.01",
+      "evidence": [{"url": "https://qaz.fish/data/thematic-release.json", "kind": "thematic-release"}]
+    }
+  ],
+  "boundaries": {
+    "direct_upstream_browser_access": false,
+    "external_runtime_data_calls": false,
+    "link_metadata_is_not_runtime_integration": true,
+    "private_data_and_credentials": "excluded",
+    "outside_scope_pending_confirmation": ["QazPipe", "media products", "other portfolio products without a public machine contract"]
+  }
+}

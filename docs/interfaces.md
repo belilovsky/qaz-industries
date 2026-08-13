@@ -33,7 +33,8 @@
 `data/industry-profiles.v1.json`, `data/qazlake-public-snapshot.v1.json`,
 `data/qazgeo-public-snapshot.v1.json`, `data/qazgeo-regions-public.v1.geojson`,
 `data/qazgeo-public-layer-registry.v1.json`,
-`data/reviewed-source-registry.v1.json` и
+`data/reviewed-source-registry.v1.json`,
+`data/portfolio-integration-registry.v1.json` и
 `data/qaz-industries-thematic-release.v1.json`, а также корневой
 `qazstack-consumer.json` — versioned static assets.
 Schema, provider, freshness и ограничения описаны в

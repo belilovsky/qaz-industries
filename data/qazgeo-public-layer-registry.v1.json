@@ -3,11 +3,11 @@
   "status": "ready",
   "provider": {
     "service": "qazgeo",
-    "source_revision": "51ff46d577e06ae1d57967d4f128214391cccd20",
+    "source_revision": "d05cde433e96808f8afac9a2a6510e237c023f26",
     "health_url": "https://qgeo.tech/health/ready",
     "layer_registry_url": "https://qgeo.tech/api/v1/layers"
   },
-  "retrieved_at": "2026-08-09T10:22:55Z",
+  "retrieved_at": "2026-08-13T10:45:42Z",
   "publication_mode": "reviewed-static-metadata",
   "layers": [
     {
@@ -47,7 +47,7 @@
         "observed_at": null,
         "refresh_slo_seconds": 86400
       },
-      "limitations": "Актуальность границ определяется версией среза; изменения административного устройства публикуются с отдельной цепочкой происхождения."
+      "limitations": "Актуальность границ определяется версией снапшота; изменения административной реформы публикуются отдельным lineage."
     },
     {
       "id": "infrastructure",
@@ -265,7 +265,7 @@
         "observed_at": null,
         "refresh_slo_seconds": 2592000
       },
-      "limitations": "Каталог не заменяет гидрологическое наблюдение и не гарантирует сезонную полноту без подтверждённого среза исходного источника."
+      "limitations": "Каталог не заменяет гидрологическое наблюдение и не гарантирует сезонную полноту без подтверждённого upstream snapshot."
     }
   ],
   "limitations": [

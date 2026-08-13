@@ -2,10 +2,10 @@
   "schema_version": "qaz-industries-public-profiles-v1",
   "product_id": "qaz-industries",
   "profiles": [
-    {"id": "energy", "name": "Энергетика", "source": "https://qz.energy/", "source_release_id": "qz-energy-refactor-20260809T184604Z-35dbd1d", "release": "Выпуск 35dbd1d · данные на 6 августа"},
+    {"id": "energy", "name": "Энергетика", "source": "https://qz.energy/", "source_release_id": "qz-energy-avds4-polish-20260813T130000Z", "release": "Выпуск qz-energy-avds4-polish-20260813T130000Z · данные на 6 августа"},
     {"id": "space", "name": "Космическая отрасль", "source": "https://qazaqstan.space/", "source_release_id": "2026-08-06.48", "release": "Выпуск 2026-08-06.48 · данные на 5 августа"},
-    {"id": "farm", "name": "Сельское хозяйство", "source": "https://qaz.farm/", "source_release_id": "2026-08-10.1", "release": "Выпуск 2026-08-10.1 · данные на 4 августа"},
-    {"id": "water", "name": "Водоёмы и рыболовство", "source": "https://qaz.fish/", "source_release_id": "2026-08-09.03", "release": "Выпуск 2026-08-09.03 · данные на 9 августа"}
+    {"id": "farm", "name": "Сельское хозяйство", "source": "https://qaz.farm/", "source_release_id": "2026-08-11.3", "release": "Выпуск 2026-08-11.3 · данные на 10 августа"},
+    {"id": "water", "name": "Водоёмы и рыболовство", "source": "https://qaz.fish/", "source_release_id": "2026-08-13.01", "release": "Выпуск 2026-08-13.01 · данные на 13 августа"}
   ],
   "machine_entrypoints": [
     {"label": "Профили отраслей", "url": "https://qaz.industries/data/industry-profiles.v1.json"},
@@ -13,6 +13,7 @@
     {"label": "Публичный срез QazGeo", "url": "https://qaz.industries/data/qazgeo-public-snapshot.v1.json"},
     {"label": "Реальные границы QazGeo GeoJSON", "url": "https://qaz.industries/data/qazgeo-regions-public.v1.geojson"},
     {"label": "Тематический контракт выпуска", "url": "https://qaz.industries/data/qaz-industries-thematic-release.v1.json"},
+    {"label": "Реестр", "url": "https://qaz.industries/data/portfolio-integration-registry.v1.json"},
     {"label": "Контракт потребителя QazStack", "url": "https://qaz.industries/qazstack-consumer.json"}
   ],
   "public_boundary": "Только проверенные статические срезы и метаданные ссылок; QAZ.INDUSTRIES не публикует исходные наблюдения QazLake, закрытые очереди или учётные данные."

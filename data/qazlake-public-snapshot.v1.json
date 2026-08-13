@@ -3,11 +3,11 @@
   "status": "ready",
   "provider": {
     "service": "qazlake-lite-api",
-    "source_revision": "qazlake-lite-api-20260725.1",
+    "source_revision": "3490a750dfc2b2a1454db842d1b342f608705ade",
     "health_url": "https://qlake.tech/health",
     "endpoint": "https://qlake.tech/api/economy/indicators"
   },
-  "retrieved_at": "2026-08-09T10:12:35Z",
+  "retrieved_at": "2026-08-13T10:45:38Z",
   "publication_mode": "reviewed-static-snapshot",
   "limitations": [
     "Срез является общеэкономическим контекстом и не заменяет отраслевые показатели.",

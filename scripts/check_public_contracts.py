@@ -112,6 +112,47 @@ def main() -> int:
             https(source.get("url"), f"source {source.get('id')}")
             require(source.get("rights_decision") == "approved-link-metadata", f"source {source.get('id')}: rights")
 
+        portfolio = load("portfolio-integration-registry.v1.json")
+        require(
+            portfolio["schema_version"] == "qaz-industries-portfolio-integration-registry-v1",
+            "portfolio integration registry schema",
+        )
+        require(portfolio["product_id"] == "qaz-industries", "portfolio integration product")
+        integrations = portfolio.get("integrations")
+        require(isinstance(integrations, list) and len(integrations) == portfolio["measurement"]["scoped_surfaces"], "portfolio integration scope")
+        statuses = [item.get("status") for item in integrations]
+        require(statuses.count("source-verified") == portfolio["measurement"]["local_contract_backed"], "portfolio local contract count")
+        require(statuses.count("public-snapshot-verified") == portfolio["measurement"]["public_snapshot_backed"], "portfolio snapshot count")
+        require(statuses.count("public-contract-observed") == portfolio["measurement"]["public_contract_observed_link_only"], "portfolio link-only count")
+        require(statuses.count("public-observed-no-registration") == portfolio["measurement"]["observed_without_registration"], "portfolio registration count")
+        require(
+            portfolio["measurement"]["reviewed_contract_or_snapshot_backed"]
+            == portfolio["measurement"]["local_contract_backed"] + portfolio["measurement"]["public_snapshot_backed"],
+            "portfolio reviewed contract count",
+        )
+        seen_integration_ids: set[str] = set()
+        for integration in integrations:
+            integration_id = integration.get("id")
+            require(isinstance(integration_id, str) and integration_id not in seen_integration_ids, f"portfolio integration id: {integration_id}")
+            seen_integration_ids.add(integration_id)
+            require(isinstance(integration.get("name"), str) and integration["name"], f"portfolio integration {integration_id}: name")
+            require(isinstance(integration.get("relationship"), str) and integration["relationship"], f"portfolio integration {integration_id}: relationship")
+            require(integration.get("status") in {"source-verified", "public-snapshot-verified", "public-contract-observed", "public-observed-no-registration"}, f"portfolio integration {integration_id}: status")
+            if integration.get("provider_url") is not None:
+                https(integration["provider_url"], f"portfolio integration {integration_id}: provider URL")
+            evidence = integration.get("evidence")
+            require(isinstance(evidence, list) and evidence, f"portfolio integration {integration_id}: evidence")
+            for item in evidence:
+                require(isinstance(item, dict), f"portfolio integration {integration_id}: evidence item")
+                if item.get("url") is not None:
+                    https(item["url"], f"portfolio integration {integration_id}: evidence URL")
+                if item.get("path") is not None:
+                    require((ROOT / item["path"]).is_file(), f"portfolio integration {integration_id}: evidence path")
+        boundaries = portfolio.get("boundaries")
+        require(boundaries.get("direct_upstream_browser_access") is False, "portfolio direct upstream browser gate")
+        require(boundaries.get("external_runtime_data_calls") is False, "portfolio external runtime data gate")
+        require(boundaries.get("link_metadata_is_not_runtime_integration") is True, "portfolio link metadata boundary")
+
         manifest = json.loads((ROOT / "qazstack-thematic-product.json").read_text(encoding="utf-8"))
         require(manifest["schema_version"] == "qazstack-thematic-product-v1", "thematic manifest schema")
         require(manifest["publication"]["public_records_require_review"] is True, "review gate")
@@ -121,6 +162,11 @@ def main() -> int:
         require(consumer["schema_version"] == "qazstack-consumer-contract-v1", "consumer contract schema")
         require(consumer.get("product_id") == manifest["product_id"], "consumer product identity")
         require(consumer.get("manifest_path") == "qazstack-thematic-product.json", "consumer manifest path")
+        portfolio_contract = consumer.get("portfolio_integration_registry") or {}
+        require(portfolio_contract.get("contract") == "qaz-industries-portfolio-integration-registry-v1", "consumer portfolio registry contract")
+        require(portfolio_contract.get("asset") == "data/portfolio-integration-registry.v1.json", "consumer portfolio registry asset")
+        require(portfolio_contract.get("link_only_is_not_runtime") is True, "consumer portfolio link-only boundary")
+        require((ROOT / portfolio_contract["asset"]).is_file(), "consumer portfolio registry asset missing")
         require(consumer["runtime"].get("direct_upstream_browser_access") is False, "consumer direct upstream gate")
         https(consumer["runtime"].get("public_origin"), "consumer public origin")
         manifest_modules = {module["id"] for module in manifest["modules"]}

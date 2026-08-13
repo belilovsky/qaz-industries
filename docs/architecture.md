@@ -105,5 +105,8 @@ flowchart LR
 
 В checkout нет базы данных, очереди, Docker/Compose или административной панели.
 Основные внешние зависимости — публичные сайты-поставщики, QazLake, QazGeo,
-GitHub Actions и общий Caddy. Точный владелец VPS и staging environment в
-репозитории не определены; public runtime подтверждается отдельно.
+GitHub Actions и общий Caddy. AVDS и локализация подключены как source-owned
+контракты; platform.qdev.run, EdPol и QAZ.TAX наблюдаются через публичные
+контракты и ссылки, но не вызываются из browser runtime. Точный владелец VPS и
+staging environment в репозитории не определены; public runtime подтверждается
+отдельно.

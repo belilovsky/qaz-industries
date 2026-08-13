@@ -15,6 +15,7 @@ QAZ.INDUSTRIES публикует reviewed static projections. Каждая за
 | `qazgeo-regions-public.v1.geojson` | sanitized QazGeo GeoJSON | 20 Polygon/MultiPolygon | ready | browser SVG map; точные чувствительные координаты не добавляются |
 | `qazgeo-public-layer-registry.v1.json` | reviewed QazGeo layer metadata | 6 layer contracts | 4 stable/observed, 2 `contract_only` | layer registry; contract-only не содержит наблюдений |
 | `reviewed-source-registry.v1.json` | human-reviewed link metadata | 6 source IDs | active-link-metadata | provenance cards; не копирует исходные реестры |
+| `portfolio-integration-registry.v1.json` | подтверждённые контракты и публичные evidence links портфеля | 12 scoped surfaces | evaluated matrix | разделяет snapshot/contract, link-only и отсутствие регистрации; не является runtime data bus |
 | `qaz-industries-thematic-release.v1.json` | generated release contract | 6 module records | release-specific | identity, counts, source IDs, digest |
 | `qazstack-consumer.json` | product-owned consumer contract | 6 module inputs, 3 upstream classes | ready | same-origin browser boundary и fail-closed states |
 
@@ -48,9 +49,9 @@ snapshot за текущую observation. `contract_only` остаётся оп�
 
 ## Текущая сверка
 
-На проверке 2026-08-10 профильные labels синхронизированы с выпусками QZ.Energy
-`qz-energy-refactor-20260809T184604Z-35dbd1d`, Qazaqstan.Space
-`2026-08-06.48`, QAZ.FARM `2026-08-10.1` и QAZ.FISH `2026-08-09.03`.
+На проверке 2026-08-13 профильные labels синхронизированы с выпусками QZ.Energy
+`qz-energy-avds4-polish-20260813T130000Z`, Qazaqstan.Space
+`2026-08-06.48`, QAZ.FARM `2026-08-11.3` и QAZ.FISH `2026-08-13.01`.
 `check_data_contract.mjs` требует parity JSON/JavaScript, а network-only
 `check_sector_sources.py` проверяет machine-readable release contracts и 23
 внешние ссылки. Транспортная ошибка считается upstream failure и не разрешает

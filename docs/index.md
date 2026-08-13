@@ -1,7 +1,7 @@
 # Индекс документации
 
 Этот индекс — навигация по текущей документации QAZ.INDUSTRIES. Дата проверки
-этой редакции: 2026-08-09. Источник факта выбирается в следующем порядке:
+этой редакции: 2026-08-13. Источник факта выбирается в следующем порядке:
 
 1. исходный код, manifest и public data contracts;
 2. текущий release receipt и runtime/public evidence;
@@ -20,7 +20,7 @@
 | [`modules.md`](modules.md) | каталог шести модулей и их fail-closed правил | разработчики | active | manifest, JS, data contracts |
 | [`interfaces.md`](interfaces.md) | маршруты, runtime endpoints и browser interactions | разработчики, интеграторы | active | HTML, JS, Caddy |
 | [`data-provenance.md`](data-provenance.md) | datasets, lineage, freshness и ограничения | специалисты по данным, редакторы, аудиторы | active | JSON contracts, source registry |
-| [`portfolio-integrations.md`](portfolio-integrations.md) | направление и статус связей с портфелем | владельцы продуктов | active | source registry, manifest |
+| [`portfolio-integrations.md`](portfolio-integrations.md) | направление и статус связей с портфелем | владельцы продуктов | active | integration registry, source registry, manifest |
 | [`security-privacy.md`](security-privacy.md) | классы данных, запреты и правовые решения | все, security | active | manifest, Caddy, SECURITY.md |
 | [`editorial-science-policy.md`](editorial-science-policy.md) | включение, проверка и исправление материалов | редакция, исследователи | active | source policy, owner decisions |
 | [`design-language-accessibility.md`](design-language-accessibility.md) | AV DS 4, русский язык и accessibility contract | frontend, редакция | active | avds-tokens.css, avds.css, HTML, JS |
