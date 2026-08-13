@@ -47,6 +47,11 @@ Caddyfile и symlink. Хранятся активный release, семь пре
 candidate, deploy останавливается до смены symlink. После ручной замены host
 Caddyfile сначала восстанавливается parity, затем повторяется выпуск.
 
+В production-контейнере источником конфигурации является bind mount
+`/qdev-public-sites/Caddyfile`; `/etc/caddy/Caddyfile` внутри образа не является
+активным файлом. Перед повтором выпуска проверяются именно host path и этот
+mounted path, затем выполняются `caddy validate` и public smoke.
+
 ## Public verification
 
 Минимальный набор:

@@ -276,7 +276,7 @@ curl -fsS https://qaz.industries/sitemap.xml
 ~~~bash
 readlink /opt/qdev-public-sites/www/qaz.industries/current
 sha256sum /opt/qdev-public-sites/Caddyfile
-docker exec qdev-public-sites-proxy sha256sum /etc/caddy/Caddyfile
+docker exec qdev-public-sites-proxy sha256sum /qdev-public-sites/Caddyfile
 ~~~
 
 ## 6. Что можно закрыть самостоятельно, а что является блокером

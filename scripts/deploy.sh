@@ -42,10 +42,11 @@ archive_path="$5"
 patch_path="$6"
 release_dir="${runtime_root}/releases/${release_id}"
 caddyfile="/opt/qdev-public-sites/Caddyfile"
+container_caddyfile="/qdev-public-sites/Caddyfile"
 
 test "$(readlink "${runtime_root}/current")" = "releases/${expected_release}"
 host_caddy_digest="$(sha256sum "$caddyfile" | awk '{print $1}')"
-container_caddy_digest="$(docker exec "$container_name" sha256sum /etc/caddy/Caddyfile | awk '{print $1}')"
+container_caddy_digest="$(docker exec "$container_name" sha256sum "$container_caddyfile" | awk '{print $1}')"
 if [ "$host_caddy_digest" != "$container_caddy_digest" ]; then
   echo "Caddy bind mount is stale; restart ${container_name}, verify it, then retry." >&2
   exit 1
@@ -84,7 +85,7 @@ fi
 # the old mounted file even though the host path has been atomically replaced.
 cat "$caddy_candidate" > "$caddyfile"
 candidate_digest="$(sha256sum "$caddy_candidate" | awk '{print $1}')"
-mounted_digest="$(docker exec "$container_name" sha256sum /etc/caddy/Caddyfile | awk '{print $1}')"
+mounted_digest="$(docker exec "$container_name" sha256sum "$container_caddyfile" | awk '{print $1}')"
 if [ "$candidate_digest" != "$mounted_digest" ]; then
   cat "$backup_path" > "$caddyfile"
   echo "Caddy bind mount did not receive the candidate; refusing to switch release." >&2
@@ -95,10 +96,10 @@ rollback() {
   cat "$backup_path" > "$caddyfile"
   ln -s "releases/${expected_release}" "${runtime_root}/.current-rollback"
   mv -Tf "${runtime_root}/.current-rollback" "${runtime_root}/current"
-  docker exec "$container_name" caddy reload --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null 2>&1 || true
+  docker exec "$container_name" caddy reload --config "$container_caddyfile" --adapter caddyfile >/dev/null 2>&1 || true
 }
 
-if ! docker exec "$container_name" caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null; then
+if ! docker exec "$container_name" caddy validate --config "$container_caddyfile" --adapter caddyfile >/dev/null; then
   cat "$backup_path" > "$caddyfile"
   exit 1
 fi
@@ -108,7 +109,7 @@ fi
 test "$(readlink "${runtime_root}/current")" = "releases/${expected_release}"
 ln -s "releases/${release_id}" "${runtime_root}/.current-next"
 mv -Tf "${runtime_root}/.current-next" "${runtime_root}/current"
-if ! docker exec "$container_name" caddy reload --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null; then
+if ! docker exec "$container_name" caddy reload --config "$container_caddyfile" --adapter caddyfile >/dev/null; then
   rollback
   exit 1
 fi
@@ -142,9 +143,9 @@ done
 test "$(readlink "${runtime_root}/current")" = "releases/${release_id}"
 test -s "${runtime_root}/current/release.json"
 python3 -c 'import json, sys; payload=json.load(open(sys.argv[1], encoding="utf-8")); assert payload["release"] == sys.argv[2]' "${runtime_root}/current/release.json" "$release_id"
-docker exec "$container_name" caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null
+docker exec "$container_name" caddy validate --config "$container_caddyfile" --adapter caddyfile >/dev/null
 host_caddy_digest="$(sha256sum "$caddyfile" | awk '{print $1}')"
-container_caddy_digest="$(docker exec "$container_name" sha256sum /etc/caddy/Caddyfile | awk '{print $1}')"
+container_caddy_digest="$(docker exec "$container_name" sha256sum "$container_caddyfile" | awk '{print $1}')"
 test "$host_caddy_digest" = "$container_caddy_digest"
 release_count="$(find "${runtime_root}/releases" -mindepth 1 -maxdepth 1 -type d | wc -l)"
 backup_count="$(find "$(dirname "$caddyfile")" -mindepth 1 -maxdepth 1 -type f -name 'Caddyfile.qaz-industries-*.bak' | wc -l)"
