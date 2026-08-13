@@ -3,9 +3,9 @@
   "product_id": "qaz-industries",
   "engine": "Chromium via Playwright CLI",
   "source_identity": {
-    "commit": "5c38afa5c1a5e1c711ed4e831a14d223d9cc45a6",
+    "commit": "a55e6dc",
     "working_tree": "dirty-local-candidate",
-    "captured_at": "2026-08-12T08:23:00Z"
+    "captured_at": "2026-08-13T11:31:00Z"
   },
   "routes": ["index.html", "industry.html", "benchmarks.html", "publication.html"],
   "viewports": [320, 1440],
@@ -14,14 +14,14 @@
     "comparison": "PNG decoded pixel bytes; dimension and color model must match."
   },
   "baselines": [
-    {"route": "index.html", "viewport": 320, "file": "tests/visual-baselines/qaz-index-320.png", "width": 320, "height": 9973, "sha256": "a407409924dec897671939c320fb0f7dadd2919e2fada1fe350465a5d9009276"},
-    {"route": "index.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-index-1440.png", "width": 1440, "height": 5135, "sha256": "4c52f214f3d5b516c1d9977ea1fc17020a27c5c90329b0eec4054fa906d63404"},
-    {"route": "industry.html", "viewport": 320, "file": "tests/visual-baselines/qaz-industry-320.png", "width": 320, "height": 20732, "sha256": "1b3e4958b90768a1f979b70ebbf44a20f569d99ab6c6a0076847634cea3a7b01"},
-    {"route": "industry.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-industry-1440.png", "width": 1440, "height": 10752, "sha256": "ecd0c4395cbc954da07bc2eec3f2e724081c8e51b74b10c52f50082747484a1f"},
-    {"route": "benchmarks.html", "viewport": 320, "file": "tests/visual-baselines/qaz-benchmarks-320.png", "width": 320, "height": 7186, "sha256": "e92076d656a0dfb52dea2046122381acbee6edcfdd1e8bffe4dffee2fbe77347"},
-    {"route": "benchmarks.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-benchmarks-1440.png", "width": 1440, "height": 3825, "sha256": "ced3f425912808b766594083e447e0df9e80198061c1b94d6aa0da8139534c1d"},
-    {"route": "publication.html", "viewport": 320, "file": "tests/visual-baselines/qaz-publication-320.png", "width": 320, "height": 6430, "sha256": "965e1527ac0d93064a6290f426d0cb1c5c549e985ecba16538b1efcb1e3ca196"},
-    {"route": "publication.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-publication-1440.png", "width": 1440, "height": 3415, "sha256": "e9fe40853a4ae1483982bc3da6a50bddf3898af4aa77a4c813b109c199b83508"}
+    {"route": "index.html", "viewport": 320, "file": "tests/visual-baselines/qaz-index-320.png", "width": 320, "height": 9929, "sha256": "1b651f706baaca7cf163af5d500066d9db5d54bbb6c96522ccb3acf6e552b2b9"},
+    {"route": "index.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-index-1440.png", "width": 1440, "height": 4909, "sha256": "5f5fa326eb9f42077e7181976b4d57a4a4e7fa3b515aa0850240270b80ae2431"},
+    {"route": "industry.html", "viewport": 320, "file": "tests/visual-baselines/qaz-industry-320.png", "width": 320, "height": 21285, "sha256": "91160145b401546def65a80ee3e6e07a9d7d76e66570d30c5d58e24aea4727fc"},
+    {"route": "industry.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-industry-1440.png", "width": 1440, "height": 10819, "sha256": "be05cf5e9f634127789557b656bbfc92b87ec078e1975e534007f4c09fee9405"},
+    {"route": "benchmarks.html", "viewport": 320, "file": "tests/visual-baselines/qaz-benchmarks-320.png", "width": 320, "height": 7186, "sha256": "5eaf0c10125de8c20eef77a6785212e61f03e9f1c2415e844a11480bfcf766b8"},
+    {"route": "benchmarks.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-benchmarks-1440.png", "width": 1440, "height": 3825, "sha256": "7388f47095808ca2ffe8acb999b7542a1bc7e57d30821b30482a77ac271b037f"},
+    {"route": "publication.html", "viewport": 320, "file": "tests/visual-baselines/qaz-publication-320.png", "width": 320, "height": 6430, "sha256": "892dd3931aec633f9bf984d3de7c0b8f650f1bffd65f6a276cbb0c3f3d36737b"},
+    {"route": "publication.html", "viewport": 1440, "file": "tests/visual-baselines/qaz-publication-1440.png", "width": 1440, "height": 3415, "sha256": "f4c0f7dbfd6e8354070e80c6d5c4221e9f5cb243755d63c55f224e7617425dd8"}
   ],
   "acceptance": {
     "status": "verified",
