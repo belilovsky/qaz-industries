@@ -12,7 +12,7 @@
       { "path": "avds-package-runtime.css", "sha256": "30f2d99ab34cf9bcc32aada92d96392be4e9b43662faabab1679de9a369d0ece" },
       { "path": "avds-tokens.css", "sha256": "f05780ae57de4ec86df43a73f48cb3343bb9960d40c7cd8475437a1560d5d381" },
       { "path": "avds.css", "sha256": "56926a76fa490d47d6607c001511f643bc593b8cf40fd998594275f8d2fc0085" },
-      { "path": "styles.css", "sha256": "b71eeee196327cde93984a6d3bd579866f6ddcdbda2c1fad92074e311c57c1b0" },
+      { "path": "styles.css", "sha256": "b0b6d5089c7c6ee709a60c61d9c6ee93c59cdf752953a21f0ae6e22a0d4a40de" },
       { "path": "site-shell.js", "sha256": "56bac728310ff7b99ea2534086774fcbdc583236697dfd3cce16366754b21860" },
       { "path": "theme.js", "sha256": "33211e12244905a7feea7c28e590cec1ef18d0d25d3945c3ecea489f65932fa8" },
       { "path": "locale.js", "sha256": "3ae00b8bcfc7b22b7b1a3765dab4a1540c17ce9acfbbafa9672fec21e0a11e3c" },
