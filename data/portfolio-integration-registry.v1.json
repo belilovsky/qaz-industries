@@ -1,15 +1,15 @@
 {
   "schema_version": "qaz-industries-portfolio-integration-registry-v1",
   "product_id": "qaz-industries",
-  "evaluated_at": "2026-08-13T10:55:30Z",
+  "evaluated_at": "2026-08-14T05:26:03Z",
   "measurement": {
     "basis": "confirmed source contracts and public evidence; link metadata is not runtime data integration",
     "scoped_surfaces": 12,
-    "reviewed_contract_or_snapshot_backed": 9,
-    "local_contract_backed": 3,
+    "reviewed_contract_or_snapshot_backed": 10,
+    "local_contract_backed": 4,
     "public_snapshot_backed": 6,
-    "public_contract_observed_link_only": 2,
-    "link_metadata_only": 2,
+    "public_contract_observed_link_only": 1,
+    "link_metadata_only": 1,
     "observed_without_registration": 1
   },
   "integrations": [
@@ -95,19 +95,20 @@
       "id": "edpol",
       "name": "EdPol",
       "provider_url": "https://edpol.pro/",
-      "relationship": "reviewed-link-metadata",
-      "status": "public-contract-observed",
-      "avds_version": "4.7.0",
-      "avds_percent": 100,
-      "avds_required": 10,
-      "avds_implemented": 10,
-      "runtime_revision": "a8361bfe1fe491b26cd09661fe6e146e1aeb281d",
-      "verified_at": "2026-08-13T10:31:10Z",
+      "relationship": "local-static-editorial-ledger",
+      "status": "source-verified",
+      "edpol_version": "4.7.0",
+      "system_contract_percent": 96,
+      "applicable_pattern_percent": 100,
+      "runtime_revision": "ee5bd64f5433d003befe423be189b66e3e965e5e",
+      "verified_at": "2026-08-14T05:13:15Z",
       "evidence": [
-        {"url": "https://edpol.pro/avds-adoption.json", "kind": "avds-adoption"},
-        {"url": "https://edpol.pro/operations-roster.json", "kind": "operations-roster"}
+        {"path": "data/edpol-editorial-ledger.v1.json", "url": "https://qaz.industries/data/edpol-editorial-ledger.v1.json", "kind": "local-editorial-ledger"},
+        {"url": "https://edpol.pro/risk-register.json", "kind": "risk-register"},
+        {"url": "https://edpol.pro/source-check", "kind": "source-check"},
+        {"url": "https://edpol.pro/schemas/article-trust-metadata.schema.json", "kind": "article-trust-schema"}
       ],
-      "notes": "EdPol public contracts were confirmed; no data transfer or runtime consumer contract between EdPol and QAZ.INDUSTRIES was found."
+      "notes": "QAZ keeps a same-origin, fail-closed EdPol editorial ledger. It records required reviews without sending material bodies, publishing automatically, or writing to EdPol production."
     },
     {
       "id": "qaz-tax",

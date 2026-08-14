@@ -138,6 +138,7 @@ def main() -> int:
             "data/qazgeo-public-layer-registry.v1.json",
             "data/reviewed-source-registry.v1.json",
             "data/portfolio-integration-registry.v1.json",
+            "data/edpol-editorial-ledger.v1.json",
             "data/qaz-industries-thematic-release.v1.json",
         ):
             require((ROOT / contract).is_file(), f"missing public contract: {contract}")

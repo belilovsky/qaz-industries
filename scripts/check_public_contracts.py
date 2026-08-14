@@ -112,6 +112,22 @@ def main() -> int:
             https(source.get("url"), f"source {source.get('id')}")
             require(source.get("rights_decision") == "approved-link-metadata", f"source {source.get('id')}: rights")
 
+        editorial_ledger = load("edpol-editorial-ledger.v1.json")
+        require(editorial_ledger["schema_version"] == "qaz-industries-edpol-editorial-ledger-v1", "EdPol editorial ledger schema")
+        require(editorial_ledger["product_id"] == "qaz-industries", "EdPol editorial ledger product")
+        require(editorial_ledger["status"] == "review-required", "EdPol editorial ledger must stay fail-closed")
+        editorial_integration = editorial_ledger["integration"]
+        require(editorial_integration["mode"] == "local-static-fail-closed", "EdPol editorial mode")
+        require(editorial_integration["stores_content_bodies"] is False, "EdPol content body boundary")
+        require(editorial_integration["writes_edpol_production"] is False, "EdPol production write boundary")
+        require(editorial_integration["automatic_publication"] is False, "EdPol automatic publication boundary")
+        for field in ("control_plane", "risk_register", "source_check", "article_trust_schema"):
+            https(editorial_integration.get(field), f"EdPol {field}")
+        require({item["source_id"] for item in editorial_ledger["source_reviews"]} == {item["id"] for item in registry["sources"]}, "EdPol source review scope")
+        require(all(item["status"] == "review-required" for item in editorial_ledger["source_reviews"]), "EdPol source review status")
+        require(len(editorial_ledger["materials"]) == 6 and all(item["decision"] == "needs-review" for item in editorial_ledger["materials"]), "EdPol material review status")
+        require(editorial_ledger["corrections"]["status"] == "not-established", "EdPol corrections status")
+
         portfolio = load("portfolio-integration-registry.v1.json")
         require(
             portfolio["schema_version"] == "qaz-industries-portfolio-integration-registry-v1",
@@ -156,6 +172,8 @@ def main() -> int:
         manifest = json.loads((ROOT / "qazstack-thematic-product.json").read_text(encoding="utf-8"))
         require(manifest["schema_version"] == "qazstack-thematic-product-v1", "thematic manifest schema")
         require(manifest["publication"]["public_records_require_review"] is True, "review gate")
+        require(manifest["publication"].get("edpol_editorial_ledger") == "data/edpol-editorial-ledger.v1.json", "EdPol ledger publication link")
+        require(manifest["publication"].get("automatic_publication") is False, "EdPol automatic publication gate")
         require(manifest["geo_policy"]["private_browser_access_forbidden"] is True, "private geo browser gate")
 
         consumer = json.loads((ROOT / "qazstack-consumer.json").read_text(encoding="utf-8"))
@@ -167,6 +185,12 @@ def main() -> int:
         require(portfolio_contract.get("asset") == "data/portfolio-integration-registry.v1.json", "consumer portfolio registry asset")
         require(portfolio_contract.get("link_only_is_not_runtime") is True, "consumer portfolio link-only boundary")
         require((ROOT / portfolio_contract["asset"]).is_file(), "consumer portfolio registry asset missing")
+        editorial_contract = consumer.get("edpol_editorial_ledger") or {}
+        require(editorial_contract.get("contract") == "qaz-industries-edpol-editorial-ledger-v1", "consumer EdPol editorial ledger contract")
+        require(editorial_contract.get("asset") == "data/edpol-editorial-ledger.v1.json", "consumer EdPol editorial ledger asset")
+        require(editorial_contract.get("mode") == "local-static-fail-closed", "consumer EdPol editorial ledger mode")
+        require(editorial_contract.get("writes_edpol_production") is False, "consumer EdPol editorial write boundary")
+        require((ROOT / editorial_contract["asset"]).is_file(), "consumer EdPol editorial ledger asset missing")
         require(consumer["runtime"].get("direct_upstream_browser_access") is False, "consumer direct upstream gate")
         https(consumer["runtime"].get("public_origin"), "consumer public origin")
         manifest_modules = {module["id"] for module in manifest["modules"]}

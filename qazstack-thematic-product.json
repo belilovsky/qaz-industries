@@ -14,7 +14,9 @@
   "publication": {
     "mode": "reviewed-snapshot",
     "public_records_require_review": true,
-    "explicit_degraded_state": true
+    "explicit_degraded_state": true,
+    "edpol_editorial_ledger": "data/edpol-editorial-ledger.v1.json",
+    "automatic_publication": false
   },
   "geo_policy": {
     "public_precision": "region",

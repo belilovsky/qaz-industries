@@ -1,0 +1,38 @@
+{
+  "schema_version": "qaz-industries-edpol-editorial-ledger-v1",
+  "product_id": "qaz-industries",
+  "status": "review-required",
+  "assessed_at": "2026-08-14T05:26:03Z",
+  "integration": {
+    "control_plane": "https://edpol.pro/",
+    "risk_register": "https://edpol.pro/risk-register.json",
+    "source_check": "https://edpol.pro/source-check",
+    "article_trust_schema": "https://edpol.pro/schemas/article-trust-metadata.schema.json",
+    "mode": "local-static-fail-closed",
+    "stores_content_bodies": false,
+    "writes_edpol_production": false,
+    "automatic_publication": false
+  },
+  "source_reviews": [
+    {"source_id": "qz-energy", "canonical_url": "https://qz.energy/", "status": "review-required", "evidence_state": "link-metadata-only", "required_checks": ["sourceReview", "rightsReview"], "reviewer_id": null, "reviewed_at": null, "capture_manifest": null},
+    {"source_id": "qazaqstan-space", "canonical_url": "https://qazaqstan.space/", "status": "review-required", "evidence_state": "link-metadata-only", "required_checks": ["sourceReview", "rightsReview"], "reviewer_id": null, "reviewed_at": null, "capture_manifest": null},
+    {"source_id": "qaz-farm", "canonical_url": "https://qaz.farm/", "status": "review-required", "evidence_state": "link-metadata-only", "required_checks": ["sourceReview", "rightsReview"], "reviewer_id": null, "reviewed_at": null, "capture_manifest": null},
+    {"source_id": "qaz-fish", "canonical_url": "https://qaz.fish/", "status": "review-required", "evidence_state": "link-metadata-only", "required_checks": ["sourceReview", "rightsReview"], "reviewer_id": null, "reviewed_at": null, "capture_manifest": null},
+    {"source_id": "qazlake-macro", "canonical_url": "https://qlake.tech/api/economy/indicators", "status": "review-required", "evidence_state": "reviewed-static-snapshot", "required_checks": ["sourceReview", "rightsReview", "legalReview"], "reviewer_id": null, "reviewed_at": null, "capture_manifest": null},
+    {"source_id": "qazgeo-territory", "canonical_url": "https://qgeo.tech/api/v1/layers", "status": "review-required", "evidence_state": "reviewed-static-snapshot", "required_checks": ["sourceReview", "rightsReview"], "reviewer_id": null, "reviewed_at": null, "capture_manifest": null}
+  ],
+  "materials": [
+    {"id": "profile-energy", "paths": ["/industry.html?sector=energy"], "source_ids": ["qz-energy"], "risk_rule_ids": ["rights.third-party-material"], "required_checks": ["sourceReview", "rightsReview"], "ai_disclosure": "not-declared", "language_parity": "not-assessed", "decision": "needs-review", "reviewer_id": null, "evaluated_at": null},
+    {"id": "profile-space", "paths": ["/industry.html?sector=space"], "source_ids": ["qazaqstan-space"], "risk_rule_ids": ["rights.third-party-material"], "required_checks": ["sourceReview", "rightsReview"], "ai_disclosure": "not-declared", "language_parity": "not-assessed", "decision": "needs-review", "reviewer_id": null, "evaluated_at": null},
+    {"id": "profile-farm", "paths": ["/industry.html?sector=farm"], "source_ids": ["qaz-farm"], "risk_rule_ids": ["rights.third-party-material"], "required_checks": ["sourceReview", "rightsReview"], "ai_disclosure": "not-declared", "language_parity": "not-assessed", "decision": "needs-review", "reviewer_id": null, "evaluated_at": null},
+    {"id": "profile-water", "paths": ["/industry.html?sector=water"], "source_ids": ["qaz-fish"], "risk_rule_ids": ["rights.third-party-material"], "required_checks": ["sourceReview", "rightsReview"], "ai_disclosure": "not-declared", "language_parity": "not-assessed", "decision": "needs-review", "reviewer_id": null, "evaluated_at": null},
+    {"id": "macro-context", "paths": ["/", "/industry.html"], "source_ids": ["qazlake-macro"], "risk_rule_ids": ["public-impact.health-finance", "rights.third-party-material"], "required_checks": ["sourceReview", "rightsReview", "legalReview"], "ai_disclosure": "not-declared", "language_parity": "not-assessed", "decision": "needs-review", "reviewer_id": null, "evaluated_at": null},
+    {"id": "publication-policy", "paths": ["/publication.html"], "source_ids": ["qazgeo-territory"], "risk_rule_ids": ["rights.third-party-material"], "required_checks": ["sourceReview", "rightsReview"], "ai_disclosure": "not-declared", "language_parity": "not-assessed", "decision": "needs-review", "reviewer_id": null, "evaluated_at": null}
+  ],
+  "corrections": {
+    "status": "not-established",
+    "public_log": null,
+    "issue_intake": null
+  },
+  "next_required_actions": ["record-reviewer-decision", "attach-source-evidence", "publish-corrections-log", "establish-private-security-intake"]
+}

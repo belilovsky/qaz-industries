@@ -9,6 +9,12 @@
     "asset": "data/portfolio-integration-registry.v1.json",
     "link_only_is_not_runtime": true
   },
+  "edpol_editorial_ledger": {
+    "contract": "qaz-industries-edpol-editorial-ledger-v1",
+    "asset": "data/edpol-editorial-ledger.v1.json",
+    "mode": "local-static-fail-closed",
+    "writes_edpol_production": false
+  },
   "publication_mode": "reviewed-static-same-origin",
   "runtime": {
     "public_origin": "https://qaz.industries",
