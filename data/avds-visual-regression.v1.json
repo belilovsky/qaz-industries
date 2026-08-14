@@ -3,9 +3,9 @@
   "product_id": "qaz-industries",
   "engine": "Chromium via Playwright CLI",
   "source_identity": {
-    "commit": "9927754",
-    "working_tree": "dirty-local-candidate",
-    "captured_at": "2026-08-14T05:54:00Z"
+    "commit": "16bcc88",
+    "working_tree": "clean-release-candidate",
+    "captured_at": "2026-08-14T23:47:00Z"
   },
   "routes": ["index.html", "industry.html", "benchmarks.html", "publication.html"],
   "viewports": [320, 1440],
