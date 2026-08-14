@@ -66,23 +66,23 @@
         <div class="passport-grid">
           <article class="av-card av-card--outlined"><span>Пользовательские данные</span><strong>Не собираются</strong><p>Сайт не принимает личные сведения и не сохраняет введённые пользователем значения.</p></article>
           <article class="av-card av-card--outlined"><span>Аналитика</span><strong>Отключена по решению продукта</strong><p>До появления отдельной задачи и правил согласия QAZ не заявляет посещаемость, конверсию или удержание.</p></article>
-          <article class="av-card av-card--outlined"><span>Выпуски</span><strong>Активный + 7 предыдущих</strong><p>Неизменяемые деревья хранятся для отката; сервер также сохраняет восемь последних резервных копий QAZ-конфигурации.</p></article>
+          <article class="av-card av-card--outlined"><span>Выпуски</span><strong>Версии для отката</strong><p>Runtime хранит версионируемые выпуски, чтобы активную версию можно было откатить без подмены исходного артефакта.</p></article>
           <article class="av-card av-card--outlined"><span>Мониторинг</span><strong>7 дней</strong><p>Артефакт ежедневной проверки публичных контрактов хранится семь дней и не содержит закрытых данных.</p></article>
         </div>
       </section>
 
       <section class="adoption-section shell" aria-labelledby="operations-title">
-        <div class="adoption-copy"><p class="eyebrow"><span></span> эксплуатационные решения</p><h2 id="operations-title">Выпуск без скрытого состояния.</h2><p>Отдельного staging-домена нет. Принятый процесс проверяет локальный артефакт и кандидата Caddy до атомарного переключения текущего выпуска; при ошибке предусмотрен откат.</p><a class="button button-primary av-button av-button--primary" href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer">Открыть статус выпуска ↗</a></div>
+        <div class="adoption-copy"><p class="eyebrow"><span></span> эксплуатационные решения</p><h2 id="operations-title">Выпуск с проверяемой идентичностью.</h2><p>Отдельного staging-домена нет. Перед переключением проверяются локальный артефакт и кандидат runtime; после переключения публично сверяются версия и доступность. При ошибке предусмотрен откат.</p><a class="button button-primary av-button av-button--primary" href="data/qaz-industries-thematic-release.v1.json" target="_blank" rel="noreferrer">Открыть статус выпуска ↗</a></div>
         <ol class="adoption-list">
           <li><span>01</span><strong>Владелец продукта</strong><p>Владелец репозитория QAZ.INDUSTRIES отвечает за проекции, выпуск и решения о публикации.</p></li>
-          <li><span>02</span><strong>Владелец runtime</strong><p>Оператор общего public-sites Caddy отвечает за доступность прокси и VPS; инцидент должен явно называть границу QAZ.</p></li>
+          <li><span>02</span><strong>Владелец runtime</strong><p>Оператор runtime отвечает за доставку публичной версии и доступность прокси. В инциденте отдельно фиксируется граница QAZ.INDUSTRIES.</p></li>
           <li><span>03</span><strong>Исправление</strong><p>Ошибка исправляется в источнике или проверенной проекции и выходит новым неизменяемым выпуском с датой и идентичностью.</p></li>
           <li><span>04</span><strong>Удаление из публикации</strong><p>Спорный или чувствительный материал исключается из текущего выпуска; предыдущие деревья доступны только оператору для ограниченного отката.</p></li>
         </ol>
       </section>
 
       <section class="profile-passport shell" aria-labelledby="security-title">
-        <div class="passport-head"><div><p class="section-number">03 / БЕЗОПАСНОСТЬ</p><h2 id="security-title">Не раскрывать уязвимость публично</h2></div><p>Сообщение должно содержать URL, минимальное воспроизведение и влияние, но не учётные данные и не закрытые записи. Публичный issue для уязвимостей не используется.</p></div>
+        <div class="passport-head"><div><p class="section-number">03 / БЕЗОПАСНОСТЬ</p><h2 id="security-title">Не раскрывать уязвимость публично</h2></div><p>Сообщение должно содержать URL, минимальное воспроизведение и влияние, но не учётные данные и не закрытые записи. Публичный issue для уязвимостей не используется; отдельный закрытый канал ещё не опубликован.</p></div>
         <div class="passport-actions"><a href="https://github.com/belilovsky/qaz-industries/security/policy" target="_blank" rel="noreferrer">Политика безопасности ↗</a><a href="https://github.com/belilovsky/qaz-industries" target="_blank" rel="noreferrer">Репозиторий проекта ↗</a></div>
       </section>
     </main>

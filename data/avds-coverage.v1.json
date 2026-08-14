@@ -1,7 +1,7 @@
 {
   "schema_version": "qaz-industries-avds-coverage-v1",
   "product_id": "qaz-industries",
-  "evaluated_at": "2026-08-13T11:27:12Z",
+  "evaluated_at": "2026-08-14T05:56:15Z",
   "avds": {
     "version": "4.6.0",
     "source": "https://avds.digital/",

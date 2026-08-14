@@ -12,11 +12,11 @@
       { "path": "avds-package-runtime.css", "sha256": "30f2d99ab34cf9bcc32aada92d96392be4e9b43662faabab1679de9a369d0ece" },
       { "path": "avds-tokens.css", "sha256": "f05780ae57de4ec86df43a73f48cb3343bb9960d40c7cd8475437a1560d5d381" },
       { "path": "avds.css", "sha256": "56926a76fa490d47d6607c001511f643bc593b8cf40fd998594275f8d2fc0085" },
-      { "path": "styles.css", "sha256": "16dd487187dc65eb3c279bb3fd51cf2b0eb8f4482c35d5574af21a78119b504f" },
+      { "path": "styles.css", "sha256": "b71eeee196327cde93984a6d3bd579866f6ddcdbda2c1fad92074e311c57c1b0" },
       { "path": "site-shell.js", "sha256": "56bac728310ff7b99ea2534086774fcbdc583236697dfd3cce16366754b21860" },
       { "path": "theme.js", "sha256": "33211e12244905a7feea7c28e590cec1ef18d0d25d3945c3ecea489f65932fa8" },
       { "path": "locale.js", "sha256": "3ae00b8bcfc7b22b7b1a3765dab4a1540c17ce9acfbbafa9672fec21e0a11e3c" },
-      { "path": "data/ui-locale.v1.json", "sha256": "a0e7eb2436ccb4325fd39850c6319785ae24e8a66b24bf739a649b5134cf13e9" },
+      { "path": "data/ui-locale.v1.json", "sha256": "fb610442a55511c0a04a49d5ef9167325d539edf9e49807956d0e0e405462920" },
       { "path": "package.json", "sha256": "59721b9e57de8d1606ac09449e8711c22e9bf22dde3804f5caff8758bf6fa6b0" },
       { "path": "package-lock.json", "sha256": "72199dd583759bbedf1edb7eaf19f412837da4f9a0fc96b3205c3cc18014025a" },
       { "path": "avds-consumer.json", "sha256": "06be646c9124d85c6b8f5dc64480a6685edd29aba8a1ebb3249d4894780192f6" }

@@ -36,6 +36,9 @@
       const formatted = this.number(value, options);
       return formatted === '—' ? formatted : `${formatted} ${unitLabel || ''}`.trim();
     },
+    t(value) {
+      return String(value);
+    },
   };
 
   function localeContract() {
@@ -257,11 +260,11 @@
       `).join('');
       required('#indicator-rows').innerHTML = profile.indicators.map((item) => `
         <div class="indicator-row" role="row">
-          <strong role="cell">${escapeHtml(item.name)}</strong>
-          <span class="indicator-value" role="cell">${escapeHtml(item.value)} <small>${escapeHtml(item.unit)}</small></span>
-          <span role="cell">${escapeHtml(item.period)}</span>
-          <span role="cell">${escapeHtml(item.note)}</span>
-          <a role="cell" href="${httpsHref(item.url)}" target="_blank" rel="noreferrer">открыть ↗</a>
+          <strong role="cell"><span class="mobile-cell-label">Показатель</span>${escapeHtml(item.name)}</strong>
+          <span class="indicator-value" role="cell"><span class="mobile-cell-label">Значение</span>${escapeHtml(item.value)} <small>${escapeHtml(item.unit)}</small></span>
+          <span role="cell"><span class="mobile-cell-label">Период</span>${escapeHtml(item.period)}</span>
+          <span role="cell"><span class="mobile-cell-label">Контекст</span>${escapeHtml(item.note)}</span>
+          <a role="cell" href="${httpsHref(item.url)}" target="_blank" rel="noreferrer"><span class="mobile-cell-label">Источник</span>открыть ↗</a>
         </div>
       `).join('');
       const periodComparison = documentRef.querySelector('#period-comparison');
