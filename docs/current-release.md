@@ -16,7 +16,7 @@
 | Remote `origin/main` at code deploy | `63a857fd6f2133085dd3e1109602f17c20aa2882` | remote-confirmed |
 | Public domain | [https://qaz.industries/](https://qaz.industries/) | public-verified |
 | Runtime | shared public-sites Caddy, immutable release + `current` symlink | runtime-confirmed |
-| Public release | `20260814T061006Z-63a857fd6f21` | runtime/public-confirmed |
+| Public release | `20260814T061052Z-63a857fd6f21` | runtime/public-confirmed |
 
 Функциональный commit `63a857f…` является точным источником публичного
 артефакта. Release переключён атомарно после проверки Caddy bind mount,
@@ -61,7 +61,7 @@
 ## Runtime acceptance
 
 - `scripts/deploy.sh` принял чистый commit, повторил все gates и собрал
-  immutable release `20260814T061006Z-63a857fd6f21`.
+  immutable release `20260814T061052Z-63a857fd6f21`.
 - Кандидат Caddy прошёл marker check и `caddy validate`; после атомарного
   переключения `current` публичные release identity и health проверены снова.
 - Host и bind-mounted Caddyfile совпадают (`/opt/qdev-public-sites/Caddyfile` ↔

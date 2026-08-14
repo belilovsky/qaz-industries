@@ -16,7 +16,7 @@
       { "path": "site-shell.js", "sha256": "56bac728310ff7b99ea2534086774fcbdc583236697dfd3cce16366754b21860" },
       { "path": "theme.js", "sha256": "33211e12244905a7feea7c28e590cec1ef18d0d25d3945c3ecea489f65932fa8" },
       { "path": "locale.js", "sha256": "3ae00b8bcfc7b22b7b1a3765dab4a1540c17ce9acfbbafa9672fec21e0a11e3c" },
-      { "path": "data/ui-locale.v1.json", "sha256": "0262c590cac7b36b1d85e037605a14393e41e113245a4ff65ed6709de8d89560" },
+      { "path": "data/ui-locale.v1.json", "sha256": "c30052203967b9ca92535ba3369a33eda719c93d0e25461f5d39aaec1be7b015" },
       { "path": "package.json", "sha256": "59721b9e57de8d1606ac09449e8711c22e9bf22dde3804f5caff8758bf6fa6b0" },
       { "path": "package-lock.json", "sha256": "72199dd583759bbedf1edb7eaf19f412837da4f9a0fc96b3205c3cc18014025a" },
       { "path": "avds-consumer.json", "sha256": "06be646c9124d85c6b8f5dc64480a6685edd29aba8a1ebb3249d4894780192f6" }

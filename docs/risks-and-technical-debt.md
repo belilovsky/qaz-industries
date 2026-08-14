@@ -10,7 +10,7 @@
 | Browser proof должен обновляться на каждом release | `docs/current-release.md` содержит desktop/mobile, console и overflow receipt | controlled | перезаписывать receipt только после новой публичной проверки |
 | Runtime owner | QAZ release owner + shared public-sites operator | controlled/role-based | добавить приватный escalation contact вне public docs |
 | Нет аналитики и traction | `/publication.html`, source inventory | accepted | аналитика отключена; не заявлять investor metrics |
-| Security contact | GitHub private vulnerability reporting disabled; no mailbox | blocked | owner must enable a stable private intake channel |
+| Security contact | GitHub private vulnerability reporting enabled | controlled | keep the advisory route visible and do not accept vulnerability reports in public issues |
 | Публичный runtime | release `20260810T055834Z-311cd246bba4`, health/release/header/browser proof | controlled | сохранять atomic deploy, bounded retention и public acceptance |
 | Несколько ignored work ledgers | `work/` excluded by `.gitignore` | historical/local-only | не считать их durable source of truth |
 

@@ -41,15 +41,15 @@ assets или кандидатов как проверенные факты. Н�
 
 ## Инциденты и доступ
 
-Подозрение на уязвимость направляется по приватному каналу владельца репозитория,
+Подозрение на уязвимость направляется через
+[GitHub Security Advisories](https://github.com/belilovsky/qaz-industries/security/advisories/new)
 с URL, минимальным воспроизведением и impact; публичный issue не используется.
 Отчёты о shared proxy/VPS должны явно указывать границу QAZ. Доступ к VPS,
 Caddy и source registry не документируется credentials-ами.
 
-Репозиторий публичен, но GitHub private vulnerability reporting отключён, а
-публичный security mailbox не опубликован. До настройки устойчивого приватного
-канала используется только уже согласованный приватный контакт владельца;
-публичный issue запрещён. Это единственный оставшийся blocker security intake.
+GitHub private vulnerability reporting включён для этого публичного репозитория
+и является устойчивым публично указанным private intake. Публичный security
+mailbox не требуется; публичный issue для уязвимостей запрещён.
 
 ## Права, атрибуция и хранение
 
@@ -70,5 +70,5 @@ Caddy и source registry не документируется credentials-ами.
 
 До появления формы, аккаунта или intake пользовательские данные не собираются.
 Если такой функционал будет добавлен, для него до разработки нужны отдельные
-consent, retention и deletion rules. Текущий blocker — устойчивый приватный
-security contact; остальные решения опубликованы и проверяются source gate.
+consent, retention и deletion rules. Устойчивый приватный security contact
+настроен.

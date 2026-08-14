@@ -25,13 +25,13 @@
 | 6 | Routes/API/interfaces | done | interfaces; no admin/events claimed |
 | 7 | Данные и происхождение | done | data-provenance + explicit limitations |
 | 8 | Portfolio integrations | done | direction/status/privacy matrix |
-| 9 | Security/privacy/legal | blocked | licence/attribution/retention/removal resolved 2026-08-10; stable private security contact still missing |
+| 9 | Security/privacy/legal | done | licence/attribution/retention/removal resolved; GitHub private vulnerability reporting enabled 2026-08-14 |
 | 10 | Editorial/science | done | inclusion, correction, AI and sensitive-topic rules |
 | 11 | AV DS/language/accessibility | done | consumer boundary, Russian UI and manual QA requirements |
 | 12 | Development/local run | done | confirmed commands and paths |
 | 13 | Testing/quality | done | existing checks and browser evidence rules |
 | 14 | Build/release/ops/rollback | done | operations and current-release links |
-| 15 | Observability/diagnostics | blocked | runtime access and release receipt verified; scheduled workflow remains local without push and stable private alert routing is unavailable |
+| 15 | Observability/diagnostics | blocked | runtime access and release receipt verified; scheduled workflow remains local without push and private alert routing is not yet configured |
 | 16 | Risks/technical debt | done | risks register; blockers remain explicit |
 | 17 | Investor/critic brief | done | no invented market, traction or financial metrics |
 | 18 | AI context | done | ai-context + short root AGENTS |
