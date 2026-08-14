@@ -1,6 +1,6 @@
 # Текущий статус выпуска
 
-Дата проверки: **2026-08-14, Asia/Almaty**. Это канонический receipt последнего
+Дата проверки: **2026-08-15, Asia/Almaty**. Это канонический receipt последнего
 публичного выпуска QAZ.INDUSTRIES; локальные проверки, runtime identity и
 публичная браузерная приёмка разделены ниже.
 
@@ -12,13 +12,13 @@
 | Checkout | `/Users/belilovsky/Documents/Codex/2026-08-09/qaz-industries` | source-confirmed |
 | Remote | `https://github.com/belilovsky/qaz-industries.git` | source-confirmed |
 | Branch | `main` | source-confirmed |
-| Deployed source SHA | `63a857fd6f2133085dd3e1109602f17c20aa2882` | source/runtime/public-confirmed |
-| Remote `origin/main` at code deploy | `63a857fd6f2133085dd3e1109602f17c20aa2882` | remote-confirmed |
+| Deployed source SHA | `c39314a6955fed27232fc1c2d9e2b7905961bbb4` | source/runtime/public-confirmed |
+| Remote `origin/main` at code deploy | `c39314a6955fed27232fc1c2d9e2b7905961bbb4` | remote-confirmed |
 | Public domain | [https://qaz.industries/](https://qaz.industries/) | public-verified |
 | Runtime | shared public-sites Caddy, immutable release + `current` symlink | runtime-confirmed |
-| Public release | `20260814T061052Z-63a857fd6f21` | runtime/public-confirmed |
+| Public release | `20260814T234738Z-c39314a6955f` | runtime/public-confirmed |
 
-Функциональный commit `63a857f…` является точным источником публичного
+Функциональный commit `c39314a…` является точным источником публичного
 артефакта. Release переключён атомарно после проверки Caddy bind mount,
 контейнера и public smoke. Последующие documentation-only commits могут сделать
 локальный и удалённый `HEAD` новее deployed source SHA, не меняя публичные
@@ -49,9 +49,13 @@
 - Реестр интеграций фиксирует 12 scoped surfaces: 9 contract/snapshot-backed,
   2 публичных link-only receipts (EdPol и QAZ.TAX) и 1 наблюдаемую платформу без
   найденной машинной регистрации (`platform.qdev.run`).
-- Визуальный polish-pass уплотнил desktop-ритм, добавил отраслевые accent rails
-  карточкам и обновил восемь утверждённых baseline PNG; визуальный compare
-  проходит на 320 и 1440px.
+- Визуальный polish-pass для mobile/tablet устранил узкий header overflow на 320px,
+  перестроил indicator cards на 768/820px, разложил live-map toolbar и footer,
+  закрепил touch targets не менее 40px и обновил восемь утверждённых baseline PNG;
+  visual manifest привязан к commit `16bcc88`.
+- Responsive browser matrix повторно проверила четыре маршрута на 320, 390, 768,
+  820 и 1024px: document/body width совпадают с viewport, горизонтального overflow
+  нет; намеренная прокрутка остаётся только в profile navigation и benchmark matrix.
 - Динамический filter summary теперь использует полный локальный шаблон и
   обновляется при смене языка; live-проверка подтверждает RU/KK/EN без смешения
   языков. Динамическое имя переключателя темы и его `aria-label` также
@@ -61,19 +65,19 @@
 ## Runtime acceptance
 
 - `scripts/deploy.sh` принял чистый commit, повторил все gates и собрал
-  immutable release `20260814T061052Z-63a857fd6f21`.
+  immutable release `20260814T234738Z-c39314a6955f`.
 - Кандидат Caddy прошёл marker check и `caddy validate`; после атомарного
   переключения `current` публичные release identity и health проверены снова.
 - Host и bind-mounted Caddyfile совпадают (`/opt/qdev-public-sites/Caddyfile` ↔
   `/qdev-public-sites/Caddyfile`); `/etc/caddy/Caddyfile` не используется.
-- Runtime receipt: `releases=8`, `backups=8`, `release_kib=1176`. Rollback
+- Runtime receipt: `releases=8`, `backups=8`, `release_kib=1180`. Rollback
   остаётся привязан к предыдущему immutable release.
 
 ## Public acceptance
 
 - [release.json](https://qaz.industries/release.json) и
   [api/health](https://qaz.industries/api/health) возвращают один release и
-  точный source SHA `63a857fd6f2133085dd3e1109602f17c20aa2882`; все четыре
+  точный source SHA `c39314a6955fed27232fc1c2d9e2b7905961bbb4`; все четыре
   страницы, AVDS runtime CSS, locale catalog и consumer contract отвечают
   HTTP 200.
 - [AVDS coverage receipt](https://qaz.industries/data/avds-coverage.v1.json)
@@ -82,10 +86,10 @@
   tarball/export/artifact digests и отсутствие добавленного JavaScript.
 - CSP, HSTS, `nosniff`, frame/referrer/permissions и COOP/CORP headers
   присутствуют; ответ содержит точный `X-QAZ-Industries-Release`.
-- Локальная Playwright-матрица проверила четыре страницы на 320, 390, 1440 и
-  2560px во всех семи темах: 112 сочетаний без горизонтального overflow,
-  битых изображений и page/console errors. Публичный smoke повторно проверил
-  четыре маршрута на 390 и 1440px с asset marker `63a857fd6f21` и HTTP 200.
+- Публичная Playwright-матрица проверила четыре страницы на 320, 390, 768, 820
+  и 1024px: 20 маршрут×viewport сочетаний без горизонтального overflow;
+  четыре маршрута на 390px дали `0` console errors/warnings. Asset marker
+  `c39314a6955f` и HTTP 200 подтверждены на каждом публичном маршруте.
   Дополнительно проверены `en-US` и `kk-KZ`, переключение темы с актуальным доступным именем и `aria-label`, меню и
   Escape/focus-поведение; industry route содержит 4 snapshot rows, 14 chart
   rows и одну period comparison, data states остаются success/contract-only по
