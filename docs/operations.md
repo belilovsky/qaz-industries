@@ -2,11 +2,11 @@
 
 ## Владелец и граница runtime
 
-Репозиторий — источник статической public surface. Публичный сайт сейчас
-доставляется NAS-runtime через shared reverse proxy. Старый Caddy release tree
-остался историческим механизмом: он не должен использоваться для нового
-content-only выпуска, менять общий Caddyfile или создавать видимость успешного
-переключения, когда NAS не обновлён.
+Репозиторий — источник статической public surface. Runtime находится в
+изолированном release tree под shared public-sites Caddy. Caddyfile является
+общей инфраструктурой: изменяется только блок `qaz.industries` и его
+`X-Qaz-Industries-Release`. Нельзя заменять весь Caddyfile, менять общий
+`X-Qaz-Release` или трогать HAProxy для content-only выпуска.
 
 Владелец репозитория выполняет роль QAZ release owner; оператор shared
 public-sites Caddy/VPS — runtime owner. Отдельного staging-домена нет: принятая
@@ -27,11 +27,9 @@ staging.
    стать выдуманным observation.
 4. Запустить `scripts/check.sh`.
 5. Зафиксировать reviewed source и собрать immutable release.
-6. Выпустить build через документированный канал владельца NAS-runtime.
-   `scripts/deploy.sh` рассчитан на прежний Caddy runtime и должен завершаться
-   fail-closed до появления новой процедуры.
-7. Проверить `/api/health`, `/release.json`, ключевые assets и public browser
-   states; source SHA, artifact, runtime и public response должны совпасть.
+6. Только владелец выпуска запускает `scripts/deploy.sh` из clean worktree.
+7. Проверить header, `/api/health`, `/release.json`, ключевые assets и public
+   browser states.
 8. Принять выпуск только когда source, artifact, runtime и public evidence
    согласуются.
 
@@ -39,14 +37,20 @@ Commit и deploy не являются частью локальной пров�
 
 ## Immutable release и rollback
 
-Старый deploy создавал immutable release tree и атомарно переключал Caddy
-symlink. Эта гарантия не переносится автоматически на NAS-runtime. Пока его
-владелец не зафиксирует новый release/rollback контракт, содержательный deploy
-считается заблокированным: локальная сборка и push не заменяют публичный выпуск.
+Deploy создаёт новую release directory и до переключения `current` проверяет
+продуктовый Caddy parser. При ошибке reload восстанавливаются предыдущий
+Caddyfile и symlink. Хранятся активный release, семь предыдущих release и восемь
+последних QAZ-only Caddy backups. Artifact версионирует локальные CSS/JS URLs,
+чтобы HTML и assets не смешивались.
 
-Новая процедура должна до переключения проверить candidate artifact, сохранить
-предыдущую активную версию для отката и после переключения подтвердить exact
-source SHA через `/release.json`, `/api/health` и браузерный smoke.
+Если digest host/container Caddyfile не совпадает или bind mount не получил
+candidate, deploy останавливается до смены symlink. После ручной замены host
+Caddyfile сначала восстанавливается parity, затем повторяется выпуск.
+
+В production-контейнере источником конфигурации является bind mount
+`/qdev-public-sites/Caddyfile`; `/etc/caddy/Caddyfile` внутри образа не является
+активным файлом. Перед повтором выпуска проверяются именно host path и этот
+mounted path, затем выполняются `caddy validate` и public smoke.
 
 ## Public verification
 

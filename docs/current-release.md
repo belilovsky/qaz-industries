@@ -1,9 +1,8 @@
 # Текущий статус выпуска
 
-Дата проверки: **2026-08-14, Asia/Almaty**. Это receipt текущей публичной
-идентичности QAZ.INDUSTRIES; локальные проверки, runtime identity и публичная
-браузерная приёмка разделены ниже. Историческая процедура Caddy сохранена как
-свидетельство прошлого выпуска, но не является текущим способом деплоя.
+Дата проверки: **2026-08-14, Asia/Almaty**. Это канонический receipt последнего
+публичного выпуска QAZ.INDUSTRIES; локальные проверки, runtime identity и
+публичная браузерная приёмка разделены ниже.
 
 ## Identity
 
@@ -16,14 +15,14 @@
 | Deployed source SHA | `1eca545f5270daa7c311653b525332d215e37ab7` | source/runtime/public-confirmed |
 | Remote `origin/main` at code deploy | `1eca545f5270daa7c311653b525332d215e37ab7` | remote-confirmed |
 | Public domain | [https://qaz.industries/](https://qaz.industries/) | public-verified |
-| Runtime | NAS-runtime за public reverse proxy | public-confirmed |
+| Runtime | shared public-sites Caddy, immutable release + `current` symlink | runtime-confirmed |
 | Public release | `20260813T181824Z-1eca545f5270` | runtime/public-confirmed |
 
-Commit `1eca545f…` остаётся точным источником публичного артефакта, который
-наблюдается сейчас. Доставка сайта переведена на NAS-runtime; старый Caddy
-скрипт намеренно останавливается до переключения, потому что не управляет этим
-runtime. Последующие commits могут сделать локальный и удалённый `HEAD` новее
-deployed source SHA, не меняя публичные исполняемые файлы.
+Функциональный commit `1eca545f…` является точным источником публичного
+артефакта. Release переключён атомарно после проверки Caddy bind mount,
+контейнера и public smoke. Последующие documentation-only commits могут сделать
+локальный и удалённый `HEAD` новее deployed source SHA, не меняя публичные
+исполняемые файлы.
 
 ## Local acceptance
 
@@ -59,13 +58,9 @@ deployed source SHA, не меняя публичные исполняемые �
   синхронизируются с активной темой и локалью; устаревшее значение не
   возвращается после следующего catalog pass.
 
-## Исторический receipt выпуска
+## Runtime acceptance
 
-Следующие пункты описывают выпуск 13 августа через прежний Caddy runtime. Они
-не подтверждают текущий NAS deploy и не заменяют его отдельную процедуру и
-публичную проверку точного SHA.
-
-- `scripts/deploy.sh` тогда принял чистый commit, повторил все gates и собрал
+- `scripts/deploy.sh` принял чистый commit, повторил все gates и собрал
   immutable release `20260813T181824Z-1eca545f5270`.
 - Кандидат Caddy прошёл marker check и `caddy validate`; после атомарного
   переключения `current` публичные release identity и health проверены снова.
@@ -77,11 +72,10 @@ deployed source SHA, не меняя публичные исполняемые �
 ## Public acceptance
 
 - [release.json](https://qaz.industries/release.json) и
-  [api/health](https://qaz.industries/api/health) по-прежнему возвращают
-  release `20260813T181824Z-1eca545f5270` и source SHA
-  `1eca545f5270daa7c311653b525332d215e37ab7`; health также указывает
-  `runtime: nas`. Новый source SHA не считается опубликованным, пока эти
-  endpoints и пользовательские маршруты не подтвердят его публично.
+  [api/health](https://qaz.industries/api/health) возвращают один release и
+  точный source SHA `1eca545f5270daa7c311653b525332d215e37ab7`; все четыре
+  страницы, AVDS runtime CSS, locale catalog и consumer contract отвечают
+  HTTP 200.
 - [AVDS coverage receipt](https://qaz.industries/data/avds-coverage.v1.json)
   публично подтверждает общий `128/128` и `100%`, route/consumer `12/12` и
   `100%`, badge `AVDS 4.6.0-100`; package runtime receipt подтверждает версию,

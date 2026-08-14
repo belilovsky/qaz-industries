@@ -9,26 +9,6 @@ runtime_root="${QAZ_INDUSTRIES_RUNTIME_ROOT:-/opt/qdev-public-sites/www/qaz.indu
 container_name="${QAZ_INDUSTRIES_CADDY_CONTAINER:-qdev-public-sites-proxy}"
 ssh_options=(-o BatchMode=yes -o ConnectTimeout=15)
 
-# QAZ.INDUSTRIES used to be served directly from this host's immutable Caddy
-# tree. The current production surface is delivered by a NAS runtime through a
-# reverse tunnel. Do not build, upload, or create an orphaned VPS release when
-# that runtime is active: this script has no authority to switch its content.
-runtime_mode="$(
-  ssh "${ssh_options[@]}" "$remote_host" \
-    'curl -fsS --max-time 10 http://127.0.0.1:18443/api/health 2>/dev/null || true' \
-    | python3 -c 'import json, sys; raw=sys.stdin.read(); print(json.loads(raw).get("runtime", "") if raw else "")' 2>/dev/null \
-    || true
-)"
-if [ "$runtime_mode" = "nas" ]; then
-  cat >&2 <<'EOF'
-QAZ.INDUSTRIES is currently served by NAS runtime.
-The legacy Caddy deploy path is intentionally blocked before it creates a VPS release.
-Use the documented NAS runtime deployment channel, then verify release.json and api/health
-against the exact source SHA.
-EOF
-  exit 1
-fi
-
 if [ -n "$(git status --porcelain)" ]; then
   echo "Refusing to deploy a dirty worktree." >&2
   exit 1
