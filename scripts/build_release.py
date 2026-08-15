@@ -19,6 +19,7 @@ STATIC_FILES = (
     "benchmarks.html",
     "publication.html",
     "styles.css",
+    "card-context.css",
     "avds-package-runtime.css",
     "avds-tokens.css",
     "avds.css",
@@ -43,6 +44,7 @@ STATIC_FILES = (
 HTML_FILES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 VERSIONED_ASSETS = (
     "styles.css",
+    "card-context.css",
     "avds-package-runtime.css",
     "avds-tokens.css",
     "avds.css",

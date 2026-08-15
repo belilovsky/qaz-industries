@@ -24,3 +24,7 @@ class CardContextTypographyTests(unittest.TestCase):
         for filename in ("index.html", "industry.html", "benchmarks.html", "publication.html"):
             page = (ROOT / filename).read_text(encoding="utf-8")
             self.assertIn('<link rel="stylesheet" href="card-context.css" />', page)
+
+    def test_immutable_release_keeps_the_card_context_override(self) -> None:
+        builder = (ROOT / "scripts/build_release.py").read_text(encoding="utf-8")
+        self.assertGreaterEqual(builder.count('"card-context.css",'), 2)
