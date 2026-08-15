@@ -12,13 +12,13 @@
 | Checkout | `/Users/belilovsky/Documents/Codex/2026-08-09/qaz-industries` | source-confirmed |
 | Remote | `https://github.com/belilovsky/qaz-industries.git` | source-confirmed |
 | Branch | `main` | source-confirmed |
-| Deployed source SHA | `c39314a6955fed27232fc1c2d9e2b7905961bbb4` | source/runtime/public-confirmed |
-| Remote `origin/main` at code deploy | `c39314a6955fed27232fc1c2d9e2b7905961bbb4` | remote-confirmed |
+| Deployed source SHA | `32633537077def4529ac14a17e0840bafb13d6c2` | source/runtime/public-confirmed |
+| Remote `origin/main` at code deploy | `32633537077def4529ac14a17e0840bafb13d6c2` | remote-confirmed |
 | Public domain | [https://qaz.industries/](https://qaz.industries/) | public-verified |
 | Runtime | shared public-sites Caddy, immutable release + `current` symlink | runtime-confirmed |
-| Public release | `20260814T234738Z-c39314a6955f` | runtime/public-confirmed |
+| Public release | `20260815T071309Z-32633537077d` | runtime/public-confirmed |
 
-Функциональный commit `c39314a…` является точным источником публичного
+Функциональный commit `3263353…` является точным источником публичного
 артефакта. Release переключён атомарно после проверки Caddy bind mount,
 контейнера и public smoke. Последующие documentation-only commits могут сделать
 локальный и удалённый `HEAD` новее deployed source SHA, не меняя публичные
@@ -61,11 +61,14 @@
   языков. Динамическое имя переключателя темы и его `aria-label` также
   синхронизируются с активной темой и локалью; устаревшее значение не
   возвращается после следующего catalog pass.
+- Финальный surface-pass добавил сдержанную материальность светлым составным
+  блокам: градиентные поверхности, общую глубину и pointer-only hover без
+  изменения AVDS-примитивов, тем, структуры или mobile-композиции.
 
 ## Runtime acceptance
 
 - `scripts/deploy.sh` принял чистый commit, повторил все gates и собрал
-  immutable release `20260814T234738Z-c39314a6955f`.
+  immutable release `20260815T071309Z-32633537077d`.
 - Кандидат Caddy прошёл marker check и `caddy validate`; после атомарного
   переключения `current` публичные release identity и health проверены снова.
 - Host и bind-mounted Caddyfile совпадают (`/opt/qdev-public-sites/Caddyfile` ↔
@@ -77,7 +80,7 @@
 
 - [release.json](https://qaz.industries/release.json) и
   [api/health](https://qaz.industries/api/health) возвращают один release и
-  точный source SHA `c39314a6955fed27232fc1c2d9e2b7905961bbb4`; все четыре
+  точный source SHA `32633537077def4529ac14a17e0840bafb13d6c2`; все четыре
   страницы, AVDS runtime CSS, locale catalog и consumer contract отвечают
   HTTP 200.
 - [AVDS coverage receipt](https://qaz.industries/data/avds-coverage.v1.json)
@@ -89,7 +92,7 @@
 - Публичная Playwright-матрица проверила четыре страницы на 320, 390, 768, 820
   и 1024px: 20 маршрут×viewport сочетаний без горизонтального overflow;
   четыре маршрута на 390px дали `0` console errors/warnings. Asset marker
-  `c39314a6955f` и HTTP 200 подтверждены на каждом публичном маршруте.
+  `32633537077d` и HTTP 200 подтверждены на каждом публичном маршруте.
   Дополнительно проверены `en-US` и `kk-KZ`, переключение темы с актуальным доступным именем и `aria-label`, меню и
   Escape/focus-поведение; industry route содержит 4 snapshot rows, 14 chart
   rows и одну period comparison, data states остаются success/contract-only по
