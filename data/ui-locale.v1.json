@@ -9,7 +9,7 @@
   ],
   "inventory": {
     "source_count": 845,
-    "source_sha256": "8fc187334a793984596a4c3924be9a00c551afa40a883a631e39349c81c94163"
+    "source_sha256": "2ae18635dc2c5145c14754b9930923577937cf3d04d60bd747dd378be1044f83"
   },
   "policy": "Interface and public source metadata are translated locally; proper names, URLs, units and source identifiers stay stable.",
   "translations": {
@@ -89,7 +89,7 @@
       "reading content ограничивается container tokens и shell width": "reading content ограничивается container tokens и shell width",
       "styles.css хранит предметную сетку и бренд QAZ.INDUSTRIES; примитивы и семантические роли не переопределяются в component layer.": "styles.css хранит предметную сетку и бренд QAZ.INDUSTRIES; примитивы и семантические роли не переопределяются в component layer.",
       "ul class=\"av-coverage-chart__legend\" aria-label=\"Легенда состояний\"": "ul class=\"av-coverage-chart__legend\" aria-label=\"Легенда состояний\"",
-      "· ПРОВЕРЕННЫЙ ИСТОЧНИК": "· ПРОВЕРЕННЫЙ ИСТОЧНИК",
+      "· Проверенный источник": "· Проверенный источник",
       "· получен": "· получен",
       "· ревизия": "· ревизия",
       "АПК": "АПК",
@@ -936,7 +936,7 @@
       "reading content ограничивается container tokens и shell width": "оқу мазмұны контейнер таңбалауыштарымен және қабық енімен шектеледі",
       "styles.css хранит предметную сетку и бренд QAZ.INDUSTRIES; примитивы и семантические роли не переопределяются в component layer.": "styles.css тақырып торын және QAZ.INDUSTRIES брендін сақтайды; примитивтер мен семантикалық рөлдер құрамдас қабатта қайта анықталмайды.",
       "ul class=\"av-coverage-chart__legend\" aria-label=\"Легенда состояний\"": "ul class=\"av-coverage-chart__legend\" aria-label=\"Күйлер туралы аңыз\"",
-      "· ПРОВЕРЕННЫЙ ИСТОЧНИК": "· ТЕКСЕЛГЕН КӨЗ",
+      "· Проверенный источник": "· Тексерілген көз",
       "· получен": "· алынған",
       "· ревизия": "· аудит",
       "АПК": "агроөнеркәсіп кешені",
@@ -1783,7 +1783,7 @@
       "reading content ограничивается container tokens и shell width": "reading content is limited by container tokens and shell width",
       "styles.css хранит предметную сетку и бренд QAZ.INDUSTRIES; примитивы и семантические роли не переопределяются в component layer.": "styles.css stores the subject grid and the QAZ.INDUSTRIES brand; primitives and semantic roles are not redefined in the component layer.",
       "ul class=\"av-coverage-chart__legend\" aria-label=\"Легенда состояний\"": "ul class=\"av-coverage-chart__legend\" aria-label=\"Legend of states\"",
-      "· ПРОВЕРЕННЫЙ ИСТОЧНИК": "· VERIFIED SOURCE",
+      "· Проверенный источник": "· Verified source",
       "· получен": "· received",
       "· ревизия": "· audit",
       "АПК": "agro-industrial complex",

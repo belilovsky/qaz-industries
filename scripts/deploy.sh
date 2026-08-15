@@ -56,7 +56,7 @@ test -f "$archive_path"
 test -f "$patch_path"
 mkdir -p "$release_dir"
 tar -xzf "$archive_path" -C "$release_dir"
-for asset in index.html industry.html benchmarks.html publication.html styles.css avds-package-runtime.css avds-tokens.css avds.css runtime.js site-shell.js snapshot-contracts.js qazgeo-geometry.js profile-view.js app.js qazgeo-map.js industry-data.js industry.js favicon.svg avds-consumer.json data/avds-coverage.v1.json data/avds-system-contract.v1.json data/avds-responsive-contract.v1.json data/avds-route-ledger.v1.json data/portfolio-integration-registry.v1.json release.json; do
+for asset in index.html industry.html benchmarks.html publication.html styles.css card-context.css avds-package-runtime.css avds-tokens.css avds.css runtime.js site-shell.js snapshot-contracts.js qazgeo-geometry.js profile-view.js app.js qazgeo-map.js industry-data.js industry.js favicon.svg avds-consumer.json data/avds-coverage.v1.json data/avds-system-contract.v1.json data/avds-responsive-contract.v1.json data/avds-route-ledger.v1.json data/portfolio-integration-registry.v1.json release.json; do
   test -s "${release_dir}/${asset}"
 done
 

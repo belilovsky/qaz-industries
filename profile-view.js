@@ -290,7 +290,7 @@
           <div class="av-card__body av-source-registry__record-body">
             <div class="av-source-registry__title-row">
               <div class="av-source-registry__record-header">
-                <p class="av-source-registry__record-eyebrow">0${index + 1} · ПРОВЕРЕННЫЙ ИСТОЧНИК</p>
+                <p class="av-source-registry__record-eyebrow">0${index + 1} · Проверенный источник</p>
                 <h3>${escapeHtml(item.label)}</h3>
               </div>
               <span class="av-badge av-badge--success">ссылка проверена</span>

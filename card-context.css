@@ -1,0 +1,14 @@
+/* Card context is supporting copy, not a decorative AI-style eyebrow.
+   Statuses, selected filters and protocol identifiers retain their own patterns. */
+html[data-design-system="avds4"] :is(
+  .av-card__eyebrow,
+  .av-public-export-matrix__kind,
+  .av-related-question-grid__meta,
+  .av-source-registry__record-eyebrow,
+  .av-layer-registry__eyebrow
+) {
+  font-family: var(--av-text-body-font-family);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}

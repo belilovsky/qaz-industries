@@ -30,8 +30,8 @@ a,button{-webkit-tap-highlight-color:transparent}
 .hero::before{position:absolute;z-index:-2;inset:0;content:"";background:radial-gradient(circle at 76% 30%,rgb(26 127 170 / .38),transparent 31%),radial-gradient(circle at 45% 100%,rgb(27 168 144 / .18),transparent 35%),linear-gradient(115deg,#040b12,#071722 55%,#0b2431)}
 .hero::after{position:absolute;z-index:-1;inset:0;content:"";opacity:.22;background-image:linear-gradient(rgb(74 216 255 / .25) 1px,transparent 1px),linear-gradient(90deg,rgb(74 216 255 / .25) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(90deg,#000,transparent 78%)}
 .hero-copy{display:flex;min-height:620px;justify-content:center;padding:clamp(46px,5vw,72px);flex-direction:column}
-.eyebrow{display:flex;align-items:center;gap:10px;margin:0;color:#70e5f0;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-.eyebrow span{width:20px;height:2px;background:currentColor}
+.eyebrow{display:block;margin:0;color:#70e5f0;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:0;text-transform:none}
+.eyebrow span{display:none}
 .eyebrow.dark{color:#147d9c}
 h1,h2,h3{font-family:var(--display);text-wrap:balance}
 h1{max-width:850px;margin:22px 0 26px;font-size:clamp(54px, 5.45vw, 88px);line-height:.94;letter-spacing:-.072em}
@@ -77,7 +77,7 @@ h1 em,h2 em{color:var(--cyan);font-style:normal}
 .industry-card:hover{transform:translateY(-4px);border-color:#93c9d6;box-shadow:0 24px 44px -34px rgb(5 31 43 / .92)}
 .industry-card[hidden]{display:none}
 .card-index{color:#62808d;font-family:var(--mono);font-size:10px;letter-spacing:.07em}
-.industry-card>b{justify-self:end;margin-top:-13px;color:#147c9a;font-family:var(--mono);font-size:10px;text-transform:uppercase}
+.industry-card>b{justify-self:end;margin-top:-13px;color:#147c9a;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0;text-transform:none}
 .industry-card h3{align-self:end;margin:52px 0 12px;font-size:34px;line-height:1;letter-spacing:-.045em}
 .industry-card p{max-width:430px;margin:0;color:var(--muted);font-size:13px;line-height:1.55}
 .industry-card ul{display:flex;align-self:end;gap:6px;margin:24px 0 0;padding:0;list-style:none}
