@@ -1,4 +1,4 @@
-/* Card context is supporting copy, not a decorative AI-style eyebrow.
+/* Card context is supporting copy, not a decorative label.
    Statuses, selected filters and protocol identifiers retain their own patterns. */
 html[data-design-system="avds4"] :is(
   .av-card__eyebrow,

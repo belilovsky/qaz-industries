@@ -29,6 +29,10 @@ SPLIT = "__QAZ_I18N_SPLIT__"
 CYRILLIC = re.compile(r"[А-Яа-яЁёӘәҒғҚқҢңӨөҰұҮүҺһІі]")
 JS_STRING = re.compile(r"(['\"`])((?:\\.|(?!\1).)*?)\1", re.DOTALL)
 TEMPLATE_EXPR = re.compile(r"\$\{[^{}]*\}")
+AVDS_BADGE_LABEL = re.compile(
+    r"^Общее покрытие AVDS (?P<version>4\.\d+\.\d+): (?P<coverage>\d+) процентов; "
+    r"базовый маршрутный контракт: (?P<routes>\d+) процент(?:а|ов)?$"
+)
 TARGETS = {"kk-KZ": "kk", "en-US": "en"}
 MANUAL_OVERRIDES = {
     "kk-KZ": {
@@ -190,18 +194,60 @@ def batches(values: list[str], max_chars: int = 1600) -> list[list[str]]:
     return result
 
 
+def derived_translation(value: str, locale: str) -> str | None:
+    """Translate stable numeric AVDS receipt labels without network access."""
+    match = AVDS_BADGE_LABEL.fullmatch(value)
+    if not match:
+        return None
+    fields = match.groupdict()
+    if locale == "kk-KZ":
+        return (
+            f"AVDS {fields['version']} жалпы қамтуы: {fields['coverage']} пайыз; "
+            f"негізгі маршруттық келісімшарт: {fields['routes']} пайыз"
+        )
+    if locale == "en-US":
+        return (
+            f"AVDS {fields['version']} overall coverage: {fields['coverage']} percent; "
+            f"baseline route contract: {fields['routes']} percent"
+        )
+    return None
+
+
 def write_catalog() -> None:
     values = source_inventory()
     if not values:
         raise SystemExit("locale catalog: source inventory is empty")
+    previous: dict[str, dict[str, str]] = {}
+    if CATALOG.is_file():
+        try:
+            existing = json.loads(CATALOG.read_text(encoding="utf-8"))
+            translations = existing.get("translations") or {}
+            previous = {
+                locale: mapping
+                for locale, mapping in translations.items()
+                if isinstance(mapping, dict)
+            }
+        except (OSError, json.JSONDecodeError):
+            previous = {}
     translated: dict[str, dict[str, str]] = {"ru-RU": {value: value for value in values}}
     for locale, target in TARGETS.items():
-        locale_values: dict[str, str] = {}
-        work = batches(values)
-        with ThreadPoolExecutor(max_workers=5) as executor:
-            futures = {executor.submit(translate_batch, batch, target): batch for batch in work}
-            for future in as_completed(futures):
-                locale_values.update(future.result())
+        locale_values = {
+            value: previous.get(locale, {}).get(value, "")
+            for value in values
+            if isinstance(previous.get(locale, {}).get(value), str) and previous[locale][value].strip()
+        }
+        for value in values:
+            if value not in locale_values:
+                translated_value = derived_translation(value, locale)
+                if translated_value:
+                    locale_values[value] = translated_value
+        missing = [value for value in values if value not in locale_values]
+        if missing:
+            work = batches(missing)
+            with ThreadPoolExecutor(max_workers=5) as executor:
+                futures = {executor.submit(translate_batch, batch, target): batch for batch in work}
+                for future in as_completed(futures):
+                    locale_values.update(future.result())
         locale_values.update({key: value for key, value in MANUAL_OVERRIDES.get(locale, {}).items() if key in locale_values})
         if set(locale_values) != set(values) or any(not value for value in locale_values.values()):
             raise SystemExit(f"locale catalog: incomplete {locale}")

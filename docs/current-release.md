@@ -1,8 +1,9 @@
 # Текущий статус выпуска
 
-Дата проверки: **2026-08-15, Asia/Almaty**. Это канонический receipt последнего
-публичного выпуска QAZ.INDUSTRIES; локальные проверки, runtime identity и
-публичная браузерная приёмка разделены ниже.
+Дата проверки public release: **2026-08-15, Asia/Almaty**. Это исторический
+receipt последнего публичного выпуска QAZ.INDUSTRIES; локальные проверки,
+runtime identity и публичная браузерная приёмка разделены ниже. Он не описывает
+uncommitted local candidate от 2026-08-23 и не является его deployment receipt.
 
 ## Identity
 
@@ -35,11 +36,12 @@
   внешним ссылкам: QZ.Energy `qz-energy-avds4-polish-20260813T130000Z`,
   Qazaqstan.Space `2026-08-06.48`, QAZ.FARM `2026-08-11.3` и QAZ.FISH
   `2026-08-13.01`.
-- Coverage receipt подтверждает общий AVDS system contract `128/128` (**100%**),
-  а базовый route/consumer contract — `12/12` (**100%**), badge
-  `AVDS 4.6.0-100`. Полный локальный UI-каталог содержит 844 исходных строк
-  в трёх локалях (`ru-RU`, `kk-KZ`, `en-US`); переключение языков проверено
-  браузером, включая динамический industry-профиль и график.
+- Исторический public receipt содержал AVDS `128/128` (**100%**) и route/consumer
+  `12/12` (**100%**). Он не переносится на local candidate: повторная проверка
+  2026-08-23 не подтвердила внешнюю AVDS consumer registration, поэтому его
+  честный показатель — `126/128` (**98%**), route `11/12` (**92%**), badge
+  `AVDS 4.6.0-98`. Локальный UI-каталог содержит 843 исходные строки в трёх
+  локалях (`ru-RU`, `kk-KZ`, `en-US`).
 - `@sgeo/ui-kit@4.6.0` закреплён vendored tarball с SHA-256
   `2e8382b74019e5fda6cd56bdbc58ec4864819825276828f6a235487d2d48a77c`;
   официальный token export детерминированно собирается в
@@ -84,9 +86,10 @@
   страницы, AVDS runtime CSS, locale catalog и consumer contract отвечают
   HTTP 200.
 - [AVDS coverage receipt](https://qaz.industries/data/avds-coverage.v1.json)
-  публично подтверждает общий `128/128` и `100%`, route/consumer `12/12` и
-  `100%`, badge `AVDS 4.6.0-100`; package runtime receipt подтверждает версию,
-  tarball/export/artifact digests и отсутствие добавленного JavaScript.
+  у public release остаётся историческим evidence на дату выпуска. Local
+  candidate намеренно не выдаёт его за текущий: его package runtime receipt
+  подтверждает версию, tarball/export/artifact digests и отсутствие добавленного
+  JavaScript, но не внешнюю consumer registration.
 - CSP, HSTS, `nosniff`, frame/referrer/permissions и COOP/CORP headers
   присутствуют; ответ содержит точный `X-QAZ-Industries-Release`.
 - Публичная Playwright-матрица проверила четыре страницы на 320, 390, 768, 820

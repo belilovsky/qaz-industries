@@ -47,6 +47,7 @@ ASSETS = (
     "data/avds-accessibility-contract.v1.json",
     "data/avds-zoom-proof.v1.json",
     "data/avds-visual-regression.v1.json",
+    "data/platform-registration-request.v1.json",
     "data/ui-locale.v1.json",
     "content/locale-contract.v1.json",
     "avds-consumer.json",
@@ -92,7 +93,7 @@ def main() -> int:
             require('property="og:title"' in source and 'property="og:description"' in source, f"{page}: missing OpenGraph metadata")
             require('data-avds-coverage-badge' in source, f"{page}: missing AVDS coverage badge")
             require(badge in source, f"{page}: stale AVDS coverage badge")
-            require(f"базовый маршрутный контракт: {route_percent} процентов" in source, f"{page}: stale AVDS route coverage label")
+            require(f"базовый маршрутный контракт: {route_percent}" in source, f"{page}: stale AVDS route coverage label")
             require('data-avds-pattern="app-shell"' in source, f"{page}: missing AVDS app shell")
             require('data-avds-pattern="site-footer"' in source, f"{page}: missing AVDS site footer")
         index = (ROOT / "index.html").read_text(encoding="utf-8")

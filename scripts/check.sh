@@ -5,6 +5,7 @@ root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root_dir"
 
 node scripts/build_avds_package.mjs --check
+python3 scripts/refresh_avds_system_contract.py
 python3 scripts/check_avds_coverage.py
 python3 scripts/check_responsive_contract.py
 python3 scripts/check_avds_route_ledger.py

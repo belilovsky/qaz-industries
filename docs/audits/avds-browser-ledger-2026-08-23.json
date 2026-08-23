@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "avds-browser-acceptance-ledger-v1",
+  "preflight": {
+    "health": "/",
+    "requiredPaths": [
+      "/styles.css",
+      "/runtime.js",
+      "/data/qazgeo-regions-public.v1.geojson",
+      "/data/qazlake-public-snapshot.v1.json"
+    ],
+    "optionalThirdPartyHosts": []
+  },
+  "viewports": [
+    {"id": "mobile-390", "width": 390, "height": 844},
+    {"id": "desktop-1440", "width": 1440, "height": 1000}
+  ],
+  "routes": [
+    {"id": "home", "path": "/", "role": "public-index", "states": [{"id": "ready", "fixtureKind": "production-like"}]},
+    {"id": "industry", "path": "/industry.html?sector=energy", "role": "sector-profile", "states": [{"id": "ready", "fixtureKind": "production-like"}]},
+    {"id": "benchmarks", "path": "/benchmarks.html", "role": "research", "states": [{"id": "ready", "fixtureKind": "production-like"}]},
+    {"id": "publication", "path": "/publication.html", "role": "publication-policy", "states": [{"id": "ready", "fixtureKind": "production-like"}]}
+  ],
+  "visualCraft": {
+    "required": true,
+    "allowedFontFamilies": ["ui-sans-serif"],
+    "targets": [
+      {"id": "shell", "selector": ".site-header", "role": "surface", "radiusGroup": "shell-radius"},
+      {"id": "title", "selector": "main h1", "role": "text", "typeGroup": "page-title"},
+      {"id": "primary-surface", "selector": "main > section:first-child", "role": "surface", "radiusGroup": "primary-surface-radius"},
+      {"id": "footer", "selector": ".site-footer", "role": "container"}
+    ],
+    "spacing": [],
+    "voidZones": []
+  }
+}

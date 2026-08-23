@@ -1,7 +1,7 @@
 # Индекс документации
 
 Этот индекс — навигация по текущей документации QAZ.INDUSTRIES. Дата проверки
-этой редакции: 2026-08-13. Источник факта выбирается в следующем порядке:
+этой редакции: 2026-08-23. Источник факта выбирается в следующем порядке:
 
 1. исходный код, manifest и public data contracts;
 2. текущий release receipt и runtime/public evidence;
@@ -35,6 +35,13 @@
 | [`documentation-quality.md`](documentation-quality.md) | правила актуальности и link audit | maintainers, аудиторы | active | docs inventory and checks |
 | [`completion-ledger.md`](completion-ledger.md) | результат documentation audit и остаточные блокеры | владельцы задачи | review_pending | this documentation pass |
 | [`roadmap-to-ideal.md`](roadmap-to-ideal.md) | исторический план для младших моделей | разработчики | historical/plan | archived plan; current-release supersedes identity |
+
+## Аудиты кандидата 2026-08-23
+
+- [`platform-integration-2026-08-23.md`](audits/platform-integration-2026-08-23.md) — audit + fix Platform/QazStack, включая внешний registry blocker.
+- [`edpol-rewrite-2026-08-23.md`](audits/edpol-rewrite-2026-08-23.md) — EdPol rewrite и границы scan findings.
+- [`avds-visual-uplift-2026-08-23.md`](audits/avds-visual-uplift-2026-08-23.md) — AVDS visual uplift, browser evidence и craft gate.
+- [`final-local-candidate-2026-08-23.md`](audits/final-local-candidate-2026-08-23.md) — итоговые local-only gates и внешний blocker.
 
 `SECURITY.md` и `CONTRIBUTING.md` остаются короткими entrypoints; подробные
 правила находятся в документах выше. Внешние проекты в этом checkout не

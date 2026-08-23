@@ -138,12 +138,13 @@ def main() -> int:
         require(isinstance(integrations, list) and len(integrations) == portfolio["measurement"]["scoped_surfaces"], "portfolio integration scope")
         statuses = [item.get("status") for item in integrations]
         require(statuses.count("source-verified") == portfolio["measurement"]["local_contract_backed"], "portfolio local contract count")
+        require(statuses.count("artifact-verified") == portfolio["measurement"]["artifact_verified"], "portfolio artifact verification count")
         require(statuses.count("public-snapshot-verified") == portfolio["measurement"]["public_snapshot_backed"], "portfolio snapshot count")
         require(statuses.count("public-contract-observed") == portfolio["measurement"]["public_contract_observed_link_only"], "portfolio link-only count")
-        require(statuses.count("public-observed-no-registration") == portfolio["measurement"]["observed_without_registration"], "portfolio registration count")
+        require(statuses.count("external-registration-blocked") == portfolio["measurement"]["external_registration_blocked"], "portfolio registration blocker count")
         require(
             portfolio["measurement"]["reviewed_contract_or_snapshot_backed"]
-            == portfolio["measurement"]["local_contract_backed"] + portfolio["measurement"]["public_snapshot_backed"],
+            == portfolio["measurement"]["local_contract_backed"] + portfolio["measurement"]["artifact_verified"] + portfolio["measurement"]["public_snapshot_backed"],
             "portfolio reviewed contract count",
         )
         seen_integration_ids: set[str] = set()
@@ -153,7 +154,7 @@ def main() -> int:
             seen_integration_ids.add(integration_id)
             require(isinstance(integration.get("name"), str) and integration["name"], f"portfolio integration {integration_id}: name")
             require(isinstance(integration.get("relationship"), str) and integration["relationship"], f"portfolio integration {integration_id}: relationship")
-            require(integration.get("status") in {"source-verified", "public-snapshot-verified", "public-contract-observed", "public-observed-no-registration"}, f"portfolio integration {integration_id}: status")
+            require(integration.get("status") in {"source-verified", "artifact-verified", "public-snapshot-verified", "public-contract-observed", "external-registration-blocked"}, f"portfolio integration {integration_id}: status")
             if integration.get("provider_url") is not None:
                 https(integration["provider_url"], f"portfolio integration {integration_id}: provider URL")
             evidence = integration.get("evidence")
@@ -168,6 +169,26 @@ def main() -> int:
         require(boundaries.get("direct_upstream_browser_access") is False, "portfolio direct upstream browser gate")
         require(boundaries.get("external_runtime_data_calls") is False, "portfolio external runtime data gate")
         require(boundaries.get("link_metadata_is_not_runtime_integration") is True, "portfolio link metadata boundary")
+
+        platform_request = load("platform-registration-request.v1.json")
+        require(platform_request.get("schema_version") == "qaz-industries-platform-registration-request-v1", "platform registration request schema")
+        require(platform_request.get("product_id") == portfolio["product_id"], "platform registration request product")
+        https(platform_request.get("canonical_url"), "platform registration request canonical URL")
+        https(platform_request.get("repository"), "platform registration request repository")
+        require(platform_request.get("requested_manifest_path") == "qdev-project.json", "platform registration requested manifest path")
+        require(set(platform_request.get("project_contracts") or []) == {"qazstack-thematic-product.json", "qazstack-consumer.json", "avds-consumer.json"}, "platform registration request contract set")
+        request = platform_request.get("request") or {}
+        https(request.get("canonical_registry_path"), "platform registration request registry path")
+        require(isinstance(request.get("external_owner"), str) and request["external_owner"], "platform registration request owner")
+        require(isinstance(request.get("required_change"), str) and request["required_change"], "platform registration required change")
+        require(isinstance(request.get("closure_proof"), str) and request["closure_proof"], "platform registration closure proof")
+        evidence = request.get("blocking_evidence") or {}
+        for field in ("health_url", "schema_url", "catalog_url"):
+            https(evidence.get(field), f"platform registration {field}")
+        require(evidence.get("schema_access") == "authentication-required-html-response", "platform schema access state")
+        require(evidence.get("catalog_access") == "authentication-required-html-response", "platform catalog access state")
+        runtime_boundary = platform_request.get("runtime_boundary") or {}
+        require(runtime_boundary == {"catalog_is_runtime_dependency": False, "direct_browser_data_access": False, "public_status": "blocked-external-registration"}, "platform registration runtime boundary")
 
         manifest = json.loads((ROOT / "qazstack-thematic-product.json").read_text(encoding="utf-8"))
         require(manifest["schema_version"] == "qazstack-thematic-product-v1", "thematic manifest schema")
@@ -215,13 +236,19 @@ def main() -> int:
         require(avds["schema_version"] == "qaz-industries-avds-coverage-v1", "AVDS coverage schema")
         require(avds["product_id"] == "qaz-industries", "AVDS coverage product")
         require(avds["method"]["kind"] == "avds-system-contract-categories", "AVDS coverage method")
-        require(avds["method"]["passed"] == 128 and avds["method"]["total"] == 128, "AVDS system coverage counts")
-        require(avds["coverage_percent"] == 100, "AVDS system coverage percentage")
-        require(avds["badge"] == "AVDS 4.6.0-100", "AVDS coverage badge")
-        require(avds["route_contract"]["passed"] == 12 and avds["route_contract"]["total"] == 12, "AVDS route coverage counts")
-        require(avds["route_contract"]["coverage_percent"] == 100, "AVDS route coverage percentage")
         require(avds["system_contract"] == "data/avds-system-contract.v1.json", "AVDS system contract link")
         require(len(avds["dimensions"]) == 10, "AVDS system dimensions")
+        system_passed = sum(item["passed"] for item in avds["dimensions"])
+        system_total = sum(item["total"] for item in avds["dimensions"])
+        system_percent = round(system_passed * 100 / system_total)
+        require(avds["method"]["passed"] == system_passed and avds["method"]["total"] == system_total, "AVDS system coverage counts")
+        require(avds["coverage_percent"] == system_percent, "AVDS system coverage percentage")
+        require(avds["badge"] == f"AVDS {avds['avds']['version']}-{system_percent}", "AVDS coverage badge")
+        route_gates = avds.get("gates") or []
+        route_passed = sum(item.get("passed") is True for item in route_gates)
+        route_total = len(route_gates)
+        require(avds["route_contract"]["passed"] == route_passed and avds["route_contract"]["total"] == route_total, "AVDS route coverage counts")
+        require(avds["route_contract"]["coverage_percent"] == round(route_passed * 100 / route_total), "AVDS route coverage percentage")
         https(avds["avds"]["source"], "AVDS source")
 
         avds_system = load("avds-system-contract.v1.json")
@@ -261,8 +288,14 @@ def main() -> int:
         require(avds_consumer["avds_version"] == avds["avds"]["version"], "AVDS consumer version")
         require(avds_consumer["adoption"]["package_runtime"] is True, "AVDS package runtime claim")
         require(avds_consumer["adoption"]["package_runtime_receipt"] == "data/avds-package-runtime.v1.json", "AVDS package runtime receipt")
-        require(avds_consumer["catalog_registration"]["consumer_id"] == "qaz_industries", "AVDS catalog consumer id")
-        require(avds_consumer["catalog_registration"]["state"] == "source-registered", "AVDS catalog registration")
+        registration = avds_consumer["catalog_registration"]
+        require(registration["consumer_id"] == "qaz_industries", "AVDS catalog consumer id")
+        require(registration["state"] == "external-source-unverifiable", "AVDS catalog registration boundary")
+        require(isinstance(registration.get("reason"), str) and registration["reason"], "AVDS catalog registration reason")
+        upstream = avds_consumer.get("upstream_release_observation") or {}
+        require(upstream.get("public_version") == "4.7.0", "AVDS public version observation")
+        require(upstream.get("source_verification") == "unverifiable-in-bounded-source", "AVDS source verification boundary")
+        require(upstream.get("upgrade_state") == "not-performed-no-matching-reviewed-artifact", "AVDS upgrade safety boundary")
         https(avds_consumer["canonical_url"], "AVDS consumer canonical URL")
         https(avds_consumer["source_repository"], "AVDS consumer source repository")
     except (KeyError, OSError, TypeError, ValueError, json.JSONDecodeError) as error:

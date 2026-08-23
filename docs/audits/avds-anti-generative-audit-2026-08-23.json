@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "avds-anti-generative-audit-v1",
+  "cells": [
+    {"route": "/", "role": "public-index", "state": "ready", "viewport": "desktop-1440", "findings": [
+      {"pattern": "generic-marketing-hero", "selector": ".hero", "screenshot": "output/playwright/before-home-1440.png → output/playwright/final/home__public-index__ready__desktop-1440.png", "semanticTest": "The primary action leads to the profile registry and the adjacent map exposes 20 reviewed QazGeo boundaries with source and state.", "replacement": "A flat, bordered evidence workspace with a factual title, profile actions, a real map and release facts.", "status": "resolved"},
+      {"pattern": "decorative-grid-and-glow", "selector": "body, .hero", "screenshot": "output/playwright/before-home-1440.png → output/playwright/final/home__public-index__ready__desktop-1440.png", "semanticTest": "No background grid, glow or gradient carries meaning; removing it preserves every map control and route action.", "replacement": "Token-coloured flat surfaces and border hierarchy.", "status": "resolved"},
+      {"pattern": "decorative-eyebrow", "selector": ".section-context", "screenshot": "output/playwright/before-home-1440.png → output/playwright/final/home__public-index__ready__desktop-1440.png", "semanticTest": "Each label names the section's information scope and is rendered as neutral metadata, not a rule, glow or promotional badge.", "replacement": "Semantic section context with the AVDS metadata type role.", "status": "resolved"}
+    ]},
+    {"route": "/", "role": "public-index", "state": "ready", "viewport": "mobile-390", "findings": [
+      {"pattern": "card-on-card-mobile-density", "selector": ".hero, .hero-map, .hero-release", "screenshot": "output/playwright/before-home-390.png → output/playwright/final/home__public-index__ready__mobile-390.png", "semanticTest": "The map, release facts and actions remain separate reading regions with controls visible and no horizontal overflow.", "replacement": "Stacked, opaque regions using the mobile AVDS shell rhythm.", "status": "resolved"}
+    ]},
+    {"route": "/industry.html?sector=energy", "role": "sector-profile", "state": "ready", "viewport": "desktop-1440", "findings": [
+      {"pattern": "glow-led-profile-hero", "selector": ".profile-hero", "screenshot": "tests/visual-baselines/qaz-industry-1440.png → output/playwright/final/industry__sector-profile__ready__desktop-1440.png", "semanticTest": "Profile title, release, source and KPI cells are all data-bound and remain available after decorative effects are removed.", "replacement": "A flat, bordered institutional profile surface.", "status": "resolved"}
+    ]},
+    {"route": "/industry.html?sector=energy", "role": "sector-profile", "state": "ready", "viewport": "mobile-390", "findings": []},
+    {"route": "/benchmarks.html", "role": "research", "state": "ready", "viewport": "desktop-1440", "findings": [
+      {"pattern": "generic-dark-callout", "selector": ".benchmark-hero, .adoption-copy", "screenshot": "tests/visual-baselines/qaz-benchmarks-1440.png → output/playwright/final/benchmarks__research__ready__desktop-1440.png", "semanticTest": "The research title, reference matrix and implementation link retain their meaning without a glow or gradient.", "replacement": "Flat data-reading surfaces with AVDS border and type hierarchy.", "status": "resolved"}
+    ]},
+    {"route": "/benchmarks.html", "role": "research", "state": "ready", "viewport": "mobile-390", "findings": []},
+    {"route": "/publication.html", "role": "publication-policy", "state": "ready", "viewport": "desktop-1440", "findings": [
+      {"pattern": "ornamental-publication-hero", "selector": ".benchmark-hero", "screenshot": "tests/visual-baselines/qaz-publication-1440.png → output/playwright/final/publication__publication-policy__ready__desktop-1440.png", "semanticTest": "Publication rules, attribution and correction routes are readable without a decorative background.", "replacement": "Flat policy surface that prioritizes the document's factual content.", "status": "resolved"}
+    ]},
+    {"route": "/publication.html", "role": "publication-policy", "state": "ready", "viewport": "mobile-390", "findings": []}
+  ]
+}

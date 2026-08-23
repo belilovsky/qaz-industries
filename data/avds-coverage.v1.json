@@ -1,7 +1,7 @@
 {
   "schema_version": "qaz-industries-avds-coverage-v1",
   "product_id": "qaz-industries",
-  "evaluated_at": "2026-08-15T11:31:46Z",
+  "evaluated_at": "2026-08-23T13:28:29Z",
   "avds": {
     "version": "4.6.0",
     "source": "https://avds.digital/",
@@ -10,12 +10,12 @@
   },
   "method": {
     "kind": "avds-system-contract-categories",
-    "passed": 128,
+    "passed": 126,
     "total": 128,
     "note": "Общий показатель считает только verified requirements десяти категорий AVDS system contract; route contract публикуется отдельно."
   },
-  "coverage_percent": 100,
-  "badge": "AVDS 4.6.0-100",
+  "coverage_percent": 98,
+  "badge": "AVDS 4.6.0-98",
   "gates": [
     {
       "id": "root-marker",
@@ -69,7 +69,7 @@
     },
     {
       "id": "consumer-registration",
-      "passed": true,
+      "passed": false,
       "label": "Регистрация продукта в consumer catalog AVDS"
     },
     {
@@ -79,9 +79,9 @@
     }
   ],
   "route_contract": {
-    "passed": 12,
+    "passed": 11,
     "total": 12,
-    "coverage_percent": 100,
+    "coverage_percent": 92,
     "note": "Базовое покрытие маршрутов и consumer integration; не является общей зрелостью дизайн-системы."
   },
   "system_contract": "data/avds-system-contract.v1.json",
@@ -89,9 +89,9 @@
     {
       "id": "routes",
       "label": "Маршруты",
-      "passed": 12,
+      "passed": 11,
       "total": 12,
-      "coverage_percent": 100
+      "coverage_percent": 92
     },
     {
       "id": "tokens-themes",
@@ -152,9 +152,9 @@
     {
       "id": "version-discipline",
       "label": "Версионная дисциплина и качество",
-      "passed": 12,
+      "passed": 11,
       "total": 12,
-      "coverage_percent": 100
+      "coverage_percent": 92
     }
   ]
 }

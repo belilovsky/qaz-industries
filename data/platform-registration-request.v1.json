@@ -1,0 +1,33 @@
+{
+  "schema_version": "qaz-industries-platform-registration-request-v1",
+  "product_id": "qaz-industries",
+  "product_name": "QAZ.INDUSTRIES",
+  "canonical_url": "https://qaz.industries/",
+  "repository": "https://github.com/belilovsky/qaz-industries",
+  "lifecycle": "beta",
+  "requested_manifest_path": "qdev-project.json",
+  "project_contracts": [
+    "qazstack-thematic-product.json",
+    "qazstack-consumer.json",
+    "avds-consumer.json"
+  ],
+  "request": {
+    "external_owner": "AV Platform catalog owner",
+    "canonical_registry_path": "https://platform.qdev.run/catalog/",
+    "required_change": "Publish an authenticated, schema-validated QAZ.INDUSTRIES catalog record and provide the active qdev-project schema or an accepted manifest receipt.",
+    "blocking_evidence": {
+      "observed_at": "2026-08-23T12:55:00Z",
+      "health_url": "https://platform.qdev.run/api/health",
+      "schema_url": "https://platform.qdev.run/qdev-project.schema.json",
+      "catalog_url": "https://platform.qdev.run/catalog/",
+      "schema_access": "authentication-required-html-response",
+      "catalog_access": "authentication-required-html-response"
+    },
+    "closure_proof": "A platform-owned record resolves for product_id qaz-industries, names https://qaz.industries/ and the repository, and validates against the active published or authenticated qdev-project schema."
+  },
+  "runtime_boundary": {
+    "catalog_is_runtime_dependency": false,
+    "direct_browser_data_access": false,
+    "public_status": "blocked-external-registration"
+  }
+}
