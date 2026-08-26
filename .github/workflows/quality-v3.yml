@@ -1,6 +1,8 @@
-# Vendored without semantic changes from
+# Vendored from
 # belilovsky/ecosystem/.github/workflows/quality-v3.yml@1ac51dd7bcab782f2edfe0482165681387ad72f2.
-# GitHub permits a public caller to use only public reusable-workflow repositories.
+# GitHub permits a public caller to use only public reusable-workflow repositories;
+# the distinct concurrency key below satisfies the project CI policy without
+# colliding with the caller workflow's cancellation group.
 name: QDev Quality v3
 
 on:
@@ -36,6 +38,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: qaz-industries-quality-v3-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   quality:
