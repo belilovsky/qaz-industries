@@ -1,0 +1,116 @@
+# Vendored without semantic changes from
+# belilovsky/ecosystem/.github/workflows/quality-v3.yml@1ac51dd7bcab782f2edfe0482165681387ad72f2.
+# GitHub permits a public caller to use only public reusable-workflow repositories.
+name: QDev Quality v3
+
+on:
+  workflow_call:
+    inputs:
+      runtime:
+        description: python, node or static
+        required: true
+        type: string
+      manifest_path:
+        required: false
+        default: qdev-project.json
+        type: string
+      install_command:
+        required: true
+        type: string
+      lint_command:
+        required: true
+        type: string
+      typecheck_command:
+        required: false
+        default: ""
+        type: string
+      test_command:
+        required: true
+        type: string
+      build_command:
+        required: true
+        type: string
+      security_command:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Standard quality gate
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: [self-hosted, Linux, X64, qdev-ci, "qdev-job-${{ github.run_id }}-${{ github.run_attempt }}-quality"]
+    timeout-minutes: 30
+    env:
+      QDEV_RUNTIME: ${{ inputs.runtime }}
+      QDEV_MANIFEST: ${{ inputs.manifest_path }}
+      INSTALL_COMMAND: ${{ inputs.install_command }}
+      LINT_COMMAND: ${{ inputs.lint_command }}
+      TYPECHECK_COMMAND: ${{ inputs.typecheck_command }}
+      TEST_COMMAND: ${{ inputs.test_command }}
+      BUILD_COMMAND: ${{ inputs.build_command }}
+      SECURITY_COMMAND: ${{ inputs.security_command }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+
+      - name: Validate project manifest
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          path = Path(os.environ["QDEV_MANIFEST"])
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          assert payload["schema_version"] == "qdev-project-manifest-v1"
+          assert re.fullmatch(r"[a-z0-9][a-z0-9-]*", payload["project_id"])
+          assert payload["profile"] in {
+              "public-web", "service-api", "platform-service", "data-pipeline",
+              "compute-service", "geo-product", "shared-library", "internal-tool",
+          }
+          assert payload["owners"]["product"] and payload["owners"]["technical"]
+          assert payload["quality"]["workflow"].endswith("quality-v3.yml@main")
+          commands = payload["quality"]["commands"]
+          for name in ("install", "lint", "test", "build", "security"):
+              assert commands.get(name), f"quality.commands.{name} is required"
+          assert int(payload["quality"]["coverage_minimum"]) >= 0
+          assert len(payload["quality"]["required_documents"]) >= 4
+          for relative in payload["quality"]["required_documents"]:
+              assert Path(relative).exists(), f"missing required document: {relative}"
+          print(f"manifest ok: {payload['project_id']} ({payload['profile']})")
+          PY
+
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        if: inputs.runtime == 'python'
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        if: inputs.runtime == 'node' || inputs.runtime == 'static'
+        with:
+          node-version: "22"
+
+      - name: Install
+        run: ${{ inputs.install_command }}
+
+      - name: Lint and format
+        run: ${{ inputs.lint_command }}
+
+      - name: Type check
+        if: inputs.typecheck_command != ''
+        run: ${{ inputs.typecheck_command }}
+
+      - name: Test
+        run: ${{ inputs.test_command }}
+
+      - name: Build
+        run: ${{ inputs.build_command }}
+
+      - name: Dependency and security audit
+        run: ${{ inputs.security_command }}

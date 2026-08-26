@@ -14,7 +14,9 @@ concurrency:
 
 jobs:
   quality:
-    uses: belilovsky/ecosystem/.github/workflows/quality-v3.yml@main
+    # GitHub does not expose a private reusable workflow to this public repo.
+    # This local copy is provenance-bound to ecosystem@1ac51dd7bcab782f2edfe0482165681387ad72f2.
+    uses: ./.github/workflows/quality-v3.yml
     with:
       runtime: static
       manifest_path: qdev-project.json
