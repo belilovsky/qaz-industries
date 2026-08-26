@@ -6,7 +6,7 @@
     "avds_version": "4.6.0",
     "package_source_revision": "88387252684aefd6b37ad34c55d3a9df537e2832",
     "control_plane_revision": "b5be3206d99726a25880b3d2c2ee92e7e96aa8a8",
-    "synchronized_at": "2026-08-23T13:32:52Z",
+    "synchronized_at": "2026-08-23T14:37:50Z",
     "package_runtime_receipt": "data/avds-package-runtime.v1.json",
     "connected_files": [
       {
@@ -31,7 +31,7 @@
       },
       {
         "path": "site-shell.js",
-        "sha256": "56bac728310ff7b99ea2534086774fcbdc583236697dfd3cce16366754b21860"
+        "sha256": "36fcb131022fef244f43878b8549a156173d73b32e80b27a8c421835b1ed79d0"
       },
       {
         "path": "theme.js",
@@ -43,7 +43,7 @@
       },
       {
         "path": "data/ui-locale.v1.json",
-        "sha256": "a2beb46dda50aafd080b5f64ca83399b3f60341eabd0ec5d36910457eda39695"
+        "sha256": "4dad182f97e1f606d07fd6d22b96e734a4fe391675d7e149154840dfc900dce2"
       },
       {
         "path": "package.json",

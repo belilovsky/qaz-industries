@@ -1,8 +1,9 @@
 # AVDS visual uplift — 2026-08-23
 
-Mode: **visual uplift**. Candidate source base:
-`c85f78c5e3f853b779b2e817f33263a765466407`; working-tree changes are local
-and uncommitted.
+Mode: **visual uplift**. The three structural decisions below were released in
+`7cb44a040c2de1baef0a604d59b1a4b738a8d4dc` as
+`20260823T134657Z-7cb44a040c2d`. The follow-up local candidate only repairs
+the accessible, localized AVDS badge label and remains uncommitted.
 
 ## Product decisions
 
@@ -15,6 +16,9 @@ and uncommitted.
 3. Decorative eyebrow styling became semantic section context. It identifies
    an information scope but has no ornamental line, glow, badge or counter
    role.
+4. The coverage badge keeps its machine-readable evidence but now uses the
+   correct Russian percentage form and refreshes its accessible label after a
+   locale switch; the compact footer does not gain another decorative element.
 
 ## Evidence
 
@@ -30,9 +34,12 @@ and uncommitted.
 - [`avds-visual-craft-audit-2026-08-23.json`](avds-visual-craft-audit-2026-08-23.json)
   covers all eight browser cells: geometry, radii, typography and space.
 
-The portable browser acceptance passed all 8 cells. The anti-generative and
-visual-craft validators both passed. This is **local-candidate evidence**,
-not live-public evidence.
+The portable browser acceptance passed all 8 local-candidate cells. The
+anti-generative and visual-craft validators both passed. On 2026-08-23 the
+same 8-cell matrix was repeated against `https://qaz.industries/` with matching
+`sourceSha` and `runtimeSha` of the published release; it also passed. The two
+evidence layers remain distinct: the local candidate includes the uncommitted
+localized-badge repair, while live-public proves only the immutable release.
 
 ## Version boundary
 

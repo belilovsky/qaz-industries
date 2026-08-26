@@ -46,6 +46,10 @@ MANUAL_OVERRIDES = {
         "Практика": "Практика",
         "Тема": "Тақырып",
         "Показано": "Көрсетілді",
+        "процент": "пайыз",
+        "процента": "пайыз",
+        "процентов": "пайыз",
+        "; базовый маршрутный контракт:": "; негізгі маршруттық келісімшарт:",
     },
     "en-US": {
         "Пробел": "Gap",
@@ -58,6 +62,10 @@ MANUAL_OVERRIDES = {
         "Практика": "Practice",
         "Тема": "Theme",
         "Показано": "Shown",
+        "процент": "percent",
+        "процента": "percent",
+        "процентов": "percent",
+        "; базовый маршрутный контракт:": "; baseline route contract:",
     },
 }
 HTML_PAGES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
@@ -236,6 +244,11 @@ def write_catalog() -> None:
             for value in values
             if isinstance(previous.get(locale, {}).get(value), str) and previous[locale][value].strip()
         }
+        locale_values.update({
+            key: value
+            for key, value in MANUAL_OVERRIDES.get(locale, {}).items()
+            if key in values and key not in locale_values
+        })
         for value in values:
             if value not in locale_values:
                 translated_value = derived_translation(value, locale)

@@ -3,10 +3,10 @@
 ## Scope and identity
 
 - Canonical source: `/Users/belilovsky/Documents/Codex/2026-08-09/qaz-industries`
-  on `main` at `c85f78c5e3f853b779b2e817f33263a765466407` plus the uncommitted
-  local candidate described in this repository.
+  on `main` at deployed `7cb44a040c2de1baef0a604d59b1a4b738a8d4dc`, plus the
+  uncommitted local candidate described in this repository.
 - Runtime/public entrypoint: `https://qaz.industries/`.
-- Audit cut-off: `2026-08-23T13:26:25Z`.
+- Audit cut-off: `2026-08-23T14:47:39Z`.
 - Evidence boundaries: the Platform schema and catalog redirect the public
   probe to authentication HTML; the bounded local source does not contain the
   public AVDS 4.7.0 source revision. No external checkout, registry or runtime
@@ -17,9 +17,9 @@
 `blocked`
 
 - Applicable rows: `9`.
-- Covered: `5`; documented: `2`; stale: `0`; missing: `1`; conflicting: `0`;
+- Covered: `6`; documented: `1`; stale: `0`; missing: `1`; conflicting: `0`;
   unverifiable: `1`.
-- Coverage: `5/9 = 56%`.
+- Coverage: `6/9 = 67%`.
 
 This is a strict Platform-acceptance result, not the AVDS product-quality
 metric. It cannot be stronger while the root `qdev-project.json` lacks a
@@ -39,8 +39,8 @@ no inspectable source receipt.
 | QazGeo | required | geographic dataset contract and fallback are explicit | sanitized GeoJSON, layer registry, map fallback and local checks | covered | 2026-08-23 | Twenty regional geometries are public-safe; sensitive coordinates are excluded. |
 | Identity/security | required | access boundary and mutation controls match behavior | static architecture, CSP/security and contract gates | covered | 2026-08-23 | Public surface has no authenticated mutation path or direct upstream credentials. |
 | Data/privacy | required | public/private fields and provenance remain separated | QazStack consumer, source registry, publication policy and tests | covered | 2026-08-23 | Browser uses same-origin reviewed projections only; raw/private material is excluded. |
-| Routes/UI | required | navigation, states and responsive behavior are proven | route ledger, accessibility, locale, responsive and visual gates | covered | 2026-08-23 | All four routes have local proof; AVDS consumer-registration gate remains intentionally false. |
-| Delivery/operations | required | CI, health, release identity, rollback evidence are coherent | historical release receipt, current public health and local gates | documented | 2026-08-23 | Public runtime remains `20260815T124544Z-c85f78c5e3f8`; this candidate has not been deployed. |
+| Routes/UI | required | navigation, states and responsive behavior are proven | route ledger, accessibility, locale, responsive and visual gates | covered | 2026-08-23 | Four routes have separate local-candidate and live-public 390/1440 browser proof (8/8 each); AVDS consumer-registration gate remains intentionally false. |
+| Delivery/operations | required | CI, health, release identity, rollback evidence are coherent | guarded deploy receipt, current public health/release identity and local gates | covered | 2026-08-23 | Runtime serves `20260823T134657Z-7cb44a040c2d` from the audited deployed SHA; the post-audit local candidate is not deployed. |
 
 ## Cross-system consistency
 
@@ -58,9 +58,9 @@ no inspectable source receipt.
 |---|---|---|
 | Manifest/schema | blocked | Root manifest is absent; schema endpoint is auth-gated HTML, not JSON Schema. |
 | QazStack integration | passed locally | `python3 scripts/check_public_contracts.py`; no external registry mutation or comparison. |
-| Product quality | passed locally | `bash scripts/check.sh` after the closure changes. |
-| Product tests/build/security | passed locally | Python and Node checks executed through `scripts/check.sh`. |
-| Runtime/public proof | observed | `https://qaz.industries/api/health` serves the pre-candidate release; no deployment was authorised. |
+| Product quality | passed locally | `bash scripts/check.sh` passed after the two local closures in this audit. |
+| Product tests/build/security | passed locally | 16 Python and 12 Node tests passed through `scripts/check.sh`. |
+| Runtime/public proof | covered | `release.json` and `/api/health` agree on `20260823T134657Z-7cb44a040c2d` and SHA `7cb44a0…`. |
 
 ## Remediation queue
 

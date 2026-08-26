@@ -1,9 +1,8 @@
 # Текущий статус выпуска
 
-Дата проверки public release: **2026-08-15, Asia/Almaty**. Это исторический
-receipt последнего публичного выпуска QAZ.INDUSTRIES; локальные проверки,
-runtime identity и публичная браузерная приёмка разделены ниже. Он не описывает
-uncommitted local candidate от 2026-08-23 и не является его deployment receipt.
+Дата runtime-проверки: **2026-08-23, Asia/Almaty**. Этот документ описывает
+текущий публичный выпуск. Новый local candidate после этой даты не считается
+опубликованным, пока не получит отдельный immutable release identity.
 
 ## Identity
 
@@ -13,129 +12,50 @@ uncommitted local candidate от 2026-08-23 и не является его depl
 | Checkout | `/Users/belilovsky/Documents/Codex/2026-08-09/qaz-industries` | source-confirmed |
 | Remote | `https://github.com/belilovsky/qaz-industries.git` | source-confirmed |
 | Branch | `main` | source-confirmed |
-| Deployed source SHA | `32633537077def4529ac14a17e0840bafb13d6c2` | source/runtime/public-confirmed |
-| Remote `origin/main` at code deploy | `32633537077def4529ac14a17e0840bafb13d6c2` | remote-confirmed |
+| Deployed source SHA | `7cb44a040c2de1baef0a604d59b1a4b738a8d4dc` | source/runtime/public-confirmed |
 | Public domain | [https://qaz.industries/](https://qaz.industries/) | public-verified |
 | Runtime | shared public-sites Caddy, immutable release + `current` symlink | runtime-confirmed |
-| Public release | `20260815T071309Z-32633537077d` | runtime/public-confirmed |
+| Public release | `20260823T134657Z-7cb44a040c2d` | runtime/public-confirmed |
 
-Функциональный commit `3263353…` является точным источником публичного
-артефакта. Release переключён атомарно после проверки Caddy bind mount,
-контейнера и public smoke. Последующие documentation-only commits могут сделать
-локальный и удалённый `HEAD` новее deployed source SHA, не меняя публичные
-исполняемые файлы.
+`release.json`, `/api/health` and `X-QAZ-Industries-Release` называют один
+выпуск. Caddy marker, host/container mount parity и immutable release tree
+проверены внутри guarded deploy.
 
-## Local acceptance
+## Local acceptance for the released source
 
-- `scripts/check.sh` прошёл перед commit и повторно внутри deploy: AVDS package
-  runtime, AVDS coverage, static, routes, accessibility, русская терминология,
-  quality budgets, документация, публичные контракты и immutable artifact —
-  `OK`.
-- Выполнено 11 Python-тестов и 11 Node-тестов; все прошли.
-- Отдельная network-сверка `scripts/check_sector_sources.py` прошла по 23
-  внешним ссылкам: QZ.Energy `qz-energy-avds4-polish-20260813T130000Z`,
-  Qazaqstan.Space `2026-08-06.48`, QAZ.FARM `2026-08-11.3` и QAZ.FISH
-  `2026-08-13.01`.
-- Исторический public receipt содержал AVDS `128/128` (**100%**) и route/consumer
-  `12/12` (**100%**). Он не переносится на local candidate: повторная проверка
-  2026-08-23 не подтвердила внешнюю AVDS consumer registration, поэтому его
-  честный показатель — `126/128` (**98%**), route `11/12` (**92%**), badge
-  `AVDS 4.6.0-98`. Локальный UI-каталог содержит 843 исходные строки в трёх
-  локалях (`ru-RU`, `kk-KZ`, `en-US`).
+- `bash scripts/check.sh` прошёл перед выпуском: package/runtime, AVDS system
+  contract, responsive/route/static/accessibility gates, locale, content,
+  data/privacy, public contracts и immutable artifact.
+- Прошли 16 Python и 11 Node tests; release artifact contract — `OK`.
 - `@sgeo/ui-kit@4.6.0` закреплён vendored tarball с SHA-256
-  `2e8382b74019e5fda6cd56bdbc58ec4864819825276828f6a235487d2d48a77c`;
-  официальный token export детерминированно собирается в
-  `avds-package-runtime.css` и проверяется по digest.
-- Полный AVDS control-plane gate также прошёл: typecheck, hygiene, contracts,
-  52 основных и 8 budget-тестов.
-- Реестр интеграций фиксирует 12 scoped surfaces: 9 contract/snapshot-backed,
-  2 публичных link-only receipts (EdPol и QAZ.TAX) и 1 наблюдаемую платформу без
-  найденной машинной регистрации (`platform.qdev.run`).
-- Визуальный polish-pass для mobile/tablet устранил узкий header overflow на 320px,
-  перестроил indicator cards на 768/820px, разложил live-map toolbar и footer,
-  закрепил touch targets не менее 40px и обновил восемь утверждённых baseline PNG;
-  visual manifest привязан к commit `16bcc88`.
-- Responsive browser matrix повторно проверила четыре маршрута на 320, 390, 768,
-  820 и 1024px: document/body width совпадают с viewport, горизонтального overflow
-  нет; намеренная прокрутка остаётся только в profile navigation и benchmark matrix.
-- Динамический filter summary теперь использует полный локальный шаблон и
-  обновляется при смене языка; live-проверка подтверждает RU/KK/EN без смешения
-  языков. Динамическое имя переключателя темы и его `aria-label` также
-  синхронизируются с активной темой и локалью; устаревшее значение не
-  возвращается после следующего catalog pass.
-- Финальный surface-pass добавил сдержанную материальность светлым составным
-  блокам: градиентные поверхности, общую глубину и pointer-only hover без
-  изменения AVDS-примитивов, тем, структуры или mobile-композиции.
+  `2e8382b74019e5fda6cd56bdbc58ec4864819825276828f6a235487d2d48a77c`.
+- AVDS receipt выпуска: `126/128` (**98%**), route contract `11/12` (**92%**),
+  badge `AVDS 4.6.0-98`. External consumer registration не засчитана без
+  inspectable control-plane source receipt.
+- RU/KK/EN каталог содержит 845 source strings и не вызывает translation API
+  в браузере. Динамический AVDS badge локализуется через same-origin catalog;
+  русские процентные формы вычисляются по правилам склонения.
 
-## Runtime acceptance
+## Public proof
 
-- `scripts/deploy.sh` принял чистый commit, повторил все gates и собрал
-  immutable release `20260815T071309Z-32633537077d`.
-- Кандидат Caddy прошёл marker check и `caddy validate`; после атомарного
-  переключения `current` публичные release identity и health проверены снова.
-- Host и bind-mounted Caddyfile совпадают (`/opt/qdev-public-sites/Caddyfile` ↔
-  `/qdev-public-sites/Caddyfile`); `/etc/caddy/Caddyfile` не используется.
-- Runtime receipt: `releases=8`, `backups=8`, `release_kib=1180`. Rollback
-  остаётся привязан к предыдущему immutable release.
+- Live-public Playwright matrix прошла `8/8`: четыре canonical routes на 390 и
+  1440 CSS pixels, без горизонтального overflow, console/CSP blocker или page
+  error. Evidence: `output/playwright/live-20260823T134657Z-7cb44a040c2d/`;
+  `sourceSha` и `runtimeSha` равны опубликованному SHA выше.
+- Все четыре canonical routes, AVDS consumer и Platform registration request
+  получили HTTP `200`. Главная страница также проверена с корректными title,
+  landmarks, QazGeo map controls и AVDS badge.
+- Отдельная local-candidate matrix также прошла `8/8` после исправления
+  локализованной грамматики шильдика. Это доказательство исходника и не меняет
+  публичный immutable release identity.
 
-## Public acceptance
-
-- [release.json](https://qaz.industries/release.json) и
-  [api/health](https://qaz.industries/api/health) возвращают один release и
-  точный source SHA `32633537077def4529ac14a17e0840bafb13d6c2`; все четыре
-  страницы, AVDS runtime CSS, locale catalog и consumer contract отвечают
-  HTTP 200.
-- [AVDS coverage receipt](https://qaz.industries/data/avds-coverage.v1.json)
-  у public release остаётся историческим evidence на дату выпуска. Local
-  candidate намеренно не выдаёт его за текущий: его package runtime receipt
-  подтверждает версию, tarball/export/artifact digests и отсутствие добавленного
-  JavaScript, но не внешнюю consumer registration.
-- CSP, HSTS, `nosniff`, frame/referrer/permissions и COOP/CORP headers
-  присутствуют; ответ содержит точный `X-QAZ-Industries-Release`.
-- Публичная Playwright-матрица проверила четыре страницы на 320, 390, 768, 820
-  и 1024px: 20 маршрут×viewport сочетаний без горизонтального overflow;
-  четыре маршрута на 390px дали `0` console errors/warnings. Asset marker
-  `32633537077d` и HTTP 200 подтверждены на каждом публичном маршруте.
-  Дополнительно проверены `en-US` и `kk-KZ`, переключение темы с актуальным доступным именем и `aria-label`, меню и
-  Escape/focus-поведение; industry route содержит 4 snapshot rows, 14 chart
-  rows и одну period comparison, data states остаются success/contract-only по
-  источнику.
-- Мобильное меню открывается, передаёт фокус первой ссылке, закрывается по
-  `Escape` и возвращает фокус кнопке; console warnings/errors отсутствуют.
-- [Реестр интеграций](https://qaz.industries/data/portfolio-integration-registry.v1.json)
-  отвечает `200` и содержит подтверждённые upstream revisions QazLake
-  `3490a750dfc2b2a1454db842d1b342f608705ade` и QazGeo
-  `d05cde433e96808f8afac9a2a6510e237c023f26`, а также receipts EdPol/QAZ.TAX.
-- Legacy request `GET /favicon.ico` отвечает `308` на локальный
-  `/favicon.svg`; прямой JSON-маршрут реестра в браузере имеет `application/json`
-  и не создаёт console errors.
-
-## Portfolio integration receipt
-
-Машинный контракт и границы: [`data/portfolio-integration-registry.v1.json`](../data/portfolio-integration-registry.v1.json).
-
-| Surface | Current relation | Evidence |
-|---|---|---|
-| AVDS 4 / QazStack / translations | source-verified local contracts | pinned AVDS 4.6.0, QazStack consumer, RU/KK/EN catalog |
-| QazLake / QazGeo | reviewed same-origin snapshots | revisions above; regional/water gaps remain degraded or contract-only |
-| QZ.Energy / Space / FARM / FISH | curated profile projections | four live release IDs listed in local acceptance |
-| EdPol / QAZ.TAX | public contract link metadata only | AVDS 4.7.0 adoption receipts, no runtime data transfer |
-| platform.qdev.run | health/catalog observed, no registration found | public health `434e97db5e62186ca5907c7d8ca325035dee892b` |
-
-## Data boundary
+## Data and integration boundaries
 
 Браузер читает только versioned same-origin reviewed projections. Raw QazLake,
 закрытые очереди, учётные данные и чувствительные координаты не публикуются.
-Отсутствующие региональные и водные наблюдения остаются `degraded`, а
-`contract_only` не превращается в наблюдение или нулевое значение.
+Региональные и водные пробелы остаются `degraded`/`contract_only`.
 
-## Открытые внешние blockers
-
-- QazLake regional indicators и water catalogue ожидают публичного upstream
-  contract; сайт корректно работает в fail-closed degraded state.
-- Стабильный приватный security intake отсутствует: private vulnerability
-  reporting в GitHub не включён и публичный mailbox не назначен.
-
-Эти внешние blockers не нарушают текущую публичную работоспособность и не
-снижают AVDS consumer coverage, но не позволяют заявлять отсутствующие данные
-или операционные каналы.
+Platform catalog/schema public probes redirect to authenticated HTML; поэтому
+`qdev-project.json` не фабрикуется. Точный owner, canonical path и closure proof
+описаны в [`data/platform-registration-request.v1.json`](../data/platform-registration-request.v1.json)
+и [Platform audit](audits/platform-integration-2026-08-23.md).
