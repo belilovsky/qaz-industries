@@ -39,7 +39,9 @@ STATIC_FILES = (
     "sitemap.xml",
     "qazstack-thematic-product.json",
     "qazstack-consumer.json",
+    "qazstack-consumer.v1.json",
     "avds-consumer.json",
+    "qdev-project.json",
 )
 HTML_FILES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 VERSIONED_ASSETS = (

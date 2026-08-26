@@ -13,11 +13,13 @@
 
 ## Scheduled monitor
 
-`public-contract-monitor.yml` ежедневно запускает read-only refresh probes для
-QazLake, QazGeo, layer registry и четырёх отраслевых продуктов, затем
-`scripts/check.sh`. Artifact сохраняется 7 дней. Workflow не коммитит, не
-публикует и не переключает runtime. Пока workflow commit не отправлен в
-`origin/main`, расписание существует только локально и не считается активным.
+`public-contract-monitor.yml` ежедневно запускает независимые read-only probes
+для QazLake, QazGeo, layer registry и четырёх отраслевых продуктов, а
+`scripts/check.sh` выполняется независимо от результата upstream. Artifact с
+каждым результатом и aggregate summary сохраняется 7 дней. Недоступный QazLake
+получает `degraded`, пока последний reviewed snapshot не старше 31 дня;
+повреждённый или stale snapshot, QazGeo failure и sector drift блокируют
+workflow. Monitor не коммитит, не публикует и не переключает runtime.
 
 ## Диагностика
 
@@ -29,9 +31,9 @@ scripts/check.sh
 ```
 
 Если release header, health и `release.json` различаются, выпуск считается
-непринятым. Если snapshot stale или upstream unavailable, сохраняется degraded
-state. Если Caddy parity не проходит, deploy должен остановиться до смены
-активного symlink.
+непринятым. QazLake outage допускает только bounded degraded state со snapshot
+не старше 31 дня; stale или invalid snapshot блокирует выпуск. Если Caddy parity
+не проходит, deploy должен остановиться до смены активного symlink.
 
 ## Наблюдаемые пробелы
 

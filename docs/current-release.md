@@ -1,8 +1,9 @@
-# Текущий статус выпуска
+# Последний подтверждённый baseline перед production-интеграцией
 
-Дата runtime-проверки: **2026-08-23, Asia/Almaty**. Этот документ описывает
-текущий публичный выпуск. Новый local candidate после этой даты не считается
-опубликованным, пока не получит отдельный immutable release identity.
+Дата runtime-проверки baseline: **2026-08-23, Asia/Almaty**. Точные текущие
+production identity всегда определяются `/release.json`, `/api/health` и
+`X-Qaz-Industries-Release`; этот документ сохраняет последний проверенный
+доинтеграционный срез и не подменяет новый release receipt.
 
 ## Identity
 
@@ -55,7 +56,8 @@
 закрытые очереди, учётные данные и чувствительные координаты не публикуются.
 Региональные и водные пробелы остаются `degraded`/`contract_only`.
 
-Platform catalog/schema public probes redirect to authenticated HTML; поэтому
-`qdev-project.json` не фабрикуется. Точный owner, canonical path и closure proof
-описаны в [`data/platform-registration-request.v1.json`](../data/platform-registration-request.v1.json)
-и [Platform audit](audits/platform-integration-2026-08-23.md).
+Production candidate добавляет корневой `qdev-project.json`, центральный
+`qazstack-consumer.v1.json` и стабильную AVDS surface identity. Bilateral
+acceptance считается закрытой только после matching records в QazStack и
+Platform; product-side path и closure proof описаны в
+[`data/platform-registration-request.v1.json`](../data/platform-registration-request.v1.json).

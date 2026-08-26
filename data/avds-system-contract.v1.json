@@ -6,7 +6,7 @@
     "avds_version": "4.6.0",
     "package_source_revision": "88387252684aefd6b37ad34c55d3a9df537e2832",
     "control_plane_revision": "b5be3206d99726a25880b3d2c2ee92e7e96aa8a8",
-    "synchronized_at": "2026-08-23T14:37:50Z",
+    "synchronized_at": "2026-08-26T12:14:24Z",
     "package_runtime_receipt": "data/avds-package-runtime.v1.json",
     "connected_files": [
       {
@@ -43,11 +43,11 @@
       },
       {
         "path": "data/ui-locale.v1.json",
-        "sha256": "4dad182f97e1f606d07fd6d22b96e734a4fe391675d7e149154840dfc900dce2"
+        "sha256": "39fb7d52853f7c51f1b0d2c56fd4829b44d2b2669009e8031c83ec6b69fd19d0"
       },
       {
         "path": "package.json",
-        "sha256": "59721b9e57de8d1606ac09449e8711c22e9bf22dde3804f5caff8758bf6fa6b0"
+        "sha256": "4b6144217681db35ee652591beb7ed104da198b499d61a4baa8a1b85163e0152"
       },
       {
         "path": "package-lock.json",
@@ -55,7 +55,7 @@
       },
       {
         "path": "avds-consumer.json",
-        "sha256": "63ac6b16b09ed8050af3d0c6a63f1e2778d516599d799c1809c11982acaed4ee"
+        "sha256": "7c9c1c726b0d26677f5521e6ba67fa919134a61bec00138568c191b5953d68b6"
       }
     ]
   },

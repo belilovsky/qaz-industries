@@ -1,17 +1,17 @@
 {
   "schema_version": "qaz-industries-portfolio-integration-registry-v1",
   "product_id": "qaz-industries",
-  "evaluated_at": "2026-08-23T13:26:25Z",
+  "evaluated_at": "2026-08-26T12:03:38Z",
   "measurement": {
     "basis": "confirmed source contracts and public evidence; link metadata is not runtime data integration",
     "scoped_surfaces": 12,
-    "reviewed_contract_or_snapshot_backed": 10,
-    "local_contract_backed": 3,
+    "reviewed_contract_or_snapshot_backed": 11,
+    "local_contract_backed": 4,
     "artifact_verified": 1,
     "public_snapshot_backed": 6,
     "public_contract_observed_link_only": 1,
     "link_metadata_only": 1,
-    "external_registration_blocked": 1
+    "external_registration_blocked": 0
   },
   "integrations": [
     {
@@ -26,20 +26,20 @@
         {"path": "data/avds-system-contract.v1.json", "url": "https://qaz.industries/data/avds-system-contract.v1.json"},
         {"path": "data/avds-coverage.v1.json", "url": "https://qaz.industries/data/avds-coverage.v1.json"}
       ],
-      "notes": "Vendored @sgeo/ui-kit 4.6.0 is hash-verified locally and the browser has no external AVDS runtime dependency. Public AVDS is observed at 4.7.0, but its source record and a reviewed matching upgrade artifact are not available in this checkout, so consumer registration is not asserted."
+      "notes": "Vendored @sgeo/ui-kit 4.6.0 is hash-verified locally and the browser has no external AVDS runtime dependency. The stable consumer identity is qaz-industries-public; Platform owns the generated surface acceptance."
     },
     {
       "id": "platform-qdev",
       "name": "platform.qdev.run",
       "provider_url": "https://platform.qdev.run/",
-      "relationship": "catalog-and-health-observation",
-      "status": "external-registration-blocked",
-      "registration_state": "qaz-industries-public-registration-unverified",
+      "relationship": "catalog-registration-contract",
+      "status": "source-verified",
+      "registration_state": "platform-owned-acceptance-required",
       "evidence": [
-        {"url": "https://platform.qdev.run/api/health", "kind": "health", "release_sha": "5e92f060e883d5562ca95d6cbfb730db16ac6456"},
+        {"path": "qdev-project.json", "url": "https://qaz.industries/qdev-project.json", "kind": "project-manifest"},
         {"path": "data/platform-registration-request.v1.json", "kind": "project-side-registration-request"}
       ],
-      "notes": "Platform health is reachable, but the catalog and qdev-project schema return an authentication page to the public probe. The project-side registration request records the required external owner, path and closure proof; there is no runtime dependency."
+      "notes": "The project-side manifest and registration request are source-verified. Runtime acceptance is covered only when the generated Platform catalog exposes the matching production row; the catalog is not a browser runtime dependency."
     },
     {
       "id": "qazstack",
@@ -47,6 +47,7 @@
       "relationship": "consumer-contract",
       "status": "source-verified",
       "evidence": [
+        {"path": "qazstack-consumer.v1.json", "url": "https://qaz.industries/qazstack-consumer.v1.json"},
         {"path": "qazstack-consumer.json", "url": "https://qaz.industries/qazstack-consumer.json"},
         {"path": "qazstack-thematic-product.json", "url": "https://qaz.industries/qazstack-thematic-product.json"}
       ],
@@ -135,7 +136,7 @@
       "provider_url": "https://qz.energy/",
       "relationship": "curated-profile-projection",
       "status": "public-snapshot-verified",
-      "release_id": "qz-energy-avds4-polish-20260813T130000Z",
+      "release_id": "qz-energy-newsroom-4100f6a1-20260826",
       "evidence": [{"url": "https://qz.energy/data/thematic-release.json", "kind": "thematic-release"}]
     },
     {
@@ -144,7 +145,7 @@
       "provider_url": "https://qazaqstan.space/",
       "relationship": "curated-profile-projection",
       "status": "public-snapshot-verified",
-      "release_id": "2026-08-06.48",
+      "release_id": "2026-08-25.2",
       "evidence": [{"url": "https://qazaqstan.space/data/v1/index.json", "kind": "public-data-index"}]
     },
     {
@@ -153,7 +154,7 @@
       "provider_url": "https://qaz.farm/",
       "relationship": "curated-profile-projection",
       "status": "public-snapshot-verified",
-      "release_id": "2026-08-11.3",
+      "release_id": "2026-08-21.1",
       "evidence": [{"url": "https://qaz.farm/thematic-release.json", "kind": "thematic-release"}]
     },
     {
@@ -162,7 +163,7 @@
       "provider_url": "https://qaz.fish/",
       "relationship": "curated-profile-projection",
       "status": "public-snapshot-verified",
-      "release_id": "2026-08-13.01",
+      "release_id": "qazgeo-20260825T102556931z",
       "evidence": [{"url": "https://qaz.fish/data/thematic-release.json", "kind": "thematic-release"}]
     }
   ],

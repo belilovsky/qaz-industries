@@ -1,0 +1,114 @@
+{
+  "$schema": "https://platform.qdev.run/schemas/qdev-project-manifest-v1.json",
+  "schema_version": "qdev-project-manifest-v1",
+  "project_id": "qaz-industries",
+  "repository": {
+    "url": "https://github.com/belilovsky/qaz-industries",
+    "default_branch": "main"
+  },
+  "entrypoints": {
+    "public": "https://qaz.industries/",
+    "health": "https://qaz.industries/api/health",
+    "readiness": "https://qaz.industries/api/health",
+    "release_identity": "https://qaz.industries/release.json"
+  },
+  "profile": "public-web",
+  "lifecycle": "production",
+  "owners": {
+    "product": "qdev",
+    "technical": "qdev",
+    "data": "qdev"
+  },
+  "runtime": {
+    "kind": "static",
+    "language": "HTML/CSS/JavaScript with Python build checks",
+    "version": null
+  },
+  "capabilities": {
+    "qazstack": {
+      "mode": "required",
+      "version": "contract-only",
+      "contracts": [
+        "qazstack-consumer.v1.json",
+        "qazstack-consumer.json",
+        "qazstack-thematic-product.json"
+      ]
+    },
+    "avds": {
+      "mode": "required",
+      "version": "4.6.0",
+      "contracts": [
+        "avds-consumer.json",
+        "data/avds-package-runtime.v1.json",
+        "data/avds-system-contract.v1.json",
+        "data/avds-coverage.v1.json"
+      ]
+    },
+    "data": {
+      "mode": "required",
+      "version": null,
+      "contracts": [
+        "data/qazlake-public-snapshot.v1.json",
+        "data/reviewed-source-registry.v1.json",
+        "docs/data-provenance.md",
+        "docs/security-privacy.md"
+      ],
+      "qazpipe": false,
+      "qazlake": true
+    },
+    "compute": {
+      "mode": "not-applicable",
+      "version": null,
+      "contracts": [
+        "docs/architecture.md",
+        "docs/portfolio-integrations.md"
+      ]
+    },
+    "geo": {
+      "mode": "required",
+      "version": null,
+      "contracts": [
+        "data/qazgeo-public-snapshot.v1.json",
+        "data/qazgeo-public-layer-registry.v1.json",
+        "data/qazgeo-regions-public.v1.geojson"
+      ]
+    },
+    "identity": {
+      "mode": "required",
+      "version": null,
+      "contracts": [
+        "SECURITY.md",
+        "docs/security-privacy.md",
+        "deploy/qaz-industries.caddy.fragment"
+      ]
+    }
+  },
+  "quality": {
+    "state": "configured",
+    "workflow": "belilovsky/ecosystem/.github/workflows/quality-v3.yml@main",
+    "coverage_minimum": 80,
+    "commands": {
+      "install": "npm ci",
+      "lint": "npm run lint",
+      "typecheck": "",
+      "test": "npm test",
+      "build": "npm run build",
+      "security": "npm run security"
+    },
+    "required_documents": [
+      "README.md",
+      "SECURITY.md",
+      "docs/architecture.md",
+      "docs/development-testing.md",
+      "docs/observability.md",
+      "docs/security-privacy.md"
+    ]
+  },
+  "operations": {
+    "health_path": "/api/health",
+    "readiness_path": "/api/health",
+    "release_revision_path": "/release.json",
+    "deploy_mode": "static"
+  },
+  "exceptions": []
+}

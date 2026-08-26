@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "build:avds-package": "node scripts/build_avds_package.mjs",
-    "check:avds-package": "node scripts/build_avds_package.mjs --check"
+    "check:avds-package": "node scripts/build_avds_package.mjs --check",
+    "lint": "bash scripts/lint.sh",
+    "test": "bash scripts/check.sh",
+    "build": "python3 scripts/check_release_build.py",
+    "security": "npm audit --omit=dev --audit-level=high && python3 scripts/check_quality_budgets.py"
   },
   "dependencies": {
     "@sgeo/ui-kit": "file:vendor/sgeo-ui-kit-4.6.0.tgz"

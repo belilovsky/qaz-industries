@@ -27,8 +27,9 @@ Shell gate включает все четыре страницы: header, осн
 остаются локальными, а размеры интерактивных целей, active state, focus и
 семантика ролей закреплены AV DS слоем.
 
-Consumer registration закреплена взаимным контрактом `avds-consumer.json` и
-записью `qaz_industries` в control-plane AV DS. Режим интеграции остаётся
+Consumer registration закреплена продуктовым контрактом `avds-consumer.json`
+со стабильной identity `qaz-industries-public` и matching Platform surface
+record. Режим интеграции остаётся
 `static-contract`: пакет `@sgeo/ui-kit@4.6.0` закреплён локальным проверяемым
 артефактом, а его официальный export токенов собирается в
 `avds-package-runtime.css`. Продуктовый token layer подключается следом и

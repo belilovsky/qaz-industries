@@ -67,10 +67,20 @@ def main() -> int:
         raise SystemExit("release contract: portfolio integration registry scope mismatch")
     try:
         consumer = json.loads((directory / "qazstack-consumer.json").read_text(encoding="utf-8"))
+        central_consumer = json.loads((directory / "qazstack-consumer.v1.json").read_text(encoding="utf-8"))
+        project_manifest = json.loads((directory / "qdev-project.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
-        raise SystemExit(f"release contract: invalid QazStack consumer contract: {error}") from error
+        raise SystemExit(f"release contract: invalid Platform or QazStack contract: {error}") from error
     if consumer.get("schema_version") != "qazstack-consumer-contract-v1" or consumer.get("product_id") != "qaz-industries":
         raise SystemExit("release contract: QazStack consumer identity mismatch")
+    if central_consumer.get("schema_version") != "qazstack-consumer-v1" or central_consumer.get("project_id") != "qaz-industries":
+        raise SystemExit("release contract: central QazStack consumer identity mismatch")
+    if central_consumer.get("lifecycle") != "production" or central_consumer.get("integration_mode") != "http-contract":
+        raise SystemExit("release contract: central QazStack production profile mismatch")
+    if project_manifest.get("schema_version") != "qdev-project-manifest-v1" or project_manifest.get("project_id") != "qaz-industries":
+        raise SystemExit("release contract: QDev project manifest identity mismatch")
+    if project_manifest.get("profile") != "public-web" or project_manifest.get("lifecycle") != "production":
+        raise SystemExit("release contract: QDev production profile mismatch")
     for discovery_file in ("robots.txt", "sitemap.xml"):
         if not (directory / discovery_file).is_file():
             raise SystemExit(f"release contract: discovery file missing: {discovery_file}")

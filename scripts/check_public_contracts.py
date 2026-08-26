@@ -176,22 +176,49 @@ def main() -> int:
         https(platform_request.get("canonical_url"), "platform registration request canonical URL")
         https(platform_request.get("repository"), "platform registration request repository")
         require(platform_request.get("requested_manifest_path") == "qdev-project.json", "platform registration requested manifest path")
-        require(set(platform_request.get("project_contracts") or []) == {"qazstack-thematic-product.json", "qazstack-consumer.json", "avds-consumer.json"}, "platform registration request contract set")
+        require(
+            set(platform_request.get("project_contracts") or [])
+            == {
+                "qazstack-thematic-product.json",
+                "qazstack-consumer.json",
+                "qazstack-consumer.v1.json",
+                "avds-consumer.json",
+            },
+            "platform registration request contract set",
+        )
         request = platform_request.get("request") or {}
         https(request.get("canonical_registry_path"), "platform registration request registry path")
         require(isinstance(request.get("external_owner"), str) and request["external_owner"], "platform registration request owner")
         require(isinstance(request.get("required_change"), str) and request["required_change"], "platform registration required change")
         require(isinstance(request.get("closure_proof"), str) and request["closure_proof"], "platform registration closure proof")
-        evidence = request.get("blocking_evidence") or {}
+        evidence = request.get("platform_evidence") or {}
         for field in ("health_url", "schema_url", "catalog_url"):
             https(evidence.get(field), f"platform registration {field}")
-        require(evidence.get("schema_access") == "authentication-required-html-response", "platform schema access state")
-        require(evidence.get("catalog_access") == "authentication-required-html-response", "platform catalog access state")
+        require(evidence.get("schema_access") == "public-json", "platform schema access state")
+        require(evidence.get("catalog_access") == "public-json", "platform catalog access state")
+        require(evidence.get("source_registration") == "platform-owned-change-required", "platform source registration state")
         runtime_boundary = platform_request.get("runtime_boundary") or {}
-        require(runtime_boundary == {"catalog_is_runtime_dependency": False, "direct_browser_data_access": False, "public_status": "blocked-external-registration"}, "platform registration runtime boundary")
+        require(runtime_boundary == {"catalog_is_runtime_dependency": False, "direct_browser_data_access": False, "public_status": "platform-registration-requested"}, "platform registration runtime boundary")
+
+        project_manifest = json.loads((ROOT / "qdev-project.json").read_text(encoding="utf-8"))
+        require(project_manifest.get("schema_version") == "qdev-project-manifest-v1", "QDev manifest schema")
+        require(project_manifest.get("project_id") == "qaz-industries", "QDev manifest project")
+        require(project_manifest.get("profile") == "public-web", "QDev manifest profile")
+        require(project_manifest.get("lifecycle") == "production", "QDev manifest lifecycle")
+        require(project_manifest.get("entrypoints", {}).get("release_identity") == "https://qaz.industries/release.json", "QDev release identity")
+        capabilities = project_manifest.get("capabilities") or {}
+        require(capabilities.get("qazstack", {}).get("mode") == "required", "QDev QazStack mode")
+        require(capabilities.get("avds", {}).get("version") == "4.6.0", "QDev AVDS version")
+        require(capabilities.get("data", {}).get("qazlake") is True, "QDev QazLake mode")
+        require(capabilities.get("data", {}).get("qazpipe") is False, "QDev QazPipe boundary")
+        require(capabilities.get("compute", {}).get("mode") == "not-applicable", "QDev compute boundary")
+        require(capabilities.get("geo", {}).get("mode") == "required", "QDev QazGeo mode")
+        require(capabilities.get("identity", {}).get("mode") == "required", "QDev identity boundary")
 
         manifest = json.loads((ROOT / "qazstack-thematic-product.json").read_text(encoding="utf-8"))
         require(manifest["schema_version"] == "qazstack-thematic-product-v1", "thematic manifest schema")
+        require(manifest.get("lifecycle") == "production", "thematic manifest lifecycle")
+        require(manifest.get("qazstack_adoption_contract") == "qazstack-consumer.v1.json", "thematic adoption contract")
         require(manifest["publication"]["public_records_require_review"] is True, "review gate")
         require(manifest["publication"].get("edpol_editorial_ledger") == "data/edpol-editorial-ledger.v1.json", "EdPol ledger publication link")
         require(manifest["publication"].get("automatic_publication") is False, "EdPol automatic publication gate")
@@ -231,6 +258,16 @@ def main() -> int:
         boundaries = consumer["boundaries"]
         require(boundaries.get("same_origin_assets_only") is True, "consumer same-origin gate")
         require(boundaries.get("contract_only_is_observation") is False, "consumer contract-only gate")
+
+        central_consumer = json.loads((ROOT / "qazstack-consumer.v1.json").read_text(encoding="utf-8"))
+        require(central_consumer.get("schema_version") == "qazstack-consumer-v1", "central consumer schema")
+        require(central_consumer.get("project_id") == manifest["product_id"], "central consumer project")
+        require(central_consumer.get("lifecycle") == "production", "central consumer lifecycle")
+        require(central_consumer.get("integration_mode") == "http-contract", "central consumer integration mode")
+        require(central_consumer.get("qazstack_version") == "contract-only", "central consumer QazStack version")
+        require(central_consumer.get("primitives") == ["thematic-product-contracts"], "central consumer primitive set")
+        for runtime_url in central_consumer.get("evidence", {}).get("runtime_urls", []):
+            https(runtime_url, "central consumer runtime URL")
 
         avds = load("avds-coverage.v1.json")
         require(avds["schema_version"] == "qaz-industries-avds-coverage-v1", "AVDS coverage schema")
@@ -289,8 +326,12 @@ def main() -> int:
         require(avds_consumer["adoption"]["package_runtime"] is True, "AVDS package runtime claim")
         require(avds_consumer["adoption"]["package_runtime_receipt"] == "data/avds-package-runtime.v1.json", "AVDS package runtime receipt")
         registration = avds_consumer["catalog_registration"]
-        require(registration["consumer_id"] == "qaz_industries", "AVDS catalog consumer id")
-        require(registration["state"] == "external-source-unverifiable", "AVDS catalog registration boundary")
+        require(registration["consumer_id"] == "qaz-industries-public", "AVDS catalog consumer id")
+        require(registration["project_id"] == "qaz-industries", "AVDS catalog project id")
+        require(registration["repository"] == "https://github.com/belilovsky/platform-portal", "AVDS catalog repository")
+        require(registration["source_path"] == "catalog/platform-contract/surfaces.v0.yaml", "AVDS catalog source path")
+        require(registration["state"] == "platform-owned-contract", "AVDS catalog registration boundary")
+        https(registration.get("contract_url"), "AVDS catalog contract URL")
         require(isinstance(registration.get("reason"), str) and registration["reason"], "AVDS catalog registration reason")
         upstream = avds_consumer.get("upstream_release_observation") or {}
         require(upstream.get("public_version") == "4.7.0", "AVDS public version observation")

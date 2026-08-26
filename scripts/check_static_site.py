@@ -38,6 +38,8 @@ ASSETS = (
     "robots.txt",
     "sitemap.xml",
     "qazstack-consumer.json",
+    "qazstack-consumer.v1.json",
+    "qdev-project.json",
     "data/avds-coverage.v1.json",
     "data/avds-system-contract.v1.json",
     "data/avds-responsive-contract.v1.json",
@@ -132,6 +134,8 @@ def main() -> int:
             require(contract in benchmark, f"benchmarks.html: missing AV DS contract {contract}")
         for contract in (
             "qazstack-consumer.json",
+            "qazstack-consumer.v1.json",
+            "qdev-project.json",
             "data/industry-profiles.v1.json",
             "data/qazlake-public-snapshot.v1.json",
             "data/qazgeo-public-snapshot.v1.json",

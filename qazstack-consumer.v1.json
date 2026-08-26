@@ -1,0 +1,39 @@
+{
+  "schema_version": "qazstack-consumer-v1",
+  "project_id": "qaz-industries",
+  "product_name": "QAZ.INDUSTRIES",
+  "lifecycle": "production",
+  "integration_mode": "http-contract",
+  "qazstack_version": "contract-only",
+  "primitives": [
+    "thematic-product-contracts"
+  ],
+  "depends_on": [
+    "qazgeo",
+    "qazlake"
+  ],
+  "forbidden_capabilities": [
+    "automatic-publication",
+    "direct-browser-upstream-access",
+    "direct-qazlake-write"
+  ],
+  "evidence": {
+    "source_files": [
+      "qazstack-consumer.json",
+      "qazstack-thematic-product.json",
+      "data/reviewed-source-registry.v1.json"
+    ],
+    "test_commands": [
+      "scripts/check.sh",
+      "python3 scripts/probe_public_contracts.py --output-dir <temporary-directory>"
+    ],
+    "runtime_urls": [
+      "https://qaz.industries/qazstack-consumer.v1.json",
+      "https://qaz.industries/qazstack-thematic-product.json",
+      "https://qaz.industries/data/qaz-industries-thematic-release.v1.json",
+      "https://qaz.industries/release.json"
+    ]
+  },
+  "owner": "qdev",
+  "notes": "Static reviewed-snapshot consumer. QazStack is adopted through public HTTP contracts; no Python package or browser-side upstream client is shipped."
+}

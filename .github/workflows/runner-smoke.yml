@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: qaz-industries-runner-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   runner-smoke:
     name: runner-smoke
