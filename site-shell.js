@@ -15,6 +15,15 @@
     'golden-paper': 'Бумага',
   };
 
+  function russianPercentWord(value) {
+    const remainder = Math.abs(value) % 100;
+    const unit = remainder % 10;
+    if (remainder >= 11 && remainder <= 14) return 'процентов';
+    if (unit === 1) return 'процент';
+    if (unit >= 2 && unit <= 4) return 'процента';
+    return 'процентов';
+  }
+
   function setTheme(theme, persist = true) {
     const nextTheme = themes.includes(theme) ? theme : 'institutional';
     document.documentElement.dataset.avTheme = nextTheme;
@@ -78,9 +87,11 @@
         throw new Error('Invalid AVDS coverage contract');
       }
       const label = `AVDS ${version}-${percent}`;
+      const sourceLabel = `Общее покрытие AVDS ${version}: ${percent} ${russianPercentWord(percent)}; базовый маршрутный контракт: ${routePercent} ${russianPercentWord(routePercent)}`;
+      const accessibleLabel = window.QAZ_LOCALE?.t?.(sourceLabel) || sourceLabel;
       badges.forEach((badge) => {
         badge.textContent = label;
-        badge.setAttribute('aria-label', `Общее покрытие AVDS ${version}: ${percent} процентов; базовый маршрутный контракт: ${routePercent} процентов`);
+        badge.setAttribute('aria-label', accessibleLabel);
         badge.dataset.avdsCoverageState = 'fresh';
       });
     } catch (_) {
@@ -89,4 +100,5 @@
   }
 
   refreshAvdsCoverageBadge();
+  window.QAZ_LOCALE?.onChange?.(() => { void refreshAvdsCoverageBadge(); });
 }());

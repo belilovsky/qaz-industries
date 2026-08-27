@@ -50,8 +50,9 @@ snapshot за текущую observation. `contract_only` остаётся оп�
 ## Текущая сверка
 
 На проверке 2026-08-13 профильные labels синхронизированы с выпусками QZ.Energy
-`qz-energy-avds4-polish-20260813T130000Z`, Qazaqstan.Space
-`2026-08-06.48`, QAZ.FARM `2026-08-11.3` и QAZ.FISH `2026-08-13.01`.
+`qz-energy-newsroom-4100f6a1-20260826`, Qazaqstan.Space
+`2026-08-25.2`, QAZ.FARM `2026-08-21.1` и QAZ.FISH
+`qazgeo-20260825T102556931z`.
 `check_data_contract.mjs` требует parity JSON/JavaScript, а network-only
 `check_sector_sources.py` проверяет machine-readable release contracts и 23
 внешние ссылки. Транспортная ошибка считается upstream failure и не разрешает

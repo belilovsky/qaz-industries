@@ -113,6 +113,11 @@ def main() -> int:
         consumer = json.loads(consumer_path.read_text(encoding="utf-8"))
         exposed = walk_keys(consumer) & SENSITIVE_KEYS
         require(not exposed, f"{consumer_path.name}: sensitive keys exposed: {sorted(exposed)}")
+        for contract_name in ("qazstack-consumer.v1.json", "qdev-project.json"):
+            contract_path = ROOT / contract_name
+            contract = json.loads(contract_path.read_text(encoding="utf-8"))
+            exposed = walk_keys(contract) & SENSITIVE_KEYS
+            require(not exposed, f"{contract_path.name}: sensitive keys exposed: {sorted(exposed)}")
     except (OSError, StopIteration, ValueError, json.JSONDecodeError) as error:
         print(f"QUALITY BUDGET FAILED: {error}", file=sys.stderr)
         return 1

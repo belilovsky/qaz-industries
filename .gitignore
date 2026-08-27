@@ -2,6 +2,7 @@
 .build/
 node_modules/
 work/
+output/playwright/
 __pycache__/
 *.py[cod]
 *.swp

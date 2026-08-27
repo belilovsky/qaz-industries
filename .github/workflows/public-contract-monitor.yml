@@ -18,20 +18,30 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: "3.12"
       - name: Probe upstream public contracts
-        run: |
-          mkdir -p /tmp/qaz-industries-contract-probe
-          python3 scripts/refresh_qazlake_snapshot.py > /tmp/qaz-industries-contract-probe/qazlake.json
-          python3 scripts/refresh_qazgeo_snapshot.py > /tmp/qaz-industries-contract-probe/qazgeo.json
-          python3 scripts/refresh_qazgeo_layer_registry.py > /tmp/qaz-industries-contract-probe/qazgeo-layer-registry.json
-          python3 scripts/check_sector_sources.py > /tmp/qaz-industries-contract-probe/sector-sources.json
+        id: upstream
+        continue-on-error: true
+        run: python3 scripts/probe_public_contracts.py --output-dir /tmp/qaz-industries-contract-probe
       - name: Verify checked-in release contracts
+        id: checked_in
+        if: always()
+        continue-on-error: true
         run: scripts/check.sh
       - name: Upload read-only probe output
         if: always()
         env:
           QDEV_IF_NO_FILES: warn
         run: .github/scripts/qdev-upload-artifact.sh qaz-industries-public-contract-probe '/tmp/qaz-industries-contract-probe/*.json'
+      - name: Enforce aggregate result
+        if: always()
+        env:
+          UPSTREAM_OUTCOME: ${{ steps.upstream.outcome }}
+          CHECKED_IN_OUTCOME: ${{ steps.checked_in.outcome }}
+        run: |
+          test "$UPSTREAM_OUTCOME" = success
+          test "$CHECKED_IN_OUTCOME" = success

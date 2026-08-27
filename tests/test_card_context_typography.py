@@ -6,13 +6,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class CardContextTypographyTests(unittest.TestCase):
-    def test_public_card_contexts_are_not_decorative_eyebrows(self) -> None:
+    def test_public_card_contexts_use_semantic_section_metadata(self) -> None:
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")
         context = (ROOT / "card-context.css").read_text(encoding="utf-8")
         profile_view = (ROOT / "profile-view.js").read_text(encoding="utf-8")
 
-        self.assertIn(".eyebrow{display:block", styles)
-        self.assertIn(".eyebrow span{display:none}", styles)
+        self.assertIn(".section-context{display:block", styles)
+        self.assertNotIn(".eyebrow{", styles)
         self.assertIn(".industry-card>b", styles)
         self.assertIn("text-transform:none", styles)
         self.assertIn("text-transform: none;", context)

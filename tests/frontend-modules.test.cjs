@@ -67,6 +67,33 @@ test('AVDS state and locale contracts fail closed', () => {
   assert.match(profileView.stateCard('Загрузка', locale.message('loading'), 'loading'), /av-skeleton/);
 });
 
+test('AVDS coverage badge uses Russian plural forms after the runtime refresh', async () => {
+  const attributes = {};
+  const badge = {
+    dataset: {},
+    textContent: '',
+    setAttribute(name, value) { attributes[name] = value; },
+  };
+  const context = {
+    document: {
+      documentElement: { dataset: { avTheme: 'institutional' } },
+      querySelector() { return null; },
+      querySelectorAll(selector) { return selector === '[data-avds-coverage-badge]' ? [badge] : []; },
+      addEventListener() {},
+    },
+    window: { matchMedia: () => ({ addEventListener() {} }) },
+    fetch: async () => ({
+      ok: true,
+      json: async () => ({ avds: { version: '4.6.0' }, coverage_percent: 98, route_contract: { coverage_percent: 92 } }),
+    }),
+  };
+  context.globalThis = context;
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '..', 'site-shell.js'), 'utf8'), context);
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(badge.textContent, 'AVDS 4.6.0-98');
+  assert.equal(attributes['aria-label'], 'Общее покрытие AVDS 4.6.0: 98 процентов; базовый маршрутный контракт: 92 процента');
+});
+
 test('homepage filter summary keeps the complete locale template', async () => {
   const summary = { textContent: '' };
   const listeners = {};

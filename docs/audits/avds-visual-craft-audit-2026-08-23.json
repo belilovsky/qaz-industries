@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "avds-visual-craft-audit-v1",
+  "cells": [
+    {"route": "home", "role": "public-index", "state": "ready", "viewport": "mobile-390", "geometry": [], "radii": [], "typography": [], "space": []},
+    {"route": "home", "role": "public-index", "state": "ready", "viewport": "desktop-1440", "geometry": [], "radii": [], "typography": [], "space": []},
+    {"route": "industry", "role": "sector-profile", "state": "ready", "viewport": "mobile-390", "geometry": [], "radii": [], "typography": [], "space": []},
+    {"route": "industry", "role": "sector-profile", "state": "ready", "viewport": "desktop-1440", "geometry": [], "radii": [], "typography": [], "space": []},
+    {"route": "benchmarks", "role": "research", "state": "ready", "viewport": "mobile-390", "geometry": [], "radii": [], "typography": [], "space": []},
+    {"route": "benchmarks", "role": "research", "state": "ready", "viewport": "desktop-1440", "geometry": [], "radii": [], "typography": [], "space": []},
+    {"route": "publication", "role": "publication-policy", "state": "ready", "viewport": "mobile-390", "geometry": [], "radii": [], "typography": [], "space": []},
+    {"route": "publication", "role": "publication-policy", "state": "ready", "viewport": "desktop-1440", "geometry": [], "radii": [], "typography": [], "space": []}
+  ]
+}

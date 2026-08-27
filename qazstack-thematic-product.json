@@ -2,9 +2,10 @@
   "schema_version": "qazstack-thematic-product-v1",
   "product_id": "qaz-industries",
   "product_name": "QAZ.INDUSTRIES",
-  "lifecycle": "beta",
+  "lifecycle": "production",
   "subject": "Проверяемые публичные профили индустрий Казахстана: показатели, география, источники и границы данных.",
   "qazstack_consumer_contract": "qazstack-consumer.json",
+  "qazstack_adoption_contract": "qazstack-consumer.v1.json",
   "public_modes": ["explore", "understand", "follow", "trust"],
   "source_policy": {
     "registry_path": "data/reviewed-source-registry.v1.json",

@@ -101,8 +101,11 @@ def actual_route_gates() -> dict[str, bool]:
                 and contract.get("avds_version") == "4.6.0"
                 and adoption.get("package_runtime") is True
                 and adoption.get("package_runtime_receipt") == "data/avds-package-runtime.v1.json"
-                and catalog.get("consumer_id") == "qaz_industries"
-                and catalog.get("state") == "source-registered"
+                and catalog.get("consumer_id") == "qaz-industries-public"
+                and catalog.get("project_id") == "qaz-industries"
+                and catalog.get("repository") == "https://github.com/belilovsky/platform-portal"
+                and catalog.get("source_path") == "catalog/platform-contract/surfaces.v0.yaml"
+                and catalog.get("state") == "platform-verified"
             )
         except (OSError, TypeError, json.JSONDecodeError):
             consumer_is_registered = False

@@ -29,6 +29,10 @@ SPLIT = "__QAZ_I18N_SPLIT__"
 CYRILLIC = re.compile(r"[А-Яа-яЁёӘәҒғҚқҢңӨөҰұҮүҺһІі]")
 JS_STRING = re.compile(r"(['\"`])((?:\\.|(?!\1).)*?)\1", re.DOTALL)
 TEMPLATE_EXPR = re.compile(r"\$\{[^{}]*\}")
+AVDS_BADGE_LABEL = re.compile(
+    r"^Общее покрытие AVDS (?P<version>4\.\d+\.\d+): (?P<coverage>\d+) процентов; "
+    r"базовый маршрутный контракт: (?P<routes>\d+) процент(?:а|ов)?$"
+)
 TARGETS = {"kk-KZ": "kk", "en-US": "en"}
 MANUAL_OVERRIDES = {
     "kk-KZ": {
@@ -42,6 +46,21 @@ MANUAL_OVERRIDES = {
         "Практика": "Практика",
         "Тема": "Тақырып",
         "Показано": "Көрсетілді",
+        "процент": "пайыз",
+        "процента": "пайыз",
+        "процентов": "пайыз",
+        "; базовый маршрутный контракт:": "; негізгі маршруттық келісімшарт:",
+        "Выпуск qz-energy-newsroom-4100f6a1-20260826 · данные на 6 августа": "qz-energy-newsroom-4100f6a1-20260826 шығарылымы · 6 тамыздағы деректер",
+        "Контракт принятия QazStack": "QazStack қабылдау келісімшарты",
+        "Манифест Platform": "Platform манифесі",
+        "Продуктовый контракт QazStack": "QazStack өнімдік келісімшарты",
+        "25 августа 2026": "2026 жылғы 25 тамыз",
+        "Выпуск 2026-08-21.1 · данные на 24 августа": "2026-08-21.1 шығарылымы · 24 тамыздағы деректер",
+        "Выпуск 2026-08-25.2 · данные на 25 августа": "2026-08-25.2 шығарылымы · 25 тамыздағы деректер",
+        "Выпуск qazgeo-20260825T102556931z · данные на 25 августа": "qazgeo-20260825T102556931z шығарылымы · 25 тамыздағы деректер",
+        "выпуск 2026-08-25.2": "2026-08-25.2 шығарылымы",
+        "проверенных фактов": "тексерілген факт",
+        "фактов": "факт",
     },
     "en-US": {
         "Пробел": "Gap",
@@ -54,6 +73,21 @@ MANUAL_OVERRIDES = {
         "Практика": "Practice",
         "Тема": "Theme",
         "Показано": "Shown",
+        "процент": "percent",
+        "процента": "percent",
+        "процентов": "percent",
+        "; базовый маршрутный контракт:": "; baseline route contract:",
+        "Выпуск qz-energy-newsroom-4100f6a1-20260826 · данные на 6 августа": "Release qz-energy-newsroom-4100f6a1-20260826 · data as of August 6",
+        "Контракт принятия QazStack": "QazStack acceptance contract",
+        "Манифест Platform": "Platform manifest",
+        "Продуктовый контракт QazStack": "QazStack product contract",
+        "25 августа 2026": "August 25, 2026",
+        "Выпуск 2026-08-21.1 · данные на 24 августа": "Release 2026-08-21.1 · data as of August 24",
+        "Выпуск 2026-08-25.2 · данные на 25 августа": "Release 2026-08-25.2 · data as of August 25",
+        "Выпуск qazgeo-20260825T102556931z · данные на 25 августа": "Release qazgeo-20260825T102556931z · data as of August 25",
+        "выпуск 2026-08-25.2": "release 2026-08-25.2",
+        "проверенных фактов": "verified facts",
+        "фактов": "facts",
     },
 }
 HTML_PAGES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
@@ -190,18 +224,65 @@ def batches(values: list[str], max_chars: int = 1600) -> list[list[str]]:
     return result
 
 
+def derived_translation(value: str, locale: str) -> str | None:
+    """Translate stable numeric AVDS receipt labels without network access."""
+    match = AVDS_BADGE_LABEL.fullmatch(value)
+    if not match:
+        return None
+    fields = match.groupdict()
+    if locale == "kk-KZ":
+        return (
+            f"AVDS {fields['version']} жалпы қамтуы: {fields['coverage']} пайыз; "
+            f"негізгі маршруттық келісімшарт: {fields['routes']} пайыз"
+        )
+    if locale == "en-US":
+        return (
+            f"AVDS {fields['version']} overall coverage: {fields['coverage']} percent; "
+            f"baseline route contract: {fields['routes']} percent"
+        )
+    return None
+
+
 def write_catalog() -> None:
     values = source_inventory()
     if not values:
         raise SystemExit("locale catalog: source inventory is empty")
+    previous: dict[str, dict[str, str]] = {}
+    if CATALOG.is_file():
+        try:
+            existing = json.loads(CATALOG.read_text(encoding="utf-8"))
+            translations = existing.get("translations") or {}
+            previous = {
+                locale: mapping
+                for locale, mapping in translations.items()
+                if isinstance(mapping, dict)
+            }
+        except (OSError, json.JSONDecodeError):
+            previous = {}
     translated: dict[str, dict[str, str]] = {"ru-RU": {value: value for value in values}}
     for locale, target in TARGETS.items():
-        locale_values: dict[str, str] = {}
-        work = batches(values)
-        with ThreadPoolExecutor(max_workers=5) as executor:
-            futures = {executor.submit(translate_batch, batch, target): batch for batch in work}
-            for future in as_completed(futures):
-                locale_values.update(future.result())
+        locale_values = {
+            value: previous.get(locale, {}).get(value, "")
+            for value in values
+            if isinstance(previous.get(locale, {}).get(value), str) and previous[locale][value].strip()
+        }
+        locale_values.update({
+            key: value
+            for key, value in MANUAL_OVERRIDES.get(locale, {}).items()
+            if key in values and key not in locale_values
+        })
+        for value in values:
+            if value not in locale_values:
+                translated_value = derived_translation(value, locale)
+                if translated_value:
+                    locale_values[value] = translated_value
+        missing = [value for value in values if value not in locale_values]
+        if missing:
+            work = batches(missing)
+            with ThreadPoolExecutor(max_workers=5) as executor:
+                futures = {executor.submit(translate_batch, batch, target): batch for batch in work}
+                for future in as_completed(futures):
+                    locale_values.update(future.result())
         locale_values.update({key: value for key, value in MANUAL_OVERRIDES.get(locale, {}).items() if key in locale_values})
         if set(locale_values) != set(values) or any(not value for value in locale_values.values()):
             raise SystemExit(f"locale catalog: incomplete {locale}")
