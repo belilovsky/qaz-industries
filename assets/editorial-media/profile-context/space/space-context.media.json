@@ -1,0 +1,116 @@
+{
+  "created_at": "2026-08-27T19:08:54.087496Z",
+  "derivatives": [
+    {
+      "bytes": 14786,
+      "format": "webp",
+      "height": 270,
+      "path": "derivatives/space-context-480w.webp",
+      "sha256": "b91b1fa5029b8f06868cd38bf6745b53f29307f036f5c5ca2f47a13ffe6e323c",
+      "width": 480
+    },
+    {
+      "bytes": 50684,
+      "format": "webp",
+      "height": 540,
+      "path": "derivatives/space-context-960w.webp",
+      "sha256": "8fe14e7e269db9bc763ce2a9234c7288bb32b33ca74b93031f6bbcdca727d809",
+      "width": 960
+    },
+    {
+      "bytes": 124754,
+      "format": "webp",
+      "height": 900,
+      "path": "derivatives/space-context-1600w.webp",
+      "sha256": "9263c48fc717bd325a68860e9dceb25ffd049b17d1df63a29e23880a8bb43a28",
+      "width": 1600
+    }
+  ],
+  "original": {
+    "bytes": 2363859,
+    "content_type": "image/jpeg",
+    "final_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Soyuz_TMA-09M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_%284%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "format": "jpeg",
+    "height": 2474,
+    "path": "original/space-context.jpg",
+    "requested_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Soyuz_TMA-09M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_%284%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "sha256": "ae943d7daa94cad75b3045769017420d7e5197f0e88bd875d93cf21e6a9470ee",
+    "width": 3717
+  },
+  "placement_id": "industry-space-context-photo",
+  "processor": {
+    "pillow": "10.4.0",
+    "python": "3.9.6",
+    "tool": "picture_desk.py",
+    "version": "1.2.0",
+    "webp": true
+  },
+  "request": {
+    "basename": "space-context",
+    "crop_ratio": "16:9",
+    "focal_x": 0.5,
+    "focal_y": 0.5,
+    "formats": [
+      "webp"
+    ],
+    "quality_jpeg": 86,
+    "quality_webp": 84,
+    "widths": [
+      480,
+      960,
+      1600
+    ]
+  },
+  "schema_version": "portfolio-media-asset-v1",
+  "selection": {
+    "attribution": "Bill Ingalls",
+    "candidate_id": "wikimedia:d82400a22489e7c1",
+    "candidate_id_source": "qphoto",
+    "creator": "Bill Ingalls",
+    "date_taken": "Taken on 26 May 2013",
+    "description": "The Service arms are raised into position around the Soyuz rocket, with the TMA-09M spacecraft, after arriving at the Baikonur Cosmodrome launch pad by train, Sunday, May 26, 2013, in Kazakhstan. The launch of the Soyuz rocket to the International Space Station (ISS) with Expedition 36/37 Soyuz Commander Fyodor Yurchikhin of the Russian Federal Space Agency (Roscosmos), Flight Engineers; Luca Parmitano of the European Space Agency, and Karen Nyberg of NASA, is scheduled for Wednesday May 29, Kazakh time. Yurchikhin, Nyberg, and, Parmitano, will remain aboard the station until mid-November.",
+    "dimensions_ok": true,
+    "eligible": true,
+    "file_size": 2363859,
+    "height": 2474,
+    "landing_page_url": "https://commons.wikimedia.org/wiki/File:Soyuz_TMA-09M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_(4).jpg",
+    "license": "Public domain",
+    "license_url": "",
+    "location": "",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Soyuz_TMA-09M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_%284%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "preview_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Soyuz_TMA-09M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_%284%29.jpg/500px-Soyuz_TMA-09M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_%284%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "provider": "wikimedia",
+    "publication_ready": true,
+    "qphoto_captured_at": "2026-08-27T19:06:07.921695+00:00",
+    "query": "Baikonur Cosmodrome Kazakhstan",
+    "rank": 2,
+    "review_status": "approved",
+    "score": 0.937187,
+    "title": "Soyuz TMA-09M spacecraft at the Baikonur Cosmodrome launch pad (4).jpg",
+    "width": 3717,
+    "year": 2013
+  },
+  "selection_reason": "Документальный кадр аппарата Soyuz TMA-09M на стартовой площадке Байконура: точный инфраструктурный контекст, общественное достояние NASA, проверяемые автор и исходная страница.",
+  "selection_receipt": {
+    "filename": "selection-space-photo.json",
+    "sha256": "98cb5d8963b23e5a7d268bb5935cec36e6a7f67d726e52db44ce9f9db8fd5e2a"
+  },
+  "source_identity": "wikimedia:d82400a22489e7c1",
+  "source_kind": "qphoto",
+  "transform": {
+    "crop_box": [
+      0,
+      192,
+      3717,
+      2283
+    ],
+    "crop_height": 2091,
+    "crop_width": 3717,
+    "focal_point": [
+      0.5,
+      0.5
+    ],
+    "metadata_policy": "derivatives_strip_exif; provenance_retained_in_manifest",
+    "upscale": false
+  }
+}

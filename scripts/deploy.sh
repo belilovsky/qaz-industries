@@ -59,6 +59,16 @@ tar -xzf "$archive_path" -C "$release_dir"
 for asset in index.html industry.html benchmarks.html publication.html styles.css card-context.css avds-package-runtime.css avds-tokens.css avds.css runtime.js site-shell.js snapshot-contracts.js qazgeo-geometry.js profile-view.js app.js qazgeo-map.js industry-data.js industry.js favicon.svg avds-consumer.json qdev-project.json qazstack-consumer.json qazstack-consumer.v1.json qazstack-thematic-product.json data/avds-coverage.v1.json data/avds-system-contract.v1.json data/avds-responsive-contract.v1.json data/avds-route-ledger.v1.json data/portfolio-integration-registry.v1.json data/platform-registration-request.v1.json release.json; do
   test -s "${release_dir}/${asset}"
 done
+for sector in energy space farm water; do
+  test -s "${release_dir}/assets/editorial-media/profile-heroes/${sector}/${sector}.media.json"
+  for width in 480 960 1600; do
+    test -s "${release_dir}/assets/editorial-media/profile-heroes/${sector}/derivatives/${sector}-${width}w.webp"
+  done
+  test -s "${release_dir}/assets/editorial-media/profile-context/${sector}/${sector}-context.media.json"
+  for width in 480 960 1600; do
+    test -s "${release_dir}/assets/editorial-media/profile-context/${sector}/derivatives/${sector}-context-${width}w.webp"
+  done
+done
 
 backup_path="${caddyfile}.qaz-industries-${release_id}.bak"
 cp "$caddyfile" "$backup_path"

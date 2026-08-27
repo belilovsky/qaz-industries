@@ -1,0 +1,116 @@
+{
+  "created_at": "2026-08-27T19:08:53.703750Z",
+  "derivatives": [
+    {
+      "bytes": 16192,
+      "format": "webp",
+      "height": 270,
+      "path": "derivatives/energy-context-480w.webp",
+      "sha256": "e9cd5d53447327cd51935741aaa79aaf82e5ba56c2eda9fec7e2d7ac9f2cbb94",
+      "width": 480
+    },
+    {
+      "bytes": 58080,
+      "format": "webp",
+      "height": 540,
+      "path": "derivatives/energy-context-960w.webp",
+      "sha256": "a1cbce83d5da54098abe9a2fb08b89a302bb43af960521a7fe059eee669d8b16",
+      "width": 960
+    },
+    {
+      "bytes": 152144,
+      "format": "webp",
+      "height": 900,
+      "path": "derivatives/energy-context-1600w.webp",
+      "sha256": "889c196ffd2f2953f713c439883955a193f311f99a4f608eac7a18fd2f5ebd9f",
+      "width": 1600
+    }
+  ],
+  "original": {
+    "bytes": 1052308,
+    "content_type": "image/jpeg",
+    "final_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Korday_wind_farm_in_the_south-_east_of_Kazakhstan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "format": "jpeg",
+    "height": 1712,
+    "path": "original/energy-context.jpg",
+    "requested_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Korday_wind_farm_in_the_south-_east_of_Kazakhstan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "sha256": "d40c3387733aad026f7a9d5951bdf92c925fcea6582384b3ff8ba07e2826027f",
+    "width": 3044
+  },
+  "placement_id": "industry-energy-context-photo",
+  "processor": {
+    "pillow": "10.4.0",
+    "python": "3.9.6",
+    "tool": "picture_desk.py",
+    "version": "1.2.0",
+    "webp": true
+  },
+  "request": {
+    "basename": "energy-context",
+    "crop_ratio": "16:9",
+    "focal_x": 0.56,
+    "focal_y": 0.54,
+    "formats": [
+      "webp"
+    ],
+    "quality_jpeg": 86,
+    "quality_webp": 84,
+    "widths": [
+      480,
+      960,
+      1600
+    ]
+  },
+  "schema_version": "portfolio-media-asset-v1",
+  "selection": {
+    "attribution": "МаратД",
+    "candidate_id": "wikimedia:4820496cbd079545",
+    "candidate_id_source": "qphoto",
+    "creator": "МаратД",
+    "date_taken": "2015-09-11 15:31:17",
+    "description": "Korday wind farm in the south- east of Kazakhstan",
+    "dimensions_ok": true,
+    "eligible": true,
+    "file_size": 1052308,
+    "height": 1712,
+    "landing_page_url": "https://commons.wikimedia.org/wiki/File:Korday_wind_farm_in_the_south-_east_of_Kazakhstan.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "location": "",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Korday_wind_farm_in_the_south-_east_of_Kazakhstan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "preview_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Korday_wind_farm_in_the_south-_east_of_Kazakhstan.jpg/500px-Korday_wind_farm_in_the_south-_east_of_Kazakhstan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "provider": "wikimedia",
+    "publication_ready": true,
+    "qphoto_captured_at": "2026-08-27T19:06:07.994638+00:00",
+    "query": "Kazakhstan wind farm",
+    "rank": 1,
+    "review_status": "approved",
+    "score": 0.987553,
+    "title": "Korday wind farm in the south- east of Kazakhstan.jpg",
+    "width": 3044,
+    "year": 2015
+  },
+  "selection_reason": "Документальный горизонтальный кадр Кордайской ВЭС в Казахстане: точный отраслевой контекст, свободная CC BY-SA 4.0 лицензия, проверяемый автор и достаточно широкое поле для 16:9.",
+  "selection_receipt": {
+    "filename": "selection-energy-photo.json",
+    "sha256": "f19d382a026b375b3bcb1029a30ae7d76b19087fd214f833fc2c5a0411cfb0b5"
+  },
+  "source_identity": "wikimedia:4820496cbd079545",
+  "source_kind": "qphoto",
+  "transform": {
+    "crop_box": [
+      0,
+      0,
+      3044,
+      1712
+    ],
+    "crop_height": 1712,
+    "crop_width": 3044,
+    "focal_point": [
+      0.56,
+      0.54
+    ],
+    "metadata_policy": "derivatives_strip_exif; provenance_retained_in_manifest",
+    "upscale": false
+  }
+}

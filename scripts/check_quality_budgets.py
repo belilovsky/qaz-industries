@@ -71,6 +71,14 @@ def main() -> int:
         require((ROOT / "data" / "qazgeo-regions-public.v1.geojson").stat().st_size <= 450 * 1024, "QazGeo map budget exceeded (450 KiB)")
         require((ROOT / "theme.js").stat().st_size <= 2 * 1024, "synchronous theme bootstrap exceeds 2 KiB")
         require(all(path.stat().st_size <= 24 * 1024 for path in js_paths), "single JavaScript module exceeds 24 KiB")
+        hero_derivatives = sorted((ROOT / "assets" / "editorial-media" / "profile-heroes").glob("*/derivatives/*.webp"))
+        require(len(hero_derivatives) == 12, "responsive profile hero set must include 12 WebP derivatives")
+        require(all(path.stat().st_size <= 256 * 1024 for path in hero_derivatives), "one responsive profile hero derivative exceeds 256 KiB")
+        require(byte_total(hero_derivatives) <= 2 * 1024 * 1024, "profile hero derivative budget exceeded (2 MiB)")
+        context_derivatives = sorted((ROOT / "assets" / "editorial-media" / "profile-context").glob("*/derivatives/*.webp"))
+        require(len(context_derivatives) == 12, "responsive profile context set must include 12 WebP derivatives")
+        require(all(path.stat().st_size <= 512 * 1024 for path in context_derivatives), "one responsive profile context derivative exceeds 512 KiB")
+        require(byte_total(context_derivatives) <= 2 * 1024 * 1024, "profile context derivative budget exceeded (2 MiB)")
 
         for page in PAGES:
             parser = AssetParser()

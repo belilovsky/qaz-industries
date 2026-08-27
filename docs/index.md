@@ -23,6 +23,7 @@
 | [`portfolio-integrations.md`](portfolio-integrations.md) | направление и статус связей с портфелем | владельцы продуктов | active | integration registry, source registry, manifest |
 | [`security-privacy.md`](security-privacy.md) | классы данных, запреты и правовые решения | все, security | active | manifest, Caddy, SECURITY.md |
 | [`editorial-science-policy.md`](editorial-science-policy.md) | включение, проверка и исправление материалов | редакция, исследователи | active | source policy, owner decisions |
+| [`editorial-visual-direction.md`](editorial-visual-direction.md) | постоянный художественный язык ИИ-иллюстраций и правила документальной фотографии | редакция, дизайн, ИИ-агенты | active | product owner, media ledger |
 | [`design-language-accessibility.md`](design-language-accessibility.md) | AV DS 4, русский язык и accessibility contract | frontend, редакция | active | avds-tokens.css, avds.css, HTML, JS |
 | [`avds-system-contract.md`](avds-system-contract.md) | измеритель зрелости AVDS4, provenance, отклонения и gaps | frontend, дизайн, аудит | active | system contract, package receipt, checks |
 | [`development-testing.md`](development-testing.md) | локальная работа и quality gates | разработчики | active | scripts, workflows |

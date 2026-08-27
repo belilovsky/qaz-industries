@@ -43,6 +43,10 @@ STATIC_FILES = (
     "avds-consumer.json",
     "qdev-project.json",
 )
+STATIC_DIRECTORIES = (
+    "data",
+    "assets",
+)
 HTML_FILES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 VERSIONED_ASSETS = (
     "styles.css",
@@ -90,7 +94,15 @@ def main() -> int:
         if not source.is_file():
             raise SystemExit(f"missing static input: {filename}")
         shutil.copy2(source, output / filename)
-    shutil.copytree(ROOT / "data", output / "data")
+    for directory in STATIC_DIRECTORIES:
+        source = ROOT / directory
+        if not source.is_dir():
+            raise SystemExit(f"missing static input directory: {directory}")
+        # Editorial source originals remain in the reviewed repository for
+        # provenance and derivative regeneration. Only the optimized,
+        # publication-ready derivatives belong in the immutable public build.
+        ignore = shutil.ignore_patterns("original") if directory == "assets" else None
+        shutil.copytree(source, output / directory, ignore=ignore)
 
     # The runtime switches a release symlink atomically. Version local assets in
     # the copied HTML so an already-open browser cannot retain JavaScript or CSS
