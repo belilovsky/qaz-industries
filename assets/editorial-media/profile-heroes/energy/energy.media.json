@@ -1,0 +1,104 @@
+{
+  "created_at": "2026-08-27T18:33:49.513515Z",
+  "derivatives": [
+    {
+      "bytes": 18846,
+      "format": "webp",
+      "height": 270,
+      "path": "derivatives/energy-480w.webp",
+      "sha256": "8543210846abc071e199acb73f8b5f12fce0314141368df8c672da252bf05a8d",
+      "width": 480
+    },
+    {
+      "bytes": 70740,
+      "format": "webp",
+      "height": 540,
+      "path": "derivatives/energy-960w.webp",
+      "sha256": "5e353d3ecba3d7eae47ef2fdf7e496db1a8c496426cc4a4d16d248de1f54d710",
+      "width": 960
+    },
+    {
+      "bytes": 187702,
+      "format": "webp",
+      "height": 900,
+      "path": "derivatives/energy-1600w.webp",
+      "sha256": "2ae9d5625ac430d0831a297318f871c4d0ce42a73ba017e222fd4e7df490d787",
+      "width": 1600
+    }
+  ],
+  "original": {
+    "bytes": 2809155,
+    "content_type": "image/png",
+    "format": "png",
+    "height": 941,
+    "path": "original/energy.png",
+    "sha256": "2abc2bbb879d1c50a44237b732eb6ce114914345e0a5b65fa8c6c25ea918ed68",
+    "source_receipt": "generated-selection",
+    "width": 1672
+  },
+  "placement_id": "industry-energy-hero",
+  "processor": {
+    "pillow": "10.4.0",
+    "python": "3.9.6",
+    "tool": "picture_desk.py",
+    "version": "1.1.0",
+    "webp": true
+  },
+  "request": {
+    "basename": "energy",
+    "crop_ratio": "16:9",
+    "focal_x": 0.66,
+    "focal_y": 0.5,
+    "formats": [
+      "webp"
+    ],
+    "quality_jpeg": 86,
+    "quality_webp": 82,
+    "widths": [
+      480,
+      960,
+      1600
+    ]
+  },
+  "schema_version": "portfolio-media-asset-v1",
+  "selection": {
+    "bytes": 2809155,
+    "disclosure": "ИИ-иллюстрация для редакционного контекста; не документальная фотография.",
+    "format": "png",
+    "generated_at": "2026-08-27T18:33:45Z",
+    "generation_basis": "illustration_preferred",
+    "generation_id": "unavailable",
+    "height": 941,
+    "model": "provider-selected",
+    "prompt_summary": "Abstract energy-system paper-cut illustration; wind, sun, generation, transmission and demand; no real facility or factual claim.",
+    "qphoto_queries": [],
+    "qphoto_rejections": [],
+    "service": "imagegen",
+    "sha256": "2abc2bbb879d1c50a44237b732eb6ce114914345e0a5b65fa8c6c25ea918ed68",
+    "truth_mode": "representational",
+    "width": 1672
+  },
+  "selection_reason": "Public sector profile needs a conceptual editorial hero that is clearly not documentary evidence.",
+  "selection_receipt": {
+    "filename": "selection-energy.json",
+    "sha256": "19302054085f8ab86996bd851411223bf7d840fe65383e84ae000518e4ba4a1a"
+  },
+  "source_identity": "generated:2abc2bbb879d1c50a44237b732eb6ce114914345e0a5b65fa8c6c25ea918ed68",
+  "source_kind": "generated",
+  "transform": {
+    "crop_box": [
+      0,
+      0,
+      1672,
+      940
+    ],
+    "crop_height": 940,
+    "crop_width": 1672,
+    "focal_point": [
+      0.66,
+      0.5
+    ],
+    "metadata_policy": "derivatives_strip_exif; provenance_retained_in_manifest",
+    "upscale": false
+  }
+}

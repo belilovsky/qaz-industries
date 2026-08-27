@@ -1,3 +1,5 @@
+const responsiveAssets = (prefix) => [480, 960, 1600].map((width) => ({ src: `${prefix}-${width}w.webp`, width }));
+
 window.QAZ_INDUSTRIES = {
   energy: {
     id: 'energy',
@@ -10,6 +12,24 @@ window.QAZ_INDUSTRIES = {
     release: 'Выпуск qz-energy-newsroom-4100f6a1-20260826 · данные на 6 августа',
     status: 'Действующий отраслевой продукт',
     summary: 'Производство энергии, сети, коридоры, объекты и события отрасли в едином публичном контуре.',
+    illustration: {
+      alt: 'Абстрактная редакционная иллюстрация: солнце, ветровые турбины, электростанция, линии электропередачи и городской силуэт.',
+      disclosure: 'ИИ-иллюстрация для редакционного контекста; не документальная фотография.',
+      sources: [
+        { src: 'assets/editorial-media/profile-heroes/energy/derivatives/energy-480w.webp', width: 480 },
+        { src: 'assets/editorial-media/profile-heroes/energy/derivatives/energy-960w.webp', width: 960 },
+        { src: 'assets/editorial-media/profile-heroes/energy/derivatives/energy-1600w.webp', width: 1600 }
+      ]
+    },
+    photo: {
+      alt: 'Ветровые турбины Кордайской ВЭС на юго-востоке Казахстана.',
+      caption: 'Кордайская ВЭС на юго-востоке Казахстана. Документальный контекст; кадр не является сводкой текущего состояния объекта.',
+      creator: 'МаратД',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Korday_wind_farm_in_the_south-_east_of_Kazakhstan.jpg',
+      license: 'CC BY-SA 4.0',
+      licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+      sources: responsiveAssets('assets/editorial-media/profile-context/energy/derivatives/energy-context')
+    },
     about: 'Профиль связывает показатель с периодом, объектом на карте и материалом, который объясняет изменение. От национального значения можно перейти к инфраструктурному объекту и первоисточнику.',
     kpis: [
       { value: '173', label: 'показателей', period: 'публичный реестр' },
@@ -55,6 +75,24 @@ window.QAZ_INDUSTRIES = {
     release: 'Выпуск 2026-08-25.2 · данные на 25 августа',
     status: 'Проверяемый отраслевой атлас',
     summary: 'Объекты, спутниковые программы, наземная инфраструктура, редакционные сигналы и первичные источники.',
+    illustration: {
+      alt: 'Абстрактная редакционная иллюстрация: спутник на орбите, наземные антенны и условные линии связи.',
+      disclosure: 'ИИ-иллюстрация для редакционного контекста; не документальная фотография.',
+      sources: [
+        { src: 'assets/editorial-media/profile-heroes/space/derivatives/space-480w.webp', width: 480 },
+        { src: 'assets/editorial-media/profile-heroes/space/derivatives/space-960w.webp', width: 960 },
+        { src: 'assets/editorial-media/profile-heroes/space/derivatives/space-1600w.webp', width: 1600 }
+      ]
+    },
+    photo: {
+      alt: 'Корабль Soyuz TMA-09M на стартовой площадке космодрома Байконур.',
+      caption: 'Корабль Soyuz TMA-09M на стартовой площадке Байконура. Документальный контекст, не оперативный статус программы.',
+      creator: 'Bill Ingalls',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Soyuz_TMA-09M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_(4).jpg',
+      license: 'Public domain',
+      licenseUrl: 'https://commons.wikimedia.org/wiki/Commons:Copyright_tags#Public_domain',
+      sources: responsiveAssets('assets/editorial-media/profile-context/space/derivatives/space-context')
+    },
     about: 'Сильная сторона профиля — доказательная модель. Каждый вывод можно связать с объектом, фактом и источником, а карта выступает не украшением, а навигацией по инфраструктуре отрасли.',
     kpis: [
       { value: '32', label: 'объекта и системы', period: 'публичный атлас' },
@@ -100,6 +138,24 @@ window.QAZ_INDUSTRIES = {
     release: 'Выпуск 2026-08-21.1 · данные на 24 августа',
     status: 'Сезонный отраслевой продукт',
     summary: 'Статистика производства, состояние сезона, региональные профили, сущности и официальные маршруты поддержки.',
+    illustration: {
+      alt: 'Абстрактная редакционная иллюстрация: поля, вода, колос, почва и условная инфраструктура хранения.',
+      disclosure: 'ИИ-иллюстрация для редакционного контекста; не документальная фотография.',
+      sources: [
+        { src: 'assets/editorial-media/profile-heroes/farm/derivatives/farm-480w.webp', width: 480 },
+        { src: 'assets/editorial-media/profile-heroes/farm/derivatives/farm-960w.webp', width: 960 },
+        { src: 'assets/editorial-media/profile-heroes/farm/derivatives/farm-1600w.webp', width: 1600 }
+      ]
+    },
+    photo: {
+      alt: 'Спутниковый снимок сельскохозяйственных участков и долин в Казахстане.',
+      caption: 'Спутниковый снимок NASA: сезонная структура сельскохозяйственных участков в Казахстане. Это документальный контекст дистанционного зондирования, не текущая статистика.',
+      creator: 'NASA Goddard Space Flight Center',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Fall_Harvest_in_Kazakhstan_(9936304204).jpg',
+      license: 'Public domain',
+      licenseUrl: 'https://commons.wikimedia.org/wiki/Commons:Copyright_tags#Public_domain',
+      sources: responsiveAssets('assets/editorial-media/profile-context/farm/derivatives/farm-context')
+    },
     about: 'Отрасль нельзя читать по одному периоду. Годовой выпуск, оперативные данные, сезонные наблюдения и сервисные маршруты здесь разделены; для каждого указаны границы применимости.',
     kpis: [
       { value: '6', label: 'временных рядов', period: '149 наблюдений' },
@@ -147,6 +203,24 @@ window.QAZ_INDUSTRIES = {
     release: 'Выпуск qazgeo-20260825T102556931z · данные на 25 августа',
     status: 'Географический сервис и база знаний',
     summary: 'Водоёмы, виды рыб, правила, сезонные условия, обучение и подготовка поездки на общей географической основе.',
+    illustration: {
+      alt: 'Абстрактная редакционная иллюстрация: слои воды, камыш, условный берег и силуэты рыб.',
+      disclosure: 'ИИ-иллюстрация для редакционного контекста; не документальная фотография.',
+      sources: [
+        { src: 'assets/editorial-media/profile-heroes/water/derivatives/water-480w.webp', width: 480 },
+        { src: 'assets/editorial-media/profile-heroes/water/derivatives/water-960w.webp', width: 960 },
+        { src: 'assets/editorial-media/profile-heroes/water/derivatives/water-1600w.webp', width: 1600 }
+      ]
+    },
+    photo: {
+      alt: 'Берег озера Белое в Шортандинском районе Акмолинской области: удочка у воды и степной горизонт.',
+      caption: 'Озеро Белое, Шортандинский район, Акмолинская область. Документальный контекст для темы водоёмов и рыболовства.',
+      creator: 'Nurken',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Beloye_Lake,_Şortandy_District,_Akmola_Region_2.jpg',
+      license: 'CC BY 4.0',
+      licenseUrl: 'https://creativecommons.org/licenses/by/4.0',
+      sources: responsiveAssets('assets/editorial-media/profile-context/water/derivatives/water-context')
+    },
     about: 'QAZ.FISH связывает задачу пользователя с каталогом, картой, правилами и материалами для подготовки поездки. Чувствительные точки и личный журнал не публикуются.',
     kpis: [
       { value: '20', label: 'регионов', period: 'география страны' },

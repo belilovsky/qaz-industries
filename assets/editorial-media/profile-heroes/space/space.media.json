@@ -1,0 +1,104 @@
+{
+  "created_at": "2026-08-27T18:34:03.849384Z",
+  "derivatives": [
+    {
+      "bytes": 12638,
+      "format": "webp",
+      "height": 270,
+      "path": "derivatives/space-480w.webp",
+      "sha256": "9a9dfb38f3695540f87e0ddff6748b01ba2d0b13b9792fe73ce2f54019bf6008",
+      "width": 480
+    },
+    {
+      "bytes": 39262,
+      "format": "webp",
+      "height": 540,
+      "path": "derivatives/space-960w.webp",
+      "sha256": "e4c73ef4ea081e4e1305c7cd7b154c89edb596e9fa4107d1ff01c6a5ea6af959",
+      "width": 960
+    },
+    {
+      "bytes": 103300,
+      "format": "webp",
+      "height": 900,
+      "path": "derivatives/space-1600w.webp",
+      "sha256": "95d4d0f30a98d3ca0cfb23a2831d4e5e7841d305deeb16f361b9ed2fa8afb345",
+      "width": 1600
+    }
+  ],
+  "original": {
+    "bytes": 2422421,
+    "content_type": "image/png",
+    "format": "png",
+    "height": 941,
+    "path": "original/space.png",
+    "sha256": "c237126036b15d835ff745f32f931257979dec1b74d54e16bcaea9eebaa0294f",
+    "source_receipt": "generated-selection",
+    "width": 1672
+  },
+  "placement_id": "industry-space-hero",
+  "processor": {
+    "pillow": "10.4.0",
+    "python": "3.9.6",
+    "tool": "picture_desk.py",
+    "version": "1.1.0",
+    "webp": true
+  },
+  "request": {
+    "basename": "space",
+    "crop_ratio": "16:9",
+    "focal_x": 0.66,
+    "focal_y": 0.5,
+    "formats": [
+      "webp"
+    ],
+    "quality_jpeg": 86,
+    "quality_webp": 82,
+    "widths": [
+      480,
+      960,
+      1600
+    ]
+  },
+  "schema_version": "portfolio-media-asset-v1",
+  "selection": {
+    "bytes": 2422421,
+    "disclosure": "ИИ-иллюстрация для редакционного контекста; не документальная фотография.",
+    "format": "png",
+    "generated_at": "2026-08-27T18:33:45Z",
+    "generation_basis": "illustration_preferred",
+    "generation_id": "unavailable",
+    "height": 941,
+    "model": "provider-selected",
+    "prompt_summary": "Abstract orbital and ground-infrastructure paper-cut illustration; no real mission, landmark or factual claim.",
+    "qphoto_queries": [],
+    "qphoto_rejections": [],
+    "service": "imagegen",
+    "sha256": "c237126036b15d835ff745f32f931257979dec1b74d54e16bcaea9eebaa0294f",
+    "truth_mode": "representational",
+    "width": 1672
+  },
+  "selection_reason": "Public sector profile needs a conceptual editorial hero that is clearly not documentary evidence.",
+  "selection_receipt": {
+    "filename": "selection-space.json",
+    "sha256": "a90a3d276ed5eb001c28c50dec9e1b6946fad8b2caa3b75a3ecc9de9d232e23b"
+  },
+  "source_identity": "generated:c237126036b15d835ff745f32f931257979dec1b74d54e16bcaea9eebaa0294f",
+  "source_kind": "generated",
+  "transform": {
+    "crop_box": [
+      0,
+      0,
+      1672,
+      940
+    ],
+    "crop_height": 940,
+    "crop_width": 1672,
+    "focal_point": [
+      0.66,
+      0.5
+    ],
+    "metadata_policy": "derivatives_strip_exif; provenance_retained_in_manifest",
+    "upscale": false
+  }
+}
