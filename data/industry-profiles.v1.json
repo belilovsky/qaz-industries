@@ -2,10 +2,10 @@
   "schema_version": "qaz-industries-public-profiles-v1",
   "product_id": "qaz-industries",
   "profiles": [
-    {"id": "energy", "name": "Энергетика", "source": "https://qz.energy/", "source_release_id": "qz-energy-newsroom-4100f6a1-20260826", "release": "Выпуск qz-energy-newsroom-4100f6a1-20260826 · данные на 6 августа"},
-    {"id": "space", "name": "Космическая отрасль", "source": "https://qazaqstan.space/", "source_release_id": "2026-08-25.2", "release": "Выпуск 2026-08-25.2 · данные на 25 августа"},
+    {"id": "energy", "name": "Энергетика", "source": "https://qz.energy/", "source_release_id": "qz-energy-csp-7b30c16a-20260828T045231Z", "release": "Выпуск qz-energy-csp-7b30c16a-20260828T045231Z · данные на 6 августа"},
+    {"id": "space", "name": "Космическая отрасль", "source": "https://qazaqstan.space/", "source_release_id": "2026-08-28.1", "release": "Выпуск 2026-08-28.1 · данные на 28 августа"},
     {"id": "farm", "name": "Сельское хозяйство", "source": "https://qaz.farm/", "source_release_id": "2026-08-21.1", "release": "Выпуск 2026-08-21.1 · данные на 24 августа"},
-    {"id": "water", "name": "Водоёмы и рыболовство", "source": "https://qaz.fish/", "source_release_id": "qazgeo-20260825T102556931z", "release": "Выпуск qazgeo-20260825T102556931z · данные на 25 августа"}
+    {"id": "water", "name": "Водоёмы и рыболовство", "source": "https://qaz.fish/", "source_release_id": "qazgeo-20260827T172952105z", "release": "Выпуск qazgeo-20260827T172952105z · данные на 27 августа"}
   ],
   "machine_entrypoints": [
     {"label": "Профили отраслей", "url": "https://qaz.industries/data/industry-profiles.v1.json"},

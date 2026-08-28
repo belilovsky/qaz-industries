@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 from datetime import datetime, timezone
 
 
@@ -37,6 +38,8 @@ STATIC_FILES = (
     "theme.js",
     "robots.txt",
     "sitemap.xml",
+    "ai-index.json",
+    "llms.txt",
     "qazstack-thematic-product.json",
     "qazstack-consumer.json",
     "qazstack-consumer.v1.json",
@@ -78,6 +81,8 @@ def main() -> int:
 
     if not args.release.replace("-", "").replace("_", "").isalnum():
         raise SystemExit("release identifier must be alphanumeric, '-' or '_'")
+
+    subprocess.run((sys.executable, str(ROOT / "scripts" / "build_discovery.py"), "--check"), cwd=ROOT, check=True)
 
     output = args.output or ROOT / ".build" / args.release
     if output.exists():

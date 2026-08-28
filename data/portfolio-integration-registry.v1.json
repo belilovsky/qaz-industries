@@ -136,7 +136,7 @@
       "provider_url": "https://qz.energy/",
       "relationship": "curated-profile-projection",
       "status": "public-snapshot-verified",
-      "release_id": "qz-energy-newsroom-4100f6a1-20260826",
+      "release_id": "qz-energy-csp-7b30c16a-20260828T045231Z",
       "evidence": [{"url": "https://qz.energy/data/thematic-release.json", "kind": "thematic-release"}]
     },
     {
@@ -145,7 +145,7 @@
       "provider_url": "https://qazaqstan.space/",
       "relationship": "curated-profile-projection",
       "status": "public-snapshot-verified",
-      "release_id": "2026-08-25.2",
+      "release_id": "2026-08-28.1",
       "evidence": [{"url": "https://qazaqstan.space/data/v1/index.json", "kind": "public-data-index"}]
     },
     {
@@ -163,7 +163,7 @@
       "provider_url": "https://qaz.fish/",
       "relationship": "curated-profile-projection",
       "status": "public-snapshot-verified",
-      "release_id": "qazgeo-20260825T102556931z",
+      "release_id": "qazgeo-20260827T172952105z",
       "evidence": [{"url": "https://qaz.fish/data/thematic-release.json", "kind": "thematic-release"}]
     }
   ],

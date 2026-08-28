@@ -36,12 +36,13 @@
 | [`completion-ledger.md`](completion-ledger.md) | результат documentation audit и остаточные блокеры | владельцы задачи | review_pending | this documentation pass |
 | [`roadmap-to-ideal.md`](roadmap-to-ideal.md) | исторический план для младших моделей | разработчики | historical/plan | archived plan; current-release supersedes identity |
 
-## Аудиты кандидата 2026-08-23
+## Аудиты кандидата
 
 - [`platform-integration-2026-08-23.md`](audits/platform-integration-2026-08-23.md) — audit + fix Platform/QazStack, включая внешний registry blocker.
 - [`edpol-rewrite-2026-08-23.md`](audits/edpol-rewrite-2026-08-23.md) — EdPol rewrite и границы scan findings.
 - [`avds-visual-uplift-2026-08-23.md`](audits/avds-visual-uplift-2026-08-23.md) — AVDS visual uplift, browser evidence и craft gate.
 - [`final-local-candidate-2026-08-23.md`](audits/final-local-candidate-2026-08-23.md) — итоговые local-only gates и внешний blocker.
+- [`qaz-industries-reuse-decision-2026-08-28.md`](audits/qaz-industries-reuse-decision-2026-08-28.md) — двусторонний reuse-аудит, machine discovery и явные non-extraction решения.
 
 `SECURITY.md` и `CONTRIBUTING.md` остаются короткими entrypoints; подробные
 правила находятся в документах выше. Внешние проекты в этом checkout не

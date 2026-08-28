@@ -25,6 +25,7 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "data" / "ui-locale.v1.json"
+NON_UI_DATA_FILES = {"public-discovery.v1.json", "ui-locale.v1.json"}
 SPLIT = "__QAZ_I18N_SPLIT__"
 CYRILLIC = re.compile(r"[А-Яа-яЁёӘәҒғҚқҢңӨөҰұҮүҺһІі]")
 JS_STRING = re.compile(r"(['\"`])((?:\\.|(?!\1).)*?)\1", re.DOTALL)
@@ -50,15 +51,15 @@ MANUAL_OVERRIDES = {
         "процента": "пайыз",
         "процентов": "пайыз",
         "; базовый маршрутный контракт:": "; негізгі маршруттық келісімшарт:",
-        "Выпуск qz-energy-newsroom-4100f6a1-20260826 · данные на 6 августа": "qz-energy-newsroom-4100f6a1-20260826 шығарылымы · 6 тамыздағы деректер",
+        "Выпуск qz-energy-csp-7b30c16a-20260828T045231Z · данные на 6 августа": "qz-energy-csp-7b30c16a-20260828T045231Z шығарылымы · 6 тамыздағы деректер",
         "Контракт принятия QazStack": "QazStack қабылдау келісімшарты",
         "Манифест Platform": "Platform манифесі",
         "Продуктовый контракт QazStack": "QazStack өнімдік келісімшарты",
         "25 августа 2026": "2026 жылғы 25 тамыз",
         "Выпуск 2026-08-21.1 · данные на 24 августа": "2026-08-21.1 шығарылымы · 24 тамыздағы деректер",
-        "Выпуск 2026-08-25.2 · данные на 25 августа": "2026-08-25.2 шығарылымы · 25 тамыздағы деректер",
-        "Выпуск qazgeo-20260825T102556931z · данные на 25 августа": "qazgeo-20260825T102556931z шығарылымы · 25 тамыздағы деректер",
-        "выпуск 2026-08-25.2": "2026-08-25.2 шығарылымы",
+        "Выпуск 2026-08-28.1 · данные на 28 августа": "2026-08-28.1 шығарылымы · 28 тамыздағы деректер",
+        "Выпуск qazgeo-20260827T172952105z · данные на 27 августа": "qazgeo-20260827T172952105z шығарылымы · 27 тамыздағы деректер",
+        "выпуск 2026-08-28.1": "2026-08-28.1 шығарылымы",
         "проверенных фактов": "тексерілген факт",
         "фактов": "факт",
     },
@@ -77,15 +78,15 @@ MANUAL_OVERRIDES = {
         "процента": "percent",
         "процентов": "percent",
         "; базовый маршрутный контракт:": "; baseline route contract:",
-        "Выпуск qz-energy-newsroom-4100f6a1-20260826 · данные на 6 августа": "Release qz-energy-newsroom-4100f6a1-20260826 · data as of August 6",
+        "Выпуск qz-energy-csp-7b30c16a-20260828T045231Z · данные на 6 августа": "Release qz-energy-csp-7b30c16a-20260828T045231Z · data as of August 6",
         "Контракт принятия QazStack": "QazStack acceptance contract",
         "Манифест Platform": "Platform manifest",
         "Продуктовый контракт QazStack": "QazStack product contract",
         "25 августа 2026": "August 25, 2026",
         "Выпуск 2026-08-21.1 · данные на 24 августа": "Release 2026-08-21.1 · data as of August 24",
-        "Выпуск 2026-08-25.2 · данные на 25 августа": "Release 2026-08-25.2 · data as of August 25",
-        "Выпуск qazgeo-20260825T102556931z · данные на 25 августа": "Release qazgeo-20260825T102556931z · data as of August 25",
-        "выпуск 2026-08-25.2": "release 2026-08-25.2",
+        "Выпуск 2026-08-28.1 · данные на 28 августа": "Release 2026-08-28.1 · data as of August 28",
+        "Выпуск qazgeo-20260827T172952105z · данные на 27 августа": "Release qazgeo-20260827T172952105z · data as of August 27",
+        "выпуск 2026-08-28.1": "release 2026-08-28.1",
         "проверенных фактов": "verified facts",
         "фактов": "facts",
     },
@@ -177,7 +178,7 @@ def source_inventory() -> list[str]:
         add_js_strings((ROOT / filename).read_text(encoding="utf-8"), values)
     for directory in (ROOT / "content", ROOT / "data"):
         for path in sorted(directory.glob("*.json")):
-            if path == CATALOG:
+            if path.name in NON_UI_DATA_FILES:
                 continue
             try:
                 add_json_values(json.loads(path.read_text(encoding="utf-8")), values)

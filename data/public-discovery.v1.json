@@ -1,0 +1,30 @@
+{
+  "schema_version": "qaz-industries-public-discovery-v1",
+  "product_id": "qaz-industries",
+  "canonical_url": "https://qaz.industries",
+  "language": "ru",
+  "locales": ["ru", "kk", "en"],
+  "policy": {
+    "generated_outputs": ["ai-index.json", "llms.txt"],
+    "public_allowlist_only": true,
+    "direct_browser_upstream_access": false,
+    "external_runtime_data_calls": false,
+    "credentials_and_private_data": "excluded"
+  },
+  "entrypoints": [
+    {"id": "home", "path": "/", "kind": "html", "title_ru": "QAZ.INDUSTRIES"},
+    {"id": "industry-profiles", "path": "/industry.html", "kind": "html", "title_ru": "Отраслевые профили"},
+    {"id": "benchmarks", "path": "/benchmarks.html", "kind": "html", "title_ru": "Ориентиры и сравнения"},
+    {"id": "publication-policy", "path": "/publication.html", "kind": "html", "title_ru": "Политика публикации"},
+    {"id": "health", "path": "/api/health", "kind": "json", "title_ru": "Состояние сервиса"},
+    {"id": "release", "path": "/release.json", "kind": "json", "title_ru": "Идентичность выпуска"},
+    {"id": "qazstack-consumer", "path": "/qazstack-consumer.v1.json", "kind": "json", "title_ru": "Центральный QazStack consumer contract"},
+    {"id": "qazstack-product-contract", "path": "/qazstack-consumer.json", "kind": "json", "title_ru": "Продуктовый QazStack contract"},
+    {"id": "thematic-manifest", "path": "/qazstack-thematic-product.json", "kind": "json", "title_ru": "Тематический manifest"},
+    {"id": "thematic-release", "path": "/data/qaz-industries-thematic-release.v1.json", "kind": "json", "title_ru": "Тематический release"},
+    {"id": "reviewed-source-registry", "path": "/data/reviewed-source-registry.v1.json", "kind": "json", "title_ru": "Реестр reviewed sources"},
+    {"id": "qazlake-snapshot", "path": "/data/qazlake-public-snapshot.v1.json", "kind": "json", "title_ru": "Публичный QazLake snapshot"},
+    {"id": "qazgeo-snapshot", "path": "/data/qazgeo-public-snapshot.v1.json", "kind": "json", "title_ru": "Публичный QazGeo snapshot"},
+    {"id": "qazgeo-layer-registry", "path": "/data/qazgeo-public-layer-registry.v1.json", "kind": "json", "title_ru": "Реестр публичных QazGeo layers"}
+  ]
+}

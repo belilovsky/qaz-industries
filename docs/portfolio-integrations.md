@@ -8,10 +8,10 @@
 |---|---|---|---|---|---|---|---|
 | QazGeo | QAZ.INDUSTRIES | reviewed region GeoJSON и layer metadata | `qaz-industries-qazgeo-*`, `qazgeo-layer/v1` | public-verified static snapshot; browser не ходит к API | region precision; sensitive coords исключены | degraded/contract-only | QazGeo + QAZ owner |
 | QazLake | QAZ.INDUSTRIES | 3 macro indicators | `qaz-industries-qazlake-public-snapshot-v1` | public-verified static snapshot; direct browser access запрещён | raw observations и private fields исключены | regional/water `degraded` | QazLake + QAZ owner |
-| QZ.Energy | QAZ.INDUSTRIES | link metadata и curated profile projection | thematic release + link/source registry | release `qz-energy-newsroom-4100f6a1-20260826` структурно сверен 2026-08-26; data as of 2026-08-06 | исходный реестр не копируется | source unavailable → monitor failure; последний проверенный срез остаётся видимым | QZ.Energy/QAZ owner |
-| Qazaqstan.Space | QAZ.INDUSTRIES | link metadata и curated profile projection | `/data/v1/index.json` + link/source registry | release `2026-08-25.2`, 32 entities, 146 claims и 151 sources сверены 2026-08-26 | только публичные метаданные ссылок | stale contract → monitor failure | Qazaqstan.Space/QAZ owner |
+| QZ.Energy | QAZ.INDUSTRIES | link metadata и curated profile projection | thematic release + link/source registry | release `qz-energy-csp-7b30c16a-20260828T045231Z` структурно сверен 2026-08-29; 173 indicators, 18 objects, 38 sources; data as of 2026-08-06 | исходный реестр не копируется | source unavailable → monitor failure; последний проверенный срез остаётся видимым | QZ.Energy/QAZ owner |
+| Qazaqstan.Space | QAZ.INDUSTRIES | link metadata и curated profile projection | `/data/v1/index.json` + link/source registry | release `2026-08-28.1`, 32 entities, 146 claims и 151 sources сверены 2026-08-29 | только публичные метаданные ссылок | stale contract → monitor failure | Qazaqstan.Space/QAZ owner |
 | QAZ.FARM | QAZ.INDUSTRIES | link metadata и curated profile projection | thematic release + link/source registry | release `2026-08-21.1`, 35 entities и 75 sources сверены 2026-08-26 | только публичные метаданные ссылок | transient unavailable → monitor failure без перезаписи среза | QAZ.FARM/QAZ owner |
-| QAZ.FISH | QAZ.INDUSTRIES | link metadata и curated profile projection | thematic release + link/source registry | release `qazgeo-20260825T102556931z` сверен 2026-08-26; water upstream не переносится | sensitive points и private data исключены | water catalogue `degraded` | QAZ.FISH/QAZ owner |
+| QAZ.FISH | QAZ.INDUSTRIES | link metadata и curated profile projection | thematic release + link/source registry | release `qazgeo-20260827T172952105z` сверен 2026-08-29; 268 water objects и 20 lessons; water upstream не переносится | sensitive points и private data исключены | water catalogue `degraded` | QAZ.FISH/QAZ owner |
 | AV DS 4 | QAZ frontend | закреплённый `@sgeo/ui-kit@4.6.0` token export, `avds-tokens.css`, components и compositions через `avds.css` | static package consumer + Platform surface identity `qaz-industries-public` | artifact-verified/local-tested; hashes и deviations в AVDS system contract, acceptance принадлежит Platform surface registry | no data transfer | stale package/receipt, missing token/class или неверный порядок → check failure | QAZ frontend owner + Platform catalog owner |
 | QazStack manifest | QAZ.INDUSTRIES | product boundary, module declarations и fail-closed consumer inputs | `qazstack-consumer-v1`, `qazstack-thematic-product-v1`, `qazstack-consumer-contract-v1` | local-tested; все три контракта входят в release artifact | explicit public prohibitions | invalid module/asset → release gate failure | QazStack/QAZ owner |
 | platform.qdev.run | QAZ.INDUSTRIES | manifest, catalog identity и production surface; runtime data dependency отсутствует | `qdev-project-manifest-v1` + `data/platform-registration-request.v1.json` | product-side source contract verified; bilateral acceptance требует matching generated Platform row | no data transfer | missing/mismatched Platform row → integration audit failure | Platform catalog owner/QAZ owner |
@@ -25,6 +25,12 @@
 контракты, которые ещё не являются runtime-потребителями. `scoped_surfaces` не
 является процентом зрелости: это счётчик проверенных границ на дату
 `evaluated_at` в реестре.
+
+Решения о повторном использовании, включая target-native machine discovery и
+явно отложенные shared candidates, зафиксированы в
+[`reuse-аудите 2026-08-28`](audits/qaz-industries-reuse-decision-2026-08-28.md).
+QZ.Energy и Qazaqstan.Space в нём остаются федеративными ссылочными
+provenance contract-ами: snapshots и код в этот продукт не переносятся.
 
 Внешние карточки вроде QazGeo или Qaz.FUND на главной — навигационные ссылки,
 если они не перечислены в source registry и не имеют machine contract.

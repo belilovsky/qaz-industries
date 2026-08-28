@@ -1,0 +1,104 @@
+{
+  "schema_version": "qaz-industries-ai-index-v1",
+  "product_id": "qaz-industries",
+  "canonical_url": "https://qaz.industries",
+  "language": "ru",
+  "locales": [
+    "ru",
+    "kk",
+    "en"
+  ],
+  "generated_from": "data/public-discovery.v1.json",
+  "public_safe": true,
+  "boundaries": {
+    "direct_browser_upstream_access": false,
+    "external_runtime_data_calls": false,
+    "credentials_and_private_data": "excluded"
+  },
+  "entrypoints": [
+    {
+      "id": "home",
+      "kind": "html",
+      "url": "https://qaz.industries/",
+      "title_ru": "QAZ.INDUSTRIES"
+    },
+    {
+      "id": "industry-profiles",
+      "kind": "html",
+      "url": "https://qaz.industries/industry.html",
+      "title_ru": "Отраслевые профили"
+    },
+    {
+      "id": "benchmarks",
+      "kind": "html",
+      "url": "https://qaz.industries/benchmarks.html",
+      "title_ru": "Ориентиры и сравнения"
+    },
+    {
+      "id": "publication-policy",
+      "kind": "html",
+      "url": "https://qaz.industries/publication.html",
+      "title_ru": "Политика публикации"
+    },
+    {
+      "id": "health",
+      "kind": "json",
+      "url": "https://qaz.industries/api/health",
+      "title_ru": "Состояние сервиса"
+    },
+    {
+      "id": "release",
+      "kind": "json",
+      "url": "https://qaz.industries/release.json",
+      "title_ru": "Идентичность выпуска"
+    },
+    {
+      "id": "qazstack-consumer",
+      "kind": "json",
+      "url": "https://qaz.industries/qazstack-consumer.v1.json",
+      "title_ru": "Центральный QazStack consumer contract"
+    },
+    {
+      "id": "qazstack-product-contract",
+      "kind": "json",
+      "url": "https://qaz.industries/qazstack-consumer.json",
+      "title_ru": "Продуктовый QazStack contract"
+    },
+    {
+      "id": "thematic-manifest",
+      "kind": "json",
+      "url": "https://qaz.industries/qazstack-thematic-product.json",
+      "title_ru": "Тематический manifest"
+    },
+    {
+      "id": "thematic-release",
+      "kind": "json",
+      "url": "https://qaz.industries/data/qaz-industries-thematic-release.v1.json",
+      "title_ru": "Тематический release"
+    },
+    {
+      "id": "reviewed-source-registry",
+      "kind": "json",
+      "url": "https://qaz.industries/data/reviewed-source-registry.v1.json",
+      "title_ru": "Реестр reviewed sources"
+    },
+    {
+      "id": "qazlake-snapshot",
+      "kind": "json",
+      "url": "https://qaz.industries/data/qazlake-public-snapshot.v1.json",
+      "title_ru": "Публичный QazLake snapshot"
+    },
+    {
+      "id": "qazgeo-snapshot",
+      "kind": "json",
+      "url": "https://qaz.industries/data/qazgeo-public-snapshot.v1.json",
+      "title_ru": "Публичный QazGeo snapshot"
+    },
+    {
+      "id": "qazgeo-layer-registry",
+      "kind": "json",
+      "url": "https://qaz.industries/data/qazgeo-public-layer-registry.v1.json",
+      "title_ru": "Реестр публичных QazGeo layers"
+    }
+  ]
+}

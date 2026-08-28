@@ -22,12 +22,50 @@ def load(name: str) -> dict:
     return json.loads((DATA / name).read_text(encoding="utf-8"))
 
 
+def load_root(name: str) -> dict:
+    return json.loads((ROOT / name).read_text(encoding="utf-8"))
+
+
 def https(value: object, label: str) -> None:
     require(isinstance(value, str) and urlparse(value).scheme == "https", f"{label}: HTTPS required")
 
 
+def validate_public_discovery() -> None:
+    source = load("public-discovery.v1.json")
+    require(source.get("schema_version") == "qaz-industries-public-discovery-v1", "discovery schema")
+    require(source.get("product_id") == "qaz-industries", "discovery product")
+    require(source.get("canonical_url") == "https://qaz.industries", "discovery canonical URL")
+    require(source.get("language") == "ru" and source.get("locales") == ["ru", "kk", "en"], "discovery locale contract")
+    policy = source.get("policy") or {}
+    require(policy.get("public_allowlist_only") is True, "discovery allowlist boundary")
+    require(policy.get("direct_browser_upstream_access") is False, "discovery browser boundary")
+    require(policy.get("external_runtime_data_calls") is False, "discovery runtime boundary")
+    require(policy.get("credentials_and_private_data") == "excluded", "discovery privacy boundary")
+    entries = source.get("entrypoints")
+    require(isinstance(entries, list) and entries, "discovery entrypoints")
+    ids = [entry.get("id") for entry in entries if isinstance(entry, dict)]
+    paths = [entry.get("path") for entry in entries if isinstance(entry, dict)]
+    require(len(ids) == len(entries) == len(set(ids)), "discovery entrypoint ids")
+    require(len(paths) == len(entries) == len(set(paths)), "discovery entrypoint paths")
+    require(all(isinstance(path, str) and path.startswith("/") and not path.startswith("//") and "?" not in path and "#" not in path for path in paths), "discovery entrypoint route boundary")
+    ai_index = load_root("ai-index.json")
+    require(ai_index.get("schema_version") == "qaz-industries-ai-index-v1", "AI index schema")
+    require(ai_index.get("product_id") == "qaz-industries" and ai_index.get("canonical_url") == "https://qaz.industries", "AI index identity")
+    require(ai_index.get("generated_from") == "data/public-discovery.v1.json" and ai_index.get("public_safe") is True, "AI index provenance")
+    require(ai_index.get("boundaries") == {"direct_browser_upstream_access": False, "external_runtime_data_calls": False, "credentials_and_private_data": "excluded"}, "AI index boundaries")
+    expected = [
+        {"id": entry["id"], "kind": entry["kind"], "url": "https://qaz.industries" + entry["path"], "title_ru": entry["title_ru"]}
+        for entry in entries
+    ]
+    require(ai_index.get("entrypoints") == expected, "AI index must match the safe allowlist")
+    llms = (ROOT / "llms.txt").read_text(encoding="utf-8")
+    require("Generated from: data/public-discovery.v1.json" in llms, "llms provenance")
+    require(all(entry["url"] in llms for entry in expected), "llms allowlist completeness")
+
+
 def main() -> int:
     try:
+        validate_public_discovery()
         profiles = load("industry-profiles.v1.json")
         require(profiles["schema_version"] == "qaz-industries-public-profiles-v1", "profiles schema")
         require(len(profiles["profiles"]) == 4, "expected four industry profiles")

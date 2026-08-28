@@ -23,6 +23,7 @@ python3 scripts/check_content.py
 python3 scripts/check_edpol_editorial_ledger.py
 python3 scripts/check_quality_budgets.py
 python3 scripts/check_docs.py
+python3 scripts/build_discovery.py --check
 python3 scripts/check_public_contracts.py
 python3 -m py_compile scripts/*.py
 PYTHONPATH=. python3 -m unittest discover -s tests -p 'test_*.py'

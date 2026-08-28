@@ -1,0 +1,99 @@
+{
+  "schema_version": "qdev-cross-project-reuse-ledger-v1",
+  "generated_at": "2026-08-28T00:00:00Z",
+  "request": "Двусторонний reuse-аудит QAZ.INDUSTRIES без публикации общих примитивов",
+  "mode": "integrate",
+  "authorization": {"target_edits": true, "shared_owner_edits": false, "release": false},
+  "donor": {
+    "project_id": "qazstack",
+    "canonical_root": "https://github.com/belilovsky/qazstack.git",
+    "revision": "081de3852ce0becbbc408272fcaa925fc4cf4117",
+    "dirty_state": "read-only canonical baseline",
+    "evidence": ["origin/main inspected before target changes", "PR #99 head 222f2bafda76a774fb8202113277eb1895e2c664 is explicitly non-canonical"]
+  },
+  "target": {
+    "project_id": "qaz-industries",
+    "canonical_root": "https://github.com/belilovsky/qaz-industries.git",
+    "revision": "e30f7079238298952b332ae94f0e35ec330391f8",
+    "dirty_state": "clean at audit start; target-only candidate changes follow",
+    "evidence": ["qazstack-consumer.v1.json", "qazstack-thematic-product.json", "data/reviewed-source-registry.v1.json"]
+  },
+  "target_outcome": {
+    "mandate": "Сохранить подтверждённый contract-only reuse и добавить безопасный локальный machine discovery без межпродуктового переноса данных.",
+    "user_jobs": ["Найти стабильные публичные интерфейсы продукта", "Понять provenance тематических материалов без копирования snapshots"],
+    "preserved_contracts": ["Browser does not call QazLake/QazGeo upstreams", "QazGeo remains a local sanitized static snapshot", "QazStack central registration remains separate from product reuse"],
+    "non_goals": ["Публикация нового общего примитива", "Копирование QZ.Energy или Qazaqstan.Space data", "Изменение QazStack, QazGeo или Platform"]
+  },
+  "coverage": [
+    {"plane": "product_and_user_value", "status": "reviewed", "evidence": ["docs/audits/qaz-industries-reuse-decision-2026-08-28.md"], "notes": "Discovery ограничен публичной навигацией."},
+    {"plane": "information_architecture", "status": "reviewed", "evidence": ["data/public-discovery.v1.json"], "notes": "Один allowlist задаёт все machine entrypoints."},
+    {"plane": "content_and_localization", "status": "reviewed", "evidence": ["data/public-discovery.v1.json"], "notes": "RU названия и RU/KK/EN product locales не импортируют чужой контент."},
+    {"plane": "data_and_provenance", "status": "reviewed", "evidence": ["data/reviewed-source-registry.v1.json"], "notes": "Федеративные источники остаются metadata-only."},
+    {"plane": "ux_and_avds", "status": "not_applicable", "evidence": ["Decision records product-state semantics in audit"], "notes": "Новый публичный machine index не создаёт AVDS UI."},
+    {"plane": "frontend_components", "status": "not_applicable", "evidence": ["Static JSON and text outputs"], "notes": "Нет переносимого frontend component."},
+    {"plane": "backend_and_api", "status": "not_applicable", "evidence": ["scripts/build_discovery.py"], "notes": "Только build-time static files; backend не добавляется."},
+    {"plane": "platform_and_shared_services", "status": "reviewed", "evidence": ["qazstack-consumer.v1.json", "qazstack-thematic-product.json"], "notes": "QazStack reuse retained; central registry evidence remains separate."},
+    {"plane": "discovery_seo_public_ai", "status": "reviewed", "evidence": ["ai-index.json", "llms.txt", "scripts/build_discovery.py"], "notes": "Generated public discovery is allowlist-only."},
+    {"plane": "security_privacy_compliance", "status": "reviewed", "evidence": ["data/public-discovery.v1.json", "qazstack-consumer.v1.json"], "notes": "No credentials, private data, browser upstream calls, or foreign snapshots."},
+    {"plane": "quality_operations_docs", "status": "reviewed", "evidence": ["scripts/check.sh", "scripts/verify_release_artifact.py", "docs/audits/qaz-industries-reuse-decision-2026-08-28.md"], "notes": "Generated outputs are build, immutable-artifact and release checked."}
+  ],
+  "candidates": [
+    {
+      "id": "thematic-product-contracts", "name": "QazStack thematic-product-contracts", "plane": "platform_and_shared_services", "decision": "consume_shared", "status": "implemented", "priority": "P0", "stack_effect": "reuse_supported", "portfolio_update": "not_applicable",
+      "user_value": "Стабильный тематический product contract.", "rationale": "Уже объявлен в central consumer и manifest; новая продуктовая миграция не нужна.", "donor_refs": ["QazStack 081de3852ce0becbbc408272fcaa925fc4cf4117"], "target_refs": ["qazstack-consumer.v1.json", "qazstack-thematic-product.json"], "adaptation": ["contract-only; no runtime SDK"], "dependencies": ["central registry PR #99 remains separate"], "acceptance": ["scripts/check_public_contracts.py validates exact primitive set"], "rollback": "Удалить только при согласованном изменении product contract.", "update_path": "QAZ owner updates local contracts; QazStack owner governs primitive.",
+      "hard_gates": {"target_value": "pass", "semantic_fit": "pass", "canonical_ownership": "pass", "contract_compatibility": "pass", "stack_convergence": "pass", "rights_privacy_security": "pass", "maintainable_update_path": "pass", "testability_rollback": "pass"}
+    },
+    {
+      "id": "reviewed-source-registry", "name": "Reviewed source registry pattern", "plane": "data_and_provenance", "decision": "consume_shared", "status": "implemented", "priority": "P0", "stack_effect": "reuse_supported", "portfolio_update": "not_applicable",
+      "user_value": "Проверяемые metadata-only provenance links.", "rationale": "Локальный public registry уже закрепляет права и границы источников.", "donor_refs": ["QazStack 081de3852ce0becbbc408272fcaa925fc4cf4117"], "target_refs": ["data/reviewed-source-registry.v1.json"], "adaptation": ["No foreign snapshot transfer"], "dependencies": [], "acceptance": ["scripts/check_public_contracts.py validates registry rights and URLs"], "rollback": "Удалить ссылочный record при отзыве rights approval.", "update_path": "QAZ owner maintains reviewed records; upstream owner owns source release.",
+      "hard_gates": {"target_value": "pass", "semantic_fit": "pass", "canonical_ownership": "pass", "contract_compatibility": "pass", "stack_convergence": "pass", "rights_privacy_security": "pass", "maintainable_update_path": "pass", "testability_rollback": "pass"}
+    },
+    {
+      "id": "qz-energy-machine-discovery", "name": "Target-native machine discovery pattern", "plane": "discovery_seo_public_ai", "decision": "adapt_in_target", "status": "implemented", "priority": "P1", "stack_effect": "compatible_adapter", "portfolio_update": "not_applicable",
+      "user_value": "Машины получают безопасную карту публичных QAZ interfaces.", "rationale": "Воспроизводится только паттерн QZ.Energy; код, отраслевые данные и snapshots не переносятся.", "donor_refs": ["https://qz.energy/ai-index.json (public behavior reference only; no donor source artifact is consumed)"], "target_refs": ["data/public-discovery.v1.json", "scripts/build_discovery.py", "ai-index.json", "llms.txt"], "adaptation": ["Own generator", "Own allowlist", "No foreign URL is emitted"], "dependencies": [], "acceptance": ["python3 scripts/build_discovery.py --check", "tests/discovery.test.cjs"], "rollback": "Remove the two generated files and their allowlist entry together.", "update_path": "QAZ owner changes the local allowlist and regenerates output.",
+      "hard_gates": {"target_value": "pass", "semantic_fit": "pass", "canonical_ownership": "pass", "contract_compatibility": "pass", "stack_convergence": "pass", "rights_privacy_security": "pass", "maintainable_update_path": "pass", "testability_rollback": "pass"}
+    },
+    {
+      "id": "federated-sector-provenance", "name": "QZ.Energy and Qazaqstan.Space federation", "plane": "data_and_provenance", "decision": "link_or_federate", "status": "implemented", "priority": "P1", "stack_effect": "none", "portfolio_update": "not_applicable",
+      "user_value": "Отраслевой контекст остаётся проверяемым без скрытого data coupling.", "rationale": "Только thematic release/source contract links; snapshots не копируются.", "donor_refs": ["data/reviewed-source-registry.v1.json:qz-energy", "data/reviewed-source-registry.v1.json:qazaqstan-space"], "target_refs": ["data/reviewed-source-registry.v1.json", "docs/portfolio-integrations.md"], "adaptation": ["Metadata-only links", "No browser upstream calls"], "dependencies": ["Upstream releases remain owned by their products"], "acceptance": ["scripts/check_public_contracts.py validates reviewed source registry"], "rollback": "Withdraw an individual link record if contract or rights evidence is withdrawn.", "update_path": "Upstream owner releases source contract; QAZ owner reviews link metadata.",
+      "hard_gates": {"target_value": "pass", "semantic_fit": "pass", "canonical_ownership": "pass", "contract_compatibility": "pass", "stack_convergence": "pass", "rights_privacy_security": "pass", "maintainable_update_path": "pass", "testability_rollback": "pass"}
+    },
+    {
+      "id": "qazaq-family-atlas", "name": "Qazaq Family Atlas import", "plane": "data_and_provenance", "decision": "reject", "status": "rejected", "priority": "none", "stack_effect": "none", "portfolio_update": "not_applicable",
+      "user_value": "Не создаёт оправданной ценности для индустриального контракта.", "rationale": "QAZ needs own sanitized QazGeo snapshots with exact revision and fail-closed verification.", "donor_refs": ["Qazaq Family Atlas"], "target_refs": ["data/qazgeo-public-snapshot.v1.json", "data/qazgeo-regions-public.v1.geojson"], "adaptation": [], "dependencies": [], "acceptance": ["QazGeo contract remains locally checked"], "rollback": "No import was performed.", "update_path": "QazGeo owner governs any future public projection.",
+      "hard_gates": {"target_value": "fail", "semantic_fit": "fail", "canonical_ownership": "unknown", "contract_compatibility": "fail", "stack_convergence": "not_applicable", "rights_privacy_security": "unknown", "maintainable_update_path": "fail", "testability_rollback": "pass"}
+    },
+    {
+      "id": "qazstack-temporal-diff", "name": "QazStack temporal diff", "plane": "data_and_provenance", "decision": "defer", "status": "deferred", "priority": "P1", "stack_effect": "new_boundary_proposed", "portfolio_update": "required",
+      "user_value": "В будущем может дать build-time change pulse.", "rationale": "Сейчас отсутствуют две сопоставимые исторические snapshots и назначенный release owner.", "donor_refs": ["QazStack temporal diff candidate"], "target_refs": ["data/qazlake-public-snapshot.v1.json"], "adaptation": [], "dependencies": ["Two comparable historical snapshots", "Named release owner"], "acceptance": ["Future owner-approved build-time contract"], "rollback": "No integration was started.", "update_path": "QazStack owner proposes versioned contract after evidence exists.",
+      "hard_gates": {"target_value": "unknown", "semantic_fit": "unknown", "canonical_ownership": "unknown", "contract_compatibility": "unknown", "stack_convergence": "unknown", "rights_privacy_security": "unknown", "maintainable_update_path": "unknown", "testability_rollback": "pass"}
+    },
+    {
+      "id": "reviewed-static-snapshot", "name": "Shared reviewed-static-snapshot discovery", "plane": "platform_and_shared_services", "decision": "defer", "status": "deferred", "priority": "P1", "stack_effect": "new_boundary_proposed", "portfolio_update": "required",
+      "user_value": "Нейтральная build-time schema/freshness/digest/fail-closed проверка могла бы убрать дублирование.", "rationale": "Потребители QAZ.INDUSTRIES, QZ.Energy и Qazaqstan.Space предполагаются, но единый contract и QazStack owner approval не подтверждены.", "donor_refs": ["Potential consumers: QAZ.INDUSTRIES, QZ.Energy, Qazaqstan.Space"], "target_refs": ["data/qazlake-public-snapshot.v1.json", "data/qazgeo-public-snapshot.v1.json"], "adaptation": [], "dependencies": ["Second confirmed compatible consumer", "Identical contract proof", "QazStack owner approval"], "acceptance": ["Owner-approved shared primitive proposal"], "rollback": "No extraction or publication was performed.", "update_path": "QazStack owner only after identical contracts are reviewed.",
+      "hard_gates": {"target_value": "unknown", "semantic_fit": "unknown", "canonical_ownership": "unknown", "contract_compatibility": "unknown", "stack_convergence": "unknown", "rights_privacy_security": "unknown", "maintainable_update_path": "unknown", "testability_rollback": "pass"}
+    },
+    {
+      "id": "qazgeo-sanitized-regions", "name": "Sanitization of twenty regional geometries", "plane": "data_and_provenance", "decision": "defer", "status": "deferred", "priority": "P1", "stack_effect": "new_boundary_proposed", "portfolio_update": "required",
+      "user_value": "Может быть полезно только как QazGeo-owned public projection.", "rationale": "Не является QazStack primitive; extraction возможен у QazGeo owner после двух подтверждённых consumers.", "donor_refs": ["data/qazgeo-regions-public.v1.geojson"], "target_refs": ["scripts/check_public_contracts.py"], "adaptation": [], "dependencies": ["QazGeo owner", "At least two confirmed consumers"], "acceptance": ["QazGeo-owned public projection receipt"], "rollback": "Product-local geometry checks remain unchanged.", "update_path": "QazGeo owner owns any future extraction.",
+      "hard_gates": {"target_value": "unknown", "semantic_fit": "unknown", "canonical_ownership": "unknown", "contract_compatibility": "unknown", "stack_convergence": "not_applicable", "rights_privacy_security": "unknown", "maintainable_update_path": "unknown", "testability_rollback": "pass"}
+    },
+    {
+      "id": "product-state-ui", "name": "Loading, offline and degraded UI states", "plane": "ux_and_avds", "decision": "reject", "status": "rejected", "priority": "none", "stack_effect": "none", "portfolio_update": "not_applicable",
+      "user_value": "No shared primitive preserves product-specific failure semantics.", "rationale": "State semantics are product contracts; visible implementation is governed by AVDS.", "donor_refs": ["QAZ.INDUSTRIES product UI"], "target_refs": ["snapshot-contracts.js", "avds.css"], "adaptation": [], "dependencies": [], "acceptance": ["Existing route and AVDS checks"], "rollback": "No extraction was performed.", "update_path": "Each product owns its state semantics; AVDS owns only visual primitives.",
+      "hard_gates": {"target_value": "fail", "semantic_fit": "fail", "canonical_ownership": "pass", "contract_compatibility": "fail", "stack_convergence": "not_applicable", "rights_privacy_security": "pass", "maintainable_update_path": "fail", "testability_rollback": "pass"}
+    }
+  ],
+  "implementation": {
+    "status": "complete",
+    "target_changes": ["Target-native ai-index.json and llms.txt generated from public allowlist", "Build, static-site, public-contract and release-artifact checks extended", "Decision and ledger document explicit non-extractions"],
+    "checks": ["python3 scripts/build_discovery.py --check", "python3 scripts/check_public_contracts.py", "node --test tests/discovery.test.cjs", "validate_reuse_ledger.py"],
+    "remaining": ["No shared primitive extraction", "No central QazStack registry merge", "No provider CI/runtime/public acceptance claimed"]
+  },
+  "release": {
+    "status": "not_requested",
+    "evidence": ["Local source candidate only; no deploy was part of this audit"],
+    "notes": "Provider CI, central registry and public runtime must be proved separately after an authorized release."
+  },
+  "blockers": ["PR #99 has not become canonical QazStack registry evidence", "No identical reviewed-static-snapshot contract and owner approval", "No fresh exact-SHA provider or public runtime proof for this local candidate"]
+}
