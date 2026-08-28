@@ -97,6 +97,25 @@ def main() -> int:
         raise SystemExit("release contract: machine discovery upstream boundary mismatch")
     if "Generated from: data/public-discovery.v1.json" not in llms:
         raise SystemExit("release contract: machine discovery provenance missing")
+    for sector in ("energy", "space", "farm", "water"):
+        for family in ("profile-heroes", "profile-context"):
+            source_originals = directory / "assets" / "editorial-media" / family / sector / "original"
+            if source_originals.exists():
+                raise SystemExit(f"release contract: source originals must not be published: {family}/{sector}")
+        manifest = directory / "assets" / "editorial-media" / "profile-heroes" / sector / f"{sector}.media.json"
+        if not manifest.is_file():
+            raise SystemExit(f"release contract: missing profile hero manifest: {sector}")
+        for width in (480, 960, 1600):
+            derivative = directory / "assets" / "editorial-media" / "profile-heroes" / sector / "derivatives" / f"{sector}-{width}w.webp"
+            if not derivative.is_file() or derivative.stat().st_size == 0:
+                raise SystemExit(f"release contract: missing profile hero derivative: {sector}/{width}")
+        context_manifest = directory / "assets" / "editorial-media" / "profile-context" / sector / f"{sector}-context.media.json"
+        if not context_manifest.is_file():
+            raise SystemExit(f"release contract: missing profile context manifest: {sector}")
+        for width in (480, 960, 1600):
+            derivative = directory / "assets" / "editorial-media" / "profile-context" / sector / "derivatives" / f"{sector}-context-{width}w.webp"
+            if not derivative.is_file() or derivative.stat().st_size == 0:
+                raise SystemExit(f"release contract: missing profile context derivative: {sector}/{width}")
     version = args.commit[:12]
     for page, assets in PAGE_ASSETS.items():
         source = (directory / page).read_text(encoding="utf-8")

@@ -6,7 +6,7 @@
     "avds_version": "4.6.0",
     "package_source_revision": "88387252684aefd6b37ad34c55d3a9df537e2832",
     "control_plane_revision": "b5be3206d99726a25880b3d2c2ee92e7e96aa8a8",
-    "synchronized_at": "2026-08-28T19:09:19Z",
+    "synchronized_at": "2026-08-28T19:10:11Z",
     "package_runtime_receipt": "data/avds-package-runtime.v1.json",
     "connected_files": [
       {
@@ -23,7 +23,7 @@
       },
       {
         "path": "styles.css",
-        "sha256": "e57d1f774ec0adfec1803f896d7ab4da43cbe6271106d7b0981f3e0353c2372a"
+        "sha256": "a3b7b85ef49f3fa94b29ef2514ea35caafd2cb0293ffbd75f77c73178b15ffbd"
       },
       {
         "path": "card-context.css",
@@ -43,7 +43,7 @@
       },
       {
         "path": "data/ui-locale.v1.json",
-        "sha256": "301dfaf626f10c4cbaad6588edbef14c1a5b1817e09fea45625de3ef5a28f0ab"
+        "sha256": "309f399a161022d420db7475fb1bf5079e2f97a4a316aaf457fc3857e981b7b4"
       },
       {
         "path": "package.json",

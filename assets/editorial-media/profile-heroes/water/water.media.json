@@ -1,0 +1,104 @@
+{
+  "created_at": "2026-08-27T18:34:06.845150Z",
+  "derivatives": [
+    {
+      "bytes": 18314,
+      "format": "webp",
+      "height": 270,
+      "path": "derivatives/water-480w.webp",
+      "sha256": "b3dd91e8ea43cf3e252ddfe343980a8d56646c47721dd23c12aff10ab32033e6",
+      "width": 480
+    },
+    {
+      "bytes": 62906,
+      "format": "webp",
+      "height": 540,
+      "path": "derivatives/water-960w.webp",
+      "sha256": "48bc15fd30e6643cdf8959631e789a80bda06e35a65536e599a16227f22d36e0",
+      "width": 960
+    },
+    {
+      "bytes": 154322,
+      "format": "webp",
+      "height": 900,
+      "path": "derivatives/water-1600w.webp",
+      "sha256": "d4943a89fa8c316e01d7f3fcb741494d555fdeba5cd6588801c46e6f22c8fa70",
+      "width": 1600
+    }
+  ],
+  "original": {
+    "bytes": 2544396,
+    "content_type": "image/png",
+    "format": "png",
+    "height": 941,
+    "path": "original/water.png",
+    "sha256": "05b1a6a287ba4ebac4e13f453d2889e2d1e9e20cb5d18a61531a0168556ac20b",
+    "source_receipt": "generated-selection",
+    "width": 1672
+  },
+  "placement_id": "industry-water-hero",
+  "processor": {
+    "pillow": "10.4.0",
+    "python": "3.9.6",
+    "tool": "picture_desk.py",
+    "version": "1.1.0",
+    "webp": true
+  },
+  "request": {
+    "basename": "water",
+    "crop_ratio": "16:9",
+    "focal_x": 0.66,
+    "focal_y": 0.5,
+    "formats": [
+      "webp"
+    ],
+    "quality_jpeg": 86,
+    "quality_webp": 82,
+    "widths": [
+      480,
+      960,
+      1600
+    ]
+  },
+  "schema_version": "portfolio-media-asset-v1",
+  "selection": {
+    "bytes": 2544396,
+    "disclosure": "ИИ-иллюстрация для редакционного контекста; не документальная фотография.",
+    "format": "png",
+    "generated_at": "2026-08-27T18:33:45Z",
+    "generation_basis": "illustration_preferred",
+    "generation_id": "unavailable",
+    "height": 941,
+    "model": "provider-selected",
+    "prompt_summary": "Abstract freshwater ecosystem paper-cut illustration; water layers, reeds and generic fish; no real location or condition claim.",
+    "qphoto_queries": [],
+    "qphoto_rejections": [],
+    "service": "imagegen",
+    "sha256": "05b1a6a287ba4ebac4e13f453d2889e2d1e9e20cb5d18a61531a0168556ac20b",
+    "truth_mode": "representational",
+    "width": 1672
+  },
+  "selection_reason": "Public sector profile needs a conceptual editorial hero that is clearly not documentary evidence.",
+  "selection_receipt": {
+    "filename": "selection-water.json",
+    "sha256": "2f488561a980a21d16feaf6a91456bb0d6368b2ab6583eda1c3bb78411942c84"
+  },
+  "source_identity": "generated:05b1a6a287ba4ebac4e13f453d2889e2d1e9e20cb5d18a61531a0168556ac20b",
+  "source_kind": "generated",
+  "transform": {
+    "crop_box": [
+      0,
+      0,
+      1672,
+      940
+    ],
+    "crop_height": 940,
+    "crop_width": 1672,
+    "focal_point": [
+      0.66,
+      0.5
+    ],
+    "metadata_policy": "derivatives_strip_exif; provenance_retained_in_manifest",
+    "upscale": false
+  }
+}
