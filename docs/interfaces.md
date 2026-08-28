@@ -65,3 +65,13 @@ values `energy`, `space`, `farm`, `water` являются текущим сов
 Все внешние ссылки используют HTTPS и открываются с `rel="noreferrer"`. Caddy
 задаёт строгий CSP без внешних script/style/font источников. Прямой browser
 access к QazLake/QazGeo запрещён архитектурой.
+
+## Machine discovery
+
+[`/ai-index.json`](../ai-index.json) и [`/llms.txt`](../llms.txt) —
+производные публичные файлы. Единственный исходник для них —
+[`data/public-discovery.v1.json`](../data/public-discovery.v1.json): в нём
+разрешены только same-origin маршруты QAZ.INDUSTRIES. Генератор не принимает
+чужие snapshots, credentials или browser upstream URL; `scripts/check.sh` и
+immutable release verification останавливаются при расхождении outputs с этим
+allowlist.

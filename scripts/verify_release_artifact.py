@@ -81,9 +81,41 @@ def main() -> int:
         raise SystemExit("release contract: QDev project manifest identity mismatch")
     if project_manifest.get("profile") != "public-web" or project_manifest.get("lifecycle") != "production":
         raise SystemExit("release contract: QDev production profile mismatch")
-    for discovery_file in ("robots.txt", "sitemap.xml"):
+    for discovery_file in ("robots.txt", "sitemap.xml", "ai-index.json", "llms.txt"):
         if not (directory / discovery_file).is_file():
             raise SystemExit(f"release contract: discovery file missing: {discovery_file}")
+    try:
+        ai_index = json.loads((directory / "ai-index.json").read_text(encoding="utf-8"))
+        llms = (directory / "llms.txt").read_text(encoding="utf-8")
+    except (OSError, json.JSONDecodeError) as error:
+        raise SystemExit(f"release contract: invalid machine discovery output: {error}") from error
+    if ai_index.get("schema_version") != "qaz-industries-ai-index-v1" or ai_index.get("product_id") != "qaz-industries":
+        raise SystemExit("release contract: machine discovery identity mismatch")
+    if ai_index.get("canonical_url") != "https://qaz.industries" or ai_index.get("public_safe") is not True:
+        raise SystemExit("release contract: machine discovery public boundary mismatch")
+    if ai_index.get("boundaries") != {"direct_browser_upstream_access": False, "external_runtime_data_calls": False, "credentials_and_private_data": "excluded"}:
+        raise SystemExit("release contract: machine discovery upstream boundary mismatch")
+    if "Generated from: data/public-discovery.v1.json" not in llms:
+        raise SystemExit("release contract: machine discovery provenance missing")
+    for sector in ("energy", "space", "farm", "water"):
+        for family in ("profile-heroes", "profile-context"):
+            source_originals = directory / "assets" / "editorial-media" / family / sector / "original"
+            if source_originals.exists():
+                raise SystemExit(f"release contract: source originals must not be published: {family}/{sector}")
+        manifest = directory / "assets" / "editorial-media" / "profile-heroes" / sector / f"{sector}.media.json"
+        if not manifest.is_file():
+            raise SystemExit(f"release contract: missing profile hero manifest: {sector}")
+        for width in (480, 960, 1600):
+            derivative = directory / "assets" / "editorial-media" / "profile-heroes" / sector / "derivatives" / f"{sector}-{width}w.webp"
+            if not derivative.is_file() or derivative.stat().st_size == 0:
+                raise SystemExit(f"release contract: missing profile hero derivative: {sector}/{width}")
+        context_manifest = directory / "assets" / "editorial-media" / "profile-context" / sector / f"{sector}-context.media.json"
+        if not context_manifest.is_file():
+            raise SystemExit(f"release contract: missing profile context manifest: {sector}")
+        for width in (480, 960, 1600):
+            derivative = directory / "assets" / "editorial-media" / "profile-context" / sector / "derivatives" / f"{sector}-context-{width}w.webp"
+            if not derivative.is_file() or derivative.stat().st_size == 0:
+                raise SystemExit(f"release contract: missing profile context derivative: {sector}/{width}")
     version = args.commit[:12]
     for page, assets in PAGE_ASSETS.items():
         source = (directory / page).read_text(encoding="utf-8")

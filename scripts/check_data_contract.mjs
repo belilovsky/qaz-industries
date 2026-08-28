@@ -46,6 +46,18 @@ function objectArray(value, label, fields) {
   });
 }
 
+function localAsset(value, label) {
+  requiredString(value, label);
+  if (!value.startsWith('assets/editorial-media/profile-heroes/')) fail(`${label} must be a profile hero asset`);
+  if (!fs.existsSync(path.join(ROOT, value))) fail(`${label} is missing from the static source`);
+}
+
+function contextAsset(value, label) {
+  requiredString(value, label);
+  if (!value.startsWith('assets/editorial-media/profile-context/')) fail(`${label} must be a profile context asset`);
+  if (!fs.existsSync(path.join(ROOT, value))) fail(`${label} is missing from the static source`);
+}
+
 if (!profiles || typeof profiles !== 'object' || Array.isArray(profiles)) fail('profiles must be an object');
 const entries = Object.entries(profiles);
 if (entries.length < 1) fail('at least one profile is required');
@@ -66,6 +78,43 @@ for (const [key, profile] of entries) {
   if (registryProfile.source_release_id !== profile.sourceReleaseId) fail(`${key}: JSON/JavaScript source release mismatch`);
   if (registryProfile.release !== profile.release) fail(`${key}: JSON/JavaScript release mismatch`);
   httpsUrl(profile.sourceUrl, `${key}.sourceUrl`);
+  if (!profile.illustration || typeof profile.illustration !== 'object' || Array.isArray(profile.illustration)) {
+    fail(`${key}.illustration must be an object`);
+  }
+  requiredString(profile.illustration.alt, `${key}.illustration.alt`);
+  requiredString(profile.illustration.disclosure, `${key}.illustration.disclosure`);
+  if (!Array.isArray(profile.illustration.sources) || profile.illustration.sources.length !== 3) {
+    fail(`${key}.illustration.sources must contain three responsive assets`);
+  }
+  let previousWidth = 0;
+  profile.illustration.sources.forEach((source, index) => {
+    if (!source || typeof source !== 'object') fail(`${key}.illustration.sources[${index}] must be an object`);
+    localAsset(source.src, `${key}.illustration.sources[${index}].src`);
+    if (!Number.isInteger(source.width) || source.width <= previousWidth) {
+      fail(`${key}.illustration.sources[${index}].width must increase`);
+    }
+    previousWidth = source.width;
+  });
+  if (!profile.photo || typeof profile.photo !== 'object' || Array.isArray(profile.photo)) {
+    fail(`${key}.photo must be an object`);
+  }
+  for (const field of ['alt', 'caption', 'creator', 'sourceUrl', 'license', 'licenseUrl']) {
+    requiredString(profile.photo[field], `${key}.photo.${field}`);
+  }
+  httpsUrl(profile.photo.sourceUrl, `${key}.photo.sourceUrl`);
+  httpsUrl(profile.photo.licenseUrl, `${key}.photo.licenseUrl`);
+  if (!Array.isArray(profile.photo.sources) || profile.photo.sources.length !== 3) {
+    fail(`${key}.photo.sources must contain three responsive assets`);
+  }
+  previousWidth = 0;
+  profile.photo.sources.forEach((source, index) => {
+    if (!source || typeof source !== 'object') fail(`${key}.photo.sources[${index}] must be an object`);
+    contextAsset(source.src, `${key}.photo.sources[${index}].src`);
+    if (!Number.isInteger(source.width) || source.width <= previousWidth) {
+      fail(`${key}.photo.sources[${index}].width must increase`);
+    }
+    previousWidth = source.width;
+  });
   objectArray(profile.kpis, `${key}.kpis`, ['value', 'label', 'period']);
   objectArray(profile.indicators, `${key}.indicators`, ['name', 'value', 'unit', 'period', 'note', 'url']);
   profile.indicators.forEach((item, index) => httpsUrl(item.url, `${key}.indicators[${index}].url`));

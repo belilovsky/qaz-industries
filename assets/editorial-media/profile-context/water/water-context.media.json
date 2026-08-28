@@ -1,0 +1,116 @@
+{
+  "created_at": "2026-08-27T19:08:54.567043Z",
+  "derivatives": [
+    {
+      "bytes": 19610,
+      "format": "webp",
+      "height": 270,
+      "path": "derivatives/water-context-480w.webp",
+      "sha256": "08f1c6a99fc689a30a552ec40a42108787e69f37dde983b82e3560b5436e19ee",
+      "width": 480
+    },
+    {
+      "bytes": 85844,
+      "format": "webp",
+      "height": 540,
+      "path": "derivatives/water-context-960w.webp",
+      "sha256": "65ae464830d2826b1b3ba73c4918f4aaa508557f3eb288e6f8118060295bb419",
+      "width": 960
+    },
+    {
+      "bytes": 259152,
+      "format": "webp",
+      "height": 900,
+      "path": "derivatives/water-context-1600w.webp",
+      "sha256": "4e41b810114b703f3166809e9aa2ed376bd98d664ee103b9b768398aac963826",
+      "width": 1600
+    }
+  ],
+  "original": {
+    "bytes": 3788288,
+    "content_type": "image/jpeg",
+    "final_url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Beloye_Lake%2C_%C5%9Eortandy_District%2C_Akmola_Region_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "format": "jpeg",
+    "height": 3000,
+    "path": "original/water-context.jpg",
+    "requested_url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Beloye_Lake%2C_%C5%9Eortandy_District%2C_Akmola_Region_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "sha256": "469a4a3d5a26056a01777192f6fb03ab73d5b175933bd2663518ed1d37535cf5",
+    "width": 4000
+  },
+  "placement_id": "industry-water-context-photo",
+  "processor": {
+    "pillow": "10.4.0",
+    "python": "3.9.6",
+    "tool": "picture_desk.py",
+    "version": "1.2.0",
+    "webp": true
+  },
+  "request": {
+    "basename": "water-context",
+    "crop_ratio": "16:9",
+    "focal_x": 0.52,
+    "focal_y": 0.52,
+    "formats": [
+      "webp"
+    ],
+    "quality_jpeg": 86,
+    "quality_webp": 84,
+    "widths": [
+      480,
+      960,
+      1600
+    ]
+  },
+  "schema_version": "portfolio-media-asset-v1",
+  "selection": {
+    "attribution": "Nurken",
+    "candidate_id": "wikimedia:6c0a581805684e7e",
+    "candidate_id_source": "qphoto",
+    "creator": "Nurken",
+    "date_taken": "2025-07-19 20:13:34",
+    "description": "Beloye Lake, Şortandy District, Akmola Region, Kazakhstan",
+    "dimensions_ok": true,
+    "eligible": true,
+    "file_size": 3788288,
+    "height": 3000,
+    "landing_page_url": "https://commons.wikimedia.org/wiki/File:Beloye_Lake,_Şortandy_District,_Akmola_Region_2.jpg",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "location": "",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Beloye_Lake%2C_%C5%9Eortandy_District%2C_Akmola_Region_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "preview_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Beloye_Lake%2C_%C5%9Eortandy_District%2C_Akmola_Region_2.jpg/500px-Beloye_Lake%2C_%C5%9Eortandy_District%2C_Akmola_Region_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "provider": "wikimedia",
+    "publication_ready": true,
+    "qphoto_captured_at": "2026-08-27T19:06:07.865639+00:00",
+    "query": "Kazakhstan lake fishing",
+    "rank": 6,
+    "review_status": "approved",
+    "score": 0.935356,
+    "title": "Beloye Lake, Şortandy District, Akmola Region 2.jpg",
+    "width": 4000,
+    "year": 2025
+  },
+  "selection_reason": "Документальный кадр озера Белое в Акмолинской области: реальный казахстанский водоём, видимый береговой контекст рыболовства, CC BY 4.0, проверяемые автор и источник.",
+  "selection_receipt": {
+    "filename": "selection-water-photo.json",
+    "sha256": "f5358429c4f23817e192de817a41c9be4c6f3692bb5e7f5616795d30e28b5411"
+  },
+  "source_identity": "wikimedia:6c0a581805684e7e",
+  "source_kind": "qphoto",
+  "transform": {
+    "crop_box": [
+      0,
+      435,
+      4000,
+      2685
+    ],
+    "crop_height": 2250,
+    "crop_width": 4000,
+    "focal_point": [
+      0.52,
+      0.52
+    ],
+    "metadata_policy": "derivatives_strip_exif; provenance_retained_in_manifest",
+    "upscale": false
+  }
+}

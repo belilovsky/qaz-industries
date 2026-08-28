@@ -1,0 +1,104 @@
+{
+  "created_at": "2026-08-27T18:34:05.337241Z",
+  "derivatives": [
+    {
+      "bytes": 16448,
+      "format": "webp",
+      "height": 270,
+      "path": "derivatives/farm-480w.webp",
+      "sha256": "8d614810f5ed0df6e007c42bf9f493157202beb8a4d114435012e62b72b18586",
+      "width": 480
+    },
+    {
+      "bytes": 57640,
+      "format": "webp",
+      "height": 540,
+      "path": "derivatives/farm-960w.webp",
+      "sha256": "fdc2b27fc883b793582d922bac348d12b269ffaae678aed62a9edd7a08ef6f92",
+      "width": 960
+    },
+    {
+      "bytes": 148278,
+      "format": "webp",
+      "height": 900,
+      "path": "derivatives/farm-1600w.webp",
+      "sha256": "35fb1e670961378a6ff40b5cee3670624949473aa7f39d5f6caf33e1f3649f96",
+      "width": 1600
+    }
+  ],
+  "original": {
+    "bytes": 2569644,
+    "content_type": "image/png",
+    "format": "png",
+    "height": 941,
+    "path": "original/farm.png",
+    "sha256": "e54b4bc31c558dc46ee70dcff8c9fdd42bc83d6844d4af25ea85d274b15aca5b",
+    "source_receipt": "generated-selection",
+    "width": 1672
+  },
+  "placement_id": "industry-farm-hero",
+  "processor": {
+    "pillow": "10.4.0",
+    "python": "3.9.6",
+    "tool": "picture_desk.py",
+    "version": "1.1.0",
+    "webp": true
+  },
+  "request": {
+    "basename": "farm",
+    "crop_ratio": "16:9",
+    "focal_x": 0.66,
+    "focal_y": 0.5,
+    "formats": [
+      "webp"
+    ],
+    "quality_jpeg": 86,
+    "quality_webp": 82,
+    "widths": [
+      480,
+      960,
+      1600
+    ]
+  },
+  "schema_version": "portfolio-media-asset-v1",
+  "selection": {
+    "bytes": 2569644,
+    "disclosure": "ИИ-иллюстрация для редакционного контекста; не документальная фотография.",
+    "format": "png",
+    "generated_at": "2026-08-27T18:33:45Z",
+    "generation_basis": "illustration_preferred",
+    "generation_id": "unavailable",
+    "height": 941,
+    "model": "provider-selected",
+    "prompt_summary": "Abstract agriculture value-chain paper-cut illustration; fields, water, grain and storage; no real farm or yield claim.",
+    "qphoto_queries": [],
+    "qphoto_rejections": [],
+    "service": "imagegen",
+    "sha256": "e54b4bc31c558dc46ee70dcff8c9fdd42bc83d6844d4af25ea85d274b15aca5b",
+    "truth_mode": "representational",
+    "width": 1672
+  },
+  "selection_reason": "Public sector profile needs a conceptual editorial hero that is clearly not documentary evidence.",
+  "selection_receipt": {
+    "filename": "selection-farm.json",
+    "sha256": "80259ad6d46181ee4eae4dc3d264d1a3bec8d846733571c84a6abfd6d8e82cd8"
+  },
+  "source_identity": "generated:e54b4bc31c558dc46ee70dcff8c9fdd42bc83d6844d4af25ea85d274b15aca5b",
+  "source_kind": "generated",
+  "transform": {
+    "crop_box": [
+      0,
+      0,
+      1672,
+      940
+    ],
+    "crop_height": 940,
+    "crop_width": 1672,
+    "focal_point": [
+      0.66,
+      0.5
+    ],
+    "metadata_policy": "derivatives_strip_exif; provenance_retained_in_manifest",
+    "upscale": false
+  }
+}

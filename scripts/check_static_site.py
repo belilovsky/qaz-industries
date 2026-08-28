@@ -37,6 +37,8 @@ ASSETS = (
     "locale.js",
     "robots.txt",
     "sitemap.xml",
+    "ai-index.json",
+    "llms.txt",
     "qazstack-consumer.json",
     "qazstack-consumer.v1.json",
     "qdev-project.json",
@@ -53,6 +55,22 @@ ASSETS = (
     "data/ui-locale.v1.json",
     "content/locale-contract.v1.json",
     "avds-consumer.json",
+)
+PROFILE_HERO_ASSETS = tuple(
+    f"assets/editorial-media/profile-heroes/{sector}/derivatives/{sector}-{width}w.webp"
+    for sector in ("energy", "space", "farm", "water")
+    for width in (480, 960, 1600)
+) + tuple(
+    f"assets/editorial-media/profile-heroes/{sector}/{sector}.media.json"
+    for sector in ("energy", "space", "farm", "water")
+)
+PROFILE_CONTEXT_ASSETS = tuple(
+    f"assets/editorial-media/profile-context/{sector}/derivatives/{sector}-context-{width}w.webp"
+    for sector in ("energy", "space", "farm", "water")
+    for width in (480, 960, 1600)
+) + tuple(
+    f"assets/editorial-media/profile-context/{sector}/{sector}-context.media.json"
+    for sector in ("energy", "space", "farm", "water")
 )
 
 
@@ -74,6 +92,10 @@ def main() -> int:
         route_percent = coverage["route_contract"]["coverage_percent"]
         for asset in ASSETS:
             require((ROOT / asset).is_file(), f"missing asset: {asset}")
+        for asset in PROFILE_HERO_ASSETS:
+            require((ROOT / asset).is_file(), f"missing profile hero asset: {asset}")
+        for asset in PROFILE_CONTEXT_ASSETS:
+            require((ROOT / asset).is_file(), f"missing profile context asset: {asset}")
 
         for page in PAGES:
             source = (ROOT / page).read_text(encoding="utf-8")
@@ -116,9 +138,13 @@ def main() -> int:
             "profile-passport-title", "passport-source", "passport-release", "profile-machine-link",
             "public-export-title", "pulse-status", "pulse-grid", "territory-status", "territory-grid", "pulse-boundary-state",
             "layer-registry-status", "layer-registry-grid",
-            "questions", "source-links",
+            "questions", "source-links", "profile-illustration-source",
+            "profile-illustration-image", "profile-illustration-caption",
+            "profile-photo-source", "profile-photo-image", "profile-photo-caption",
         ):
             require(f'id="{element_id}"' in profile, f"industry.html: missing {element_id}")
+        require('class="profile-illustration"' in profile, "industry.html: missing profile illustration contract")
+        require('class="profile-documentary"' in profile, "industry.html: missing documentary photo contract")
         require('class="indicator-table av-table"' in profile and 'class="compare-table av-table"' in profile, "industry.html: missing AV DS table contracts")
         require('data-avds-pattern="public-export-matrix"' in profile, "industry.html: missing AV DS public export pattern")
         require('data-avds-pattern="evidence-source-registry"' in profile, "industry.html: missing AV DS source registry pattern")
@@ -136,6 +162,7 @@ def main() -> int:
             "qazstack-consumer.json",
             "qazstack-consumer.v1.json",
             "qdev-project.json",
+            "data/public-discovery.v1.json",
             "data/industry-profiles.v1.json",
             "data/qazlake-public-snapshot.v1.json",
             "data/qazgeo-public-snapshot.v1.json",

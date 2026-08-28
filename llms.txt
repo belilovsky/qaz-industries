@@ -1,0 +1,28 @@
+# QAZ.INDUSTRIES
+
+> Публичный статический навигатор по проверенным интерфейсам индустриального продукта Казахстана.
+
+Generated from: data/public-discovery.v1.json
+
+## Public interfaces
+
+- QAZ.INDUSTRIES: https://qaz.industries/
+- Отраслевые профили: https://qaz.industries/industry.html
+- Ориентиры и сравнения: https://qaz.industries/benchmarks.html
+- Политика публикации: https://qaz.industries/publication.html
+- Состояние сервиса: https://qaz.industries/api/health
+- Идентичность выпуска: https://qaz.industries/release.json
+- Центральный QazStack consumer contract: https://qaz.industries/qazstack-consumer.v1.json
+- Продуктовый QazStack contract: https://qaz.industries/qazstack-consumer.json
+- Тематический manifest: https://qaz.industries/qazstack-thematic-product.json
+- Тематический release: https://qaz.industries/data/qaz-industries-thematic-release.v1.json
+- Реестр reviewed sources: https://qaz.industries/data/reviewed-source-registry.v1.json
+- Публичный QazLake snapshot: https://qaz.industries/data/qazlake-public-snapshot.v1.json
+- Публичный QazGeo snapshot: https://qaz.industries/data/qazgeo-public-snapshot.v1.json
+- Реестр публичных QazGeo layers: https://qaz.industries/data/qazgeo-public-layer-registry.v1.json
+
+## Boundary
+
+- Используйте только перечисленные публичные URL.
+- Это статический продукт: браузер не выполняет прямых upstream-вызовов к QazLake или QazGeo.
+- В этом индексе отсутствуют учетные данные, приватные данные и непроверенные внешние snapshots.

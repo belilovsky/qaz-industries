@@ -1,5 +1,10 @@
 # QAZ.INDUSTRIES
 
+Публичные machine-discovery interfaces: [`ai-index.json`](ai-index.json) и
+[`llms.txt`](llms.txt). Они генерируются только из локального allowlist
+[`data/public-discovery.v1.json`](data/public-discovery.v1.json) и не содержат
+внешних snapshots или приватных данных.
+
 QAZ.INDUSTRIES — самостоятельный статический продукт о проверяемых индустриях
 Казахстана. Он связывает отраслевые показатели, цепочки, территориальный
 контекст и ссылки на исходные публичные продукты, сохраняя период, источник и

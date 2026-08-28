@@ -1,0 +1,116 @@
+{
+  "created_at": "2026-08-27T19:08:55.285592Z",
+  "derivatives": [
+    {
+      "bytes": 49094,
+      "format": "webp",
+      "height": 270,
+      "path": "derivatives/farm-context-480w.webp",
+      "sha256": "810af00f65674b56b847628ee4486c37c888d7eab5c4abc863e643b848412cb3",
+      "width": 480
+    },
+    {
+      "bytes": 184748,
+      "format": "webp",
+      "height": 540,
+      "path": "derivatives/farm-context-960w.webp",
+      "sha256": "3d041110e90c31291dea77ecb3138bcc8f91c95b24e6ad21a61de61653518cd1",
+      "width": 960
+    },
+    {
+      "bytes": 465994,
+      "format": "webp",
+      "height": 900,
+      "path": "derivatives/farm-context-1600w.webp",
+      "sha256": "fde95695b93984126140da3aa4afce6226709009245a96e14dfb05591ddaa847",
+      "width": 1600
+    }
+  ],
+  "original": {
+    "bytes": 6109825,
+    "content_type": "image/jpeg",
+    "final_url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Fall_Harvest_in_Kazakhstan_%289936304204%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "format": "jpeg",
+    "height": 5000,
+    "path": "original/farm-context.jpg",
+    "requested_url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Fall_Harvest_in_Kazakhstan_%289936304204%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "sha256": "246a935bf1700470ac5708842f84f266e7886cf54de9463ccee04987b63b7ced",
+    "width": 5000
+  },
+  "placement_id": "industry-farm-context-photo",
+  "processor": {
+    "pillow": "10.4.0",
+    "python": "3.9.6",
+    "tool": "picture_desk.py",
+    "version": "1.2.0",
+    "webp": true
+  },
+  "request": {
+    "basename": "farm-context",
+    "crop_ratio": "16:9",
+    "focal_x": 0.53,
+    "focal_y": 0.56,
+    "formats": [
+      "webp"
+    ],
+    "quality_jpeg": 86,
+    "quality_webp": 84,
+    "widths": [
+      480,
+      960,
+      1600
+    ]
+  },
+  "schema_version": "portfolio-media-asset-v1",
+  "selection": {
+    "attribution": "NASA Goddard Space Flight Center from Greenbelt, MD, USA",
+    "candidate_id": "wikimedia:86b62f864f64b7de",
+    "candidate_id_source": "qphoto",
+    "creator": "NASA Goddard Space Flight Center from Greenbelt, MD, USA",
+    "date_taken": "24 September 2013 (upload date) - Taken on 9 September 2013",
+    "description": "September 22, the autumnal equinox, marks the beginning of fall in the Northern Hemisphere, but the fall harvest begins early in the harsh continental climate of eastern Kazakhstan. By September 9, 2013, when the Operational Land Imager (OLI) on the Landsat 8 satellite acquired this image, several fields were already harvested and bare. Others were dark green with pasture grasses or ripening crops. The fields fill the contours of the land, running long and narrow down mountain valleys and spreading in large squares over the plains.\nAgriculture is an important segment of the economy in Kazakhstan: the country’s dry climate is ideal for producing high quality wheat for export. However, 61 percent of the country’s agricultural land is pasture for livestock. The area shown in this image, far eastern Kazakhstan near the Chinese border, is a minor wheat-growing region and may also produce sunflowers, barley, and other food crops.\nAn artifact of Soviet-era collective farms, most of the farms",
+    "dimensions_ok": true,
+    "eligible": true,
+    "file_size": 6109825,
+    "height": 5000,
+    "landing_page_url": "https://commons.wikimedia.org/wiki/File:Fall_Harvest_in_Kazakhstan_(9936304204).jpg",
+    "license": "Public domain",
+    "license_url": "",
+    "location": "",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Fall_Harvest_in_Kazakhstan_%289936304204%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "preview_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Fall_Harvest_in_Kazakhstan_%289936304204%29.jpg/500px-Fall_Harvest_in_Kazakhstan_%289936304204%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "provider": "wikimedia",
+    "publication_ready": true,
+    "qphoto_captured_at": "2026-08-27T19:06:04.040804+00:00",
+    "query": "Kazakhstan wheat harvest",
+    "rank": 1,
+    "review_status": "approved",
+    "score": 0.93784,
+    "title": "Fall Harvest in Kazakhstan (9936304204).jpg",
+    "width": 5000,
+    "year": 2013
+  },
+  "selection_reason": "Документальный спутниковый снимок NASA сельскохозяйственной территории Казахстана: честно маркируется как снимок дистанционного зондирования, относится к сектору и находится в общественном достоянии.",
+  "selection_receipt": {
+    "filename": "selection-farm-photo.json",
+    "sha256": "893833680fb30fe2ed1414f4ef0e183a3d7935f89e60db54f2ee2bc7b2d6bcb4"
+  },
+  "source_identity": "wikimedia:86b62f864f64b7de",
+  "source_kind": "qphoto",
+  "transform": {
+    "crop_box": [
+      0,
+      1394,
+      5000,
+      4206
+    ],
+    "crop_height": 2812,
+    "crop_width": 5000,
+    "focal_point": [
+      0.53,
+      0.56
+    ],
+    "metadata_policy": "derivatives_strip_exif; provenance_retained_in_manifest",
+    "upscale": false
+  }
+}

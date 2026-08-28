@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 from datetime import datetime, timezone
 
 
@@ -37,11 +38,17 @@ STATIC_FILES = (
     "theme.js",
     "robots.txt",
     "sitemap.xml",
+    "ai-index.json",
+    "llms.txt",
     "qazstack-thematic-product.json",
     "qazstack-consumer.json",
     "qazstack-consumer.v1.json",
     "avds-consumer.json",
     "qdev-project.json",
+)
+STATIC_DIRECTORIES = (
+    "data",
+    "assets",
 )
 HTML_FILES = ("index.html", "industry.html", "benchmarks.html", "publication.html")
 VERSIONED_ASSETS = (
@@ -79,6 +86,8 @@ def main() -> int:
     if not args.release.replace("-", "").replace("_", "").isalnum():
         raise SystemExit("release identifier must be alphanumeric, '-' or '_'")
 
+    subprocess.run((sys.executable, str(ROOT / "scripts" / "build_discovery.py"), "--check"), cwd=ROOT, check=True)
+
     output = args.output or ROOT / ".build" / args.release
     if output.exists():
         raise SystemExit(f"refusing to overwrite existing build: {output}")
@@ -90,7 +99,15 @@ def main() -> int:
         if not source.is_file():
             raise SystemExit(f"missing static input: {filename}")
         shutil.copy2(source, output / filename)
-    shutil.copytree(ROOT / "data", output / "data")
+    for directory in STATIC_DIRECTORIES:
+        source = ROOT / directory
+        if not source.is_dir():
+            raise SystemExit(f"missing static input directory: {directory}")
+        # Editorial source originals remain in the reviewed repository for
+        # provenance and derivative regeneration. Only the optimized,
+        # publication-ready derivatives belong in the immutable public build.
+        ignore = shutil.ignore_patterns("original") if directory == "assets" else None
+        shutil.copytree(source, output / directory, ignore=ignore)
 
     # The runtime switches a release symlink atomically. Version local assets in
     # the copied HTML so an already-open browser cannot retain JavaScript or CSS
